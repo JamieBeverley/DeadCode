@@ -1,0 +1,13 @@
+
+.Stem {
+    display:block;
+    height:40px;
+    width:100%;
+    background-color: var(--stem-off);
+    margin-top:15px;
+    border-radius: var(--border-radius);
+}
+
+.Stem .on {
+    background-color: var(--stem-on);
+}

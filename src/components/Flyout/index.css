@@ -1,0 +1,10 @@
+
+.Flyout{
+    width:30%;
+    left:70%;
+    position:relative;
+
+}
+.Flyout.AppBar{
+    background-color: red;
+}

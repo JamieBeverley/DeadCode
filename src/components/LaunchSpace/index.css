@@ -1,0 +1,8 @@
+
+.LaunchSpace{
+    background-color: var(--launchspace-bg-color);
+    width:70%;
+    height:100%;
+    position: absolute;
+    overflow: scroll;
+}
