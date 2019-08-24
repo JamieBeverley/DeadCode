@@ -100,26 +100,14 @@ export default (state = defaultState, action) =>{
             });
         case Actions.Types.TOGGLE_LIVE:
             return Object.assign({},state,{live:action.live});
-        //         // case Actions.Types.OPEN_IN_FLYOUT:
-        //     oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
-        //     newTrack = Object.assign({},oldTrack,{
-        //         stems: [...oldTrack.stems].map(x=>{
-        //             return x.id===action.stemId?Object.assign({},x,action.):x
-        //         })
-        //     });
-        //     return Object.assign({}, state, {
-        //         tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
-        //     });
-        // case Actions.Types.CLOSE_IN_FLYOUT:
-        //     newFlyout = Object.assing({}, state.flyout,{
-        //         open: [...state.flyout.open].filter(x=>{return x.trackId !== action.trackId && x.stemId !== action.stemId})
-        //     });
-        //     return Object.assign({}, state, {
-        //         flyout:newFlyout
-        //     });
         case Actions.Types.SAVE:
             console.warn('Not yet implemented '+action.type);
             break;
+        case Actions.Types.LOAD:
+            return Object.assign({},state,action.newState);
+        case Actions.Types.DOWNLOAD:
+            // no change to state here....
+            return state;
         default:
             console.warn('Unrecognized or unimplemented action: '+action.type);
             console.log(Actions.Types);

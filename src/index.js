@@ -1,6 +1,6 @@
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import App from './App';
+import App from './containers/App';
 import {createStore} from "redux";
 import DeadReducer from './reducers'
 import React from 'react';

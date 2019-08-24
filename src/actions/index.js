@@ -40,22 +40,22 @@ Actions.UPDATE_STEM = function(trackId,stemId, value){
 
 Actions.UPDATE_TRACK = function(value){
     return {type:'UPDATE_TRACK', value}
-}
+};
 
 Actions.TOGGLE_LIVE = function(value){
     return {type:'TOGGLE_LIVE',value};
-}
-
-// Actions.OPEN_IN_FLYOUT = function(trackId,stemId){
-//     return {type:'OPEN_IN_FLYOUT', trackId, stemId}
-// };
-//
-// Actions.CLOSE_IN_FLYOUT = function(trackId,stemId){
-//     return {type:'OPEN_IN_FLYOUT', trackId, stemId}
-// };
+};
 
 Actions.SAVE = function(){
     return {type:'SAVE'}
+};
+
+Actions.LOAD = function(newState){
+    return {type:'LOAD',newState}
+};
+
+Actions.DOWNLOAD = function(){
+    return {type:'DOWNLOAD'}
 };
 
 Actions.Types = {};

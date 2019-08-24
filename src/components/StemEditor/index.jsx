@@ -7,16 +7,19 @@ export default class StemEditor extends Component {
     }
 
     render(){
-
+        console.log(this.props);
         return (
             <div className={'StemEditor'} style={this.props.style}>
                 Name:
                 <input
                     onChange={this.updateName.bind(this)}
-                    type='text'/>
+                    type='text'
+                    value={this.props.name}
+                />
                 Code:
                 <textarea
                     onChange={this.updateCode.bind(this)}
+                    value={this.props.code}
                 />
                 Live:
                 <input type='checkbox' checked={this.props.live} onChange={this.updateLive.bind(this)}/>
