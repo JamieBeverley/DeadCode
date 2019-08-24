@@ -6,14 +6,4 @@
     height: 100%;
 }
 .Flyout.AppBar{
-    background-color: red;
-}
-
-.Tabs{
-    background-color: var(--stem-off);
-}
-
-.Tab{
-    color:white;
-    background-color: red;
 }

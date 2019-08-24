@@ -4,6 +4,7 @@
     --stem-on: rgb(235,255,200);
     --stem-off: grey;
     --stem-editor-color:lightgrey;
+    --font-family: 'Helventica', sans-serif;
 }
 
 .App{

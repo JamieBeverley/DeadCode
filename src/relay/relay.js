@@ -14,19 +14,19 @@
 
 // const fs = require('fs');
 const spawn = require('child_process').spawn;
-const https = require('http');
+const http = require('http');
 const WebSocket = require('ws');
 const fs = require('fs')
-const server = https.createServer();
+const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
 // var output = process.stdout;
 var stdin = process.stdin;
 var stderr = process.stderr;
 var defaultFeedbackFunction = function(x) {
-  stderr.write(x + "\n\n");
+  stderr.write(x);
 }
-debugger
+
 var tidal = spawn('ghci', ['-XOverloadedStrings'])
 // var bootTidal = "~/.atom/packages/tidalcylces/lib/BootTidal.hs"
 var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.hs"
@@ -34,7 +34,7 @@ var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.
 tidal.on('close', function (code) {
   stderr.write('Tidal process exited with code ' + code + "\n");
 });
-// output = tidal.stdin;
+
 tidal.stderr.addListener("data", function(m) {
  defaultFeedbackFunction(m.toString());
 });
@@ -86,10 +86,8 @@ wss.on('connection', function connection(ws) {
     var msg = JSON.parse(message);
 
     if(msg.type=="eval"){
-      // console.log('wrote: '+msg.code+"\n")
-      // let code = sanitizeStringForTidal(msg.code)
-      tidal.stdin.write(msg.code+"\n")
-      stderr.write(msg.code+"\n")
+      tidal.stdin.write(msg.code+"\n");
+      stderr.write(msg.code+"\n");
     }
   });
 });

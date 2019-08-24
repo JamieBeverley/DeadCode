@@ -9,7 +9,8 @@ export default class App extends Component{
         super(props)
     }
 
-    componentWillMount() {
+    componentDidMount() {
+        this.props.globalActions.load();
     }
 
     render(){
@@ -23,14 +24,17 @@ export default class App extends Component{
 
     macros(e){
         if(e.ctrlKey){
-            e.preventDefault();
             if(e.key==='s'){
+                e.preventDefault();
                 this.props.globalActions.save();
             } else if (e.key ==="l"){
+                e.preventDefault();
                 this.props.globalActions.load();
             } else if (e.key ==="d"){
+                e.preventDefault();
                 this.props.globalActions.download();
             } else if (e.key ==='o'){
+                e.preventDefault();
                 this.props.globalActions.openFile();
             }
         }
