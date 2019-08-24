@@ -7,8 +7,11 @@
     float:left;
 }
 
-.Track h1{
+.Track input{
     color:white;
+    background-color: black;
+    border:none;
+    width:100%;
     overflow:hidden;
     font-size: 12pt;
     font-weight: normal;

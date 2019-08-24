@@ -15,6 +15,7 @@ copy/paste
 move stems around
 move tracks around
  */
+
 const Actions = {};
 
 Actions.ADD_TRACK = function(){
@@ -37,13 +38,21 @@ Actions.UPDATE_STEM = function(trackId,stemId, value){
     return {type:'UPDATE_STEM', trackId, stemId, value}
 };
 
-Actions.OPEN_IN_FLYOUT = function(trackId,stemId){
-    return {type:'OPEN_IN_FLYOUT', trackId, stemId}
-};
+Actions.UPDATE_TRACK = function(value){
+    return {type:'UPDATE_TRACK', value}
+}
 
-Actions.CLOSE_IN_FLYOUT = function(trackId,stemId){
-    return {type:'OPEN_IN_FLYOUT', trackId, stemId}
-};
+Actions.TOGGLE_LIVE = function(value){
+    return {type:'TOGGLE_LIVE',value};
+}
+
+// Actions.OPEN_IN_FLYOUT = function(trackId,stemId){
+//     return {type:'OPEN_IN_FLYOUT', trackId, stemId}
+// };
+//
+// Actions.CLOSE_IN_FLYOUT = function(trackId,stemId){
+//     return {type:'OPEN_IN_FLYOUT', trackId, stemId}
+// };
 
 Actions.SAVE = function(){
     return {type:'SAVE'}

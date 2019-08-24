@@ -5,7 +5,7 @@ import {createStore} from "redux";
 import DeadReducer from './reducers'
 import React from 'react';
 
-const store = createStore(DeadReducer);
+export const store = createStore(DeadReducer);
 
 render (
     (

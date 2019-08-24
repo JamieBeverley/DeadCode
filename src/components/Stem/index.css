@@ -6,8 +6,26 @@
     background-color: var(--stem-off);
     margin-top:15px;
     border-radius: var(--border-radius);
+    text-align: center;
+    color:lightgrey;
+    position:relative;
+    box-sizing: border-box;
+    overflow:hidden;
+    padding:2px;
 }
 
-.Stem .on {
+
+
+.verticalCenter{
+    position: absolute;
+    top:50%;
+    transform: translateY(-50%);
+}
+
+
+
+
+.on {
     background-color: var(--stem-on);
 }
+

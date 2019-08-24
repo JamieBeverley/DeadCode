@@ -3,6 +3,14 @@
     --border-radius:5px;
     --stem-on: rgb(235,255,200);
     --stem-off: grey;
+    --stem-editor-color:lightgrey;
+}
+
+.App{
+    height:100%;
+    position: absolute;
+    width:100%;
+    overflow: hidden;
 }
 
 html, body {
@@ -13,7 +21,12 @@ html, body {
 }
 * {
     font-family: 'Helventica', sans-serif;
+}
 
+button{
+    border-radius: 5px;
+    border:1pt solid lightgrey;
+    background-color: var(--stem-off);
 }
 
 ::-webkit-scrollbar {
@@ -34,4 +47,14 @@ html, body {
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
     background: #b30000;
+}
+
+.noselect {
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
 }

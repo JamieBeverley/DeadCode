@@ -19,11 +19,17 @@ export default class Track extends Component{
 
         return (
             <div className='Track'>
-                <h1>{this.props.name}</h1>
+                <input onChange={this.titleChange.bind(this)} value={this.props.name}/>
                 {stems}
 
             </div>
         )
+    }
+
+    titleChange(e){
+        console.log('test');
+        // console.log ({id:this.id})
+        this.props.globalActions.updateTrack({id:this.props.id,name:e.target.value});
     }
 
     // openInFlyout(id){
