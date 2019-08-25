@@ -4,6 +4,76 @@
     left:70%;
     position:relative;
     height: 100%;
+    overflow:hidden;
 }
-.Flyout.AppBar{
+
+.Tab{
+    display:inline-block;
+    width:100%;
+    padding-left:20px;
+    padding-right: 20px;
+    min-width:70px;
+    background-color: var(--stem-on);
+    height:100%;
+    text-align: center;
+    position: relative;
+    border-bottom: 2pt solid black;
+}
+
+.Tab > .indicator{
+    height: 2px;
+    position: absolute;
+    width: 100%;
+    /*background-image: linear-gradient(to right,transparent, grey, grey, grey,grey,transparent);*/
+    background-color: black;
+    bottom:0px;
+    left:0px;
+}
+
+.Tab > svg{
+    top:50%;
+    right:0px;
+    transform: translateY(-50%);
+    /*padding:5px;*/
+    position: absolute;
+}
+
+.content{
+    z-index: 2;
+    top: 36px;
+    width: 100%;
+    bottom:0px;
+    position: absolute;
+}
+
+.Tab > label{
+    position:relative;
+    top:50%;
+    display: block;
+    overflow-x: hidden;
+    transform: translateY(-50%);
+}
+
+.unselected{
+    opacity:0.7;
+    border-bottom:none;
+}
+
+.scrollbarHidden{
+    position:relative;
+    height:50px;
+    z-index: 0;
+}
+
+.TabContainer{
+    display:flex;
+    height:100%;
+    background-color: white;
+    position:absolute;
+    top:0;
+    bottom:5px;
+    left:0px;
+    right:0px;
+    overflow-x:scroll;
+    overflow-y:hidden;
 }

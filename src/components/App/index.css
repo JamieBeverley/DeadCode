@@ -5,6 +5,7 @@
     --stem-off: grey;
     --stem-editor-color:lightgrey;
     --font-family: 'Helventica', sans-serif;
+    --scrollbar-width: 8px;
 }
 
 .App{
@@ -31,24 +32,24 @@ button{
 }
 
 ::-webkit-scrollbar {
-    width: 10px;
+    width: var(--scrollbar-width);
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
     background: grey;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-    background: #b30000;
-}
+/*!* Handle on hover *!*/
+/*::-webkit-scrollbar-thumb:hover {*/
+/*    background: rgb(200,200,200);*/
+/*}*/
 
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */

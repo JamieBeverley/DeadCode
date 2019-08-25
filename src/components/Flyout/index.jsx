@@ -1,106 +1,133 @@
 import React, {Component} from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import IconButton from '@material-ui/core/IconButton';
-// import CloseIcon from '@material-ui/icons/Close';
 import CloseIcon from '@material-ui/icons/Close';
-
-
 import './index.css'
 import MasterEditor from '../MasterEditor'
-
 import StemEditor from "../StemEditor";
 
 
-const CustomTabs = withStyles({
-    indicator: {
-        backgroundColor: 'grey',
-        width:'50%',
-        minWidth:'0px'
-    },
-    root:{
-        backgroundColor: 'var(--stem-on)',
-        color: 'black'
-    }
-})(Tabs);
 
-const CustomTab = withStyles({
-    root: {
-        color: '#black',
-        opacity:0.4,
-        minWidth:'80px',
-        maxWidth:'130px',
-        overflow:'hidden',
-        padding:'2px',
-        // borderRight:'1pt solid grey',
-        textTransform: 'none',
-        fontWeight:'regular',
-        fontSize: '12px',
-        float:'left',
-        fontFamily:'var(--font-family)',
-        '&:focus': {
-            opacity: 1,
-        }
-    }
-})(props => {
-    console.log(props)
-    return (
-        <div style={{padding:'5px'}}>
-                <Tab disableRipple {...props}/>
+// const CustomTab = withStyles({
+//     root: {
+//         color: '#black',
+//         opacity:0.4,
+//         minWidth:'80px',
+//         maxWidth:'130px',
+//         overflow:'hidden',
+//         padding:'2px',
+//         // borderRight:'1pt solid grey',
+//         textTransform: 'none',
+//         fontWeight:'regular',
+//         fontSize: '12px',
+//         // float:'left',
+//         fontFamily:'var(--font-family)',
+//         '&:focus': {
+//             opacity: 1,
+//         }
+//     }
+// })(props => {
+//     return (
+//         <div style={{padding:'5px'}}>
+//                 <Tab disableRipple {...props}/>
+//
+//             {true?null:
+//                 <IconButton
+//                     onClick={()=>{
+//                         props.globalActions.updateStem(props.trackId, props.id, {open:false});}
+//                     }
+//                     sizeSmall={{height:'10px'}}
+//                     style={{opacity:1,height:'10px'}} size={'small'} aria-label="close">
+//                     <CloseIcon />
+//                 </IconButton>}
+//         </div>
+//     )
+// });
 
-            {props.master?null:
-                <IconButton
-                    onClick={()=>{
-                        props.globalActions.updateStem(props.trackId, props.id, {open:false});}
-                    }
-                    sizeSmall={{height:'10px'}}
-                    style={{opacity:1,float:'left',height:'10px'}} size={'small'} aria-label="close">
-                    <CloseIcon />
-                </IconButton>}
-        </div>
-    )
-});
+class TabBar extends Component {
+    constructor (props){
+        super(props)
+    }
+
+    render(){
+        return (
+            <div className='TabBar'> this.props.label</div>
+        )
+    }
+}
+
+class Tab extends Component {
+    constructor (props){
+        super(props)
+    }
+
+    render(){
+        return (
+            <div onClick={this.props.switchToTab} className={'Tab'+(this.props.selected?'':' unselected')}>
+                <label>{this.props.label}</label>
+                {this.props.closeAble?
+                    <svg onClick={this.props.closeTab} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                        <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"/>
+                    </svg>:null}
+                {this.props.selected?<div className='indicator'/>:null}
+            </div>
+        )
+    }
+}
 
 export default class Flyout extends Component{
     constructor(props){
         super(props);
         this.state = {
-            tab:'master'
+            tab:'master',
+            history:[]
         }
     }
-    handleChange(e,tab){
-        this.setState({tab});
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        let prevOpened = this._getOpenStems(prevProps);
-        let nowOpened = this._getOpenStems(this.props);
-        let newOpen = nowOpened.filter(x=>{return!prevOpened.includes(x)})[0];
-        let newClose = prevOpened.filter(x=>{return !nowOpened.includes(x)})[0];
-        if(newOpen){
-            this.setState({tab:newOpen.id+"_"+newOpen.trackId});
-        } else if(newClose){
-            this.setState({tab:'master'});
+    switchTab(tab){
+        let opened = this._getOpenedStems().map(x=>x.id+"_"+x.trackId);
+        if(tab==='master' || opened.includes(tab)){
+            let history = this.state.history.concat([tab]);
+            this.setState({tab,history});
         }
     }
 
-    _getOpenStems(props){
-        return props.tracks.map(x=>x.stems).flat().filter(x=>x.open);
+    _getOpenedStems(){
+        return this.props.tracks.map(x=>x.stems).flat().filter(x=>x.open);
+    }
+
+    closeTab(trackId, stemId){
+
+        let tab, history;
+        if(this.state.history.length-1){
+            history = this.state.history.slice(0,-1);
+            history = history.filter(x=>x!==stemId+"_"+trackId);
+            tab = history[history.length-1] || 'master';
+        } else {
+            tab = 'master';
+            history = this.state.history;
+        }
+        this.setState({tab,history});
+        setTimeout(()=>{
+            this.props.globalActions.updateStem(trackId,stemId,{open:false});
+            this.setState({tab,history});
+        },1);
     }
 
     render(){
+        console.log("rd ",this.state);
+        console.log(this.state.tab)
         let openStems = this.props.tracks.map(x=>x.stems).flat().filter(x=>x.open);
         let tabs = openStems.map(x=>{
             let keyVal = x.id+'_'+x.trackId;
             let tab = (
-                <CustomTab
+                <Tab
+                    switchToTab={()=>{this.switchTab.bind(this)(keyVal)}}
                     value={keyVal}
                     label={x.name===''?'<untitled>':x.name}
                     key={keyVal}
                     trackId={x.trackId}
                     id={x.id}
+                    selected={this.state.tab === keyVal}
+                    closeAble={true}
+                    closeTab={()=>{this.closeTab.bind(this)(x.trackId,x.id)}}
                     {...this.props}/>);
             let content = (<StemEditor
                 style={{display:(this.state.tab===keyVal?'block':'none')}}
@@ -113,26 +140,26 @@ export default class Flyout extends Component{
         });
 
         return (
-            <div className={'Flyout'}>
-                <AppBar position="static" color="default">
-                    <CustomTabs
-                        value={this.state.tab}
-                        onChange={this.handleChange.bind(this)}
-                        scrollButtons="auto"
-                        className="Tabs"
-                        aria-label="scrollable auto tabs example">
-
-                        <CustomTab master={true} label={'Master'} value={'master'} {...this.props}/>
+            <div className='Flyout'>
+                <div className={'scrollbarHidden'}>
+                    <div className={'TabContainer'}>
+                        <Tab
+                            switchToTab={()=>{this.switchTab.bind(this)('master')}}
+                            value={'master'}
+                            label='master'
+                            selected={this.state.tab==='master'}
+                        />
                         {tabs.map(x=>x.tab)}
-                    </CustomTabs>
-
-                </AppBar>
-                <MasterEditor
-                    value={'master'}
-                    style={{display:this.state.tab==='master'?'block':'none'}}
-                    {...this.props}
-                />
-                {tabs.map(x=>x.content)}
+                    </div>
+                </div>
+                <div className={'content'}>
+                    <MasterEditor
+                        value={'master'}
+                        style={{display:this.state.tab==='master'?'block':'none'}}
+                        {...this.props}
+                    />
+                    {tabs.map(x=>x.content)}
+                </div>
 
             </div>
         )
