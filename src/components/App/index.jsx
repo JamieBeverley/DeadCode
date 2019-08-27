@@ -10,7 +10,7 @@ export default class App extends Component{
     }
 
     componentDidMount() {
-        this.props.globalActions.load();
+        // this.props.globalActions.load();
     }
 
     render(){

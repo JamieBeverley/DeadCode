@@ -43,9 +43,15 @@ Actions.UPDATE_TRACK = function(value){
 };
 
 Actions.TOGGLE_LIVE = function(value){
-    return {type:'TOGGLE_LIVE',value};
+    return {type:'TOGGLE_LIVE',live:value};
 };
 
+Actions.UPDATE_MASTER_EFFECT = function(value){
+    return {type:'UPDATE_MASTER_EFFECT', value}
+}
+
+
+// Saving / Loading
 Actions.SAVE = function(){
     return {type:'SAVE'}
 };

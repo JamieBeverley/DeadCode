@@ -10,14 +10,14 @@
     display:block;
     margin-top:10px;
     text-align: center;
-    width:100%;
+    /*width:100%;*/
     position: relative;
     box-sizing: border-box;
 }
 
-.MasterEditor > div > *{
-    display:inline-block;
-    width: 90%;
-    min-height: 30px;
-    color:white;
-}
+/*.MasterEditor > div > *{*/
+/*    display:inline-block;*/
+/*    !*width: 90%;*!*/
+/*    min-height: 30px;*/
+/*    color:white;*/
+/*}*/

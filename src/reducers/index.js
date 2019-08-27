@@ -28,8 +28,53 @@ function getDefaultStem (trackId){
 
 let defaultState = {
     live:true,
-    tracks: ([0,0,0,0,0]).map(x=>{return getDefaultTrack()})
+    tracks: ([0,0,0,0,0]).map(x=>{return getDefaultTrack()}),
+    masterEffects:[
+        {
+            name:'gain',
+            id:uniqueId(),
+            on:false,
+            operator: "|+|",
+            value:0,
+            min:-2,
+            max:2,
+            step:0.01
+        },
+        {
+            name:'lpf',
+            operator: "#",
+            id:uniqueId(),
+            on:false,
+            value:22000,
+            min:0,
+            max:22000,
+            step:10
+        },
+        {
+            name:'hpf',
+            id:uniqueId(),
+            operator: "#",
+            on:false,
+            value:0,
+            min:0,
+            max:22000,
+            step:10
+        }
+        ]
 };
+
+function getDefaultEffect(name='gain'){
+    return {
+        name,
+        id:uniqueId(),
+        on:false,
+        value:1,
+        min:0,
+        max:1,
+        step:0.01
+    }
+}
+
 
 export default (state = defaultState, action) =>{
     let oldTrack, newTrack, oldFlyout,newFlyout,newState;
@@ -98,6 +143,16 @@ export default (state = defaultState, action) =>{
             return Object.assign({}, state, {
                 tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
             });
+        case Actions.Types.UPDATE_MASTER_EFFECT:
+            let i = state.masterEffects.findIndex(x=>x.id===action.value.id);
+            state.masterEffects[i] = action.value;
+            // let newEffects = state.masterEffects.map(x=>{
+            //     if(action.value.id===x.id) {
+            //         x = action.value;
+            //     }
+            //     return x
+            // });
+            return Object.assign({}, state, {masterEffects: state.masterEffects.concat([])});
         case Actions.Types.TOGGLE_LIVE:
             return Object.assign({},state,{live:action.live});
         case Actions.Types.SAVE:

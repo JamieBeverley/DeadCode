@@ -3,7 +3,7 @@ import {store} from '../index.js';
 import Connection from "../Connection";
 
 function getCode(state){
-    let code = 'd1 $ stack [';
+    let stems = 'stack [';
     let tracks = state.tracks.map(track=>{
         return track.stems.map(stem=>{
             if(stem.on){
@@ -12,8 +12,17 @@ function getCode(state){
             return 'silence';
         });
     }).flat();
-    code += tracks.join(", ")+']';
+    stems += tracks.join(", ")+']';
+
+    let onMasterEffects = state.masterEffects.filter(x=>x.on);
+    let masterEffects = onMasterEffects.map(x=>{
+        return `(${x.operator} ${x.name} ${x.value})`
+    }).join(" $ ");
+
+
+    let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;
     console.log(code);
+
     return code;
 }
 
@@ -47,6 +56,10 @@ const GlobalActions = dispatch=> {
         },
         updateTrack: (value)=>{
             dispatch(Actions.UPDATE_TRACK(value))
+        },
+        updateMasterEffect: (value)=>{
+            dispatch(Actions.UPDATE_MASTER_EFFECT(value));
+            renderState(store.getState());
         },
         toggleLive: (value)=>{
             dispatch(Actions.TOGGLE_LIVE(value))

@@ -112,8 +112,6 @@ export default class Flyout extends Component{
     }
 
     render(){
-        console.log("rd ",this.state);
-        console.log(this.state.tab)
         let openStems = this.props.tracks.map(x=>x.stems).flat().filter(x=>x.open);
         let tabs = openStems.map(x=>{
             let keyVal = x.id+'_'+x.trackId;

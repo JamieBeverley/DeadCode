@@ -14,6 +14,10 @@ open to tab
 
 # effects
 volume faders
+- master:
+  - linger control
+  - gain lpf hpf
+  - stutter controls
 
 
 # diff languages
