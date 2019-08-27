@@ -22,7 +22,7 @@ function getDefaultStem (trackId){
         live:true,
         language:'TidalCylces',
         code:"",
-        effects:[]
+        effects:getDefaultEffects()
     }
 }
 
@@ -62,6 +62,41 @@ let defaultState = {
         }
         ]
 };
+
+function getDefaultEffects(){
+    return [
+        {
+            name:'gain',
+            id:uniqueId(),
+            on:false,
+            operator: "|+|",
+            value:0,
+            min:-2,
+            max:2,
+            step:0.01
+        },
+        {
+            name:'lpf',
+            operator: "#",
+            id:uniqueId(),
+            on:false,
+            value:22000,
+            min:0,
+            max:22000,
+            step:10
+        },
+        {
+            name:'hpf',
+            id:uniqueId(),
+            operator: "#",
+            on:false,
+            value:0,
+            min:0,
+            max:22000,
+            step:10
+        }
+    ];
+}
 
 function getDefaultEffect(name='gain'){
     return {

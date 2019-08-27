@@ -2,22 +2,29 @@ import Actions from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
 
+function effectToCode(x){
+    return `(${x.operator} ${x.name} ${x.value})`
+}
+
+function stemToCode(stem){
+    let effectsOn = stem.effects.filter(x=>x.on);
+    let code = effectsOn.map(effectToCode).join(" $ ");
+    code += effectsOn.length?' $ ':'';
+    code += stem.code;
+    return code
+}
+
 function getCode(state){
     let stems = 'stack [';
     let tracks = state.tracks.map(track=>{
-        return track.stems.map(stem=>{
-            if(stem.on){
-                return stem.code===''?'silence':stem.code
-            }
-            return 'silence';
+        return track.stems.filter(x=>x.on).map(stem=>{
+            return stem.code===''?'silence':stemToCode(stem);
         });
     }).flat();
     stems += tracks.join(", ")+']';
 
     let onMasterEffects = state.masterEffects.filter(x=>x.on);
-    let masterEffects = onMasterEffects.map(x=>{
-        return `(${x.operator} ${x.name} ${x.value})`
-    }).join(" $ ");
+    let masterEffects = onMasterEffects.map(effectToCode).join(" $ ");
 
 
     let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;

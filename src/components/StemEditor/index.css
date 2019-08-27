@@ -9,9 +9,16 @@
 
 .StemEditor > * {
     display:block;
+    padding:5px;
     width:100%;
     box-sizing: border-box;
     margin-bottom:5px;
     border-radius: var(--border-radius);
     border: 1pt solid lightgrey;
+}
+
+.StemEditor > textarea {
+    height:100px;
+    font-size: 12pt;
+    font-family: "Courier New";
 }
