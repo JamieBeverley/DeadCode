@@ -18,6 +18,10 @@ move tracks around
 
 const Actions = {};
 
+Actions.CONNECT = function(url, port, isConnected){
+    return {type:'CONNECT', url, port, isConnected}
+};
+
 Actions.ADD_TRACK = function(){
     return {type:'ADD_TRACK'}
 };

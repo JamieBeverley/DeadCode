@@ -1,3 +1,24 @@
+# config/settings
+- connection to different things
+- boot script/macros
+- save to name?
+
+# effects
+- per track
+- log scales for frequencies
+
+# + buttons 
+- tracks and stems
+
+# tabs 
+open to tab
+
+
+# multitouch
+
+#resizing flyout/workspace
+
+
 # eval bug
  actually a tidal bug:
  
@@ -5,24 +26,3 @@
   
   Will cause crash. something about combination of stack, a pattern transformer (iter 2) 
   that takes a parameter, and the pattern with an empty operator.
-
-# connection to different things
-connection as its own container
-
-# tabs 
-open to tab
-
-# effects
-volume faders
-- master:
-  - linger control
-  - gain lpf hpf
-  - stutter controls
-
-
-# diff languages
-SuperCollider, visuals?
-
-# multitouch
-
-#resizing flyout/workspace

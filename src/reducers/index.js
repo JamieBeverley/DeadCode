@@ -60,7 +60,12 @@ let defaultState = {
             max:22000,
             step:10
         }
-        ]
+        ],
+    connection:{
+        isConnected:false,
+        url:'127.0.0.1',
+        port:8000
+    }
 };
 
 function getDefaultEffects(){
@@ -113,10 +118,11 @@ function getDefaultEffect(name='gain'){
 
 export default (state = defaultState, action) =>{
     let oldTrack, newTrack, oldFlyout,newFlyout,newState;
-    if(!Connection.ws || !Connection.ws.isOpen){
-        Connection.init();
-    }
+
     switch (action.type){
+        case Actions.Types.CONNECT:
+            let connection = {url: action.url, port:action.port, isConnected:action.isConnected};
+            return Object.assign({},state,{connection});
         case Actions.Types.ADD_TRACK:
             newState =  (Object.assign({}, state,{
                 tracks:[

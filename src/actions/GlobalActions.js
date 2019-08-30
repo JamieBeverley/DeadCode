@@ -42,6 +42,12 @@ function renderState(state){
 
 const GlobalActions = dispatch=> {
     return {
+        connect: (url,port)=>{
+            let onOpen = ()=>{dispatch(Actions.CONNECT(url,port,true))};
+            let onClose = ()=>{dispatch(Actions.CONNECT(url,port,false))};
+            let onError = onClose;
+            Connection.init(url,port, onOpen, onClose, onError);
+        },
         addTrack: ()=>{
             dispatch(Actions.ADD_TRACK())
         },

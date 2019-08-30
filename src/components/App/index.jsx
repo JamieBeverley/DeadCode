@@ -10,7 +10,7 @@ export default class App extends Component{
     }
 
     componentDidMount() {
-        // this.props.globalActions.load();
+        this.props.globalActions.connect(this.props.connection.url, this.props.connection.port);
     }
 
     render(){

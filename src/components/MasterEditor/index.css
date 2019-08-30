@@ -15,6 +15,12 @@
     box-sizing: border-box;
 }
 
+.separator{
+    border: 1pt solid grey;
+    border-radius: var(--border-radius);
+    box-sizing: border-box;
+}
+
 /*.MasterEditor > div > *{*/
 /*    display:inline-block;*/
 /*    !*width: 90%;*!*/

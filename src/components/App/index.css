@@ -8,6 +8,16 @@
     --scrollbar-width: 8px;
 }
 
+/*:root {*/
+/*    --launchspace-bg-color: rgb(80,80,80);*/
+/*    --border-radius:8px;*/
+/*    --stem-on: rgb(100,255,200);*/
+/*    --stem-off: lightgrey;*/
+/*    --stem-editor-color:lightgrey;*/
+/*    --font-family: 'Helventica', sans-serif;*/
+/*    --scrollbar-width: 8px;*/
+/*}*/
+
 .App{
     height:100%;
     position: absolute;
