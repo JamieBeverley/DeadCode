@@ -8,17 +8,30 @@
 /*    --scrollbar-width: 8px;*/
 /*}*/
 
+/*:root {*/
+/*    --launchspace-bg-color: rgb(180,180,180);*/
+/*    --border-radius:8px;*/
+/*    --stem-on: rgb(100,255,200);*/
+/*    --stem-off: lightgrey;*/
+/*    --stem-editor-color:lightgrey;*/
+/*    --font-family: 'Helventica', sans-serif;*/
+/*    --font-color-dark: black;*/
+/*    --font-color-light: lightgrey;*/
+/*    --scrollbar-width: 0px;*/
+/*    --track-border-color: rgb(215,215,215);*/
+/*}*/
+
 :root {
-    --launchspace-bg-color: rgb(180,180,180);
+    --launchspace-bg-color: rgb(10,10,10);
     --border-radius:8px;
-    --stem-on: rgb(100,255,200);
-    --stem-off: lightgrey;
-    --stem-editor-color:lightgrey;
+    --stem-on: #3f51b5;
+    --stem-off: rgb(70,70,70);
+    --stem-editor-color: rgb(30,30,30);
     --font-family: 'Helventica', sans-serif;
-    --font-color-dark: black;
-    --font-color-light: lightgrey;
+    --font-color-dark: rgb(200,200,200);
+    --font-color-light: rgb(white);
     --scrollbar-width: 0px;
-    --track-border-color: white;
+    --track-border-color: rgb(40,40,40);
 }
 
 .App{

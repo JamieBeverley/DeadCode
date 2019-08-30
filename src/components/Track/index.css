@@ -21,7 +21,7 @@
 .Track input{
     z-index: 1;
     color: var(--font-color-dark);
-    background-color: var(--stem-off);
+    background-color: var(--stem-editor-color);
     box-sizing: border-box;
     border-top: none;
     border-left: none;
