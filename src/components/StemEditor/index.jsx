@@ -9,18 +9,9 @@ export default class StemEditor extends Component {
     }
 
 
-    updateEffect(newEffect){
-        let newEffects = this.props.effects.map(x=>{
-            if(x.id===newEffect.id){
-                return newEffect
-            }
-            return x
-        });
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id,{effects:newEffects})
-    }
+
 
     render(){
-        console.log(this.props)
         let effects = [];
         for(let e in this.props.effects){
             let effect = this.props.effects[e];
@@ -54,12 +45,27 @@ export default class StemEditor extends Component {
                     value={this.props.code}
                 />
                 {effects}
+                <Button style={{marginTop:'5px'}} onClick={this.delete.bind(this)} color='primary' variant='outlined'>delete</Button>
             </div>
         )
     }
 
+    delete(){
+        this.props.globalActions.removeStem(this.props.trackId, this.props.id);
+    }
+
     updateLive(e){
         this.props.globalActions.updateStem(this.props.trackId, this.props.id, {live:e.target.checked});
+    }
+
+    updateEffect(newEffect){
+        let newEffects = this.props.effects.map(x=>{
+            if(x.id===newEffect.id){
+                return newEffect
+            }
+            return x
+        });
+        this.props.globalActions.updateStem(this.props.trackId, this.props.id,{effects:newEffects})
     }
 
     updateName(e){

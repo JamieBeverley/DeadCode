@@ -1,7 +1,7 @@
 
 .Flyout{
     width:30%;
-    left:70%;
+    min-width: 300px;
     position:relative;
     height: 100%;
     overflow:hidden;

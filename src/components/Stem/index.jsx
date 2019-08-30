@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './index.css'
+import throttle from 'lodash/throttle'
 
 export default class Stem extends Component{
     constructor (props){
@@ -19,11 +20,12 @@ export default class Stem extends Component{
         return (
             <div
                 className={'Stem noselect'+(this.props.on?' on':' off')}
-                onMouseUp={this.mouseUp.bind(this)}
-                onMouseDown={this.mouseDown.bind(this)}
-                onContextMenu={(x)=>{x.preventDefault();}}
-                // onTouchStart={this.mouseDown.bind(this)}
-                onTouchEnd={this.mouseUp.bind(this)}
+                // onMouseUp={this.mouseUp.bind(this)}
+                onMouseUp={this.mouseDown.bind(this)}
+                onContextMenu={(x)=>{x.preventDefault();this.openInFlyout()}}
+                // onTouchMove={this.onTouchStart.bind(this)}
+                // onTouchStart={this.toggle.bind(this)}
+                // onTouchEnd={this.mouseUp.bind(this)}
             >
                 <div className="verticalCenter" style={{width:'100%'}}>
                     {this.props.name}
@@ -40,8 +42,17 @@ export default class Stem extends Component{
         }
     }
 
-    mouseDown(){
-        this.setState({holdTime:(new Date())})
+    onTouchStart(){
+        this.toggle();
+    }
+
+    mouseDown(e){
+        if(e.button){
+            // this.openInFlyout()
+            e.preventDefault();
+        } else{
+            this.toggle()
+        }
     }
 
     openInFlyout(){

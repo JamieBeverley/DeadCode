@@ -7,7 +7,18 @@ export function getDefaultTrack (){
         id,
         name:'New Track',
         stems:([0,0,0,0,0]).map(x=>{return getDefaultStem(id)}),
-        effects:[]
+        effects:[
+            {
+                name:'gain',
+                id:uniqueId(),
+                on:true,
+                operator: "|*|",
+                value:1,
+                min:0,
+                max:2,
+                step:0.01
+            }
+        ]
     }
 }
 
@@ -33,9 +44,9 @@ let defaultState = {
             name:'gain',
             id:uniqueId(),
             on:false,
-            operator: "|+|",
-            value:0,
-            min:-2,
+            operator: "|*|",
+            value:1,
+            min:0,
             max:2,
             step:0.01
         },
@@ -123,13 +134,12 @@ export default (state = defaultState, action) =>{
             let connection = {url: action.url, port:action.port, isConnected:action.isConnected};
             return Object.assign({},state,{connection});
         case Actions.Types.ADD_TRACK:
-            newState =  (Object.assign({}, state,{
+            return (Object.assign({}, state,{
                 tracks:[
                     ...state.tracks,
                     Object.assign({},getDefaultTrack())
                 ]
             }));
-            break;
         case Actions.Types.REMOVE_TRACK:
             newState =  Object.assign({},state,{
                tracks: [...state.tracks].filter(x=>{return x.id !== action.trackId})
@@ -158,7 +168,7 @@ export default (state = defaultState, action) =>{
                 tracks: [...state.tracks].map(x=>{return x.id===action.trackId?newTrack:x;})
             });
         case Actions.Types.REMOVE_STEM:
-            oldTrack = state.tracks.filter(x=>{return x.id === action.trackId});
+            oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
             newTrack = Object.assign({},oldTrack,{
                 stems:[
                     ...oldTrack.stems.filter(x=>{return x.id!==action.stemId})

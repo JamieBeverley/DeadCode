@@ -16,9 +16,13 @@ export default class LaunchSpace extends Component {
         return (
             <div className="LaunchSpace">
                 {tracks}
-                <PlusButton style={{width:'50px'}}/>
+                <PlusButton onClick={this.newTrack.bind(this)} style={{display:'inline-block',top:'0px',width:'50px',minWidth:'50px',height:'30px',margin:'5px'}}/>
             </div>
         )
+    }
+
+    newTrack(){
+        this.props.globalActions.addTrack();
     }
 
 }

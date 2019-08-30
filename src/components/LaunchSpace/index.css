@@ -1,8 +1,11 @@
 
 .LaunchSpace{
     background-color: var(--launchspace-bg-color);
-    width:70%;
+    width:100%;
+    box-sizing: border-box;
+    margin:0;
     height:100%;
-    position: absolute;
     overflow-x: scroll;
+    overflow-y: hidden;
+    display: flex;
 }

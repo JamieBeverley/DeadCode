@@ -32,9 +32,8 @@ export default class MasterEditor extends Component {
                 </div>
                 )
         }
-        console.log(this.props.connection.isConnected)
         return (
-            <div id={Math.random()} className={'MasterEditor'} style={this.props.style}>
+            <div className={'MasterEditor'} style={this.props.style}>
                 <div>
                     Live
                     <Switch

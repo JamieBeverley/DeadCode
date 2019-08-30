@@ -2,6 +2,7 @@ import React, {Component, PureComponent} from 'react';
 import './index.css'
 import {Grid, Slider, Switch,Input} from '@material-ui/core';
 import debounce from 'lodash/debounce'
+import throttle from 'lodash/throttle'
 
 // import Slider from 'rc-slider'
 // import 'rc-slider/assets/index.css';
@@ -72,50 +73,17 @@ export default class Effect extends Component {
     constructor (props){
         super(props)
         this.state = {value:props.value}
+        this.updateState = throttle(this._handleSliderChange,100);
+        this.handleInputChange = throttle(this._handleInputChange,100);
     }
 
 
     render(){
-        return (
-            <div id={Math.random()} className={'Effect horizontal'}>
-                {this.props.name}
-                <Switch
-                    color='primary'
-                    onChange={this.toggle.bind(this)}
-                    checked={this.props.on}
-                />
-                <Grid container spacing={2} alignItems="center">
-                    <Grid item xs>
-                        <Slider
-                            onChange={debounce(this.handleSliderChange.bind(this),5)}
-                            min={this.props.min}
-                            max={this.props.max}
-                            step={this.props.step}
-                            value={parseFloat(this.props.value)}
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Input
-                            margin="dense"
-                            onChange={this.handleInputChange.bind(this)}
-                            value={this.props.value}
-                            inputProps={{
-                                step: this.props.step,
-                                min: this.props.min,
-                                max: this.props.max,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
-                        />
-                    </Grid>
-                </Grid>
+        return (this.props.isVertical?this.renderVertical():this.renderHorizontal())
 
-
-            </div>
-        )
     }
 
-    handleSliderChange(e, newValue){
+    _handleSliderChange(e, newValue){
         if(newValue){
             let newEffect = Object.assign({},this.props,{value:newValue});
             delete newEffect.updateEffect;
@@ -123,7 +91,7 @@ export default class Effect extends Component {
         }
     }
 
-    handleInputChange(e){
+    _handleInputChange(e){
         let value = e.target.value;
         let newEffect = Object.assign({},this.props,{value});
         delete newEffect.updateEffect;
@@ -137,50 +105,97 @@ export default class Effect extends Component {
         this.props.updateEffect(newEffect);
     }
 
-    // renderHorizontal(){
-    //     return (
-    //         <div id={Math.random()} className={'Effect horizontal'}>
-    //             {this.props.name}
-    //             <Switch
-    //                 color='primary'
-    //                 onChange={this.toggle.bind(this)}
-    //                 checked={this.props.on}
-    //             />
-    //             <Grid container spacing={2} alignItems="center">
-    //                 <Grid item xs>
-    //                     <Filter
-    //                         update={this.handleSliderChange.bind(this)}
-    //                         // min={this.props.min}
-    //                         // max={this.props.max}
-    //                         // step={this.props.step}
-    //                         // value={this.props.value}
-    //                     />
-    //                 </Grid>
-    //                 <Grid item>
-    //                     <Input
-    //                         margin="dense"
-    //                         onChange={this.handleInputChange.bind(this)}
-    //                         value={this.props.value}
-    //                         inputProps={{
-    //                             step: this.props.step,
-    //                             min: this.props.min,
-    //                             max: this.props.max,
-    //                             type: 'number',
-    //                             'aria-labelledby': 'input-slider',
-    //                         }}
-    //                     />
-    //                 </Grid>
-    //             </Grid>
-    //
-    //
-    //         </div>
-    //     )
-    // }
+    renderHorizontal(){
+
+        return (
+            <div className={'Effect horizontal'}>
+                {this.props.name}
+                <Switch
+                    color='primary'
+                    onChange={this.toggle.bind(this)}
+                    checked={this.props.on}
+                />
+                <Grid container spacing={2} alignItems="center">
+                    <Grid item xs>
+                        <Slider
+                            onChange={(e,newValue)=>{
+                                if(newValue){
+                                    this.setState({value:newValue});
+                                    this.updateState(e,newValue);
+                                }
+                            }}
+                            min={this.props.min}
+                            max={this.props.max}
+                            step={this.props.step}
+                            value={parseFloat(this.state.value)}
+                        />
+                    </Grid>
+                    <Grid item>
+                        <Input
+                            margin="dense"
+                            onChange={(e)=>{
+                                e.persist()
+                                this.setState({value:e.target.value});
+                                this.handleInputChange.bind(this)(e);
+                            }}
+                            value={this.state.value}
+                            inputProps={{
+                                step: this.props.step,
+                                min: this.props.min,
+                                max: this.props.max,
+                                type: 'number',
+                                'aria-labelledby': 'input-slider',
+                            }}
+                        />
+                    </Grid>
+                </Grid>
+            </div>
+        )
+    }
+
 
     renderVertical(){
         return (
             <div className={'Effect vertical'}>
-
+                        <Slider
+                            orientation='vertical'
+                            // onChange={debounce(this.handleSliderChange.bind(this),5)}
+                            onChange={(e,newValue)=>{
+                                if(newValue){
+                                    this.setState({value:newValue});
+                                    this.updateState(e,newValue);
+                                }
+                            }}
+                            min={this.props.min}
+                            max={this.props.max}
+                            step={this.props.step}
+                            value={parseFloat(this.props.value)}
+                        />
+                        <Input
+                            margin="dense"
+                            onChange={(e)=>{
+                                e.persist()
+                                this.setState({value:e.target.value});
+                                this.handleInputChange.bind(this)(e);
+                            }}
+                            value={this.props.value}
+                            inputProps={{
+                                step: this.props.step,
+                                min: this.props.min,
+                                max: this.props.max,
+                                type: 'number',
+                                'aria-labelledby': 'input-slider',
+                            }}
+                        />
+                        <div style={{textAlign:'center'}}>
+                            {this.props.name}
+                            {/*<Switch*/}
+                            {/*    color='primary'*/}
+                            {/*    onChange={this.toggle.bind(this)}*/}
+                            {/*    // onClick={e=>{console.log(e.nativeEvent)}}*/}
+                            {/*    defaultChecked={this.props.on}*/}
+                            {/*/>*/}
+                        </div>
             </div>
         )
     }

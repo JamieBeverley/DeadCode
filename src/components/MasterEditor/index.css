@@ -6,6 +6,12 @@
     padding:5px;
 }
 
+/*.MasterEditor input{*/
+/*    border-bottom: 3pt solid var(--stem-on);*/
+/*    color: var(--font-color-dark);*/
+/*    background-color: var(--stem-editor-color);*/
+/*}*/
+
 .MasterEditor > *{
     display:block;
     margin-top:10px;

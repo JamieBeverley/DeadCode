@@ -1,6 +1,7 @@
 .Track{
     height:100%;
     /*background-color: turquoise;*/
+    min-width: 100px;
     width:100px;
     border-right:1pt solid var(--track-border-color);
     float:left;
@@ -43,10 +44,11 @@
     position: relative;
     widows: 100%;
     height:35%;
-    max-height: 250px;
+    max-height: 260px;
     background-color: var(--stem-editor-color);
     bottom:0px;
 }
+
 
 .launchButton{
     text-align: center;
