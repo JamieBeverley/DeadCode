@@ -2,14 +2,14 @@ import React, {Component} from 'react'
 import './index.css'
 import {Button, Switch} from "@material-ui/core";
 import Effect from "../Effect";
+import debounce from 'lodash/debounce'
 
 export default class StemEditor extends Component {
     constructor(props){
-        super(props)
+        super(props);
+        this.state = {code: this.props.code};
+        this.updateCode = debounce(this._updateCode, 1000);
     }
-
-
-
 
     render(){
         let effects = [];
@@ -41,8 +41,13 @@ export default class StemEditor extends Component {
                 </div>
                 Code:
                 <textarea
-                    onChange={this.updateCode.bind(this)}
-                    value={this.props.code}
+                    onChange={(e)=>{
+                        e.persist();
+                        this.setState({code:e.target.value});
+                        this.updateCode.bind(this)(e)
+                    }
+                    }
+                    value={this.state.code}
                 />
                 {effects}
                 <Button style={{marginTop:'5px'}} onClick={this.delete.bind(this)} color='primary' variant='outlined'>delete</Button>
@@ -72,7 +77,7 @@ export default class StemEditor extends Component {
         this.props.globalActions.updateStem(this.props.trackId, this.props.id, {name:e.target.value})
     }
 
-    updateCode(e){
+    _updateCode(e){
         this.props.globalActions.updateStem(this.props.trackId, this.props.id, {code:e.target.value})
     }
 
