@@ -2,17 +2,65 @@
     height:100%;
     /*background-color: turquoise;*/
     width:100px;
-    border-right:1pt solid rgb(100,100,100);
-    padding:5px;
+    border-right:1pt solid var(--track-border-color);
     float:left;
+    position: relative;
+    display: flex;
+    flex-flow: column;
+    box-sizing: border-box;
 }
 
+.stems{
+    padding:5px;
+    height:65%;
+    overflow-y: scroll;
+    z-index: 0;
+}
+
+
 .Track input{
-    color:white;
-    background-color: black;
-    border:none;
+    z-index: 1;
+    color: var(--font-color-dark);
+    background-color: var(--stem-off);
+    box-sizing: border-box;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    padding-left:5px;
+    padding-right:5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    text-align: center;
+    border-bottom: 3pt solid var(--stem-on);
     width:100%;
     overflow:hidden;
     font-size: 12pt;
     font-weight: normal;
+    /*box-shadow:5px 5px 5px rgb(90,90,90);*/
 }
+
+.effects{
+    position: relative;
+    widows: 100%;
+    height:35%;
+    max-height: 250px;
+    background-color: var(--stem-editor-color);
+    bottom:0px;
+}
+
+.launchButton{
+    text-align: center;
+    background-color: var(--stem-on);
+    width: 100%;
+    height:30px;
+    position: relative;
+}
+
+.launchButton > svg{
+    position: absolute;
+    top:50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+}
+
+

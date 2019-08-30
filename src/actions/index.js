@@ -31,7 +31,7 @@ Actions.REMOVE_TRACK = function(trackId){
 };
 
 Actions.ADD_STEM = function(trackId){
-    return {type:'ADD_STEM',trackId:'trackId'};
+    return {type:'ADD_STEM',trackId};
 };
 
 Actions.REMOVE_STEM = function(trackId, stemId){

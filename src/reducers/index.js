@@ -1,8 +1,7 @@
 import Actions from '../actions'
 import {uniqueId} from 'lodash';
-import Connection from "../Connection";
 
-function getDefaultTrack (){
+export function getDefaultTrack (){
     let id = uniqueId();
     return {
         id,
@@ -12,7 +11,7 @@ function getDefaultTrack (){
     }
 }
 
-function getDefaultStem (trackId){
+export function getDefaultStem (trackId){
     return {
         id: uniqueId(),
         trackId,
@@ -68,7 +67,7 @@ let defaultState = {
     }
 };
 
-function getDefaultEffects(){
+export function getDefaultEffects(){
     return [
         {
             name:'gain',
@@ -103,7 +102,7 @@ function getDefaultEffects(){
     ];
 }
 
-function getDefaultEffect(name='gain'){
+export function getDefaultEffect(name='gain'){
     return {
         name,
         id:uniqueId(),
@@ -148,11 +147,11 @@ export default (state = defaultState, action) =>{
                 })
             });
         case Actions.Types.ADD_STEM:
-            oldTrack = state.tracks.filter(x=>{return x.id === action.trackId});
+            oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
             newTrack = Object.assign({},oldTrack,{
                 stems:[
                     ...oldTrack.stems,
-                    getDefaultStem(newTrack.id)
+                    getDefaultStem(oldTrack.id)
                 ]
             });
             return Object.assign({}, state, {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Track from '../Track';
 import './index.css';
+import PlusButton from "../util/PlusButton/PlusButton";
 
 export default class LaunchSpace extends Component {
     constructor(props){
@@ -15,6 +16,7 @@ export default class LaunchSpace extends Component {
         return (
             <div className="LaunchSpace">
                 {tracks}
+                <PlusButton style={{width:'50px'}}/>
             </div>
         )
     }

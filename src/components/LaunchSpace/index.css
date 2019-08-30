@@ -4,5 +4,5 @@
     width:70%;
     height:100%;
     position: absolute;
-    overflow: scroll;
+    overflow-x: scroll;
 }

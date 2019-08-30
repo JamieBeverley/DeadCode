@@ -54,8 +54,8 @@ const GlobalActions = dispatch=> {
         removeTrack: (trackId)=>{
             dispatch(Actions.REMOVE_TRACK(trackId))
         },
-        addStem: (trackId, stemId)=>{
-            dispatch(Actions.ADD_STEM(trackId,stemId))
+        addStem: (trackId)=>{
+            dispatch(Actions.ADD_STEM(trackId))
         },
         removeStem: (trackId, stemId)=>{
             dispatch(Actions.REMOVE_STEM(trackId,stemId))

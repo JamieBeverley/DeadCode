@@ -1,0 +1,17 @@
+.plusButton{
+    background-color: red;
+    color:var(--font-color-dark);
+    text-align: center;
+    height:40px;
+    border-radius: var(--border-radius);
+    background-color: var(--stem-on);
+    position: relative;
+    margin-top: 15px;
+}
+.plusButton > div{
+    text-align: center;
+    position: absolute;
+    top:50%;
+    width: 100%;
+    transform: translateY(-50%);
+}
