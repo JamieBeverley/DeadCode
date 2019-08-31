@@ -137,6 +137,7 @@ export default class Effect extends Component {
                             onChange={(e,newValue)=>{
                                 if(newValue){
                                     this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
+                                    console.log(this.state)
                                     this.updateState(e,newValue);
                                 }
                             }}
