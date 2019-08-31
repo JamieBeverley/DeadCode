@@ -9,6 +9,7 @@ export default class StemEditor extends Component {
         super(props);
         this.state = {code: this.props.code};
         this.updateCode = debounce(this._updateCode, 1000);
+        this.textAreaRef = React.createRef();
     }
 
     render(){
@@ -37,14 +38,18 @@ export default class StemEditor extends Component {
                         onChange={this.updateLive.bind(this)}
                         checked={this.props.live}
                     />
-                    <Button color='primary' disabled={this.props.live} variant='outlined'>eval</Button>
+                    <Button color='primary' disabled={this.props.live} onClick={this._updateCode.bind(this)} variant='outlined'>eval</Button>
                 </div>
                 Code:
                 <textarea
+                    ref={this.textAreaRef}
+                    onKeyPress={this.maybeEval.bind(this)}
                     onChange={(e)=>{
-                        e.persist();
                         this.setState({code:e.target.value});
-                        this.updateCode.bind(this)(e)
+                        if(this.props.live){
+                            e.persist();
+                            this.updateCode.bind(this)(e)
+                        }
                     }
                     }
                     value={this.state.code}
@@ -55,9 +60,21 @@ export default class StemEditor extends Component {
         )
     }
 
+    maybeEval(e) {
+        if(e.shiftKey){
+            if(e.key==='Enter'){
+                e.preventDefault();
+                this.props.globalActions.updateStem(this.props.trackId, this.props.id, {code:this.state.code});
+                this.textAreaRef.current.classList.add('flash');
+                setTimeout(()=>{this.textAreaRef.current.classList.remove('flash')},250);
+            }
+        }
+    }
+
     delete(){
         this.props.globalActions.removeStem(this.props.trackId, this.props.id);
     }
+
 
     updateLive(e){
         this.props.globalActions.updateStem(this.props.trackId, this.props.id, {live:e.target.checked});

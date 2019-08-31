@@ -29,7 +29,7 @@ export function getDefaultStem (trackId){
         name:'',
         on: false,
         open:false,
-        live:true,
+        live:false,
         language:'TidalCylces',
         code:"",
         effects:getDefaultEffects()

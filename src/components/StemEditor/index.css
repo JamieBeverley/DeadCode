@@ -18,11 +18,17 @@
     border: 1pt solid lightgrey;
 }
 
+.StemEditor > .flash{
+    background-color: var(--stem-on);
+    transition: background 0.5s linear;
+}
+
 .StemEditor > textarea {
     height:100px;
     font-size: 12pt;
     font-family: "Courier New";
     color: var(--font-color-dark);
     background-color: var(--stem-off);
+    transition: background 0.25s linear;
     margin-bottom:5px;
 }
