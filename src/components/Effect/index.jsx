@@ -72,27 +72,43 @@ import throttle from 'lodash/throttle'
 export default class Effect extends Component {
     constructor (props){
         super(props)
-        this.state = {value:props.value}
+        let sliderValue = this.toSliderScale(this.props.value);
+        this.state = {value:this.props.value, sliderValue};
+
         this.updateState = throttle(this._handleSliderChange,100);
         this.handleInputChange = throttle(this._handleInputChange,100);
     }
 
+    toSliderScale(x){
+        if (this.props.scale==='log'){
+            let range = this.props.max-this.props.min;
+            return Math.pow(x/range,0.5)*range;
+        }
+        return x
+    }
+
+    fromSliderScale(x){
+        if(this.props.scale==='log'){
+            let range = this.props.max-this.props.min;
+            return Math.round(Math.pow(x/range,2)*range*this.props.step)/this.props.step;
+        }
+        return x
+    }
 
     render(){
         return (this.props.isVertical?this.renderVertical():this.renderHorizontal())
-
     }
 
     _handleSliderChange(e, newValue){
         if(newValue){
-            let newEffect = Object.assign({},this.props,{value:newValue});
+            let newEffect = Object.assign({},this.props,{value:this.fromSliderScale(newValue)});
             delete newEffect.updateEffect;
             this.props.updateEffect(newEffect);
         }
     }
 
     _handleInputChange(e){
-        let value = e.target.value;
+        let value = parseFloat(e.target.value);
         let newEffect = Object.assign({},this.props,{value});
         delete newEffect.updateEffect;
         this.props.updateEffect(newEffect);
@@ -120,22 +136,23 @@ export default class Effect extends Component {
                         <Slider
                             onChange={(e,newValue)=>{
                                 if(newValue){
-                                    this.setState({value:newValue});
+                                    this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
                                     this.updateState(e,newValue);
                                 }
                             }}
                             min={this.props.min}
                             max={this.props.max}
                             step={this.props.step}
-                            value={parseFloat(this.state.value)}
+                            value={parseFloat(this.state.sliderValue)}
                         />
                     </Grid>
                     <Grid item>
                         <Input
                             margin="dense"
                             onChange={(e)=>{
+                                let value = parseFloat(e.target.value);
                                 e.persist()
-                                this.setState({value:e.target.value});
+                                this.setState({value:value, sliderValue:this.toSliderScale(value)});
                                 this.handleInputChange.bind(this)(e);
                             }}
                             value={this.state.value}
@@ -157,25 +174,26 @@ export default class Effect extends Component {
     renderVertical(){
         return (
             <div className={'Effect vertical'}>
-                        <Slider
-                            orientation='vertical'
-                            // onChange={debounce(this.handleSliderChange.bind(this),5)}
-                            onChange={(e,newValue)=>{
-                                if(newValue){
-                                    this.setState({value:newValue});
-                                    this.updateState(e,newValue);
-                                }
-                            }}
-                            min={this.props.min}
-                            max={this.props.max}
-                            step={this.props.step}
-                            value={parseFloat(this.props.value)}
-                        />
+
+                <Slider
+                    orientation='vertical'
+                    onChange={(e,newValue)=>{
+                        if(newValue){
+                            this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
+                            this.updateState(e,newValue);
+                        }
+                    }}
+                    min={this.props.min}
+                    max={this.props.max}
+                    step={this.props.step}
+                    value={parseFloat(this.state.sliderValue)}
+                />
                         <Input
                             margin="dense"
                             onChange={(e)=>{
+                                let value = parseFloat(e.target.value);
                                 e.persist()
-                                this.setState({value:e.target.value});
+                                this.setState({value:value, sliderValue:this.toSliderScale(value)});
                                 this.handleInputChange.bind(this)(e);
                             }}
                             value={this.props.value}

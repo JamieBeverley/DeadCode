@@ -12,6 +12,7 @@ export function getDefaultTrack (){
                 name:'gain',
                 id:uniqueId(),
                 on:true,
+                scale:'linear',
                 operator: "|*|",
                 value:1,
                 min:0,
@@ -55,6 +56,7 @@ let defaultState = {
             operator: "#",
             id:uniqueId(),
             on:false,
+            scale:'log',
             value:22000,
             min:0,
             max:22000,
@@ -65,6 +67,7 @@ let defaultState = {
             id:uniqueId(),
             operator: "#",
             on:false,
+            scale:'log',
             value:0,
             min:0,
             max:22000,
@@ -84,6 +87,7 @@ export function getDefaultEffects(){
             name:'gain',
             id:uniqueId(),
             on:false,
+            scale:'log',
             operator: "|+|",
             value:0,
             min:-2,
@@ -95,6 +99,7 @@ export function getDefaultEffects(){
             operator: "#",
             id:uniqueId(),
             on:false,
+            scale:'log',
             value:22000,
             min:0,
             max:22000,
@@ -105,6 +110,7 @@ export function getDefaultEffects(){
             id:uniqueId(),
             operator: "#",
             on:false,
+            scale:'log',
             value:0,
             min:0,
             max:22000,
@@ -118,6 +124,7 @@ export function getDefaultEffect(name='gain'){
         name,
         id:uniqueId(),
         on:false,
+        scale:'linear',
         value:1,
         min:0,
         max:1,
@@ -200,14 +207,14 @@ export default (state = defaultState, action) =>{
             //     if(action.value.id===x.id) {
             //         x = action.value;
             //     }
-            //     return x
+            //     return X
             // });
             return Object.assign({}, state, {masterEffects: state.masterEffects.concat([])});
         case Actions.Types.TOGGLE_LIVE:
             return Object.assign({},state,{live:action.live});
         case Actions.Types.SAVE:
-            console.warn('Not yet implemented '+action.type);
-            break;
+            // console.warn('Not yet implemented '+action.type);
+            return;
         case Actions.Types.LOAD:
             return Object.assign({},state,action.newState);
         case Actions.Types.DOWNLOAD:

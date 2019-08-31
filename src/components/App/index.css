@@ -16,7 +16,7 @@
     --stem-editor-color:lightgrey;
     --font-family: 'Helventica', sans-serif;
     --font-color-dark: black;
-    --font-color-light: lightgrey;
+    --font-color-light: rgb(30,30,30);
     --scrollbar-width: 0px;
     --track-border-color: rgb(215,215,215);
 }

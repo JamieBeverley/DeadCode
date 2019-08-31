@@ -85,7 +85,6 @@ const GlobalActions = dispatch=> {
             let newState = window.localStorage.getItem('state');
             if(newState){
                 newState = JSON.parse(newState);
-                console.log(newState);
                 dispatch(Actions.LOAD(newState));
             } else {
                 console.warn('Tried to load state but empty')
