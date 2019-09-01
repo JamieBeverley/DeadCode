@@ -15,7 +15,7 @@
     box-sizing: border-box;
     margin-bottom:5px;
     border-radius: var(--border-radius);
-    border: 1pt solid lightgrey;
+    border: 1pt solid var(--stem-off);
 }
 
 .StemEditor > .flash{

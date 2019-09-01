@@ -13,7 +13,7 @@ export function getDefaultTrack (){
                 id:uniqueId(),
                 on:true,
                 scale:'linear',
-                operator: "|*|",
+                operator: "|*",
                 value:1,
                 min:0,
                 max:2,
@@ -23,12 +23,21 @@ export function getDefaultTrack (){
     }
 }
 
+function cloneStem(stem){
+    return {
+        ...stem,
+        effects:[...stem.effects].map(x=>{return Object.assign({},x)}),
+        id:uniqueId()
+    }
+}
+
 export function getDefaultStem (trackId){
     return {
         id: uniqueId(),
         trackId,
         name:'',
         on: false,
+        selected:false,
         open:false,
         live:false,
         language:'TidalCylces',
@@ -39,6 +48,8 @@ export function getDefaultStem (trackId){
 
 let defaultState = {
     live:true,
+    tempo:120,
+    copy: null,
     tracks: ([0,0,0,0,0]).map(x=>{return getDefaultTrack()}),
     masterEffects:[
         {
@@ -46,7 +57,7 @@ let defaultState = {
             id:uniqueId(),
             on:false,
             scale:'linear',
-            operator: "|*|",
+            operator: "|*",
             value:1,
             min:0,
             max:2,
@@ -89,7 +100,7 @@ export function getDefaultEffects(){
             id:uniqueId(),
             on:false,
             scale:'linear',
-            operator: "|*|",
+            operator: "|*",
             value:1,
             min:0,
             max:2,
@@ -126,6 +137,7 @@ export function getDefaultEffect(name='gain'){
         id:uniqueId(),
         on:false,
         scale:'linear',
+        operator:"|*",
         value:1,
         min:0,
         max:1,
@@ -141,6 +153,8 @@ export default (state = defaultState, action) =>{
         case Actions.Types.CONNECT:
             let connection = {url: action.url, port:action.port, isConnected:action.isConnected};
             return Object.assign({},state,{connection});
+        case Actions.Types.UPDATE_TEMPO:
+            return Object.assign({},state,{tempo:action.tempo});
         case Actions.Types.ADD_TRACK:
             return (Object.assign({}, state,{
                 tracks:[
@@ -164,6 +178,62 @@ export default (state = defaultState, action) =>{
                     return x
                 })
             });
+        case Actions.Types.COPY_STEMS:
+            return Object.assign({},state,{copy:action.stems});
+        case Actions.Types.PASTE_STEMS:
+            if(!state.copy.length) return state;
+
+            function getStemPosition(stem){
+                let trackIndex = state.tracks.findIndex(x=>x.id===stem.trackId);
+                let stemIndex = state.tracks[trackIndex].stems.findIndex(x=>x.id===stem.id);
+                return {trackIndex, stemIndex}
+            }
+
+            function insertAt(list,pos, item){
+                return list.slice(0,pos).concat([item]).concat(list.slice(pos));
+            }
+
+
+            function pasteStemAtPosition(state, stem, pos){
+                if(pos.trackIndex>=state.tracks.length) return state;
+                if(pos.stemIndex>=state.tracks[pos.trackIndex].stems.length) return state;
+                let track = state.tracks[pos.trackIndex];
+                let newStem = cloneStem(stem);
+                newStem.trackId = track.id;
+                newStem.open = false;
+                track.stems = state.tracks[pos.trackIndex].stems.concat([]);//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
+                track.stems[pos.stemIndex] = newStem;//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
+                // track.stems[pos.stemIndex] = insertAt(track.stems,pos.stemIndex,newStem);
+                return Object.assign({},state,{
+                    tracks:state.tracks.map(x=>{
+                        if(x.id===track.id){
+                            return track
+                        }
+                        return x
+                    })
+                })
+            }
+
+            // Top left from copied
+            // TODO: pretty sure this will just be first b.c. of how copy algorithm works
+            let anchorStem = state.copy[0];
+            let anchorPos = getStemPosition(anchorStem);
+            let insertPos = getStemPosition({trackId:action.trackId,id:action.stemId});
+            newState = Object.assign({},state);
+            state.copy.forEach(stem=>{
+               let position = getStemPosition(stem);
+               let relativePos = {
+                   trackIndex:position.trackIndex-anchorPos.trackIndex,
+                   stemIndex:position.stemIndex-anchorPos.stemIndex
+               };
+               let newPos = {
+                   trackIndex:insertPos.trackIndex+relativePos.trackIndex,
+                   stemIndex:insertPos.stemIndex+relativePos.stemIndex
+               };
+               newState = pasteStemAtPosition(newState, stem,newPos);
+            });
+
+            return Object.assign({},state,newState);
         case Actions.Types.ADD_STEM:
             oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
             newTrack = Object.assign({},oldTrack,{

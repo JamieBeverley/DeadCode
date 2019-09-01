@@ -19,8 +19,10 @@ export default class Stem extends Component{
     render(){
         return (
             <div
-                className={'Stem noselect'+(this.props.on?' on':' off')}
+                className={'Stem noselect'+(this.props.on?' on ':' off ')+ (this.props.selected?'selected':'')}
                 // onMouseUp={this.mouseUp.bind(this)}
+                tabIndex={0}
+                onKeyUp={this.onKeyUp.bind(this)}
                 onMouseUp={this.mouseDown.bind(this)}
                 onContextMenu={(x)=>{x.preventDefault();this.openInFlyout()}}
                 // onTouchMove={this.onTouchStart.bind(this)}
@@ -32,6 +34,13 @@ export default class Stem extends Component{
                 </div>
             </div>
         )
+    }
+
+    onKeyUp(e){
+        if(e.ctrlKey && e.key==='v'){
+            this.props.globalActions.pasteStems(this.props.trackId,this.props.id);
+        }
+
     }
 
     mouseUp(){
@@ -47,11 +56,14 @@ export default class Stem extends Component{
     }
 
     mouseDown(e){
-        if(e.button){
-            // this.openInFlyout()
-            e.preventDefault();
-        } else{
-            this.toggle()
+        if(e.shiftKey){
+            this.props.globalActions.updateStem(this.props.trackId, this.props.id,{selected:!this.props.selected});
+        } else {
+            if(e.button){
+                e.preventDefault();
+            } else{
+                this.toggle()
+            }
         }
     }
 

@@ -40,6 +40,10 @@
     /*box-shadow:5px 5px 5px rgb(90,90,90);*/
 }
 
+.Track input:focus{
+    outline:none;
+}
+
 .effects{
     position: relative;
     widows: 100%;

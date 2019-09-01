@@ -126,11 +126,13 @@ export default class Effect extends Component {
         return (
             <div className={'Effect horizontal'}>
                 {this.props.name}
-                <Switch
-                    color='primary'
-                    onChange={this.toggle.bind(this)}
-                    checked={this.props.on}
-                />
+                {this.props.noToggle ? null :
+                    <Switch
+                        color='primary'
+                        onChange={this.toggle.bind(this)}
+                        checked={this.props.on}
+                    />
+                }
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs>
                         <Slider
@@ -208,12 +210,13 @@ export default class Effect extends Component {
                         />
                         <div style={{textAlign:'center'}}>
                             {this.props.name}
-                            {/*<Switch*/}
-                            {/*    color='primary'*/}
-                            {/*    onChange={this.toggle.bind(this)}*/}
-                            {/*    // onClick={e=>{console.log(e.nativeEvent)}}*/}
-                            {/*    defaultChecked={this.props.on}*/}
-                            {/*/>*/}
+                            {this.props.noToggle ? null :
+                                <Switch
+                                    color='primary'
+                                    onChange={this.toggle.bind(this)}
+                                    checked={this.props.on}
+                                />
+                            }
                         </div>
             </div>
         )

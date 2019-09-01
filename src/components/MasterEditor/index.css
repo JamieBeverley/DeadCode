@@ -22,7 +22,7 @@
 }
 
 .separator{
-    border: 1pt solid grey;
+    border: 1pt solid var(--stem-off);
     border-radius: var(--border-radius);
     box-sizing: border-box;
 }

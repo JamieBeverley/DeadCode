@@ -27,6 +27,7 @@ export default class StemEditor extends Component {
             <div className={'StemEditor'} style={this.props.style}>
                 Name:
                 <input
+                    style={{backgroundColor:'var(--stem-off)'}}
                     onChange={this.updateName.bind(this)}
                     type='text'
                     value={this.props.name}

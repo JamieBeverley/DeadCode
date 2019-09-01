@@ -5,6 +5,7 @@ import debounce from 'lodash/debounce'
 
 
 import Effect from '../Effect';
+import {uniqueId} from "lodash";
 
 export default class MasterEditor extends Component {
     constructor(props){
@@ -34,47 +35,56 @@ export default class MasterEditor extends Component {
         }
         return (
             <div className={'MasterEditor'} style={this.props.style}>
-                <div>
-                    Live
-                    <Switch
-                        color='primary'
-                        onChange={this.toggle.bind(this)}
-                        checked={this.props.live}
-                    />
-                    <Button color='primary' disabled={this.props.live} variant='outlined'>eval</Button>
-                </div>
                 <div className='separator'>
                     <h3>Effects</h3>
                     {effects}
                 </div>
-                <div className='separator' style={{border:this.props.connection.isConnected?'1pt solid grey':'1pt solid red'}}>
+                 <div className='separator'>
+                    <h3>Tempo</h3>
+                    <Effect
+                        noToggle
+                        name={'Tempo'}
+                        id={'tempo'}
+                        on={true}
+                        scale={'linear'}
+                        operator={''}
+                        min={0}
+                        max={200}
+                        value={this.props.tempo}
+                        step={0.01}
+                        updateEffect={this.changeTempo.bind(this)}
+                    />
+
+                </div>
+
+                <div className='separator' style={{border:this.props.connection.isConnected?'1pt solid var(--stem-off)':'1pt solid red'}}>
                     <h3>Connection</h3>
-                    <div style={{}}>
-                    <TextField
-                        style={{width:'50%',marginLeft:'5px'}}
-                        label="URL"
-                        value={this.state.connection.url}
-                        onChange={(e)=>{
-                            let connection = this.state.connection;
-                            connection.url = e.target.value;
-                            this.setState({connection});
-                            this.connect();
-                        }}
-                        margin="normal"
-                    />
-                    <TextField
-                        style={{width:'50%',marginLeft:'5px',maxWidth:'100px'}}
-                        label="Port"
-                        type='number'
-                        value={this.state.connection.port}
-                        onChange={(e)=>{
-                            let connection = this.state.connection;
-                            connection.port = parseInt(e.target.value);
-                            this.setState({connection});
-                            this.connect();
-                        }}
-                        margin="normal"
-                    />
+                    <div>
+                        <TextField
+                            style={{width:'50%',marginLeft:'5px'}}
+                            label="URL"
+                            value={this.state.connection.url}
+                            onChange={(e)=>{
+                                let connection = this.state.connection;
+                                connection.url = e.target.value;
+                                this.setState({connection});
+                                this.connect();
+                            }}
+                            margin="normal"
+                        />
+                        <TextField
+                            style={{width:'50%',marginLeft:'5px',maxWidth:'100px'}}
+                            label="Port"
+                            type='number'
+                            value={this.state.connection.port}
+                            onChange={(e)=>{
+                                let connection = this.state.connection;
+                                connection.port = parseInt(e.target.value);
+                                this.setState({connection});
+                                this.connect();
+                            }}
+                            margin="normal"
+                        />
                     </div>
                 </div>
             </div>
@@ -82,6 +92,9 @@ export default class MasterEditor extends Component {
     }
 
 
+    changeTempo(effect){
+        this.props.globalActions.updateTempo(effect.value);
+    }
 
     connect(url=this.props.connection.url, port=this.props.connection.port){
         let connection = {url:url,port:port,isConnected:this.state.isConnected};

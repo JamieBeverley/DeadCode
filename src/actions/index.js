@@ -1,3 +1,5 @@
+import {store} from '../index.js';
+
 /*
 Actions:
 ______________
@@ -18,8 +20,27 @@ move tracks around
 
 const Actions = {};
 
+// MASTER ACTIONS
 Actions.CONNECT = function(url, port, isConnected){
     return {type:'CONNECT', url, port, isConnected}
+};
+
+Actions.UPDATE_TEMPO = function(tempo){
+    return {type:"UPDATE_TEMPO",tempo}
+};
+
+// copy's given stems. if no argument copy's selected stems
+Actions.COPY_STEMS = function(opt_stems){
+    let stems = opt_stems;
+    if(!stems){
+        let state = store.getState();
+        stems = state.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
+    }
+    return {type:"COPY_STEMS", stems};
+};
+
+Actions.PASTE_STEMS = function(trackId, stemId){
+    return {type:"PASTE_STEMS",trackId,stemId}
 };
 
 Actions.ADD_TRACK = function(){

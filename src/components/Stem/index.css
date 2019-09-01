@@ -14,7 +14,13 @@
     padding:2px;
 }
 
+.Stem:focus{
+    outline: none;
+}
 
+.selected{
+    border: 1pt solid var(--select-color);
+}
 
 .verticalCenter{
     position: absolute;

@@ -14,13 +14,22 @@ function stemToCode(stem){
     return code
 }
 
+function trackToCode(track){
+    let stemsCode = track.stems.filter(x=>x.on).map(stem=>{
+        return stem.code===''?'silence':stemToCode(stem);
+    }).join(", ");
+    if (stemsCode ===''){
+        return ''
+    }
+
+    let trackEffects = track.effects.map(effectToCode).join(" $ ");
+    let effectsCode= trackEffects + (track.effects.length?" $ ":"");
+    return `${effectsCode} stack [${stemsCode}]`;
+}
+
 function getCode(state){
     let stems = 'stack [';
-    let tracks = state.tracks.map(track=>{
-        return track.stems.filter(x=>x.on).map(stem=>{
-            return stem.code===''?'silence':stemToCode(stem);
-        });
-    }).flat();
+    let tracks = state.tracks.map(trackToCode).filter(x=>x!=='');
     stems += tracks.join(", ")+']';
 
     let onMasterEffects = state.masterEffects.filter(x=>x.on);
@@ -39,14 +48,30 @@ function renderState(state){
     if (code !== lastCode) Connection.sendCode(code);
 }
 
+function getTempoCode(state){
+    return 'setcps ' +state.tempo/60/2;
+}
 
 const GlobalActions = dispatch=> {
     return {
         connect: (url,port)=>{
-            let onOpen = ()=>{dispatch(Actions.CONNECT(url,port,true))};
+            let onOpen = ()=>{
+                dispatch(Actions.CONNECT(url,port,true));
+                Connection.sendCode(getTempoCode(store.getState()));
+            };
             let onClose = ()=>{dispatch(Actions.CONNECT(url,port,false))};
             let onError = onClose;
             Connection.init(url,port, onOpen, onClose, onError);
+        },
+        updateTempo: (tempo)=>{
+            dispatch(Actions.UPDATE_TEMPO(tempo));
+            Connection.sendCode(getTempoCode(store.getState()));
+        },
+        copyStems:(x)=>{
+            dispatch(Actions.COPY_STEMS(x))
+        },
+        pasteStems:(trackId, stemId)=>{
+            dispatch(Actions.PASTE_STEMS(trackId, stemId));
         },
         addTrack: ()=>{
             dispatch(Actions.ADD_TRACK())
@@ -56,9 +81,11 @@ const GlobalActions = dispatch=> {
         },
         addStem: (trackId)=>{
             dispatch(Actions.ADD_STEM(trackId))
+            renderState(store.getState());
         },
         removeStem: (trackId, stemId)=>{
             dispatch(Actions.REMOVE_STEM(trackId,stemId))
+            renderState(store.getState());
         },
         updateStem: (trackId, stemId, value)=>{
             dispatch(Actions.UPDATE_STEM(trackId, stemId, value));
@@ -69,6 +96,7 @@ const GlobalActions = dispatch=> {
         },
         updateTrack: (value)=>{
             dispatch(Actions.UPDATE_TRACK(value))
+            renderState(store.getState());
         },
         updateMasterEffect: (value)=>{
             dispatch(Actions.UPDATE_MASTER_EFFECT(value));
@@ -86,6 +114,7 @@ const GlobalActions = dispatch=> {
             if(newState){
                 newState = JSON.parse(newState);
                 dispatch(Actions.LOAD(newState));
+                Connection.sendCode('')
             } else {
                 console.warn('Tried to load state but empty')
             }
