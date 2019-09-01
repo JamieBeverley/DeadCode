@@ -1,6 +1,8 @@
 import Actions from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
+import {uniqueId} from 'lodash';
+
 
 function effectToCode(x){
     return `(${x.operator} ${x.name} ${x.value})`
@@ -50,6 +52,17 @@ function renderState(state){
 
 function getTempoCode(state){
     return 'setcps ' +state.tempo/60/2;
+}
+
+function reassignIDs(obj){
+    for (let i in obj){
+        if(i==='id'){
+            obj[i] = uniqueId();
+        } else if(typeof obj[i] === 'object'){
+            obj[i] = reassignIDs(obj[i]);
+        }
+    }
+    return obj
 }
 
 const GlobalActions = dispatch=> {
@@ -113,7 +126,9 @@ const GlobalActions = dispatch=> {
             let newState = window.localStorage.getItem('state');
             if(newState){
                 newState = JSON.parse(newState);
+                newState = reassignIDs(newState);
                 dispatch(Actions.LOAD(newState));
+                Connection.sendCode(getTempoCode(store.getState()));
                 Connection.sendCode('')
             } else {
                 console.warn('Tried to load state but empty')
