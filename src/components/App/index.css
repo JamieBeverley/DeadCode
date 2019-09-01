@@ -113,7 +113,7 @@ button{
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-    background: grey;
+    background: transparent;
     /*border-radius: 10px;*/
 }
 

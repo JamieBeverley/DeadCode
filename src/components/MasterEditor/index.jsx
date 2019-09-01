@@ -11,8 +11,12 @@ export default class MasterEditor extends Component {
     constructor(props){
         super(props);
         this.state = {
-            connection:this.props.connection
-        }
+            connection:this.props.connection,
+            bootScript:this.props.bootScript
+        };
+        this.updateBootScript = debounce((x)=>{
+            this.props.globalActions.updateBootScript(x)
+        },4000);
 
         this.connect = debounce(()=>{
             this.props.globalActions.connect(this.state.connection.url, this.state.connection.port)
@@ -53,6 +57,18 @@ export default class MasterEditor extends Component {
                         value={this.props.tempo}
                         step={0.01}
                         updateEffect={this.changeTempo.bind(this)}
+                    />
+
+                </div>
+                <div className='separator'>
+                    <h3>Boot Script</h3>
+                    <textarea
+                        onChange={(e)=>{
+                            this.setState({bootScript:e.target.value});
+                            this.updateBootScript.bind(this)(e.target.value)
+                        }
+                        }
+                        value={this.state.bootScript}
                     />
 
                 </div>

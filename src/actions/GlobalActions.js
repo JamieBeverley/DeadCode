@@ -80,6 +80,12 @@ const GlobalActions = dispatch=> {
             dispatch(Actions.UPDATE_TEMPO(tempo));
             Connection.sendCode(getTempoCode(store.getState()));
         },
+        updateBootScript:(bootScript) =>{
+            dispatch(Actions.UPDATE_BOOT_SCRIPT(bootScript));
+            let state = store.getState();
+            Connection.sendCode(state.bootScript);
+            Connection.sendCode(getCode(state));
+        },
         copyStems:(x)=>{
             dispatch(Actions.COPY_STEMS(x))
         },

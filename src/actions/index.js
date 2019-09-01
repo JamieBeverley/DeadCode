@@ -28,6 +28,9 @@ Actions.CONNECT = function(url, port, isConnected){
 Actions.UPDATE_TEMPO = function(tempo){
     return {type:"UPDATE_TEMPO",tempo}
 };
+Actions.UPDATE_BOOT_SCRIPT = function(bootScript){
+    return {type:'UPDATE_BOOT_SCRIPT',bootScript}
+}
 
 // copy's given stems. if no argument copy's selected stems
 Actions.COPY_STEMS = function(opt_stems){

@@ -167,6 +167,8 @@ export default (state = defaultState, action) =>{
                tracks: [...state.tracks].filter(x=>{return x.id !== action.trackId})
             });
             break;
+        case Actions.Types.UPDATE_BOOT_SCRIPT:
+            return Object.assign({},state,{bootScript:action.bootScript});
         case Actions.Types.UPDATE_TRACK:
             oldTrack = state.tracks.find(x=>{return x.id === action.value.id});
             newTrack = Object.assign({},oldTrack,action.value);
