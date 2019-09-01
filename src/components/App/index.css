@@ -131,3 +131,14 @@ button{
     user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
 }
+
+
+
+/* probably another way I should do this...*/
+.MuiSwitch-thumb {
+    background-color: var(--stem-on)!important;
+}
+
+.Mui-checked + .MuiSwitch-track {
+    background-color: var(--stem-on)!important;
+}

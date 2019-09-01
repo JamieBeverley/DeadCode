@@ -1,152 +1,9 @@
 import Actions from '../actions'
 import {uniqueId} from 'lodash';
-
-export function getDefaultTrack (){
-    let id = uniqueId();
-    return {
-        id,
-        name:'New Track',
-        stems:([0,0,0,0,0]).map(x=>{return getDefaultStem(id)}),
-        effects:[
-            {
-                name:'gain',
-                id:uniqueId(),
-                on:true,
-                scale:'linear',
-                operator: "|*",
-                value:1,
-                min:0,
-                max:2,
-                step:0.01
-            }
-        ]
-    }
-}
-
-function cloneStem(stem){
-    return {
-        ...stem,
-        effects:[...stem.effects].map(x=>{return Object.assign({},x)}),
-        id:uniqueId()
-    }
-}
-
-export function getDefaultStem (trackId){
-    return {
-        id: uniqueId(),
-        trackId,
-        name:'',
-        on: false,
-        selected:false,
-        open:false,
-        live:false,
-        language:'TidalCylces',
-        code:"",
-        effects:getDefaultEffects()
-    }
-}
-
-let defaultState = {
-    live:true,
-    tempo:120,
-    copy: null,
-    tracks: ([0,0,0,0,0]).map(x=>{return getDefaultTrack()}),
-    masterEffects:[
-        {
-            name:'gain',
-            id:uniqueId(),
-            on:false,
-            scale:'linear',
-            operator: "|*",
-            value:1,
-            min:0,
-            max:2,
-            step:0.01
-        },
-        {
-            name:'lpf',
-            operator: "#",
-            id:uniqueId(),
-            on:false,
-            scale:'log',
-            value:22000,
-            min:0,
-            max:22000,
-            step:10
-        },
-        {
-            name:'hpf',
-            id:uniqueId(),
-            operator: "#",
-            on:false,
-            scale:'log',
-            value:0,
-            min:0,
-            max:22000,
-            step:10
-        }
-        ],
-    connection:{
-        isConnected:false,
-        url:'127.0.0.1',
-        port:8000
-    }
-};
-
-export function getDefaultEffects(){
-    return [
-        {
-            name:'gain',
-            id:uniqueId(),
-            on:false,
-            scale:'linear',
-            operator: "|*",
-            value:1,
-            min:0,
-            max:2,
-            step:0.01
-        },
-        {
-            name:'lpf',
-            operator: "#",
-            id:uniqueId(),
-            on:false,
-            scale:'log',
-            value:22000,
-            min:0,
-            max:22000,
-            step:10
-        },
-        {
-            name:'hpf',
-            id:uniqueId(),
-            operator: "#",
-            on:false,
-            scale:'log',
-            value:0,
-            min:0,
-            max:22000,
-            step:10
-        }
-    ];
-}
-
-export function getDefaultEffect(name='gain'){
-    return {
-        name,
-        id:uniqueId(),
-        on:false,
-        scale:'linear',
-        operator:"|*",
-        value:1,
-        min:0,
-        max:1,
-        step:0.01
-    }
-}
+import State from './State'
 
 
-export default (state = defaultState, action) =>{
+export default (state = State.defaultState, action) =>{
     let oldTrack, newTrack, oldFlyout,newFlyout,newState;
 
     switch (action.type){
@@ -159,7 +16,7 @@ export default (state = defaultState, action) =>{
             return (Object.assign({}, state,{
                 tracks:[
                     ...state.tracks,
-                    Object.assign({},getDefaultTrack())
+                    Object.assign({},State.getDefaultTrack())
                 ]
             }));
         case Actions.Types.REMOVE_TRACK:
@@ -200,7 +57,7 @@ export default (state = defaultState, action) =>{
                 if(pos.trackIndex>=state.tracks.length) return state;
                 if(pos.stemIndex>=state.tracks[pos.trackIndex].stems.length) return state;
                 let track = state.tracks[pos.trackIndex];
-                let newStem = cloneStem(stem);
+                let newStem = State.cloneStem(stem);
                 newStem.trackId = track.id;
                 newStem.open = false;
                 track.stems = state.tracks[pos.trackIndex].stems.concat([]);//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
@@ -241,7 +98,7 @@ export default (state = defaultState, action) =>{
             newTrack = Object.assign({},oldTrack,{
                 stems:[
                     ...oldTrack.stems,
-                    getDefaultStem(oldTrack.id)
+                    State.getDefaultStem(oldTrack.id)
                 ]
             });
             return Object.assign({}, state, {

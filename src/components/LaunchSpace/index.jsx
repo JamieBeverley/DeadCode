@@ -22,7 +22,6 @@ export default class LaunchSpace extends Component {
     }
 
     onKeyUp(e){
-        console.log(e.key);
         if(e.key.toLowerCase()==='delete'){
             let selectedStems = this.props.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
             console.log(selectedStems)

@@ -3,7 +3,6 @@ import './index.css'
 import Stem from '../Stem';
 import PlusButton from "../util/PlusButton/PlusButton";
 import Effect from "../Effect";
-import {Button} from "@material-ui/core";
 
 
 export default class Track extends Component{
@@ -16,11 +15,6 @@ export default class Track extends Component{
             x.globalActions = this.props.globalActions;
             return (<Stem key={x.id} {...x}/>)
         });
-
-        // let effects = this.props.effects.map(effect=>{
-        //     return <Effect updateEffect={this.updateEffect.bind(this)} {...effect}/>
-        // });
-
 
         return (
             <div className='Track'>
@@ -53,16 +47,10 @@ export default class Track extends Component{
     }
 
     addStem(){
-        // let stems = this.props.stems.concat([getDefaultStem()]);
         this.props.globalActions.addStem(this.props.id);
-        // this.props.globalActions.updateTrack({id:this.props.id, stems});
     }
 
     titleChange(e){
         this.props.globalActions.updateTrack({id:this.props.id,name:e.target.value});
     }
-
-    // openInFlyout(id){
-    //
-    // }
 }

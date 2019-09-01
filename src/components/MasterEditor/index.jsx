@@ -6,14 +6,17 @@ import debounce from 'lodash/debounce'
 
 import Effect from '../Effect';
 import {uniqueId} from "lodash";
+import CodeEditor from "../CodeEditor";
 
 export default class MasterEditor extends Component {
     constructor(props){
         super(props);
         this.state = {
             connection:this.props.connection,
-            bootScript:this.props.bootScript
+            bootScript:this.props.bootScript,
+            bootScriptLive:false
         };
+
         this.updateBootScript = debounce((x)=>{
             this.props.globalActions.updateBootScript(x)
         },4000);
@@ -28,6 +31,8 @@ export default class MasterEditor extends Component {
     }
 
     render(){
+        console.log('_________________');
+        console.log(this.props);
         let effects = [];
         for(let e in this.props.masterEffects){
             let effect = this.props.masterEffects[e];
@@ -37,6 +42,25 @@ export default class MasterEditor extends Component {
                 </div>
                 )
         }
+        console.log()
+        console.log(this.props.tempo)
+        let tempo = this.props.masterEffects.map(x=> {
+            return (
+                <Effect
+                    key={x.id}
+                    noToggle
+                    name={'Tempo'}
+                    id={'tempo'}
+                    on={true}
+                    scale={'linear'}
+                    operator={''}
+                    min={0}
+                    max={200}
+                    value={this.props.tempo}
+                    step={0.01}
+                    updateEffect={this.changeTempo.bind(this)}
+                />);
+        })[0];
         return (
             <div className={'MasterEditor'} style={this.props.style}>
                 <div className='separator'>
@@ -45,31 +69,41 @@ export default class MasterEditor extends Component {
                 </div>
                  <div className='separator'>
                     <h3>Tempo</h3>
-                    <Effect
-                        noToggle
-                        name={'Tempo'}
-                        id={'tempo'}
-                        on={true}
-                        scale={'linear'}
-                        operator={''}
-                        min={0}
-                        max={200}
-                        value={this.props.tempo}
-                        step={0.01}
-                        updateEffect={this.changeTempo.bind(this)}
-                    />
+                     <Effect
+                         key={Math.random()}
+                         noToggle
+                         name={'Tempo'}
+                         id={'tempo'}
+                         on={true}
+                         scale={'linear'}
+                         operator={''}
+                         min={0}
+                         max={200}
+                         value={this.props.tempo}
+                         step={0.01}
+                         updateEffect={this.changeTempo.bind(this)}
+                     />
 
                 </div>
                 <div className='separator'>
                     <h3>Boot Script</h3>
-                    <textarea
-                        onChange={(e)=>{
-                            this.setState({bootScript:e.target.value});
-                            this.updateBootScript.bind(this)(e.target.value)
-                        }
-                        }
-                        value={this.state.bootScript}
+                    <CodeEditor
+                        key={Math.random()}
+                        onChange={(code)=>{this.props.globalActions.updateBootScript(code)}}
+                        onChangeLive={(bootScriptLive)=>{this.setState({bootScriptLive})}}
+                        code={this.props.bootScript}
+                        live={this.state.bootScriptLive}
+                        // onChange, onChangeLive, code, live
                     />
+
+                    {/*<textarea*/}
+                    {/*    onChange={(e)=>{*/}
+                    {/*        this.setState({bootScript:e.target.value});*/}
+                    {/*        this.updateBootScript.bind(this)(e.target.value)*/}
+                    {/*    }*/}
+                    {/*    }*/}
+                    {/*    value={this.state.bootScript}*/}
+                    {/*/>*/}
 
                 </div>
 

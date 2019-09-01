@@ -2,7 +2,7 @@ import Actions from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
 import {uniqueId} from 'lodash';
-
+import State from '../reducers/State.js'
 
 function effectToCode(x){
     return `(${x.operator} ${x.name} ${x.value})`
@@ -133,6 +133,12 @@ const GlobalActions = dispatch=> {
             if(newState){
                 newState = JSON.parse(newState);
                 newState = reassignIDs(newState);
+                newState.tracks.forEach(track=>{
+                    track.stems.forEach(stem=>{
+                        stem.trackId = track.id
+                    });
+                });
+                dispatch(Actions.LOAD(State.defaultState));
                 dispatch(Actions.LOAD(newState));
                 Connection.sendCode(getTempoCode(store.getState()));
                 Connection.sendCode('')

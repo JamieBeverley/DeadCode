@@ -3,6 +3,7 @@ import './index.css'
 import {Button, Switch} from "@material-ui/core";
 import Effect from "../Effect";
 import debounce from 'lodash/debounce'
+import CodeEditor from "../CodeEditor";
 
 export default class StemEditor extends Component {
     constructor(props){
@@ -32,29 +33,37 @@ export default class StemEditor extends Component {
                     type='text'
                     value={this.props.name}
                 />
-                <div>
-                    Live
-                    <Switch
-                        color='primary'
-                        onChange={this.updateLive.bind(this)}
-                        checked={this.props.live}
-                    />
-                    <Button color='primary' disabled={this.props.live} onClick={this._updateCode.bind(this)} variant='outlined'>eval</Button>
-                </div>
-                Code:
-                <textarea
-                    ref={this.textAreaRef}
-                    onKeyPress={this.maybeEval.bind(this)}
-                    onChange={(e)=>{
-                        this.setState({code:e.target.value});
-                        if(this.props.live){
-                            e.persist();
-                            this.updateCode.bind(this)(e)
-                        }
-                    }
-                    }
-                    value={this.state.code}
+                <CodeEditor
+                    onChange={(code)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{code})}
+                    onChangeLive={(live)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{live})}
+                    code={this.props.code}
+                    live={this.props.live}
+                    // onChange, onChangeLive, code, live
                 />
+
+                {/*<div>*/}
+                {/*    Live*/}
+                {/*    <Switch*/}
+                {/*        color='primary'*/}
+                {/*        onChange={this.updateLive.bind(this)}*/}
+                {/*        checked={this.props.live}*/}
+                {/*    />*/}
+                {/*    <Button color='primary' disabled={this.props.live} onClick={this._updateCode.bind(this)} variant='outlined'>eval</Button>*/}
+                {/*</div>*/}
+                {/*Code:*/}
+                {/*<textarea*/}
+                {/*    ref={this.textAreaRef}*/}
+                {/*    onKeyPress={this.maybeEval.bind(this)}*/}
+                {/*    onChange={(e)=>{*/}
+                {/*        this.setState({code:e.target.value});*/}
+                {/*        if(this.props.live){*/}
+                {/*            e.persist();*/}
+                {/*            this.updateCode.bind(this)(e)*/}
+                {/*        }*/}
+                {/*    }*/}
+                {/*    }*/}
+                {/*    value={this.state.code}*/}
+                {/*/>*/}
                 {effects}
                 <Button style={{marginTop:'5px'}} onClick={this.delete.bind(this)} color='primary' variant='outlined'>delete</Button>
             </div>

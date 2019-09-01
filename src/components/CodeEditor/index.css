@@ -1,0 +1,16 @@
+.CodeEditor > textarea {
+    height:200px;
+    width:100%;
+    box-sizing: border-box;
+    font-size: 12pt;
+    font-family: "Courier New";
+    border-radius: var(--border-radius);
+    color: var(--font-color-dark);
+    background-color: var(--stem-off);
+    transition: background 0.25s linear;
+    margin-bottom:5px;
+}
+
+.CodeEditor > * {
+    margin-bottom: 5px;
+}
