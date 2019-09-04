@@ -91,6 +91,12 @@ const GlobalActions = dispatch=> {
         },
         pasteStems:(trackId, stemId)=>{
             dispatch(Actions.PASTE_STEMS(trackId, stemId));
+            let state = store.getState();
+            state.tracks.forEach(track=>{
+                track.stems.filter(x=>x.selected).forEach(stem=>{
+                    dispatch(Actions.UPDATE_STEM(stem.trackId,stem.id,{selected:false}));
+                })
+            })
         },
         addTrack: ()=>{
             dispatch(Actions.ADD_TRACK())

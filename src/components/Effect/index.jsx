@@ -124,7 +124,7 @@ export default class Effect extends Component {
     renderHorizontal(){
 
         return (
-            <div className={'Effect horizontal'} reRenderTag={this.props.value}>
+            <div className={'Effect horizontal'}>
                 {this.props.name}
                 {this.props.noToggle ? null :
                     <Switch
@@ -176,7 +176,7 @@ export default class Effect extends Component {
 
     renderVertical(){
         return (
-            <div className={'Effect vertical'} reRenderTag={this.props.value}>
+            <div className={'Effect vertical'}>
 
                 <Slider
                     orientation='vertical'

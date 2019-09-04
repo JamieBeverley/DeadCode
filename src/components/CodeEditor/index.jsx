@@ -51,8 +51,11 @@ export default class CodeEditor extends Component {
                 e.preventDefault();
                 this.props.onChange(this.state.code);
                 // this.props.globalActions.updateStem(this.props.trackId, this.props.id, {code:this.state.code});
-                this.textAreaRef.current.classList.add('flash');
-                setTimeout(()=>{this.textAreaRef.current.classList.remove('flash')},250);
+                // TODO hmmm...
+                if(this.textAreaRef.current){
+                    this.textAreaRef.current.classList.add('flash');
+                    setTimeout(()=>{this.textAreaRef.current.classList.remove('flash')},250);
+                }
             }
         }
     }
