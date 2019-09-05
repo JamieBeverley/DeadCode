@@ -33,6 +33,9 @@ export default class StemEditor extends Component {
                     type='text'
                     value={this.props.name}
                 />
+                <input
+                    type={''}
+                />
                 <CodeEditor
                     onChange={(code)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{code})}
                     onChangeLive={(live)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{live})}
@@ -40,30 +43,6 @@ export default class StemEditor extends Component {
                     live={this.props.live}
                     // onChange, onChangeLive, code, live
                 />
-
-                {/*<div>*/}
-                {/*    Live*/}
-                {/*    <Switch*/}
-                {/*        color='primary'*/}
-                {/*        onChange={this.updateLive.bind(this)}*/}
-                {/*        checked={this.props.live}*/}
-                {/*    />*/}
-                {/*    <Button color='primary' disabled={this.props.live} onClick={this._updateCode.bind(this)} variant='outlined'>eval</Button>*/}
-                {/*</div>*/}
-                {/*Code:*/}
-                {/*<textarea*/}
-                {/*    ref={this.textAreaRef}*/}
-                {/*    onKeyPress={this.maybeEval.bind(this)}*/}
-                {/*    onChange={(e)=>{*/}
-                {/*        this.setState({code:e.target.value});*/}
-                {/*        if(this.props.live){*/}
-                {/*            e.persist();*/}
-                {/*            this.updateCode.bind(this)(e)*/}
-                {/*        }*/}
-                {/*    }*/}
-                {/*    }*/}
-                {/*    value={this.state.code}*/}
-                {/*/>*/}
                 {effects}
                 <Button style={{marginTop:'5px'}} onClick={this.delete.bind(this)} color='primary' variant='outlined'>delete</Button>
             </div>

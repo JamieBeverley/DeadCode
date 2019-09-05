@@ -39,9 +39,7 @@ export default class CodeEditor extends Component {
                     }
                     value={this.state.code}
                 />
-
             </div>
-
         )
     }
 

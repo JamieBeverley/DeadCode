@@ -8,6 +8,7 @@
   "dependencies": {
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
+    "hydra-synth": "^1.0.25",
     "lodash": "^4.17.15",
     "rc-slider": "^8.6.13",
     "react": "^16.9.0",

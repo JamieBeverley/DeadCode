@@ -3,56 +3,8 @@ import {store} from '../index.js';
 import Connection from "../Connection";
 import {uniqueId} from 'lodash';
 import State from '../reducers/State.js'
+import {renderBootScript, renderTempoChange,renderState} from '../render'
 
-function effectToCode(x){
-    return `(${x.operator} ${x.name} ${x.value})`
-}
-
-function stemToCode(stem){
-    let effectsOn = stem.effects.filter(x=>x.on);
-    let code = effectsOn.map(effectToCode).join(" $ ");
-    code += effectsOn.length?' $ ':'';
-    code += stem.code;
-    return code
-}
-
-function trackToCode(track){
-    let stemsCode = track.stems.filter(x=>x.on).map(stem=>{
-        return stem.code===''?'silence':stemToCode(stem);
-    }).join(", ");
-    if (stemsCode ===''){
-        return ''
-    }
-
-    let trackEffects = track.effects.map(effectToCode).join(" $ ");
-    let effectsCode= trackEffects + (track.effects.length?" $ ":"");
-    return `${effectsCode} stack [${stemsCode}]`;
-}
-
-function getCode(state){
-    let stems = 'stack [';
-    let tracks = state.tracks.map(trackToCode).filter(x=>x!=='');
-    stems += tracks.join(", ")+']';
-
-    let onMasterEffects = state.masterEffects.filter(x=>x.on);
-    let masterEffects = onMasterEffects.map(effectToCode).join(" $ ");
-
-
-    let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;
-    console.log(code);
-
-    return code;
-}
-
-var lastCode = ''
-function renderState(state){
-    let code = getCode(state);
-    if (code !== lastCode) Connection.sendCode(code);
-}
-
-function getTempoCode(state){
-    return 'setcps ' +state.tempo/60/2;
-}
 
 function reassignIDs(obj){
     for (let i in obj){
@@ -70,7 +22,11 @@ const GlobalActions = dispatch=> {
         connect: (url,port)=>{
             let onOpen = ()=>{
                 dispatch(Actions.CONNECT(url,port,true));
-                Connection.sendCode(getTempoCode(store.getState()));
+
+                let state = store.getState();
+                renderTempoChange(state)
+                renderBootScript(state)
+
             };
             let onClose = ()=>{dispatch(Actions.CONNECT(url,port,false))};
             let onError = onClose;
@@ -78,13 +34,15 @@ const GlobalActions = dispatch=> {
         },
         updateTempo: (tempo)=>{
             dispatch(Actions.UPDATE_TEMPO(tempo));
-            Connection.sendCode(getTempoCode(store.getState()));
+            renderTempoChange(store.getState());
         },
         updateBootScript:(bootScript) =>{
             dispatch(Actions.UPDATE_BOOT_SCRIPT(bootScript));
             let state = store.getState();
-            Connection.sendCode(state.bootScript);
-            Connection.sendCode(getCode(state));
+            renderBootScript(state);
+            renderState(state);
+            // Connection.sendCode(state.bootScript);
+            // Connection.sendCode(getCode(state));
         },
         copyStems:(x)=>{
             dispatch(Actions.COPY_STEMS(x))
@@ -146,8 +104,8 @@ const GlobalActions = dispatch=> {
                 });
                 dispatch(Actions.LOAD(State.defaultState));
                 dispatch(Actions.LOAD(newState));
-                Connection.sendCode(getTempoCode(store.getState()));
-                Connection.sendCode('')
+                renderTempoChange(store.getState());
+                renderBootScript(store.getState());
             } else {
                 console.warn('Tried to load state but empty')
             }
