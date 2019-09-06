@@ -1,5 +1,7 @@
 import {uniqueId} from "lodash";
 
+export const languages = ["TidalCycles","Hydra"];
+
 var State = {}
 
 State.getDefaultEffects = function (){
@@ -89,6 +91,7 @@ State.defaultState = {
     live:true,
     tempo:120,
     copy: null,
+    languages,
     bootScript:'',
     tracks: ([0,0,0,0,0]).map(x=>{return State.getDefaultTrack()}),
     masterEffects:[

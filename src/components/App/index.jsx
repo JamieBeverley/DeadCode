@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import LaunchSpace from '../../containers/LaunchSpace.jsx';
 import Flyout from '../../containers/Flyout.jsx';
+import Render from '../../containers/Render'
 import './index.css';
 
 export default class App extends Component{
@@ -18,6 +19,7 @@ export default class App extends Component{
             <div className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
                 <LaunchSpace/>
                 <Flyout/>
+                <Render/>
             </div>
         )
     }

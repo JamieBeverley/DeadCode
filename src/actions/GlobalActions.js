@@ -3,7 +3,7 @@ import {store} from '../index.js';
 import Connection from "../Connection";
 import {uniqueId} from 'lodash';
 import State from '../reducers/State.js'
-import {renderBootScript, renderTempoChange,renderState} from '../render'
+// import {renderBootScript, renderTempoChange,renderState} from '../render'
 
 
 function reassignIDs(obj){
@@ -24,8 +24,8 @@ const GlobalActions = dispatch=> {
                 dispatch(Actions.CONNECT(url,port,true));
 
                 let state = store.getState();
-                renderTempoChange(state)
-                renderBootScript(state)
+                // renderTempoChange(state)
+                // renderBootScript(state)
 
             };
             let onClose = ()=>{dispatch(Actions.CONNECT(url,port,false))};
@@ -34,13 +34,13 @@ const GlobalActions = dispatch=> {
         },
         updateTempo: (tempo)=>{
             dispatch(Actions.UPDATE_TEMPO(tempo));
-            renderTempoChange(store.getState());
+            // renderTempoChange(store.getState());
         },
         updateBootScript:(bootScript) =>{
             dispatch(Actions.UPDATE_BOOT_SCRIPT(bootScript));
             let state = store.getState();
-            renderBootScript(state);
-            renderState(state);
+            // renderBootScript(state);
+            // renderState(state);
             // Connection.sendCode(state.bootScript);
             // Connection.sendCode(getCode(state));
         },
@@ -64,26 +64,26 @@ const GlobalActions = dispatch=> {
         },
         addStem: (trackId)=>{
             dispatch(Actions.ADD_STEM(trackId))
-            renderState(store.getState());
+            // renderState(store.getState());
         },
         removeStem: (trackId, stemId)=>{
             dispatch(Actions.REMOVE_STEM(trackId,stemId))
-            renderState(store.getState());
+            // renderState(store.getState());
         },
         updateStem: (trackId, stemId, value)=>{
             dispatch(Actions.UPDATE_STEM(trackId, stemId, value));
-            renderState(store.getState());
+            // renderState(store.getState());
         },
         openInFlyout: (trackId, stemId)=> {
             dispatch(Actions.OPEN_IN_FLYOUT(trackId,stemId))
         },
         updateTrack: (value)=>{
             dispatch(Actions.UPDATE_TRACK(value))
-            renderState(store.getState());
+            // renderState(store.getState());
         },
         updateMasterEffect: (value)=>{
             dispatch(Actions.UPDATE_MASTER_EFFECT(value));
-            renderState(store.getState());
+            // renderState(store.getState());
         },
         toggleLive: (value)=>{
             dispatch(Actions.TOGGLE_LIVE(value))
@@ -104,8 +104,8 @@ const GlobalActions = dispatch=> {
                 });
                 dispatch(Actions.LOAD(State.defaultState));
                 dispatch(Actions.LOAD(newState));
-                renderTempoChange(store.getState());
-                renderBootScript(store.getState());
+                // renderTempoChange(store.getState());
+                // renderBootScript(store.getState());
             } else {
                 console.warn('Tried to load state but empty')
             }

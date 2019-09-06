@@ -31,36 +31,16 @@ export default class MasterEditor extends Component {
     }
 
     render(){
-        console.log('_________________');
-        console.log(this.props);
         let effects = [];
-        for(let e in this.props.masterEffects){
-            let effect = this.props.masterEffects[e];
+        for(let i=0; i < this.props.masterEffects.length; i++){
+            let effect = this.props.masterEffects[i];
             effects.push(
                 <div key={effect.id} style={{margin:'5px',marginTop:'20px'}}>
                     <Effect updateEffect={this.updateEffect.bind(this)} {...effect}/>
                 </div>
                 )
         }
-        console.log()
-        console.log(this.props.tempo)
-        let tempo = this.props.masterEffects.map(x=> {
-            return (
-                <Effect
-                    key={x.id}
-                    noToggle
-                    name={'Tempo'}
-                    id={'tempo'}
-                    on={true}
-                    scale={'linear'}
-                    operator={''}
-                    min={0}
-                    max={200}
-                    value={this.props.tempo}
-                    step={0.01}
-                    updateEffect={this.changeTempo.bind(this)}
-                />);
-        })[0];
+
         return (
             <div className={'MasterEditor'} style={this.props.style}>
                 <div className='separator'>
@@ -93,17 +73,7 @@ export default class MasterEditor extends Component {
                         onChangeLive={(bootScriptLive)=>{this.setState({bootScriptLive})}}
                         code={this.props.bootScript}
                         live={this.state.bootScriptLive}
-                        // onChange, onChangeLive, code, live
                     />
-
-                    {/*<textarea*/}
-                    {/*    onChange={(e)=>{*/}
-                    {/*        this.setState({bootScript:e.target.value});*/}
-                    {/*        this.updateBootScript.bind(this)(e.target.value)*/}
-                    {/*    }*/}
-                    {/*    }*/}
-                    {/*    value={this.state.bootScript}*/}
-                    {/*/>*/}
 
                 </div>
 

@@ -1,14 +1,17 @@
 import Connection from "../Connection";
 
-export function renderTidalCycles(state){
-    let tidalState = state.tracks.map(track=>{
-        let newStems = track.stems.filter(x=> x.on && x.language==="TidalCycles");
-        track.stems = newStems;
-        return track
-    });
-    let code = getTidalCode(tidalState);
-    Connection.sendCode(code);
-}
+// export function renderTidalCycles(state){
+//     let tidalState = state.tracks.map(track=>{
+//         let newStems = track.stems.filter(x=> x.on && x.language==="TidalCycles");
+//         track.stems = newStems;
+//         return track
+//     });
+//     let code = getTidalCode(tidalState);
+//     Connection.sendCode(code);
+// }
+
+
+
 
 export function renderTidalCyclesTempoChange(state){
     Connection.sendCode(getTempoCode(state));
@@ -44,7 +47,7 @@ function trackToCode(track){
     return `${effectsCode} stack [${stemsCode}]`;
 }
 
-function getTidalCode(state){
+export function getTidalCyclesCode(state){
     let stems = 'stack [';
     let tracks = state.tracks.map(trackToCode).filter(x=>x!=='');
     stems += tracks.join(", ")+']';
@@ -55,6 +58,5 @@ function getTidalCode(state){
 
     let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;
     console.log(code);
-
     return code;
 }

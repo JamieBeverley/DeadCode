@@ -4,6 +4,10 @@ import {Button, Switch} from "@material-ui/core";
 import Effect from "../Effect";
 import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import {languages} from "../../reducers/State";
+
 
 export default class StemEditor extends Component {
     constructor(props){
@@ -18,8 +22,8 @@ export default class StemEditor extends Component {
         for(let e in this.props.effects){
             let effect = this.props.effects[e];
             effects.push(
-                <div key={effect.id} style={{marginTop:'20px'}}>
-                    <Effect updateEffect={this.updateEffect.bind(this)} {...effect}/>
+                <div key={Math.random()} style={{marginTop:'20px'}}>
+                    <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
                 </div>
             )
         }
@@ -33,20 +37,29 @@ export default class StemEditor extends Component {
                     type='text'
                     value={this.props.name}
                 />
-                <input
-                    type={''}
-                />
+
+                <select
+                    value={this.props.language}
+                    onChange={this.handleLanguageChange.bind(this)}
+                    name='language'
+                >
+                    {languages.map(x=><option key={x} value={x}>{x}</option>)}
+                </select>
+
                 <CodeEditor
                     onChange={(code)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{code})}
                     onChangeLive={(live)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{live})}
                     code={this.props.code}
                     live={this.props.live}
-                    // onChange, onChangeLive, code, live
                 />
                 {effects}
                 <Button style={{marginTop:'5px'}} onClick={this.delete.bind(this)} color='primary' variant='outlined'>delete</Button>
             </div>
         )
+    }
+
+    handleLanguageChange(e){
+        this.props.globalActions.updateStem(this.props.trackId,this.props.id, {language:e.target.value});
     }
 
     maybeEval(e) {

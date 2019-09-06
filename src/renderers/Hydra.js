@@ -1,13 +1,12 @@
 
-export function renderHydra(state){
+// export function renderHydra(state){
+//     let mixMethod = 'add';
+//     let code = getHydraCode(state,mixMethod);
+//     console.log(code);
+//     eval(code);
+// }
 
-    let mixMethod = 'add';
-    let code = getHydraCode(state,mixMethod);
-    console.log(code);
-    eval(code);
-}
-
-function getHydraCode(fullState, mixMethod){
+export function getHydraCode(fullState, mixMethod){
     let tracksCode = fullState.tracks.map((x)=>{return trackToCode(x,mixMethod)}).filter(x=>x!==null);
     if(tracksCode.length<1){
         return ''
@@ -17,6 +16,7 @@ function getHydraCode(fullState, mixMethod){
     for (let i = 1;i<tracksCode.length;i++){
         code = `${code}.${mixMethod}(${tracksCode[i]})`
     }
+    code = code+".out()";
     return code;
 }
 

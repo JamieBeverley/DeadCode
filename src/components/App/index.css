@@ -142,3 +142,12 @@ button{
 .Mui-checked + .MuiSwitch-track {
     background-color: var(--stem-on)!important;
 }
+
+input:focus{
+    outline:none;
+}
+
+select:focus{
+    outline:none;
+}
+
