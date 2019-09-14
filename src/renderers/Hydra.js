@@ -9,19 +9,20 @@
 export function getHydraCode(fullState, mixMethod){
     let tracksCode = fullState.tracks.map((x)=>{return trackToCode(x,mixMethod)}).filter(x=>x!==null);
     if(tracksCode.length<1){
-        return ''
+        return 'solid(0,0,0,0).out()'
     };
 
     let code = tracksCode[0];
     for (let i = 1;i<tracksCode.length;i++){
         code = `${code}.${mixMethod}(${tracksCode[i]})`
     }
+
     code = code+".out()";
     return code;
 }
 
 function trackToCode(track,mixMethod){
-    let stemsCode = track.stems.filter(x=>{return x.on && x.language==="Hydra"}).map(stemToCode);
+    let stemsCode = track.stems.filter(x=>{return x.on && x.language==="Hydra" && x.code !== ''}).map(stemToCode);
     if(stemsCode.length<1){
         return null
     };

@@ -75,8 +75,9 @@ export default class Effect extends Component {
         let sliderValue = this.toSliderScale(this.props.value);
         this.state = {value:this.props.value, sliderValue};
 
-        this.updateState = throttle(this._handleSliderChange,100);
-        this.handleInputChange = throttle(this._handleInputChange,100);
+        // TODO: fio more efficient rendering/state updating so these throttle times can be reduced
+        this.updateState = throttle(this._handleSliderChange,200);
+        this.handleInputChange = throttle(this._handleInputChange,200);
     }
 
     toSliderScale(x){

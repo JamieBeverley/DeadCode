@@ -35,9 +35,7 @@ function stemToCode(stem){
 }
 
 function trackToCode(track){
-    let stemsCode = track.stems.filter(x=>x.on).map(stem=>{
-        return stem.code===''?'silence':stemToCode(stem);
-    }).join(", ");
+    let stemsCode = track.stems.filter(x=>{return x.on&&(x.language==="TidalCylces")&&x.code!==""}).map(stemToCode).join(", ");
     if (stemsCode ===''){
         return ''
     }
@@ -55,8 +53,6 @@ export function getTidalCyclesCode(state){
     let onMasterEffects = state.masterEffects.filter(x=>x.on);
     let masterEffects = onMasterEffects.map(effectToCode).join(" $ ");
 
-
     let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;
-    console.log(code);
     return code;
 }

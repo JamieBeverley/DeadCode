@@ -7,9 +7,18 @@
     pointer-events: none;
 }
 
+
+
 .Render > canvas {
     height:100%;
     width: 100%;
     opacity: 0.5;
     pointer-events: none;
 }
+
+/*.Render > iframe {*/
+/*    height:100%;*/
+/*    width: 100%;*/
+/*    opacity: 0.5;*/
+/*    pointer-events: none;*/
+/*}*/

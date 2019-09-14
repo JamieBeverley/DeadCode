@@ -21,10 +21,13 @@ export default class StemEditor extends Component {
         let effects = [];
         for(let e in this.props.effects){
             let effect = this.props.effects[e];
+            // effects.push(
+            //     <div key={Math.random()} style={{marginTop:'20px'}}>
+            //         <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
+            //     </div>
+            // )
             effects.push(
-                <div key={Math.random()} style={{marginTop:'20px'}}>
                     <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
-                </div>
             )
         }
 
@@ -59,7 +62,7 @@ export default class StemEditor extends Component {
     }
 
     handleLanguageChange(e){
-        this.props.globalActions.updateStem(this.props.trackId,this.props.id, {language:e.target.value});
+        this.props.globalActions.updateStem(this.props.trackId,this.props.id, {language:e.target.value,code:''});
     }
 
     maybeEval(e) {

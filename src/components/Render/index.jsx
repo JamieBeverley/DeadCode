@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {PureComponent} from 'react'
 import './index.css'
 import Connection from "../../Connection";
 import {getHydraCode} from "../../renderers/Hydra";
@@ -7,7 +7,7 @@ import uniqueId from 'lodash'
 
 import Hydra from 'hydra-synth'
 
-export default class Render extends Component {
+export default class Render extends PureComponent {
     constructor(props) {
         super(props);
         this.hydraRef = React.createRef();
@@ -19,9 +19,11 @@ export default class Render extends Component {
         window.hydra = new Hydra({canvas: this.hydraRef.current});
     }
 
-    render() {
-        var tidal = getTidalCyclesCode(this.props);
-        var hydra = getHydraCode(this.props, "add");
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        console.log('render');
+
+        var tidal = getTidalCyclesCode(nextProps);
+        var hydra = getHydraCode(nextProps, "add");
 
         if (this.tidalCode != tidal) {
             console.log('tidal:', tidal);
@@ -39,8 +41,12 @@ export default class Render extends Component {
 
         this.tidalCode = tidal;
         this.hydraCode = hydra;
+        return false;
+    }
+
+    render() {
         return (
-            <div key={uniqueId()} id="Render" className={"Render"}>
+            <div id="Render" className={"Render"}>
                 <canvas id="hydra" ref={this.hydraRef}></canvas>
             </div>
         )
