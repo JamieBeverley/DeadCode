@@ -7,8 +7,15 @@
     border-radius: var(--border-radius);
     color: var(--font-color-dark);
     background-color: var(--stem-off);
-    transition: background 0.25s linear;
+    transition: background 0.0s linear;
     margin-bottom:5px;
+    outline: none;
+}
+
+
+.flash {
+    transition: all 0.125s linear;
+    background-color: var(--stem-on) !important;
 }
 
 .CodeEditor > * {

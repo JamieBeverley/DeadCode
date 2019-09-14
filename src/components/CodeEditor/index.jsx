@@ -9,9 +9,9 @@ export default class CodeEditor extends Component {
     constructor(props){
         super(props);
 
-        this.textAreaRef = React.createRef();
         this.state = {code:this.props.code};
         this.updateCode = debounce(this.props.onChange, 1000);
+        this.flashTimeout = null;
     }
 
     render(){
@@ -28,7 +28,7 @@ export default class CodeEditor extends Component {
                 <Button color='primary' disabled={this.props.live} onClick={(e)=>{this.updateCode.bind(this)(e.target.value)}} variant='outlined'>eval</Button>
 
                 <textarea
-                    ref={this.textAreaRef}
+                    className={this.state.flash?'flash':''}
                     onKeyPress={this.onKeyPress.bind(this)}
                     onChange={(e)=>{
                         this.setState({code:e.target.value});
@@ -48,12 +48,9 @@ export default class CodeEditor extends Component {
             if(e.key==='Enter'){
                 e.preventDefault();
                 this.props.onChange(this.state.code);
-                // this.props.globalActions.updateStem(this.props.trackId, this.props.id, {code:this.state.code});
-                // TODO hmmm...
-                if(this.textAreaRef.current){
-                    this.textAreaRef.current.classList.add('flash');
-                    setTimeout(()=>{this.textAreaRef.current.classList.remove('flash')},250);
-                }
+                clearTimeout(this.flashTimeout);
+                this.setState({flash:true});
+                this.flashTimeout =  setTimeout(()=>{this.setState({flash:false})},1);
             }
         }
     }

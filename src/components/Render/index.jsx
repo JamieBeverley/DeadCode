@@ -2,7 +2,11 @@ import React, {PureComponent} from 'react'
 import './index.css'
 import Connection from "../../Connection";
 import {getHydraCode} from "../../renderers/Hydra";
-import {getTidalCyclesCode} from '../../renderers/TidalCycles'
+import {
+    getTidalCyclesCode,
+    renderTidalCyclesBootScript,
+    renderTidalCyclesTempoChange
+} from '../../renderers/TidalCycles'
 import uniqueId from 'lodash'
 
 import Hydra from 'hydra-synth'
@@ -11,6 +15,8 @@ export default class Render extends PureComponent {
     constructor(props) {
         super(props);
         this.hydraRef = React.createRef();
+        this.tempo = '';
+        this.bootScript = props.bootScript;
         this.tidalCode = '';
         this.hydraCode = '';
     }
@@ -24,6 +30,14 @@ export default class Render extends PureComponent {
 
         var tidal = getTidalCyclesCode(nextProps);
         var hydra = getHydraCode(nextProps, "add");
+
+        if(this.tempo!==nextProps.tempo){
+            renderTidalCyclesTempoChange(nextProps)
+        }
+
+        if(this.bootScript!==nextProps.bootScript){
+            renderTidalCyclesBootScript(nextProps)
+        }
 
         if (this.tidalCode != tidal) {
             console.log('tidal:', tidal);

@@ -11,7 +11,9 @@ import Connection from "../Connection";
 // }
 
 
-
+export function renderTidalCyclesBootScript(state){
+    Connection.sendCode(state.bootScript);
+}
 
 export function renderTidalCyclesTempoChange(state){
     Connection.sendCode(getTempoCode(state));
