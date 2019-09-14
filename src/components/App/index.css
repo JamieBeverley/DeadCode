@@ -59,7 +59,10 @@
     --select-color: white;
 }
 
-
+#root{
+    width:100%;
+    height:100%;
+}
 
 .App{
     height:100%;

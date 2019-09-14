@@ -6,6 +6,7 @@
     box-sizing: border-box;
     background-color: var(--stem-editor-color);
     color: var(--font-color-dark);
+    overflow-y: scroll;
 }
 
 .StemEditor > * {

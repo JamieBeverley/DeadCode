@@ -1,10 +1,16 @@
 
 .Render{
-    position: absolute;
-    height:100%;
+    position: relative;
+    height:25%;
     width:100%;
-    z-index: 999999999;
-    pointer-events: none;
+    box-sizing: border-box;
+    border-top: 1pt solid var(--stem-on);
+}
+
+.Render > iframe {
+    border:1pt solid var(--stem-editor-color);
+    box-sizing: border-box;
+    height: 100%;
 }
 
 

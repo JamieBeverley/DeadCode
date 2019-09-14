@@ -18,8 +18,10 @@ export default class App extends Component{
         return (
             <div className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
                 <LaunchSpace/>
-                <Flyout/>
-                <Render/>
+                <div style={{height:'100%'}}>
+                    <Flyout/>
+                    <Render/>
+                </div>
             </div>
         )
     }

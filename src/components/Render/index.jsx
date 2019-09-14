@@ -14,7 +14,7 @@ import Hydra from 'hydra-synth'
 export default class Render extends PureComponent {
     constructor(props) {
         super(props);
-        this.hydraRef = React.createRef();
+        this.iframeRef = React.createRef();
         this.tempo = '';
         this.bootScript = props.bootScript;
         this.tidalCode = '';
@@ -22,11 +22,9 @@ export default class Render extends PureComponent {
     }
 
     componentDidMount() {
-        window.hydra = new Hydra({canvas: this.hydraRef.current});
     }
 
     shouldComponentUpdate(nextProps, nextState, nextContext) {
-        console.log('render');
 
         var tidal = getTidalCyclesCode(nextProps);
         var hydra = getHydraCode(nextProps, "add");
@@ -44,25 +42,35 @@ export default class Render extends PureComponent {
             Connection.sendCode(tidal);
         }
 
-        if (this.hydraCode != hydra) {
-            console.log('hydra:', hydra);
-            try {
-                eval(hydra)
-            } catch (e) {
-                console.warn('Hydra ERR:', e)
-            }
-        }
 
         this.tidalCode = tidal;
         this.hydraCode = hydra;
+
+        if(this.iframeRef.current && this.iframeRef.current.contentWindow){
+            const msg = {tidalcycles:tidal,hydra}
+            this.iframeRef.current.contentWindow.postMessage(msg);
+            if(this.poppedOut){
+                this.poppedOut.postMessage(msg);
+            }
+            // debugger;
+        }
         return false;
     }
 
     render() {
         return (
-            <div id="Render" className={"Render"}>
-                <canvas id="hydra" ref={this.hydraRef}></canvas>
+            <div className="Render">
+                <button onClick={this.popoutRender.bind(this)}>popout</button>
+                <iframe ref={this.iframeRef} src={"/render"}/>
             </div>
         )
+    }
+
+    popoutRender(){
+        console.log("??")
+        // this.poppedOut = this.iframeRef.current.cloneNode(false);
+        // document.appendChild(this.poppedOut);
+        this.poppedOut = window.open("/render");
+        console.log(this.poppedOut)
     }
 }
