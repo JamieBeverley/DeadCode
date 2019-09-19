@@ -11,6 +11,7 @@
     border:1pt solid var(--stem-editor-color);
     box-sizing: border-box;
     height: 100%;
+    width: 100%;
 }
 
 

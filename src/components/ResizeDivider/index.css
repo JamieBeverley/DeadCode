@@ -1,0 +1,15 @@
+.ResizeDivider{
+    background-color: var(--stem-off);
+}
+
+.horizontal{
+    width:100%;
+    height:5px;
+    cursor: n-resize;
+}
+
+.vertical{
+    height:100%;
+    width:5px;
+    cursor: e-resize;
+}

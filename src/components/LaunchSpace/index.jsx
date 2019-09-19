@@ -14,7 +14,7 @@ export default class LaunchSpace extends Component {
             return (<Track key={x.id} {...x} />)
         });
         return (
-            <div className="LaunchSpace" tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
+            <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
                 {tracks}
                 <PlusButton onClick={this.newTrack.bind(this)} style={{display:'inline-block',top:'0px',width:'50px',minWidth:'50px',height:'30px',margin:'5px'}}/>
             </div>

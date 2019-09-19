@@ -42,6 +42,14 @@
 /*    --select-color: rgb(200,200,200);*/
 /*}*/
 
+#rightPanel{
+    display:flex;
+    flex-flow: column;
+    resize: horizontal;
+    /*height:100%;*/
+    /*display: block;*/
+}
+
 
 /* img purp */
 :root {

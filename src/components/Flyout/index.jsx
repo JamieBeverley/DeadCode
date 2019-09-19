@@ -140,8 +140,9 @@ export default class Flyout extends Component{
             return {tab, content}
         });
 
+
         return (
-            <div className='Flyout'>
+            <div className='Flyout' style={this.props.style}>
                 <div className={'scrollbarHidden'}>
                     <div className={'TabContainer'}>
                         <Tab
@@ -155,9 +156,9 @@ export default class Flyout extends Component{
                 </div>
                 <div className={'content'}>
                     <MasterEditor
+                        {...this.props}
                         value={'master'}
                         style={{display:this.state.tab==='master'?'block':'none'}}
-                        {...this.props}
                     />
                     {tabs.map(x=>x.content)}
                 </div>

@@ -28,10 +28,10 @@ export default class AudienceRender extends Component{
         return (
             <div className={'AudienceRender'}>
                 <canvas ref={this.hydraRef}></canvas>
-                <div id='tidalcycles'>
+                <div id='tidalcycles' className="column">
                     {this.props.tidalcycles}
                 </div>
-                <div id='hydra'>
+                <div id='hydra' className="column">
                     {this.props.hydra}
                 </div>
             </div>
