@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import './index.css'
 import Connection from "../../Connection";
-import {getHydraCode} from "../../renderers/Hydra";
-import {
-    getTidalCyclesCode,
-    renderTidalCyclesBootScript,
-    renderTidalCyclesTempoChange
-} from '../../renderers/TidalCycles'
+import {getHydraCode} from "../../Renderers/Hydra";
+// import {
+//     getTidalCyclesCode,
+//     renderTidalCyclesBootScript,
+//     renderTidalCyclesTempoChange
+// } from '../../renderers/TidalCycles'
+import {Renderers} from "../../Renderers";
+
+
 import uniqueId from 'lodash'
 
 import Hydra from 'hydra-synth'
@@ -19,6 +22,7 @@ export default class Render extends Component {
         this.bootScript = props.bootScript;
         this.tidalCode = '';
         this.hydraCode = '';
+        this.poppedOut = [];
     }
 
     componentDidMount() {
@@ -27,43 +31,43 @@ export default class Render extends Component {
 
 
     render() {
-        var tidal = getTidalCyclesCode(this.props);
-        var hydra = getHydraCode(this.props, "add");
-        let send = false;
+        var tidal = Renderers.TidalCycles.getCode(this.props);
+        // var hydra = Renderers.Hydra.getCode(this.props, "add");
+        // let send = false;
 
         if(this.tempo!==this.props.tempo){
-            renderTidalCyclesTempoChange(this.props)
+            Connection.sendCode(Renderers.TidalCycles.getTempoCode(this.props));
             this.tempo = this.props.tempo;
         }
 
         if(this.bootScript!==this.props.bootScript){
-            renderTidalCyclesBootScript(this.props)
+            Connection.sendCode(this.props.bootScript);
             this.bootScript = this.props.bootScript;
         }
 
         if (this.tidalCode != tidal) {
-            send=true;
+            // send=true;
             console.log('tidal:', tidal);
             Connection.sendCode(tidal);
         }
-        if(hydra!==this.hydraCode){
-            send=true;
-        }
+
+        // if(hydra!==this.hydraCode){
+        //     send=true;
+        // }
 
 
         this.tidalCode = tidal;
-        this.hydraCode = hydra;
+        // this.hydraCode = hydra;
 
-        if(send && this.iframeRef.current && this.iframeRef.current.contentWindow){
-            const msg = {tidalcycles:tidal,hydra}
-            this.iframeRef.current.contentWindow.postMessage(msg);
-            if(this.poppedOut){
-                this.poppedOut.postMessage(msg);
-            }
+        if(this.iframeRef.current && this.iframeRef.current.contentWindow){
             // debugger;
+            const msg = JSON.parse(JSON.stringify(this.props));
+            this.iframeRef.current.contentWindow.postMessage({state:msg});
+            if(this.poppedOut.length){
+                this.poppedOut.forEach(iframe=>{iframe.postMessage({state:msg})});
+            }
         }
 
-        console.log(this.props.style)
 
         return (
             <div className="Render" style={this.props.style}>
@@ -76,10 +80,6 @@ export default class Render extends Component {
     }
 
     popoutRender(){
-        console.log("??")
-        // this.poppedOut = this.iframeRef.current.cloneNode(false);
-        // document.appendChild(this.poppedOut);
-        this.poppedOut = window.open("/render");
-        console.log(this.poppedOut)
+        this.poppedOut.push(window.open("/render"));
     }
 }

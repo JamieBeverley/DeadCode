@@ -34,6 +34,10 @@
     pointer-events: none;
 }
 
+.column {
+    float:left;
+}
+
 /*.Render > iframe {*/
 /*    height:100%;*/
 /*    width: 100%;*/

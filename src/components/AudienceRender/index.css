@@ -12,16 +12,23 @@
     z-index: 0;
 }
 
+.AudienceRender > .code{
+    display:flex;
+    text-align: left;
+}
+
+.column{
+    width:100%;
+}
+
 #tidalcycles{
     margin:20px;
-    text-align: center;
     color: white;
     z-index: 1;
     position: relative;
 }
 
 #hydra{
-    text-align: center;
     margin:20px;
     color: white;
     z-index: 1;

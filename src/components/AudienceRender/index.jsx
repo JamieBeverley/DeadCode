@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import Hydra from "hydra-synth";
 import './index.css'
-export default class AudienceRender extends Component{
+import {Renderers} from "../../Renderers";
 
-    constructor(props){
+export default class AudienceRender extends Component {
+
+    constructor(props) {
         super(props)
         this.hydraRef = React.createRef();
-        this.hydra = this.props.hydra;
+
+        this.hydraCode = '';
     }
 
     componentDidMount() {
@@ -15,24 +18,36 @@ export default class AudienceRender extends Component{
     }
 
 
-    render(){
+    render() {
 
-        if(this.props.hydra!==this.hydra){
-            try{
-                eval(this.props.hydra);
-            } catch(e){
-                console.warn("Hydra ERR:",e);
+        let hydraDom;
+        let tidalDom;
+        if (this.props.tracks) {
+            // debugger;
+            hydraDom = Renderers.Hydra.getAudienceDom(this.props);
+            tidalDom = Renderers.TidalCycles.getAudienceDom(this.props);
+
+            const hydraCode = Renderers.Hydra.getCode(this.props);
+            if (hydraCode !== this.hydraCode) {
+                try {
+                    eval(hydraCode);
+                } catch (e) {
+                    console.warn("Hydra ERR:", e);
+                }
+                this.hydraCode = hydraCode;
             }
-            this.hydra = this.props.hydra;
         }
+
         return (
             <div className={'AudienceRender'}>
                 <canvas ref={this.hydraRef}></canvas>
-                <div id='tidalcycles' className="column">
-                    {this.props.tidalcycles}
-                </div>
-                <div id='hydra' className="column">
-                    {this.props.hydra}
+                <div className={"code"}>
+                    <div id='tidalcycles' className="column">
+                        {tidalDom}
+                    </div>
+                    <div id='hydra' className="column">
+                        {hydraDom}
+                    </div>
                 </div>
             </div>
         )

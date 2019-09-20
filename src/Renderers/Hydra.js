@@ -1,11 +1,9 @@
-import React from "react";
-export const Hydra = {
-    language:'Hydra',
-    getCode,
-    getAudienceDom,
 
+export const Hydra = {
+    name:'Hydra',
+    getCode,
     trackToCode,
-    stemToCode,
+    stemToCode
 };
 
 
@@ -15,10 +13,6 @@ export const Hydra = {
 //     console.log(code);
 //     eval(code);
 // }
-
-function getAudienceDom(state){
-    return <div>{Hydra.getCode(state,"add")}</div>
-}
 
 function getCode(fullState, mixMethod){
     let tracksCode = fullState.tracks.map((x)=>{return trackToCode(x,mixMethod)}).filter(x=>x!==null);

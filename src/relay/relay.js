@@ -28,7 +28,7 @@ var defaultFeedbackFunction = function(x) {
 }
 
 var tidal = spawn('ghci', ['-XOverloadedStrings'])
-// var bootTidal = "~/.atom/packages/tidalcylces/lib/BootTidal.hs"
+// var bootTidal = "~/.atom/packages/TidalCycles/lib/BootTidal.hs"
 var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.hs"
 
 tidal.on('close', function (code) {

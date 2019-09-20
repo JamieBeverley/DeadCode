@@ -81,7 +81,7 @@ State.getDefaultStem = function  (trackId){
         selected:false,
         open:false,
         live:false,
-        language:'TidalCylces',
+        language:'TidalCycles',
         code:"",
         effects: State.getDefaultEffects()
     }

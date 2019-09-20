@@ -1,0 +1,21 @@
+.code{
+    background-color: rgba(0,0,0,0.5);
+}
+
+.trackCode{
+    padding-top:20px;
+    /*background-color: rgba(0,0,0,0.5);*/
+    padding-left:20px;
+    position: relative;
+}
+
+.stemCode {
+    padding-left:20px;
+    position: relative;
+    /*background-color: rgba(0,0,0,0.2);*/
+    width:auto;
+}
+
+.effectCode {
+    display: inline-block;
+}
