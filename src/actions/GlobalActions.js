@@ -3,7 +3,6 @@ import {store} from '../index.js';
 import Connection from "../Connection";
 import {uniqueId} from 'lodash';
 import State from '../reducers/State.js'
-// import {renderBootScript, renderTempoChange,renderState} from '../render'
 
 
 function reassignIDs(obj){
@@ -22,11 +21,6 @@ const GlobalActions = dispatch=> {
         connect: (url,port)=>{
             let onOpen = ()=>{
                 dispatch(Actions.CONNECT(url,port,true));
-
-                let state = store.getState();
-                // renderTempoChange(state)
-                // renderBootScript(state)
-
             };
             let onClose = ()=>{dispatch(Actions.CONNECT(url,port,false))};
             let onError = onClose;
@@ -34,15 +28,9 @@ const GlobalActions = dispatch=> {
         },
         updateTempo: (tempo)=>{
             dispatch(Actions.UPDATE_TEMPO(tempo));
-            // renderTempoChange(store.getState());
         },
         updateBootScript:(bootScript) =>{
             dispatch(Actions.UPDATE_BOOT_SCRIPT(bootScript));
-            let state = store.getState();
-            // renderBootScript(state);
-            // renderState(state);
-            // Connection.sendCode(state.bootScript);
-            // Connection.sendCode(getCode(state));
         },
         copyStems:(x)=>{
             dispatch(Actions.COPY_STEMS(x))

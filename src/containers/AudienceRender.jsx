@@ -13,7 +13,6 @@ export default class AudienceRender extends Component{
             console.log(e.data);
             if(e.origin!== window.location.origin) return;
             this.setState(e.data.state);
-            // this.setState({tidalcycles:e.data.tidalcycles, hydra:e.data.hydra})
         })
     }
 

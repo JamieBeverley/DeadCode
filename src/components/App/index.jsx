@@ -3,7 +3,7 @@ import LaunchSpace from '../../containers/LaunchSpace.jsx';
 import Flyout from '../../containers/Flyout.jsx';
 import Render from '../../containers/Render'
 import './index.css';
-import ResizeDivider from "../ResizeDivider";
+// import ResizeDivider from "../ResizeDivider";
 
 export default class App extends Component{
 
@@ -21,6 +21,7 @@ export default class App extends Component{
     }
 
     render(){
+        console.log('app render');
         return (
             <div
                 onDragOver={(e)=>{e.preventDefault()}}

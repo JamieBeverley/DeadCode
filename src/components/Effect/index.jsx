@@ -1,7 +1,6 @@
-import React, {Component, PureComponent} from 'react';
+import React, {Component} from 'react';
 import './index.css'
 import {Grid, Slider, Switch,Input} from '@material-ui/core';
-import debounce from 'lodash/debounce'
 import throttle from 'lodash/throttle'
 
 // import Slider from 'rc-slider'

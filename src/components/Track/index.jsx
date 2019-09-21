@@ -6,11 +6,16 @@ import Effect from "../Effect";
 
 
 export default class Track extends Component{
-    constructor(props){
-        super(props)
+
+    shouldComponentUpdate(nextProps, nextState){
+        return JSON.stringify(nextProps) != JSON.stringify(this.props);
+        debugger
+        return nextProps!==this.props;
     }
 
+
     render(){
+        console.log('track render')
         let stems = this.props.stems.map(x=>{
             x.globalActions = this.props.globalActions;
             return (<Stem key={x.id} {...x}/>)

@@ -1,11 +1,9 @@
 import React, {Component} from 'react'
 import './index.css'
-import {Button, Switch} from "@material-ui/core";
+import {Button} from "@material-ui/core";
 import Effect from "../Effect";
 import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import {languages} from "../../reducers/State";
 
 

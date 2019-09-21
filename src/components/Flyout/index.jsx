@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
-import CloseIcon from '@material-ui/icons/Close';
 import './index.css'
 import MasterEditor from '../MasterEditor'
 import StemEditor from "../StemEditor";
-
-
 
 // const CustomTab = withStyles({
 //     root: {
@@ -41,23 +38,22 @@ import StemEditor from "../StemEditor";
 //         </div>
 //     )
 // });
-
-class TabBar extends Component {
-    constructor (props){
-        super(props)
-    }
-
-    render(){
-        return (
-            <div className='TabBar'> this.props.label</div>
-        )
-    }
-}
+// class TabBar extends Component {
+//     constructor (props){
+//         super(props)
+//     }
+//
+//     render(){
+//         return (
+//             <div className='TabBar'> this.props.label</div>
+//         )
+//     }
+// }
 
 class Tab extends Component {
-    constructor (props){
-        super(props)
-    }
+    // constructor (props){
+    //     super(props)
+    // }
 
     render(){
         return (

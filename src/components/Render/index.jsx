@@ -1,18 +1,7 @@
 import React, {Component} from 'react'
 import './index.css'
 import Connection from "../../Connection";
-import {getHydraCode} from "../../Renderers/Hydra";
-// import {
-//     getTidalCyclesCode,
-//     renderTidalCyclesBootScript,
-//     renderTidalCyclesTempoChange
-// } from '../../renderers/TidalCycles'
 import {Renderers} from "../../Renderers";
-
-
-import uniqueId from 'lodash'
-
-import Hydra from 'hydra-synth'
 
 export default class Render extends Component {
     constructor(props) {
@@ -45,16 +34,10 @@ export default class Render extends Component {
             this.bootScript = this.props.bootScript;
         }
 
-        if (this.tidalCode != tidal) {
-            // send=true;
+        if (this.tidalCode !== tidal) {
             console.log('tidal:', tidal);
             Connection.sendCode(tidal);
         }
-
-        // if(hydra!==this.hydraCode){
-        //     send=true;
-        // }
-
 
         this.tidalCode = tidal;
         // this.hydraCode = hydra;
@@ -74,7 +57,7 @@ export default class Render extends Component {
                 <svg onClick={this.popoutRender.bind(this)} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                     <path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/>
                 </svg>
-                <iframe ref={this.iframeRef} src={"/render"}/>
+                <iframe title={"Audience Render"} ref={this.iframeRef} src={"/render"}/>
             </div>
         )
     }

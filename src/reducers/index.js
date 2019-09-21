@@ -1,10 +1,9 @@
 import Actions from '../actions'
-import {uniqueId} from 'lodash';
 import State from './State'
 
 
 export default (state = State.defaultState, action) =>{
-    let oldTrack, newTrack, oldFlyout,newFlyout,newState;
+    let oldTrack, newTrack, newState;
 
     switch (action.type){
         case Actions.Types.CONNECT:
@@ -48,9 +47,9 @@ export default (state = State.defaultState, action) =>{
                 return {trackIndex, stemIndex}
             }
 
-            function insertAt(list,pos, item){
-                return list.slice(0,pos).concat([item]).concat(list.slice(pos));
-            }
+            // function insertAt(list,pos, item){
+            //     return list.slice(0,pos).concat([item]).concat(list.slice(pos));
+            // }
 
 
             function pasteStemAtPosition(state, stem, pos){
@@ -115,21 +114,52 @@ export default (state = State.defaultState, action) =>{
                 tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
             });
         case Actions.Types.UPDATE_STEM:
-            oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
+            const index = state.tracks.findIndex(x=>{return x.id === action.trackId});
+            oldTrack = state.tracks[index];
+
             newTrack = Object.assign({},oldTrack,{
                 stems: [...oldTrack.stems].map(x=>{
                     if(x.id===action.stemId){
-                        if(x.open !== action.value.open){
-                            newFlyout = x.id+'_'+x.trackId;
-                        }
                         return Object.assign({}, x, action.value);
                     }
                     return x
                 })
             });
-            return Object.assign({}, state, {
-                tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
-            });
+            const newTracks = [...state.tracks];
+            // const newTracks = Object.assign({},state.tracks);
+            newTracks[index] = newTrack;
+            newState = Object.assign({},state);
+            newState.tracks = newTracks;
+            return newState
+            // state.tracks = newTracks;
+            // state.tracks[index] = newTrack;
+
+            // oldTrack.stems = oldTrack.stems.map(x=>{
+            //     if(x.id===action.stemId){
+            //         return Object.assign({}, x, action.value);
+            //     }
+            //     return x
+            // });
+            // state.tracks[index] = oldTrack;
+
+            // return state;
+            // debugger;
+            return Object.assign({},state);
+
+
+
+            // const oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
+            // newTrack = Object.assign({},oldTrack,{
+            //     stems: [...oldTrack.stems].map(x=>{
+            //         if(x.id===action.stemId){
+            //             return Object.assign({}, x, action.value);
+            //         }
+            //         return x
+            //     })
+            // });
+            // return Object.assign({}, state, {
+            //     tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
+            // });
         case Actions.Types.UPDATE_MASTER_EFFECT:
             let i = state.masterEffects.findIndex(x=>x.id===action.value.id);
             state.masterEffects[i] = action.value;
@@ -152,8 +182,6 @@ export default (state = State.defaultState, action) =>{
             return state;
         default:
             console.warn('Unrecognized or unimplemented action: '+action.type);
-            console.log(Actions.Types);
-            console.log(action);
             return state;
     }
 }

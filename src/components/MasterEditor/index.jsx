@@ -1,11 +1,8 @@
 import React, {Component} from 'react'
 import './index.css'
-import {Switch, TextField, Button} from '@material-ui/core';
+import {TextField} from '@material-ui/core';
 import debounce from 'lodash/debounce'
-
-
 import Effect from '../Effect';
-import {uniqueId} from "lodash";
 import CodeEditor from "../CodeEditor";
 
 export default class MasterEditor extends Component {

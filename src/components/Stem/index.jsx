@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import './index.css'
-import throttle from 'lodash/throttle'
 
 export default class Stem extends Component{
     constructor (props){

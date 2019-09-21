@@ -4,15 +4,15 @@ import './index.css';
 import PlusButton from "../util/PlusButton/PlusButton";
 
 export default class LaunchSpace extends Component {
-    constructor(props){
-        super(props);
+
+    trackToDom(x){
+        x.globalActions = this.props.globalActions;
+        return (<Track key={x.id} {...x} />)
     }
 
     render(){
-        let tracks = this.props.tracks.map(x=>{
-            x.globalActions = this.props.globalActions;
-            return (<Track key={x.id} {...x} />)
-        });
+        console.log('render launch space')
+        let tracks = this.props.tracks.map(this.trackToDom.bind(this));
         return (
             <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
                 {tracks}

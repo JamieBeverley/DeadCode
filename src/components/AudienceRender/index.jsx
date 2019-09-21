@@ -29,7 +29,7 @@ export default class AudienceRender extends Component {
 
             const hydraCode = Renderers.Hydra.getCode(this.props);
             if (hydraCode !== this.hydraCode) {
-                try {
+                try {;
                     eval(hydraCode);
                 } catch (e) {
                     console.warn("Hydra ERR:", e);
