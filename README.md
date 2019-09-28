@@ -31,8 +31,13 @@ yarn start
 To evaluate TidalCylces code, Dead connects to a small NodeJS WebSocket server application (run locally on 
 your machine) that receives TidalCycles code from the browser, and pipes it to the Haskell interpreter.
 
-To run the NodeJS relay:
+To run the NodeJS relay (in a new terminal):
 ```bash
-node src/relay/realy.js
+cd src/relay
+npm install
+node relay.js
 ```
+
+By default relay.js looks to `~/.atom/packages/TidalCycles/lib/BootTidal.hs` for the Tidal boot script. 
+You can specify a path to a different location with: `node relay.js --bootTidal some/new/path/BootTidal.hs`.
 

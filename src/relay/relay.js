@@ -1,24 +1,22 @@
-// const WebSocket = require('ws');
-// const wss = new WebSocket.Server({address:"127.0.0.1", port: 8001 });
-//
-// wss.on('connection', function connection(ws) {
-//   console.log('new connection')
-//   ws.on('message', function incoming(message) {
-//     console.log('received: %s', message);
-//   });
-//
-//   ws.send('something');
-// });
-//
-
-
-// const fs = require('fs');
 const spawn = require('child_process').spawn;
 const http = require('http');
 const WebSocket = require('ws');
 const fs = require('fs')
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
+
+
+// Cmdline opts
+var nopt = require('nopt');
+var path = require('path');
+var knownOpts = {'bootTidal':path};
+var parsed = nopt(knownOpts, {},process.argv);
+
+
+// Tidal bootscript path
+const homedir = require('os').homedir()
+var bootTidal = parsed.bootTidal || homedir+"/.atom/packages/TidalCycles/lib/BootTidal.hs"
+
 
 // var output = process.stdout;
 var stdin = process.stdin;
@@ -27,10 +25,9 @@ var defaultFeedbackFunction = function(x) {
   stderr.write(x);
 }
 
-var tidal = spawn('ghci', ['-XOverloadedStrings'])
-// var bootTidal = "~/.atom/packages/TidalCycles/lib/BootTidal.hs"
-var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.hs"
-
+var tidal = spawn('ghci', ['-XOverloadedStrings']);
+// var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.hs"
+console.log(bootTidal)
 tidal.on('close', function (code) {
   stderr.write('Tidal process exited with code ' + code + "\n");
 });
