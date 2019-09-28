@@ -11,7 +11,6 @@ export default class LaunchSpace extends Component {
     }
 
     render(){
-        console.log('render launch space')
         let tracks = this.props.tracks.map(this.trackToDom.bind(this));
         return (
             <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
@@ -24,7 +23,6 @@ export default class LaunchSpace extends Component {
     onKeyUp(e){
         if(e.key.toLowerCase()==='delete'){
             let selectedStems = this.props.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
-            console.log(selectedStems)
             selectedStems.forEach(x=>{this.props.globalActions.removeStem(x.trackId,x.id)});
         } else if (e.ctrlKey && e.key.toLowerCase()==='c'){
             this.props.globalActions.copyStems();

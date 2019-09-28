@@ -8,7 +8,6 @@ import throttle from 'lodash/throttle'
 // export class Filter extends React.Component {
 //     constructor(props) {
 //         super(props)
-//         console.log('fuck')
 //         const { value } = this.props
 //         this.state = { value }
 //     }
@@ -139,7 +138,6 @@ export default class Effect extends Component {
                             onChange={(e,newValue)=>{
                                 if(newValue){
                                     this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
-                                    console.log(this.state)
                                     this.updateState(e,newValue);
                                 }
                             }}

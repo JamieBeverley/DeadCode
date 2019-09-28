@@ -15,7 +15,6 @@ export default class Track extends Component{
 
 
     render(){
-        console.log('track render')
         let stems = this.props.stems.map(x=>{
             x.globalActions = this.props.globalActions;
             return (<Stem key={x.id} {...x}/>)

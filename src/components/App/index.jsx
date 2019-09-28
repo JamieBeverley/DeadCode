@@ -21,7 +21,6 @@ export default class App extends Component{
     }
 
     render(){
-        console.log('app render');
         return (
             <div
                 onDragOver={(e)=>{e.preventDefault()}}

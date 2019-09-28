@@ -1,23 +1,14 @@
 import React from "react";
+import "./index.css";
 export const Hydra = {
     language:'Hydra',
     getCode,
     getAudienceDom,
-
-    trackToCode,
-    stemToCode,
 };
 
 
-// export function renderHydra(state){
-//     let mixMethod = 'add';
-//     let code = getHydraCode(state,mixMethod);
-//     console.log(code);
-//     eval(code);
-// }
-
 function getAudienceDom(state){
-    return <div>{Hydra.getCode(state,"add")}</div>
+    return <div className={'code'}>{Hydra.getCode(state,"add")}</div>
 }
 
 function getCode(fullState, mixMethod){

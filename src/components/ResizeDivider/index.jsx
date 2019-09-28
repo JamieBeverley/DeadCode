@@ -30,7 +30,6 @@ export default class ResizeDivider extends Component {
         if(!this.ignore){
             const val = this.props.horizontal?e.clientY:e.clientX;
             if(val<=0) return;
-            console.log(val);
             this.props.onResize(val);
         } else{
             this.ignore=false;
@@ -43,7 +42,6 @@ export default class ResizeDivider extends Component {
 
     onMouseMove(x){
         if(this.state.mouseDown){
-            console.log(x.clientX)
         }
     }
 

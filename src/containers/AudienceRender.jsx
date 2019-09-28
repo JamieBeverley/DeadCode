@@ -10,7 +10,6 @@ export default class AudienceRender extends Component{
 
     componentDidMount() {
         window.addEventListener('message',(e)=>{
-            console.log(e.data);
             if(e.origin!== window.location.origin) return;
             this.setState(e.data.state);
         })
