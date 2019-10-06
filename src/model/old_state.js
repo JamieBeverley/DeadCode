@@ -157,7 +157,7 @@ State.getDefaultEffect = function (name='gain'){
         max:1,
         step:0.01
     }
-}
+};
 
 
 

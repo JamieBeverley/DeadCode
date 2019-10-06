@@ -1,5 +1,6 @@
 import Actions from '../actions'
-import State from './State'
+// import State from '../model/State'
+import State from '../model'
 
 
 export default (state = State.defaultState, action) =>{

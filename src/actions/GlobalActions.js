@@ -1,20 +1,8 @@
 import Actions from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
-import {uniqueId} from 'lodash';
-import State from '../reducers/State.js'
-
-
-function reassignIDs(obj){
-    for (let i in obj){
-        if(i==='id'){
-            obj[i] = uniqueId();
-        } else if(typeof obj[i] === 'object'){
-            obj[i] = reassignIDs(obj[i]);
-        }
-    }
-    return obj
-}
+import State from '../model/State.js'
+import Id from "../model/Id";
 
 const GlobalActions = dispatch=> {
     return {
@@ -84,7 +72,7 @@ const GlobalActions = dispatch=> {
             let newState = window.localStorage.getItem('state');
             if(newState){
                 newState = JSON.parse(newState);
-                newState = reassignIDs(newState);
+                Id.init(newState);
                 newState.tracks.forEach(track=>{
                     track.stems.forEach(stem=>{
                         stem.trackId = track.id

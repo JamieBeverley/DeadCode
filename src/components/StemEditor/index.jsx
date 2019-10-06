@@ -4,7 +4,7 @@ import {Button} from "@material-ui/core";
 import Effect from "../Effect";
 import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
-import {languages} from "../../reducers/State";
+import {languages} from "../../model/State";
 
 
 export default class StemEditor extends Component {
