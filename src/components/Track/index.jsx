@@ -9,7 +9,6 @@ export default class Track extends Component{
 
     shouldComponentUpdate(nextProps, nextState){
         return JSON.stringify(nextProps) != JSON.stringify(this.props);
-        debugger
         return nextProps!==this.props;
     }
 
@@ -32,7 +31,7 @@ export default class Track extends Component{
                     <div className={'launchButton'}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="var(--font-color-dark)" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
                     </div>
-                    <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} {...this.props.effects[0]}/>
+                    <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} {...this.props.gainEffect}/>
                 </div>
 
             </div>
@@ -40,14 +39,8 @@ export default class Track extends Component{
     }
 
 
-    updateEffect(newEffect){
-        let newEffects = this.props.effects.map(x=>{
-            if(x.id===newEffect.id){
-                return newEffect
-            }
-            return x
-        });
-        this.props.globalActions.updateTrack({id:this.props.id,effects:newEffects})
+    updateEffect(gainEffect){
+        this.props.globalActions.updateTrack({id:this.props.id,gainEffect})
     }
 
     addStem(){

@@ -1,5 +1,6 @@
 import React from "react";
 import './index.css';
+import Model from "../../model";
 
 export const TidalCycles = {
     language: 'TidalCycles',
@@ -39,7 +40,7 @@ function getAudienceDom(state){
     let tracks = state.tracks.map(trackToDom).filter(x=>x);
     tracks = tracks.map(x=>[x,","]).flat().slice(0,-1);
 
-    let effects = state.masterEffects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
+    let effects = state.master[Model.Languages.TidalCycles].effects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
     effects = effects.map(x=>{return [x," . "]}).flat().slice(0,-1);
 
 
@@ -165,7 +166,7 @@ function getCode(state){
     let tracks = state.tracks.map(trackToCode).filter(x=>x!=='');
     stems += tracks.join(", ")+']';
 
-    let onMasterEffects = state.masterEffects.filter(x=>x.on);
+    let onMasterEffects = state.master[Model.Languages.TidalCycles].effects.filter(x=>x.on);
     let masterEffects = onMasterEffects.map(effectToCode).join(" $ ");
 
     let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;

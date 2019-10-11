@@ -2,21 +2,15 @@ import React, {Component} from 'react'
 import './index.css'
 import {TextField} from '@material-ui/core';
 import debounce from 'lodash/debounce'
-import Effect from '../Effect';
-import CodeEditor from "../CodeEditor";
+import LanguageControls from "./LanguageControls";
 
 export default class MasterEditor extends Component {
     constructor(props){
         super(props);
         this.state = {
             connection:this.props.connection,
-            bootScript:this.props.bootScript,
-            bootScriptLive:false
+            language:Object.keys(this.props.master)[0]
         };
-
-        this.updateBootScript = debounce((x)=>{
-            this.props.globalActions.updateBootScript(x)
-        },4000);
 
         this.connect = debounce(()=>{
             this.props.globalActions.connect(this.state.connection.url, this.state.connection.port)
@@ -27,52 +21,26 @@ export default class MasterEditor extends Component {
         this.props.globalActions.updateMasterEffect(newEffect);
     }
 
+    languageChange(e){
+        this.setState(Object.assign({},this.state,{language:e.target.value}))
+    }
+
     render(){
-        let effects = [];
-        for(let i=0; i < this.props.masterEffects.length; i++){
-            let effect = this.props.masterEffects[i];
-            effects.push(
-                <div key={effect.id} style={{margin:'5px',marginTop:'20px'}}>
-                    <Effect updateEffect={this.updateEffect.bind(this)} {...effect}/>
-                </div>
-                )
-        }
+
+        const languageOpts = Object.keys(this.props.master).map(lang=>{return <option key={lang} value={lang}>{lang}</option>});
 
         return (
             <div className={'MasterEditor'} style={this.props.style}>
-                <div className='separator'>
-                    <h3>Effects</h3>
-                    {effects}
-                </div>
-                 <div className='separator'>
-                    <h3>Tempo</h3>
-                     <Effect
-                         key={Math.random()}
-                         noToggle
-                         name={'Tempo'}
-                         id={'tempo'}
-                         on={true}
-                         scale={'linear'}
-                         operator={''}
-                         min={0}
-                         max={200}
-                         value={this.props.tempo}
-                         step={0.01}
-                         updateEffect={this.changeTempo.bind(this)}
-                     />
 
-                </div>
-                <div className='separator'>
-                    <h3>Boot Script</h3>
-                    <CodeEditor
-                        key={Math.random()}
-                        onChange={(code)=>{this.props.globalActions.updateBootScript(code)}}
-                        onChangeLive={(bootScriptLive)=>{this.setState({bootScriptLive})}}
-                        code={this.props.bootScript}
-                        live={this.state.bootScriptLive}
-                    />
+                <select onChange={this.languageChange.bind(this)} value={this.state.language}>
+                    {languageOpts}
+                </select>
 
-                </div>
+                <LanguageControls
+                    {...this.props.master[this.state.language]}
+                    language={this.state.language}
+                    globalActions={this.props.globalActions}
+                />
 
                 <div className='separator' style={{border:this.props.connection.isConnected?'1pt solid var(--stem-off)':'1pt solid red'}}>
                     <h3>Connection</h3>
@@ -108,15 +76,9 @@ export default class MasterEditor extends Component {
         )
     }
 
-
-    changeTempo(effect){
-        this.props.globalActions.updateTempo(effect.value);
-    }
-
     connect(url=this.props.connection.url, port=this.props.connection.port){
         let connection = {url:url,port:port,isConnected:this.state.isConnected};
         this.setState({connection});
-        // this.props.globalActions.connect(url,port)
         debounce(()=> {
             this.props.globalActions.connect(url, port)
         },3000, {trailing:true})();

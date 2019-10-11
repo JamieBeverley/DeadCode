@@ -1,29 +1,46 @@
 import TrackModel from "./TrackModel";
 import MasterModel from "./MasterModel";
+import Id from "./Id";
 
 
 const languages = ["TidalCycles", "Hydra"];
 
 const master = {
-    'TidalCylces':MasterModel.getNew("TidalCylces",
+    'TidalCycles':MasterModel.getNew("TidalCycles",
         {
             tempo:120
         }),
     'Hydra': MasterModel.getNew("Hydra")
 }
 
-const State = {};
+const Model = {};
 
-State.defaultState = {
+function getNew(name, type, language, on=false, properties){
+    return {
+        name,
+        id:Id.new(),
+        on:false,
+        type,
+        language,
+        properties
+    }
+};
+
+Model.Languages = {
+    TidalCycles: "TidalCycles",
+    Hydra: "Hydra"
+};
+
+Model.defaultState = {
     connection: {
         isConnected:false,
         url:'127.0.0.1',
         port:8001
     },
     copy:null,
-    languages,
+    // languages,
     master,
     tracks:[0,0,0,0,0].map(x=>{return TrackModel.getNew()})
 }
 
-export default State
+export default Model

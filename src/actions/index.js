@@ -1,36 +1,11 @@
 import {store} from '../index.js';
 
-/*
-Actions:
-______________
-add track
-remove track
-add stem
-remove stem
-update stem
-open in flyout
-close in flyout
-save
-load
-
-copy/paste
-move stems around
-move tracks around
- */
-
 const Actions = {};
 
 // MASTER ACTIONS
 Actions.CONNECT = function(url, port, isConnected){
     return {type:'CONNECT', url, port, isConnected}
 };
-
-Actions.UPDATE_TEMPO = function(tempo){
-    return {type:"UPDATE_TEMPO",tempo}
-};
-Actions.UPDATE_BOOT_SCRIPT = function(bootScript){
-    return {type:'UPDATE_BOOT_SCRIPT',bootScript}
-}
 
 // copy's given stems. if no argument copy's selected stems
 Actions.COPY_STEMS = function(opt_stems){
@@ -70,12 +45,12 @@ Actions.UPDATE_TRACK = function(value){
     return {type:'UPDATE_TRACK', value}
 };
 
-Actions.TOGGLE_LIVE = function(value){
-    return {type:'TOGGLE_LIVE',live:value};
-};
+Actions.UPDATE_MASTER = function(language,value){
+    return {type:'UPDATE_MASTER', language, value}
+}
 
-Actions.UPDATE_MASTER_EFFECT = function(value){
-    return {type:'UPDATE_MASTER_EFFECT', value}
+Actions.UPDATE_MASTER_EFFECT = function(effect){
+    return {type:'UPDATE_MASTER_EFFECT', effect}
 }
 
 

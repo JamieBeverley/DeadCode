@@ -25,7 +25,7 @@ let Types = {
 const defaultEffects = {
     'TidalCycles': ()=>{
         return [
-            EffectModel.getNew("gain",EffectModel.Types.SLIDER,"TidalCylces",true,
+            EffectModel.getNew("gain",EffectModel.Types.SLIDER,"TidalCycles",true,
                 {
                     value: 1,
                     operator: "|*",
@@ -34,7 +34,7 @@ const defaultEffects = {
                     step: 0.01,
                     scale: 'linear'
                 }),
-            EffectModel.getNew("lpf",EffectModel.Types.SLIDER,"TidalCylces",false,
+            EffectModel.getNew("lpf",EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
                     value: 22000,
                     operator: "#",
@@ -43,7 +43,7 @@ const defaultEffects = {
                     step: 10,
                     scale: 'log'
                 }),
-            EffectModel.getNew("hpf",EffectModel.Types.SLIDER,"TidalCylces",false,
+            EffectModel.getNew("hpf",EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
                     value: 0,
                     operator: "#",

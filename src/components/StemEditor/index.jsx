@@ -4,7 +4,7 @@ import {Button} from "@material-ui/core";
 import Effect from "../Effect";
 import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
-import {languages} from "../../model/State";
+import Model from "../../model";
 
 
 export default class StemEditor extends Component {
@@ -19,11 +19,6 @@ export default class StemEditor extends Component {
         let effects = [];
         for(let e in this.props.effects){
             let effect = this.props.effects[e];
-            // effects.push(
-            //     <div key={Math.random()} style={{marginTop:'20px'}}>
-            //         <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
-            //     </div>
-            // )
             effects.push(
                     <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
             )
@@ -44,7 +39,7 @@ export default class StemEditor extends Component {
                     onChange={this.handleLanguageChange.bind(this)}
                     name='language'
                 >
-                    {languages.map(x=><option key={x} value={x}>{x}</option>)}
+                    {Object.keys(Model.Languages).map(x=><option key={x} value={x}>{x}</option>)}
                 </select>
 
                 <CodeEditor
@@ -79,14 +74,10 @@ export default class StemEditor extends Component {
     }
 
 
-    updateLive(e){
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id, {live:e.target.checked});
-    }
-
     updateEffect(newEffect){
         let newEffects = this.props.effects.map(x=>{
             if(x.id===newEffect.id){
-                return newEffect
+                return Object.assign(x,newEffect,{});
             }
             return x
         });

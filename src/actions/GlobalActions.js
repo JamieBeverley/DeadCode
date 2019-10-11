@@ -1,7 +1,7 @@
 import Actions from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
-import State from '../model/State.js'
+import Model from "../model";
 import Id from "../model/Id";
 
 const GlobalActions = dispatch=> {
@@ -14,11 +14,11 @@ const GlobalActions = dispatch=> {
             let onError = onClose;
             Connection.init(url,port, onOpen, onClose, onError);
         },
-        updateTempo: (tempo)=>{
-            dispatch(Actions.UPDATE_TEMPO(tempo));
+        updateMaster:(language, value) =>{
+            dispatch(Actions.UPDATE_MASTER(language, value));
         },
-        updateBootScript:(bootScript) =>{
-            dispatch(Actions.UPDATE_BOOT_SCRIPT(bootScript));
+        updateMasterEffect:(effect) =>{
+            dispatch(Actions.UPDATE_MASTER_EFFECT(effect));
         },
         copyStems:(x)=>{
             dispatch(Actions.COPY_STEMS(x))
@@ -57,13 +57,9 @@ const GlobalActions = dispatch=> {
             dispatch(Actions.UPDATE_TRACK(value))
             // renderState(store.getState());
         },
-        updateMasterEffect: (value)=>{
-            dispatch(Actions.UPDATE_MASTER_EFFECT(value));
-            // renderState(store.getState());
-        },
-        toggleLive: (value)=>{
-            dispatch(Actions.TOGGLE_LIVE(value))
-        },
+        // toggleLive: (value)=>{
+        //     dispatch(Actions.TOGGLE_LIVE(value))
+        // },
         save:()=>{
             window.localStorage.setItem('state', JSON.stringify(store.getState()));
             console.log('saved')
@@ -78,7 +74,7 @@ const GlobalActions = dispatch=> {
                         stem.trackId = track.id
                     });
                 });
-                dispatch(Actions.LOAD(State.defaultState));
+                dispatch(Actions.LOAD(Model.defaultState));
                 dispatch(Actions.LOAD(newState));
                 // renderTempoChange(store.getState());
                 // renderBootScript(store.getState());
