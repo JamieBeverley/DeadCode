@@ -37,7 +37,9 @@ export default class SliderEffect extends Component {
 
     _handleSliderChange(e, newValue){
         if(newValue){
-            let newEffect = Object.assign({},this.props,{value:this.fromSliderScale(newValue)});
+            const properties = this.props.properties;
+            properties.value = newValue;
+            let newEffect = Object.assign({},this.props,{properties});
             delete newEffect.updateEffect;
             this.props.updateEffect(newEffect);
         }
@@ -45,7 +47,9 @@ export default class SliderEffect extends Component {
 
     _handleInputChange(e){
         let value = parseFloat(e.target.value);
-        let newEffect = Object.assign({},this.props,{value});
+        const properties = this.props.properties;
+        properties.value = value;
+        let newEffect = Object.assign({},this.props,{properties});
         delete newEffect.updateEffect;
         this.props.updateEffect(newEffect);
     }

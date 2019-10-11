@@ -1,6 +1,7 @@
 import React from "react";
 import './index.css';
 import Model from "../../model";
+import EffectModel from "../../model/EffectModel";
 
 export const TidalCycles = {
     language: 'TidalCycles',
@@ -62,13 +63,11 @@ function trackToDom(track){
         return null;
     }
     stems = stems.map(x=>[x,","]).flat().slice(0,-1);
-    let effects = track.effects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
-    effects = effects.map(x=>{return [x," . "]}).flat().slice(0,-1);
-
+    let trackGain = effectToDom(track.gainEffect);
     return (
         <div key={track.id} className="trackCode">
 
-            {effects} {effects.length?" $ ":" "}
+            {trackGain} {" $ "}
             stack [
             {stems}
             ]
@@ -138,8 +137,14 @@ function getTempoCode(state){
 }
 
 
+const EffectsToCode = {};
+EffectsToCode[EffectModel.Types.SLIDER] = (x)=>{
+    return `(${x.properties.operator} ${x.name} ${x.properties.value})`
+}
+
+
 function effectToCode(x){
-    return `(${x.operator} ${x.name} ${x.value})`
+    return EffectsToCode[x.type](x)
 }
 
 function stemToCode(stem){
@@ -155,10 +160,8 @@ function trackToCode(track){
     if (stemsCode ===''){
         return ''
     }
-
-    let trackEffects = track.effects.map(effectToCode).join(" $ ");
-    let effectsCode= trackEffects + (track.effects.length?" $ ":"");
-    return `${effectsCode} stack [${stemsCode}]`;
+    let trackGain = effectToCode(track.gainEffect);
+    return `${trackGain} $ stack [${stemsCode}]`;
 }
 
 function getCode(state){
@@ -170,5 +173,6 @@ function getCode(state){
     let masterEffects = onMasterEffects.map(effectToCode).join(" $ ");
 
     let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;
+    console.log("Tidalcycles: ", code);
     return code;
 }

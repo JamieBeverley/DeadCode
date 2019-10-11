@@ -4,7 +4,7 @@ function getNew(name, type, language, on=false, properties){
     return {
         name,
         id:Id.new(),
-        on:false,
+        on,
         type,
         language,
         properties

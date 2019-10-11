@@ -1,6 +1,7 @@
 import Actions from "../actions";
 import Model from "../model";
 import TrackModel from "../model/TrackModel";
+import EffectModel from "../model/EffectModel";
 
 const TrackReducer = function (tracks, action){
     let oldTrack, newTrack, newState;
@@ -26,13 +27,16 @@ const TrackReducer = function (tracks, action){
                 ]
             });
         case Actions.Types.UPDATE_STEM:
-
             const index = tracks.findIndex(x=>{return x.id === action.trackId});
             oldTrack = tracks[index];
             newTrack = Object.assign({},oldTrack,{
                 stems: [...oldTrack.stems].map(x=>{
                     if(x.id===action.stemId){
-                        return Object.assign({}, x, action.value);
+                        if(action.value.language && (x.language!==action.value.language)){
+                            return Object.assign({}, x, {effects:EffectModel.util.defaultEffects[action.value.language](),...action.value})
+                        } else{
+                            return Object.assign({}, x, action.value);
+                        }
                     }
                     return x
                 })
