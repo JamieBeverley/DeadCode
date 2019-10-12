@@ -11,7 +11,9 @@ class LanguageControls extends Component {
     }
 
     changeTempo(effect) {
-        this.props.globalActions.updateTempo(effect.value);
+        let val = this.props
+        val.properties.tempo = effect.properties.value;
+        this.props.globalActions.updateMaster(Model.Languages.TidalCycles,val);
     }
 
     getLanguageSpecific() {
@@ -19,11 +21,21 @@ class LanguageControls extends Component {
         switch (this.props.language) {
             case Model.Languages.TidalCycles:
                 let effect = EffectModel.getNew('tempo', EffectModel.Types.SLIDER, Model.Languages.TidalCycles, true,
-                    {value: this.props.properties.tempo, min: 0, max: 300, step: 0.01, scale: 'linear'
-                    });
-                return (
-                    <Effect noToggle key={effect.id} updateEffect={x=>{console.log('not yet implemented update tempo')}} {...effect}/>
-                )
+                    {
+                        value: this.props.properties.tempo, min: 0, max: 300, step: 0.01, scale: 'linear'});
+                return [
+                    <CodeEditor
+                        onChange={(macros) => {
+                            this.props.globalActions.updateMaster(this.props.language,{macros});
+                        }}
+                        onChangeLive={(bootScriptLive) => {
+                            this.setState({bootScriptLive})
+                        }}
+                        code={this.props.macros}
+                        live={false}
+                    />,
+                    <Effect noToggle key={effect.id} updateEffect={this.changeTempo.bind(this)} {...effect}/>
+                ]
             case Model.Languages.Hydra:
                 return null;
             default:
@@ -43,22 +55,8 @@ class LanguageControls extends Component {
         const languageSpecific = this.getLanguageSpecific();
         return (
             <div className="LanguageControls">
-                <CodeEditor
-                    onChange={(code) => {
-                        this.props.globalActions.updateBootScript(code)
-                    }}
-                    onChangeLive={(bootScriptLive) => {
-                        this.setState({bootScriptLive})
-                    }}
-                    code={this.props.macros}
-                    live={false}
-                />
-
-                <div className={"EffectGroup"}>
-                    {effects}
-                </div>
-
                 {languageSpecific}
+                {effects}
             </div>
         );
     }

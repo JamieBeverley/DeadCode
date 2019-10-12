@@ -63,7 +63,7 @@ function trackToDom(track){
         return null;
     }
     stems = stems.map(x=>[x,","]).flat().slice(0,-1);
-    let trackGain = effectToDom(track.gainEffect);
+    let trackGain = `(|* gain ${track.gainEffect.properties.value*2})`;
     return (
         <div key={track.id} className="trackCode">
 
@@ -133,7 +133,7 @@ function effectToDom(effect){
 // };
 
 function getTempoCode(state){
-    return 'setcps ' +state.tempo/60/2;
+    return 'setcps ' + state.master.TidalCycles.properties.tempo/60/2;
 }
 
 
@@ -160,7 +160,8 @@ function trackToCode(track){
     if (stemsCode ===''){
         return ''
     }
-    let trackGain = effectToCode(track.gainEffect);
+    // let trackGain = effectToCode(track.gainEffect);
+    let trackGain = `(|* gain ${track.gainEffect.properties.value*2} )`;
     return `${trackGain} $ stack [${stemsCode}]`;
 }
 

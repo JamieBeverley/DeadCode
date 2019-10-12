@@ -31,7 +31,6 @@ export default class SliderEffect extends Component {
     }
 
     render(){
-
         return (this.props.isVertical?this.renderVertical():this.renderHorizontal())
     }
 

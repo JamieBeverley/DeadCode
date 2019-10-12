@@ -7,10 +7,15 @@ export default class Render extends Component {
     constructor(props) {
         super(props);
         this.iframeRef = React.createRef();
-        this.tempo = '';
-        this.bootScript = props.bootScript;
-        this.tidalCode = '';
-        this.hydraCode = '';
+        this.tidalCylces = {
+            code:'',
+            tempo:null,
+            macros:''
+        };
+        this.hydra = {
+            code:'',
+            macros:''
+        };
         this.poppedOut = [];
     }
 
@@ -24,23 +29,21 @@ export default class Render extends Component {
         // var hydra = Renderers.Hydra.getCode(this.props, "add");
         // let send = false;
 
-        if(this.tempo!==this.props.tempo){
+        // Render Tidal
+        if(this.tidalCylces.tempo !== this.props.master.TidalCycles.properties.tempo){
             Connection.sendCode(Renderers.TidalCycles.getTempoCode(this.props));
-            this.tempo = this.props.tempo;
+            this.tidalCylces.tempo = this.props.master.TidalCycles.properties.tempo;
         }
-
-        if(this.bootScript!==this.props.bootScript){
-            Connection.sendCode(this.props.bootScript);
-            this.bootScript = this.props.bootScript;
+        if(this.tidalCylces.macros !== this.props.master.TidalCycles.macros){
+            Connection.sendCode(this.props.master.TidalCycles.macros);
+            this.tidalCylces.macros = this.props.master.TidalCycles.macros;
         }
-
-        if (this.tidalCode !== tidal) {
+        const tidalCode = Renderers.TidalCycles.getCode(this.props);
+        if(this.tidalCylces.code!==tidalCode){
             console.log('tidal:', tidal);
             Connection.sendCode(tidal);
+            this.tidalCylces.code = tidalCode;
         }
-
-        this.tidalCode = tidal;
-        // this.hydraCode = hydra;
 
         if(this.iframeRef.current && this.iframeRef.current.contentWindow){
             // debugger;
