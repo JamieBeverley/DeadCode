@@ -13,14 +13,23 @@ function getAudienceDom(state){
 }
 
 function getCode(fullState, mixMethod){
-    let tracksCode = fullState.tracks.map((x)=>{return trackToCode(x,mixMethod)}).filter(x=>x!==null);
-    if(tracksCode.length<1){
-        return 'solid(0,0,0,0).out()'
-    };
+    let tracksCode = fullState.tracks.map((x)=>{return [trackToCode(x,mixMethod),x.gainEffect.properties.value]}).filter(x=>x[0]!==null);
+    // if(tracksCode.length<1){
+    //     return 'solid(0,0,0,0).out()'
+    // };
 
-    let code = tracksCode[0];
-    for (let i = 1;i<tracksCode.length;i++){
-        code = `${code}.${mixMethod}(${tracksCode[i]})`
+    let code = 'solid(0,0,0,0)';
+
+    // [['osc()', 0.5],['noise()',0.7]]
+
+    // 'osc().blend(noise(),'
+
+
+    for (let i = 0;i<tracksCode.length;i++){
+        let trackCode = tracksCode[i][0];
+        let blendAmt = tracksCode[i][1];
+        code = `${code}.${mixMethod}(${trackCode},${blendAmt})`;
+        // code = `${code}.${mixMethod}(${trackCode}, ${blendAmt})`
     }
 
     code = code+".out()";
