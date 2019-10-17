@@ -2,6 +2,7 @@ import Actions from "../actions";
 import Model from "../model";
 import TrackModel from "../model/TrackModel";
 import EffectModel from "../model/EffectModel";
+import StemModel from "../model/StemModel";
 
 const TrackReducer = function (tracks, action){
     let oldTrack, newTrack, newState;
@@ -12,20 +13,35 @@ const TrackReducer = function (tracks, action){
         case Actions.Types.REMOVE_TRACK:
             return tracks.filter(x=>{return x.id!==action.trackId})
         case Actions.Types.ADD_STEM:
-            oldTrack = tracks.find(x=>{return x.id === action.trackId});
-            return Object.assign({},oldTrack,{
-                stems:[
-                    ...oldTrack.stems,
-                    Model.getDefaultStem(oldTrack.id)
-                ]
+            let hmm = tracks.map(x=>{
+                if(x.id===action.trackId){
+                    return Object.assign({},x,{
+                        stems:[
+                            ...x.stems,
+                            StemModel.getNew(x.id)
+                        ]
+                    })
+                }
+                return x
             });
+            return [...hmm];
         case Actions.Types.REMOVE_STEM:
-            oldTrack = tracks.find(x=>{return x.id === action.trackId});
-            return  Object.assign({},oldTrack,{
-                stems:[
-                    ...oldTrack.stems.filter(x=>{return x.id!==action.stemId})
-                ]
+            let hmmm = tracks.map(x=>{
+                if(x.id===action.trackId){
+                    return Object.assign({},x,{
+                        stems:x.stems.filter(y=>{return y.id!==action.stemId})
+                    })
+                }
+                return x
             });
+            return [...hmmm];
+
+            // oldTrack = tracks.find(x=>{return x.id === action.trackId});
+            // return  Object.assign({},oldTrack,{
+            //     stems:[
+            //         ...oldTrack.stems.filter(x=>{return x.id!==action.stemId})
+            //     ]
+            // });
         case Actions.Types.UPDATE_STEM:
             let index = tracks.findIndex(x=>{return x.id === action.trackId});
             oldTrack = tracks[index];
