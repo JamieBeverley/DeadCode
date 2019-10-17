@@ -5,6 +5,7 @@ import Effect from "../Effect";
 import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
 import Model from "../../model";
+import PlusButton from "../util/PlusButton/PlusButton";
 
 
 export default class StemEditor extends Component {
@@ -48,10 +49,17 @@ export default class StemEditor extends Component {
                     code={this.props.code}
                     live={this.props.live}
                 />
+                <div>
                 {effects}
+                <PlusButton style={{maxWidth:'60px',maxHeight:'30px',marginLeft:'10px'}} onClick={this.newEffect.bind(this)}/>
+                </div>
                 <Button style={{marginTop:'5px'}} onClick={this.delete.bind(this)} color='primary' variant='outlined'>delete</Button>
             </div>
         )
+    }
+
+    newEffect(){
+        console.log('new effect');
     }
 
     handleLanguageChange(e){

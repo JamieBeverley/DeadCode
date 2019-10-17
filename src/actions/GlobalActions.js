@@ -57,6 +57,9 @@ const GlobalActions = dispatch=> {
             dispatch(Actions.UPDATE_TRACK(value))
             // renderState(store.getState());
         },
+        addStemEffect:(trackId, stemId,type)=>{
+            dispatch(Actions.ADD_STEM_EFFECT(trackId, stemId,type))
+        },
         // toggleLive: (value)=>{
         //     dispatch(Actions.TOGGLE_LIVE(value))
         // },

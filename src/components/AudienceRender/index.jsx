@@ -27,9 +27,10 @@ export default class AudienceRender extends Component {
             hydraDom = Renderers.Hydra.getAudienceDom(this.props);
             tidalDom = Renderers.TidalCycles.getAudienceDom(this.props);
 
-            const hydraCode = Renderers.Hydra.getCode(this.props);
+            const hydraCode = Renderers.Hydra.getCode(this.props,"blend");
             if (hydraCode !== this.hydraCode) {
-                try {;
+                console.log('hydra: ',hydraCode)
+                try {
                     eval(hydraCode);
                 } catch (e) {
                     console.warn("Hydra ERR:", e);

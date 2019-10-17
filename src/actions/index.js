@@ -41,6 +41,10 @@ Actions.UPDATE_STEM = function(trackId,stemId, value){
     return {type:'UPDATE_STEM', trackId, stemId, value}
 };
 
+Actions.ADD_STEM_EFFECT = function(trackId, stemId, effectType){
+    return {type:'ADD_STEM_EFFECT', trackId, stemId, effectType}
+}
+
 Actions.UPDATE_TRACK = function(value){
     return {type:'UPDATE_TRACK', value}
 };

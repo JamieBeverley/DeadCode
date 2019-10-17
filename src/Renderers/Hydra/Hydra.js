@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.css";
+import EffectModel from "../../model/EffectModel";
 export const Hydra = {
     language:'Hydra',
     getCode,
@@ -8,7 +9,7 @@ export const Hydra = {
 
 
 function getAudienceDom(state){
-    return <div className={'code'}>{Hydra.getCode(state,"add")}</div>
+    return <div className={'code'}>{Hydra.getCode(state,"blend")}</div>
 }
 
 function getCode(fullState, mixMethod){
@@ -26,6 +27,16 @@ function getCode(fullState, mixMethod){
     return code;
 }
 
+
+const effectToCodeFuncs  = {}
+effectToCodeFuncs[EffectModel.Types.SLIDER] = function(effect){
+    return `.${effect.name}(${effect.properties.value})`
+}
+
+function effectToCode(effect){
+    return effectToCodeFuncs[effect.type](effect);
+}
+
 function trackToCode(track,mixMethod){
     let stemsCode = track.stems.filter(x=>{return x.on && x.language==="Hydra" && x.code !== ''}).map(stemToCode);
     if(stemsCode.length<1){
@@ -36,9 +47,12 @@ function trackToCode(track,mixMethod){
     for (let i = 1;i<stemsCode.length;i++){
         code = `${code}.${mixMethod}(${stemsCode[i]})`
     }
+    // const trackGain =
     return code;
 }
 
 function stemToCode(stem){
-    return stem.code;
+    const effects = stem.effects.filter(x=>x.on).map(effectToCode).join("");
+
+    return stem.code+effects;
 }

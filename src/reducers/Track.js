@@ -27,7 +27,7 @@ const TrackReducer = function (tracks, action){
                 ]
             });
         case Actions.Types.UPDATE_STEM:
-            const index = tracks.findIndex(x=>{return x.id === action.trackId});
+            let index = tracks.findIndex(x=>{return x.id === action.trackId});
             oldTrack = tracks[index];
             newTrack = Object.assign({},oldTrack,{
                 stems: [...oldTrack.stems].map(x=>{
@@ -41,7 +41,22 @@ const TrackReducer = function (tracks, action){
                     return x
                 })
             });
-            const newTracks = [...tracks];
+            let newTracks = [...tracks];
+            newTracks[index] = newTrack;
+            return newTracks
+        case Actions.Types.ADD_STEM_EFFECT:
+            index = tracks.findIndex(x=>{return x.id === action.trackId});
+            oldTrack = tracks[index];
+            // let effect = EffectModel.;
+            newTrack = Object.assign({},oldTrack,{
+                stems: [...oldTrack.stems].map(x=>{
+                    if(x.id===action.stemId){
+                        return Object.assign({}, x, {effects:[...x.effects, EffectModel.getNew(action.effectType)]})
+                    }
+                    return x
+                })
+            });
+            newTracks = [...tracks];
             newTracks[index] = newTrack;
             return newTracks
         case Actions.Types.UPDATE_TRACK:
