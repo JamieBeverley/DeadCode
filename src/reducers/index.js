@@ -3,6 +3,7 @@ import Model from '../model'
 import TrackReducer from "./Track";
 import ConnectionReducer from "./Connection";
 import MasterReducer from "./Master";
+import StemModel from "../model/StemModel";
 
 
 export default (state = Model.defaultState, action) =>{
@@ -55,7 +56,7 @@ function pasteStemAtPosition(state, stem, pos) {
     if (pos.trackIndex >= state.tracks.length) return state;
     if (pos.stemIndex >= state.tracks[pos.trackIndex].stems.length) return state;
     let track = state.tracks[pos.trackIndex];
-    let newStem = Model.cloneStem(stem);
+    let newStem = StemModel.clone(stem);
     newStem.trackId = track.id;
     newStem.open = false;
     track.stems = state.tracks[pos.trackIndex].stems.concat([]);//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
