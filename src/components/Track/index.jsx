@@ -5,19 +5,27 @@ import PlusButton from "../util/PlusButton/PlusButton";
 import Effect from "../Effect";
 
 
-export default class Track extends Component{
+export default class Track extends Component {
 
-    shouldComponentUpdate(nextProps, nextState){
+    shouldComponentUpdate(nextProps, nextState) {
         return JSON.stringify(nextProps) != JSON.stringify(this.props);
-        return nextProps!==this.props;
+        return nextProps !== this.props;
     }
 
 
-    render(){
-        let stems = this.props.stems.map(x=>{
-            x.globalActions = this.props.globalActions;
-            return (<Stem key={x.id} {...x}/>)
-        });
+    render() {
+        let stems = [];
+        for (let i in this.props.stems) {
+            let stem = this.props.stems[i];
+            stems.push(<Stem key={i}
+                             id={stem.id}
+                             name={stem.name}
+                             on={stem.on}
+                             selected={stem.selected}
+                             trackId={stem.trackId}
+                             globalActions={this.props.globalActions}
+            />)
+        }
 
         return (
             <div className='Track'>
@@ -29,7 +37,11 @@ export default class Track extends Component{
                 </div>
                 <div className={'effects'}>
                     <div className={'launchButton'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="var(--font-color-dark)" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="var(--font-color-dark)" width="24" height="24"
+                             viewBox="0 0 24 24">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                        </svg>
                     </div>
                     <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} {...this.props.gainEffect}/>
                 </div>
@@ -39,15 +51,15 @@ export default class Track extends Component{
     }
 
 
-    updateEffect(gainEffect){
-        this.props.globalActions.updateTrack({id:this.props.id,gainEffect})
+    updateEffect(gainEffect) {
+        this.props.globalActions.updateTrack({id: this.props.id, gainEffect})
     }
 
-    addStem(){
+    addStem() {
         this.props.globalActions.addStem(this.props.id);
     }
 
-    titleChange(e){
-        this.props.globalActions.updateTrack({id:this.props.id,name:e.target.value});
+    titleChange(e) {
+        this.props.globalActions.updateTrack({id: this.props.id, name: e.target.value});
     }
 }

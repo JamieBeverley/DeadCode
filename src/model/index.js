@@ -1,6 +1,8 @@
 import TrackModel from "./TrackModel";
 import MasterModel from "./MasterModel";
 import Id from "./Id";
+import EffectModel from "./EffectModel";
+import StemModel from "./StemModel";
 
 
 const languages = ["TidalCycles", "Hydra"];
@@ -31,16 +33,71 @@ Model.Languages = {
     Hydra: "Hydra"
 };
 
+const tracks = {};
+const stems = {};
+const effects = {};
+for(let i =0; i<5;i++){
+    let trackId = Id.new();
+    tracks[trackId] = TrackModel.getNew();
+    for(let j = 0; j<5; j++){
+        let stemId = Id.new();
+        stems[stemId] = StemModel.getNew(trackId);
+        for(let k = 0; k < 5; k++){
+            let effectId = Id.new();
+            effects[effectId] = EffectModel.getNew('',EffectModel.Types.SLIDER,false)
+        }
+
+        tracks[trackId].stems.push(stemId);
+    }
+}
+
 Model.defaultState = {
     connection: {
         isConnected:false,
         url:'127.0.0.1',
         port:8001
     },
-    copy:null,
-    // languages,
     master,
-    tracks:[0,0,0,0,0].map(x=>{return TrackModel.getNew()})
+    copy:null,
+    tracks,
+    stems,
 }
 
 export default Model
+
+var a = {
+    'connection':{},
+    'copy': null,
+    'master': {
+        'TidalCycles': {},
+        'Hydra':{}
+    },
+    'tracks':{
+        'track_1':{
+            'name':"new track",
+            'stems':['stem_1','stem_2'],
+            'effects':['effect_1']
+        }
+    },
+    'stems':{
+        'stem_1':{
+            name:'',
+            on:false,
+            selected:false,
+            open:false,
+            live:false,
+            language:'TidalCycles',
+            code:'',
+            effects:['effect_1','effect_2']
+        }
+    },
+    'effects':{
+        'effect_1':{
+            name:'',
+            on:false,
+            type:EffectModel.Types.SLIDER,
+            language:'TidalCycles',
+            properties:{}
+        }
+    }
+}

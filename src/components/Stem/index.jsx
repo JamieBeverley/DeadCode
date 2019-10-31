@@ -8,9 +8,9 @@ export default class Stem extends Component{
             id:props.id,
             name:props.name,
             on: props.on,
-            code: props.code,
-            language: props.language,
-            effects: props.effects,
+            // code: props.code,
+            // language: props.language,
+            // effects: props.effects,
             holdTime: new Date()
         }
     }

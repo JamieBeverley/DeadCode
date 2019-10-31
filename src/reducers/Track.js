@@ -5,7 +5,7 @@ import EffectModel from "../model/EffectModel";
 import StemModel from "../model/StemModel";
 
 const TrackReducer = function (tracks, action){
-    let oldTrack, newTrack, newState;
+    let oldTrack, newTrack, newTracks, newState;
 
     switch (action.type){
         case Actions.Types.ADD_TRACK:
@@ -43,25 +43,23 @@ const TrackReducer = function (tracks, action){
             //     ]
             // });
         case Actions.Types.UPDATE_STEM:
-            let index = tracks.findIndex(x=>{return x.id === action.trackId});
-            oldTrack = tracks[index];
-            newTrack = Object.assign({},oldTrack,{
-                stems: [...oldTrack.stems].map(x=>{
-                    if(x.id===action.stemId){
-                        if(action.value.language && (x.language!==action.value.language)){
-                            return Object.assign({}, x, {effects:EffectModel.util.defaultEffects[action.value.language](),...action.value})
-                        } else{
-                            return Object.assign({}, x, action.value);
-                        }
-                    }
-                    return x
-                })
-            });
-            let newTracks = [...tracks];
-            newTracks[index] = newTrack;
-            return newTracks
+            // tracks[action.trackId].stems[action.stemId] = Object.assign({},tracks[action.trackId].stems[action.stemId],action.value);
+            // return Object.assign({},tracks);
+            oldTrack = tracks[action.trackId];
+            let newStemObj = {...oldTrack.stems};
+            newStemObj[action.stemId] = Object.assign({}, tracks[action.trackId].stems[action.stemId], action.value);
+            // newTrack = Object.assign({},oldTrack,{
+            //     // stems: Object.assign({},oldTrack.stems,newStemObj)
+            //     stems: newStemObj
+            // });
+            newTrack = {oldTrack},oldTrack,{
+                // stems: newStemObj
+            // });
+            let obj ={};
+            obj[newTrack.id] = newTrack;
+            return Object.assign({},tracks,obj);
         case Actions.Types.ADD_STEM_EFFECT:
-            index = tracks.findIndex(x=>{return x.id === action.trackId});
+            let index = tracks.findIndex(x=>{return x.id === action.trackId});
             oldTrack = tracks[index];
             // let effect = EffectModel.;
             newTrack = Object.assign({},oldTrack,{

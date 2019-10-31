@@ -11,7 +11,12 @@ export default class LaunchSpace extends Component {
     }
 
     render(){
-        let tracks = this.props.tracks.map(this.trackToDom.bind(this));
+        let tracks = [];
+        for(let i in this.props.tracks){
+            let t = this.props.tracks[i]
+            tracks.push(this.trackToDom(t))
+        }
+
         return (
             <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
                 {tracks}

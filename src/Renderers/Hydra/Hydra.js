@@ -13,7 +13,16 @@ function getAudienceDom(state){
 }
 
 function getCode(fullState, mixMethod){
-    let tracksCode = fullState.tracks.map((x)=>{return [trackToCode(x,mixMethod),x.gainEffect.properties.value]}).filter(x=>x[0]!==null);
+    let tracksCode = [];
+    for(let i in fullState.tracks){
+        let track = fullState.tracks[i];
+        let code = trackToCode(track, mixMethod);
+        if(code){
+            tracksCode.push([code,track.gainEffect.properties.value]);
+        }
+    }
+
+    Object.keys(fullState.tracks);
     // if(tracksCode.length<1){
     //     return 'solid(0,0,0,0).out()'
     // };
@@ -47,7 +56,16 @@ function effectToCode(effect){
 }
 
 function trackToCode(track,mixMethod){
-    let stemsCode = track.stems.filter(x=>{return x.on && x.language==="Hydra" && x.code !== ''}).map(stemToCode);
+
+    let stemsCode = [];
+    for(let i in track.stems){
+        let x = track.stems[i];
+        if(x.on && x.language==='Hydra' && x.code !==''){
+            stemsCode.push(stemToCode(x));
+        }
+    }
+
+
     if(stemsCode.length<1){
         return null
     };

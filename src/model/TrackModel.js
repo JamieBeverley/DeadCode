@@ -19,14 +19,19 @@ let getGainEffect = function () {
     )
 }
 
+
+
 function getNew(opt_language = "TidalCycles") {
     const id = Id.new();
+    const stems = {}
+    for(let i =0; i<5; i++){
+        let stem = StemModel.getNew(id,opt_language);
+        stems[stem.id] = stem;
+    }
     return {
         id,
         name: 'New Track',
-        stems: [0, 0, 0, 0, 0].map(() => {
-            return StemModel.getNew(id, opt_language)
-        }),
+        stems,
         gainEffect: getGainEffect()
     }
 }

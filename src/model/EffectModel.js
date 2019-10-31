@@ -1,8 +1,8 @@
 import Id from "./Id";
 
-function getNew(name, type, language, on=false, properties){
+function getNew(code, type, language, on=false, properties){
     return {
-        name,
+        code,
         id:Id.new(),
         on,
         type,
