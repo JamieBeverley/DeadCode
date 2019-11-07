@@ -37,8 +37,8 @@ Actions.REMOVE_STEM = function(trackId, stemId){
     return {type:'REMOVE_STEM', trackId, stemId};
 };
 
-Actions.UPDATE_STEM = function(trackId,stemId, value){
-    return {type:'UPDATE_STEM', trackId, stemId, value}
+Actions.UPDATE_STEM = function(id, value){
+    return {type:'UPDATE_STEM', id, value}
 };
 
 Actions.ADD_STEM_EFFECT = function(trackId, stemId, effectType){
@@ -57,6 +57,9 @@ Actions.UPDATE_MASTER_EFFECT = function(effect){
     return {type:'UPDATE_MASTER_EFFECT', effect}
 }
 
+Actions.UPDATE_EFFECT = function (effectId, effect){
+    return {type: "UPDATE_EFFECT", id:effectId, value:effect}
+}
 
 // Saving / Loading
 Actions.SAVE = function(){

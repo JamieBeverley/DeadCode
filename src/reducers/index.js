@@ -4,49 +4,17 @@ import TrackReducer from "./Track";
 import ConnectionReducer from "./Connection";
 import MasterReducer from "./Master";
 import StemModel from "../model/StemModel";
-
+import StemReducer from './Stem.js'
+import EffectReducer from "./Effect";
 
 export default (state = Model.defaultState, action) =>{
-
-    // stragglers...
-    switch (action.type) {
-        case Actions.Types.SAVE:
-            return state;
-        case Actions.Types.LOAD:
-            return Object.assign({}, state, action.newState);
-        case Actions.Types.DOWNLOAD:
-            return state;
-        case Actions.Types.COPY_STEMS:
-            return Object.assign({}, state, {copy: action.stems});
-        case Actions.Types.PASTE_STEMS:
-            if (!state.copy.length) return state;
-            // Top left from copied
-            // TODO: pretty sure this will just be first b.c. of how copy algorithm works
-            let anchorStem = state.copy[0];
-            let anchorPos = getStemPosition(anchorStem,state);
-            let insertPos = getStemPosition({trackId: action.trackId, id: action.stemId}, state);
-            let newState = Object.assign({}, state);
-            state.copy.forEach(stem => {
-                let position = getStemPosition(stem,state);
-                let relativePos = {
-                    trackIndex: position.trackIndex - anchorPos.trackIndex,
-                    stemIndex: position.stemIndex - anchorPos.stemIndex
-                };
-                let newPos = {
-                    trackIndex: insertPos.trackIndex + relativePos.trackIndex,
-                    stemIndex: insertPos.stemIndex + relativePos.stemIndex
-                };
-                newState = pasteStemAtPosition(newState, stem, newPos);
-            });
-
-            return Object.assign({}, state, newState);
-    }
-
     return {
         copy: state.copy,
         master:MasterReducer(state.master, action),
         connection: ConnectionReducer(state.connection, action),
-        tracks: TrackReducer(state.tracks, action)
+        tracks: TrackReducer(state.tracks, action),
+        stems: StemReducer(state.stems, action),
+        effects: EffectReducer(state.effects, action)
     }
 }
 

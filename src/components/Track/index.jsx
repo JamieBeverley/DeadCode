@@ -12,20 +12,19 @@ export default class Track extends Component {
         return nextProps !== this.props;
     }
 
+    stemToComponent(stem){
+        return <Stem key={stem.id}
+                    id={stem.id}
+                    name={stem.name}
+                    on={stem.on}
+                    selected={stem.selected}
+                    trackId={stem.trackId}
+                    globalActions={this.props.globalActions}
+        />
+    }
 
     render() {
-        let stems = [];
-        for (let i in this.props.stems) {
-            let stem = this.props.stems[i];
-            stems.push(<Stem key={i}
-                             id={stem.id}
-                             name={stem.name}
-                             on={stem.on}
-                             selected={stem.selected}
-                             trackId={stem.trackId}
-                             globalActions={this.props.globalActions}
-            />)
-        }
+        let stems = this.props.stems.map(this.stemToComponent.bind(this));
 
         return (
             <div className='Track'>

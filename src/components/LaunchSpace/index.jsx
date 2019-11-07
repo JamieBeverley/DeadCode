@@ -10,7 +10,21 @@ export default class LaunchSpace extends Component {
         return (<Track key={x.id} {...x} />)
     }
 
+    trackIdToComponent(id){
+        let track = this.props.tracks[id];
+        let stems = {};
+        track.stems.forEach(x=>{stems[x] = this.props.stems[x]});
+        let effects = {};track.effects.map(x=>{return this.props.effects[x]}).concat(stems.map(x=>{return this.props.effects[x]})).flat();
+        let props = {
+            stems,
+            effects,
+            key:id
+        }
+    }
+
     render(){
+
+        // let tracks = Object.keys(this.props.tracks).map(trackIdToComponent);
         let tracks = [];
         for(let i in this.props.tracks){
             let t = this.props.tracks[i]

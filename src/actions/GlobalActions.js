@@ -47,8 +47,7 @@ const GlobalActions = dispatch=> {
             // renderState(store.getState());
         },
         updateStem: (trackId, stemId, value)=>{
-            dispatch(Actions.UPDATE_STEM(trackId, stemId, value));
-            // renderState(store.getState());
+            dispatch(Actions.UPDATE_STEM(stemId, value));
         },
         openInFlyout: (trackId, stemId)=> {
             dispatch(Actions.OPEN_IN_FLYOUT(trackId,stemId))

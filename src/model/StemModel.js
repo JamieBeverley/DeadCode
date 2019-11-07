@@ -25,7 +25,7 @@ function getNew(trackId, language = "TidalCycles"){
         live:false,
         language,
         code:"",
-        effects: EffectModel.util.defaultEffects[language]()
+        effects: []
     }
 };
 

@@ -86,15 +86,16 @@ export default class Flyout extends Component{
     }
 
     _getOpenedStems(){
-        let opened = [];
-        for(let i in this.props.tracks){
-            for (let j in this.props.tracks[i].stems){
-                let stem = this.props.tracks[i].stems
-                if(stem.open){
-                    opened.push(stem);
-                }
-            }
-        }
+        // let opened = [];
+        // for(let i in this.props.tracks){
+        //     for (let j in this.props.tracks[i].stems){
+        //         let stem = this.props.tracks[i].stems
+        //         if(stem.open){
+        //             opened.push(stem);
+        //         }
+        //     }
+        // }
+        let opened = this.props.tracks.map(x=>{return x.stems.filter(x=>{return x.open})}).flat();
         return opened;
     }
 
@@ -117,16 +118,9 @@ export default class Flyout extends Component{
     }
 
     render(){
-        let openStems = [];
-        for(let i in this.props.tracks){
-            for(let j in this.props.tracks[i].stems){
-                let stem = this.props.tracks[i].stems[j];
-                if(stem){
-                    openStems.push(stem)
-                }
-            }
-        }
+        let openStems = this._getOpenedStems();
 
+        debugger;
         if(this.state.tab!=='master' && !openStems.map(x=>x.id+"_"+x.trackId).includes(this.state.tab)){
             this.switchTab('master');
         }

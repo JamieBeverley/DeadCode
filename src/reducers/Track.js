@@ -42,22 +42,6 @@ const TrackReducer = function (tracks, action){
             //         ...oldTrack.stems.filter(x=>{return x.id!==action.stemId})
             //     ]
             // });
-        case Actions.Types.UPDATE_STEM:
-            // tracks[action.trackId].stems[action.stemId] = Object.assign({},tracks[action.trackId].stems[action.stemId],action.value);
-            // return Object.assign({},tracks);
-            oldTrack = tracks[action.trackId];
-            let newStemObj = {...oldTrack.stems};
-            newStemObj[action.stemId] = Object.assign({}, tracks[action.trackId].stems[action.stemId], action.value);
-            // newTrack = Object.assign({},oldTrack,{
-            //     // stems: Object.assign({},oldTrack.stems,newStemObj)
-            //     stems: newStemObj
-            // });
-            newTrack = {oldTrack},oldTrack,{
-                // stems: newStemObj
-            // });
-            let obj ={};
-            obj[newTrack.id] = newTrack;
-            return Object.assign({},tracks,obj);
         case Actions.Types.ADD_STEM_EFFECT:
             let index = tracks.findIndex(x=>{return x.id === action.trackId});
             oldTrack = tracks[index];

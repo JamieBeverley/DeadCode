@@ -16,14 +16,23 @@ export default class StemEditor extends Component {
         this.textAreaRef = React.createRef();
     }
 
+    effectToComponent(effect){
+        return <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
+    }
+
     render(){
-        let effects = [];
-        for(let e in this.props.effects){
-            let effect = this.props.effects[e];
-            effects.push(
-                    <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
-            )
-        }
+
+        let effects = this.props.effects.map(this.effectToComponent.bind(this))
+        // let effects = [];
+        // for(let e in this.props.effects){
+        //     let effect = this.props.effects[e];
+        //     if(effect.id == '[object Object]'){
+        //         debugger;
+        //     };
+        //     effects.push(
+        //             <Effect key={effect.id} updateEffect={this.updateEffect.bind(this)} {...effect}/>
+        //     )
+        // }
 
         return (
             <div className={'StemEditor'} style={this.props.style}>
