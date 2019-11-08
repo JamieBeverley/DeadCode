@@ -1,9 +1,6 @@
-import Id from "./Id";
-
 function getNew(code, type, language, on=false, properties){
     return {
         code,
-        id:Id.new(),
         on,
         type,
         language,
@@ -12,9 +9,9 @@ function getNew(code, type, language, on=false, properties){
 };
 
 function clone(effect){
-    return{
+    return {
         ...effect,
-        id:Id.new()
+        propertes:{...effect.properties}
     }
 }
 

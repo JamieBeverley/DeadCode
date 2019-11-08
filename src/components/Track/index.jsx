@@ -1,27 +1,23 @@
 import React, {Component} from 'react'
 import './index.css'
-import Stem from '../Stem';
+import Stem from '../../containers/Stem';
 import PlusButton from "../util/PlusButton/PlusButton";
 import Effect from "../Effect";
 
 
 export default class Track extends Component {
 
-    shouldComponentUpdate(nextProps, nextState) {
-        return JSON.stringify(nextProps) != JSON.stringify(this.props);
-        return nextProps !== this.props;
-    }
+    // shouldComponentUpdate(nextProps, nextState) {
+    //     return JSON.stringify(nextProps) != JSON.stringify(this.props);
+    //     return nextProps !== this.props;
+    // }
 
-    stemToComponent(stem){
-        return <Stem key={stem.id}
-                    id={stem.id}
-                    name={stem.name}
-                    on={stem.on}
-                    selected={stem.selected}
-                    trackId={stem.trackId}
-                    globalActions={this.props.globalActions}
+    stemToComponent(id){
+        return <Stem key={id}
+                    id={id}
         />
     }
+
 
     render() {
         let stems = this.props.stems.map(this.stemToComponent.bind(this));

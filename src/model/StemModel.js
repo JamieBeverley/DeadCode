@@ -1,23 +1,16 @@
-import Id from "./Id";
 import EffectModel from "./EffectModel";
-
-
-
 
 
 function clone (stem,trackId){
     return {
         ...stem,
-        id:Id.new(),
         trackId,
         effects:[...stem.effects].map(EffectModel.clone),
     }
 }
 
-function getNew(trackId, language = "TidalCycles"){
+function getNew(language = "TidalCycles"){
     return {
-        id: Id.new(),
-        trackId,
         name:'',
         on: false,
         selected:false,

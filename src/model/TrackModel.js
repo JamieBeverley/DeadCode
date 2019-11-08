@@ -1,4 +1,3 @@
-import Id from "./Id";
 import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
 
@@ -22,9 +21,7 @@ let getGainEffect = function () {
 
 
 function getNew(opt_language = "TidalCycles") {
-    const id = Id.new();
     return {
-        id,
         name: 'New Track',
         stems:[],
         effects:[]
@@ -33,12 +30,10 @@ function getNew(opt_language = "TidalCycles") {
 
 
 function clone(track) {
-    const id = Id.new();
     return {
         ...track,
-        id,
         stems: track.stems.map(x => {
-            return StemModel.clone(x, id)
+            return StemModel.clone(x)
         }),
         effects: track.effects.map(EffectModel.clone)
     }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Track from '../Track';
+import Track from '../../containers/Track';
 import './index.css';
 import PlusButton from "../util/PlusButton/PlusButton";
 
@@ -11,25 +11,21 @@ export default class LaunchSpace extends Component {
     }
 
     trackIdToComponent(id){
-        let track = this.props.tracks[id];
-        let stems = {};
-        track.stems.forEach(x=>{stems[x] = this.props.stems[x]});
-        let effects = {};track.effects.map(x=>{return this.props.effects[x]}).concat(stems.map(x=>{return this.props.effects[x]})).flat();
-        let props = {
-            stems,
-            effects,
-            key:id
-        }
+      return <Track key={id} id={id}/>
+        // let track = this.populateTrack(this.props, this.props.tracks[id]);
+        // let stems = {};
+        // track.stems.forEach(x=>{stems[x] = this.props.stems[x]});
+        // let effects = {};track.effects.map(x=>{return this.props.effects[x]}).concat(stems.map(x=>{return this.props.effects[x]})).flat();
+        // let props = {
+        //     stems,
+        //     effects,
+        //     key:id
+        // }
     }
 
     render(){
 
-        // let tracks = Object.keys(this.props.tracks).map(trackIdToComponent);
-        let tracks = [];
-        for(let i in this.props.tracks){
-            let t = this.props.tracks[i]
-            tracks.push(this.trackToDom(t))
-        }
+        let tracks = Object.keys(this.props.tracks).map(this.trackIdToComponent.bind(this));
 
         return (
             <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
