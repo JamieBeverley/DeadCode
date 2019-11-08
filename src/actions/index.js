@@ -2,6 +2,30 @@ import {store} from '../index.js';
 
 const Actions = {};
 
+
+/*
+connection
+  - connect
+
+effects
+  - update
+
+master
+  - updateFor('language')  ... bootscript, tempo, other things?
+
+stems
+  - update (code, live, name)
+  - addEffect
+  - deleteEffect
+
+tracks
+  - update (name)
+  - addStem
+  - deleteStem
+  - deleteSelf
+*/
+
+
 // MASTER ACTIONS
 Actions.CONNECT = function(url, port, isConnected){
     return {type:'CONNECT', url, port, isConnected}
