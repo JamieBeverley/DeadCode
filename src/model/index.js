@@ -5,28 +5,7 @@ import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
 
 
-const languages = ["TidalCycles", "Hydra"];
-
-const master = {
-    'TidalCycles': MasterModel.getNew("TidalCycles",
-        {
-            tempo: 120
-        }),
-    'Hydra': MasterModel.getNew("Hydra")
-}
-
 const Model = {};
-
-function getNew(name, type, language, on = false, properties) {
-    return {
-        name,
-        id: Id.new(),
-        on: false,
-        type,
-        language,
-        properties
-    }
-};
 
 Model.Languages = {
     TidalCycles: "TidalCycles",
@@ -36,6 +15,25 @@ Model.Languages = {
 const tracks = {};
 const stems = {};
 const effects = {};
+
+const TidalCycles = MasterModel.getNew('TidalCycles',{tempo:120});
+for(let i in EffectModel.util.defaultEffects['TidalCycles']){
+  let effectId = Id.new();
+  effects[effectId] = EffectModel.util.defaultEffects['TidalCycles']()[i];
+  TidalCycles.effects.push(effectId);
+}
+
+
+const Hydra = MasterModel.getNew('Hydra');
+for(let i in EffectModel.util.defaultEffects['Hydra']){
+  let effectId = Id.new();
+  effects[effectId] = EffectModel.util.defaultEffects['Hydra']()[i];
+  Hydra.effects.push(effectId);
+}
+
+const master = {TidalCycles, Hydra}
+
+
 for (let i = 0; i < 5; i++) {
     let trackId = Id.new();
     tracks[trackId] = TrackModel.getNew();
@@ -48,17 +46,17 @@ for (let i = 0; i < 5; i++) {
             stems[stemId].effects.push(effectId);
         });
         tracks[trackId].stems.push(stemId);
-        let mainEffectId = Id.new();
-        effects[mainEffectId] = EffectModel.getNew("gain", EffectModel.Types.SLIDER, "TidalCycles", true, {
-            value: 1,
-            operator: "|*",
-            min: 0,
-            max: 2,
-            step: 0.01,
-            scale: 'linear'
-        });
-        tracks[trackId].effects.push(mainEffectId);
     }
+    let mainEffectId = Id.new();
+    effects[mainEffectId] = EffectModel.getNew("gain", EffectModel.Types.SLIDER, "TidalCycles", true, {
+        value: 1,
+        operator: "|*",
+        min: 0,
+        max: 2,
+        step: 0.01,
+        scale: 'linear'
+    });
+    tracks[trackId].effects.push(mainEffectId);
 }
 
 Model.defaultState = {
@@ -76,6 +74,9 @@ Model.defaultState = {
 
 export default Model
 
+
+
+// model structure:
 var a = {
     'connection': {},
     'copy': null,

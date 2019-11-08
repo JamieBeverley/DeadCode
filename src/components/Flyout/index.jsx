@@ -78,7 +78,7 @@ export default class Flyout extends Component{
         }
     }
     switchTab(tab){
-        let opened = this._getOpenedStems().map(x=>x.id+"_"+x.trackId);
+        let opened = this.props.stems.map(x=>x.id+"_"+x.trackId);
         if(tab==='master' || opened.includes(tab)){
             let history = this.state.history.concat([tab]);
             this.setState({tab,history});

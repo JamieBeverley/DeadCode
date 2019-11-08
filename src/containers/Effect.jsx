@@ -3,7 +3,10 @@ import {connect} from 'react-redux';
 import GlobalActions from "../actions/GlobalActions";
 
 const mapStateToProps = (state,ownProps) => {
-  return {...state.effects[ownProps.id],...ownProps}
+  return {
+    ...state.effects[ownProps.id],
+    ...ownProps
+  }
 };
 
 const mapDispatchToProps = dispatch => {

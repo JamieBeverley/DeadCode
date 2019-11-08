@@ -28,7 +28,6 @@ export default class MasterEditor extends Component {
     render(){
 
         const languageOpts = Object.keys(this.props.master).map(lang=>{return <option key={lang} value={lang}>{lang}</option>});
-
         return (
             <div className={'MasterEditor'} style={this.props.style}>
 

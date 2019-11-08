@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './index.css'
-// import {Grid, Slider, Switch,Input} from '@material-ui/core';
 import throttle from 'lodash/throttle'
 import EffectModel from "../../model/EffectModel";
 import Id from "../../model/Id";

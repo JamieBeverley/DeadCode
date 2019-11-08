@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import './index.css'
 import Stem from '../../containers/Stem';
 import PlusButton from "../util/PlusButton/PlusButton";
-import Effect from "../Effect";
+import Effect from "../../containers/Effect";
 
 
 export default class Track extends Component {
@@ -21,7 +21,6 @@ export default class Track extends Component {
 
     render() {
         let stems = this.props.stems.map(this.stemToComponent.bind(this));
-
         return (
             <div className='Track'>
                 <input onChange={this.titleChange.bind(this)} value={this.props.name}/>
@@ -38,7 +37,7 @@ export default class Track extends Component {
                             <path d="M0 0h24v24H0z" fill="none"/>
                         </svg>
                     </div>
-                    <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} {...this.props.gainEffect}/>
+                    <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} id={this.props.effects[0]}/>
                 </div>
 
             </div>
