@@ -1,106 +1,116 @@
 import {store} from '../index.js';
+import { createAction } from 'redux-actions'
 
-const Actions = {};
+export const ActionTypes = [
+  'CONNECT',
+  'SAVE',
+  'LOAD',
+  'DOWNLOAD',
 
+  'MASTER_UPDATE',
 
-/*
-connection
-  - connect
+  'STEM_UPDATE',
+  'STEM_DELETE_EFFECT',
+  'STEM_ADD_EFFECT',
+  'STEM_COPY',
+  'STEM_PASTE',
 
-effects
-  - update
+  'TRACK_UPDATE',
+  'TRACK_DELETE_STEM',
+  'TRACK_ADD_STEM',
+  'TRACK_DELETE_EFFECT',
+  'TRACK_ADD_EFFECT',
 
-master
-  - updateFor('language')  ... bootscript, tempo, other things?
+  'EFFECT_UPDATE'
+]
 
-stems
-  - update (code, live, name)
-  - addEffect
-  - deleteEffect
-
-tracks
-  - update (name)
-  - addStem
-  - deleteStem
-  - deleteSelf
-*/
-
-
-// MASTER ACTIONS
-Actions.CONNECT = function(url, port, isConnected){
-    return {type:'CONNECT', url, port, isConnected}
-};
-
-// copy's given stems. if no argument copy's selected stems
-Actions.COPY_STEMS = function(opt_stems){
-    let stems = opt_stems;
-    if(!stems){
-        let state = store.getState();
-        stems = state.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
-    }
-    return {type:"COPY_STEMS", stems};
-};
-
-Actions.PASTE_STEMS = function(trackId, stemId){
-    return {type:"PASTE_STEMS",trackId,stemId}
-};
-
-Actions.ADD_TRACK = function(){
-    return {type:'ADD_TRACK'}
-};
-
-Actions.REMOVE_TRACK = function(trackId){
-    return {type:'ADD_TRACK', trackId};
-};
-
-Actions.ADD_STEM = function(trackId){
-    return {type:'ADD_STEM',trackId};
-};
-
-Actions.REMOVE_STEM = function(trackId, stemId){
-    return {type:'REMOVE_STEM', trackId, stemId};
-};
-
-Actions.UPDATE_STEM = function(id, value){
-    return {type:'UPDATE_STEM', id, value}
-};
-
-Actions.ADD_STEM_EFFECT = function(trackId, stemId, effectType){
-    return {type:'ADD_STEM_EFFECT', trackId, stemId, effectType}
+function camel (capitalSnake){
+  let s = capitalSnake.split("_");
+  s = s.map(x=>{
+    return x[0] + x.slice(1,x.length).toLowerCase();
+  })
+  s[0] = s[0].toLowerCase() + s[0].slice(1,s.length);
+  return s.join("");
 }
+export const Actions = ActionTypes.reduce((acc,x)=>{
+  acc[camel(x)] = createAction(x)
+},{})
 
-Actions.UPDATE_TRACK = function(value){
-    return {type:'UPDATE_TRACK', value}
-};
-
-Actions.UPDATE_MASTER = function(language,value){
-    return {type:'UPDATE_MASTER', language, value}
-}
-
-Actions.UPDATE_MASTER_EFFECT = function(effect){
-    return {type:'UPDATE_MASTER_EFFECT', effect}
-}
-
-Actions.UPDATE_EFFECT = function (effectId, effect){
-    return {type: "UPDATE_EFFECT", id:effectId, value:effect}
-}
-
-// Saving / Loading
-Actions.SAVE = function(){
-    return {type:'SAVE'}
-};
-
-Actions.LOAD = function(newState){
-    return {type:'LOAD',newState}
-};
-
-Actions.DOWNLOAD = function(){
-    return {type:'DOWNLOAD'}
-};
-
-Actions.Types = {};
-Object.keys(Actions).forEach(x=>{
-    Actions.Types[x] = x;
-});
-
-export default Actions
+// // MASTER ACTIONS
+// Actions.CONNECT = function(url, port, isConnected){
+//     return {type:'CONNECT', url, port, isConnected}
+// };
+//
+// // copy's given stems. if no argument copy's selected stems
+// Actions.COPY_STEMS = function(opt_stems){
+//     let stems = opt_stems;
+//     if(!stems){
+//         let state = store.getState();
+//         stems = state.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
+//     }
+//     return {type:"COPY_STEMS", stems};
+// };
+//
+// Actions.PASTE_STEMS = function(trackId, stemId){
+//     return {type:"PASTE_STEMS",trackId,stemId}
+// };
+//
+// Actions.ADD_TRACK = function(){
+//     return {type:'ADD_TRACK'}
+// };
+//
+// Actions.REMOVE_TRACK = function(trackId){
+//     return {type:'ADD_TRACK', trackId};
+// };
+//
+// Actions.ADD_STEM = function(trackId){
+//     return {type:'ADD_STEM',trackId};
+// };
+//
+// Actions.REMOVE_STEM = function(trackId, stemId){
+//     return {type:'REMOVE_STEM', trackId, stemId};
+// };
+//
+// Actions.UPDATE_STEM = function(id, value){
+//     return {type:'UPDATE_STEM', id, value}
+// };
+//
+// Actions.ADD_STEM_EFFECT = function(trackId, stemId, effectType){
+//     return {type:'ADD_STEM_EFFECT', trackId, stemId, effectType}
+// }
+//
+// Actions.UPDATE_TRACK = function(value){
+//     return {type:'UPDATE_TRACK', value}
+// };
+//
+// Actions.UPDATE_MASTER = function(language,value){
+//     return {type:'UPDATE_MASTER', language, value}
+// }
+//
+// Actions.UPDATE_MASTER_EFFECT = function(effect){
+//     return {type:'UPDATE_MASTER_EFFECT', effect}
+// }
+//
+// Actions.UPDATE_EFFECT = function (effectId, effect){
+//     return {type: "UPDATE_EFFECT", id:effectId, value:effect}
+// }
+//
+// // Saving / Loading
+// Actions.SAVE = function(){
+//     return {type:'SAVE'}
+// };
+//
+// Actions.LOAD = function(newState){
+//     return {type:'LOAD',newState}
+// };
+//
+// Actions.DOWNLOAD = function(){
+//     return {type:'DOWNLOAD'}
+// };
+//
+// Actions.Types = {};
+// Object.keys(Actions).forEach(x=>{
+//     Actions.Types[x] = x;
+// });
+//
+// export default Actions
