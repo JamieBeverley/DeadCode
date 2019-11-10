@@ -17,11 +17,10 @@ export default class StemEditor extends Component {
     }
 
     effectIdToComponent(id){
-        return <Effect key={id} id={id} updateEffect={this.updateEffect.bind(this)} />
+        return <Effect key={id} id={id}/>
     }
 
     render(){
-
         let effects = this.props.effects.map(this.effectIdToComponent.bind(this))
 
         return (
@@ -43,8 +42,8 @@ export default class StemEditor extends Component {
                 </select>
 
                 <CodeEditor
-                    onChange={(code)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{code})}
-                    onChangeLive={(live)=>this.props.globalActions.updateStem(this.props.trackId,this.props.id,{live})}
+                    onChange={(code)=>this.props.globalActions.stemUpdate(this.props.id, {code})}
+                    onChangeLive={(live)=>this.props.globalActions.stemUpdate(this.props.id,{live})}
                     code={this.props.code}
                     live={this.props.live}
                 />
@@ -58,18 +57,18 @@ export default class StemEditor extends Component {
     }
 
     newEffect(){
-        console.log('new effect');
+        console.log('new effect (not implemented - StemEditor')
     }
 
     handleLanguageChange(e){
-        this.props.globalActions.updateStem(this.props.trackId,this.props.id, {language:e.target.value});
+        this.props.globalActions.stemUpdate(this.props.id, {language:e.target.value});
     }
 
     maybeEval(e) {
         if(e.shiftKey){
             if(e.key==='Enter'){
                 e.preventDefault();
-                this.props.globalActions.updateStem(this.props.trackId, this.props.id, {code:this.state.code});
+                this.props.globalActions.stemUpdate(this.props.id, {code:this.state.code});
                 this.textAreaRef.current.classList.add('flash');
                 setTimeout(()=>{this.textAreaRef.current.classList.remove('flash')},250);
             }
@@ -88,15 +87,15 @@ export default class StemEditor extends Component {
             }
             return x
         });
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id,{effects:newEffects})
+        this.props.globalActions.stemUpdate(this.props.id,{effects:newEffects})
     }
 
     updateName(e){
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id, {name:e.target.value})
+        this.props.globalActions.stemUpdate(this.props.id, {name:e.target.value})
     }
 
     _updateCode(e){
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id, {code:e.target.value})
+        this.props.globalActions.stemUpdate(this.props.id, {code:e.target.value})
     }
 
 }

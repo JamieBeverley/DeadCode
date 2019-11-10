@@ -29,12 +29,15 @@ function camel (capitalSnake){
   s = s.map(x=>{
     return x[0] + x.slice(1,x.length).toLowerCase();
   })
-  s[0] = s[0].toLowerCase() + s[0].slice(1,s.length);
+  s[0] = s[0].toLowerCase();
   return s.join("");
 }
-export const Actions = ActionTypes.reduce((acc,x)=>{
-  acc[camel(x)] = createAction(x)
-},{})
+
+const obj = {};
+ActionTypes.forEach(x=>{
+    obj[camel(x)] = createAction(x)
+});
+export const Actions = obj
 
 // // MASTER ACTIONS
 // Actions.CONNECT = function(url, port, isConnected){
@@ -108,9 +111,9 @@ export const Actions = ActionTypes.reduce((acc,x)=>{
 //     return {type:'DOWNLOAD'}
 // };
 //
-// Actions.Types = {};
+// ActionTypes = {};
 // Object.keys(Actions).forEach(x=>{
-//     Actions.Types[x] = x;
+//     ActionTypes[x] = x;
 // });
 //
 // export default Actions

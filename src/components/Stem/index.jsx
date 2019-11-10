@@ -37,9 +37,8 @@ export default class Stem extends Component{
 
     onKeyUp(e){
         if(e.ctrlKey && e.key==='v'){
-            this.props.globalActions.pasteStems(this.props.trackId,this.props.id);
+            this.props.globalActions.stemPaste(this.props.id);
         }
-
     }
 
     mouseUp(){
@@ -56,7 +55,7 @@ export default class Stem extends Component{
 
     mouseDown(e){
         if(e.shiftKey){
-            this.props.globalActions.updateStem(this.props.trackId, this.props.id,{selected:!this.props.selected});
+            this.props.globalActions.stemUpdate(this.props.id,{selected:!this.props.selected});
         } else {
             if(e.button){
                 e.preventDefault();
@@ -67,10 +66,10 @@ export default class Stem extends Component{
     }
 
     openInFlyout(){
-        this.props.globalActions.updateStem(this.props.trackId,this.state.id, {open:true});
+        this.props.globalActions.stemUpdate(this.state.id, {open:true});
     }
 
     toggle(){
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id, {on:!this.props.on} )
+        this.props.globalActions.stemUpdate(this.props.id, {on:!this.props.on});
     }
 }

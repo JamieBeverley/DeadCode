@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import './index.css'
 import {Grid, Slider, Switch,Input} from '@material-ui/core';
-import throttle from 'lodash/throttle'
 
 export default class SliderEffect extends Component {
     constructor (props){
@@ -9,9 +8,6 @@ export default class SliderEffect extends Component {
         let sliderValue = this.toSliderScale(this.props.properties.value);
         this.state = {value:this.props.properties.value, sliderValue};
 
-        // TODO: fio more efficient rendering/state updating so these throttle times can be reduced
-        this.updateState = throttle(this._handleSliderChange,200);
-        this.handleInputChange = throttle(this._handleInputChange,200);
     }
 
     toSliderScale(x){
@@ -31,34 +27,27 @@ export default class SliderEffect extends Component {
     }
 
     render(){
-      debugger
         return (this.props.isVertical?this.renderVertical():this.renderHorizontal())
     }
 
-    _handleSliderChange(e, newValue){
+    handleSliderChange(e, newValue){
         if(newValue){
             const properties = this.props.properties;
             properties.value = newValue;
-            let newEffect = Object.assign({},this.props,{properties});
-            delete newEffect.updateEffect;
-            this.props.updateEffect(newEffect);
+            this.props.globalActions.effectUpdate(this.props.id,{properties});
         }
     }
 
-    _handleInputChange(e){
+    handleInputChange(e){
         let value = parseFloat(e.target.value);
         const properties = this.props.properties;
         properties.value = value;
-        let newEffect = Object.assign({},this.props,{properties});
-        delete newEffect.updateEffect;
-        this.props.updateEffect(newEffect);
+        this.props.globalActions.effectUpdate(this.props.id, {properties});
     }
 
     toggle(e){
         let on = e.target.checked;
-        // this.props.updateEffect({...this.props,on})
-        console.log("______:", this.props)
-        this.props.updateEffect({id:this.props.id, on,language:this.props.language});
+        this.props.globalActions.effectUpdate(this.props.id, {on})
     }
 
     renderHorizontal(){
@@ -78,7 +67,7 @@ export default class SliderEffect extends Component {
                             onChange={(e,newValue)=>{
                                 if(newValue){
                                     this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
-                                    this.updateState(e,newValue);
+                                    this.handleSliderChange(e,newValue);
                                 }
                             }}
                             min={this.props.properties.min}
@@ -121,7 +110,7 @@ export default class SliderEffect extends Component {
                     onChange={(e,newValue)=>{
                         if(newValue){
                             this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
-                            this.updateState(e,newValue);
+                            this.handleSliderChange(e,newValue);
                         }
                     }}
                     min={this.props.properties.min}

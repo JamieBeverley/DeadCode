@@ -7,7 +7,7 @@ export default class Render extends Component {
     constructor(props) {
         super(props);
         this.iframeRef = React.createRef();
-        this.tidalCylces = {
+        this.tidalCycles = {
             code:'',
             tempo:null,
             macros:''
@@ -30,19 +30,19 @@ export default class Render extends Component {
         // let send = false;
 
         // Render Tidal
-        if(this.tidalCylces.tempo !== this.props.master.TidalCycles.properties.tempo){
+        if(this.tidalCycles.tempo !== this.props.master.TidalCycles.properties.tempo){
             Connection.sendCode(Renderers.TidalCycles.getTempoCode(this.props));
-            this.tidalCylces.tempo = this.props.master.TidalCycles.properties.tempo;
+            this.tidalCycles.tempo = this.props.master.TidalCycles.properties.tempo;
         }
-        if(this.tidalCylces.macros !== this.props.master.TidalCycles.macros){
+        if(this.tidalCycles.macros !== this.props.master.TidalCycles.macros){
             Connection.sendCode(this.props.master.TidalCycles.macros);
-            this.tidalCylces.macros = this.props.master.TidalCycles.macros;
+            this.tidalCycles.macros = this.props.master.TidalCycles.macros;
         }
         const tidalCode = Renderers.TidalCycles.getCode(this.props);
-        if(this.tidalCylces.code!==tidalCode){
+        if(this.tidalCycles.code!==tidalCode){
             console.log('tidal:', tidal);
             Connection.sendCode(tidal);
-            this.tidalCylces.code = tidalCode;
+            this.tidalCycles.code = tidalCode;
         }
 
         if(this.iframeRef.current && this.iframeRef.current.contentWindow){

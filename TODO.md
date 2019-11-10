@@ -1,11 +1,14 @@
+# better selection stuff
+- select multiple stems and hit enter to toggle on/off
+- select multiple stems and hit arrow up to increase gain of all?
+- cue mechanism?
+
 # config/settings
 - connection to different things
-- boot script/macros
-- save to name?
+- save to name
 
 # effects
 - per track
-- log scales for frequencies
 
 # + buttons 
 - tracks and stems

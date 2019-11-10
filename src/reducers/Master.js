@@ -1,15 +1,15 @@
-import Actions from "../actions";
+import {ActionTypes} from "../actions";
 import Model from "../model";
 
 const MasterReducer = function (master, action) {
     let obj,newVal;
     switch (action.type) {
-        case Actions.Types.UPDATE_MASTER:
+        case ActionTypes.UPDATE_MASTER:
             newVal = Object.assign({}, master[action.language], action.value);
             obj = {};
             obj[action.language] = newVal;
             return Object.assign({}, master, obj);
-        case Actions.Types.UPDATE_MASTER_EFFECT:
+        case ActionTypes.UPDATE_MASTER_EFFECT:
             let previousMaster = master[action.effect.language];
             newVal = Object.assign({}, previousMaster, {
                 effects: previousMaster.effects.map(x => {

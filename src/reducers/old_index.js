@@ -6,26 +6,26 @@ export default (state = Model.defaultState, action) =>{
     let oldTrack, newTrack, newState;
 
     switch (action.type){
-        case Actions.Types.CONNECT:
+        case ActionTypes.CONNECT:
             let connection = {url: action.url, port:action.port, isConnected:action.isConnected};
             return Object.assign({},state,{connection});
-        case Actions.Types.UPDATE_TEMPO:
+        case ActionTypes.UPDATE_TEMPO:
             return Object.assign({},state,{tempo:action.tempo});
-        case Actions.Types.ADD_TRACK:
+        case ActionTypes.ADD_TRACK:
             return (Object.assign({}, state,{
                 tracks:[
                     ...state.tracks,
                     Object.assign({},Model.getDefaultTrack())
                 ]
             }));
-        case Actions.Types.REMOVE_TRACK:
+        case ActionTypes.REMOVE_TRACK:
             newState =  Object.assign({},state,{
                tracks: [...state.tracks].filter(x=>{return x.id !== action.trackId})
             });
             break;
-        case Actions.Types.UPDATE_BOOT_SCRIPT:
+        case ActionTypes.UPDATE_BOOT_SCRIPT:
             return Object.assign({},state,{bootScript:action.bootScript});
-        case Actions.Types.UPDATE_TRACK:
+        case ActionTypes.UPDATE_TRACK:
             oldTrack = state.tracks.find(x=>{return x.id === action.value.id});
             newTrack = Object.assign({},oldTrack,action.value);
             return Object.assign({},state,{
@@ -36,9 +36,9 @@ export default (state = Model.defaultState, action) =>{
                     return x
                 })
             });
-        case Actions.Types.COPY_STEMS:
+        case ActionTypes.COPY_STEMS:
             return Object.assign({},state,{copy:action.stems});
-        case Actions.Types.PASTE_STEMS:
+        case ActionTypes.PASTE_STEMS:
             if(!state.copy.length) return state;
 
             function getStemPosition(stem){
@@ -92,7 +92,7 @@ export default (state = Model.defaultState, action) =>{
             });
 
             return Object.assign({},state,newState);
-        case Actions.Types.ADD_STEM:
+        case ActionTypes.ADD_STEM:
             oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
             newTrack = Object.assign({},oldTrack,{
                 stems:[
@@ -103,7 +103,7 @@ export default (state = Model.defaultState, action) =>{
             return Object.assign({}, state, {
                 tracks: [...state.tracks].map(x=>{return x.id===action.trackId?newTrack:x;})
             });
-        case Actions.Types.REMOVE_STEM:
+        case ActionTypes.REMOVE_STEM:
             oldTrack = state.tracks.find(x=>{return x.id === action.trackId});
             newTrack = Object.assign({},oldTrack,{
                 stems:[
@@ -113,7 +113,7 @@ export default (state = Model.defaultState, action) =>{
             return Object.assign({}, state, {
                 tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
             });
-        case Actions.Types.UPDATE_STEM:
+        case ActionTypes.UPDATE_STEM:
             const index = state.tracks.findIndex(x=>{return x.id === action.trackId});
             oldTrack = state.tracks[index];
 
@@ -160,7 +160,7 @@ export default (state = Model.defaultState, action) =>{
             // return Object.assign({}, state, {
             //     tracks: state.tracks.map(x=>{return x.id===action.trackId?newTrack:x;})
             // });
-        case Actions.Types.UPDATE_MASTER_EFFECT:
+        case ActionTypes.UPDATE_MASTER_EFFECT:
             let i = state.masterEffects.findIndex(x=>x.id===action.value.id);
             state.masterEffects[i] = action.value;
             // let newEffects = state.masterEffects.map(x=>{
@@ -170,14 +170,14 @@ export default (state = Model.defaultState, action) =>{
             //     return X
             // });
             return Object.assign({}, state, {masterEffects: state.masterEffects.concat([])});
-        case Actions.Types.TOGGLE_LIVE:
+        case ActionTypes.TOGGLE_LIVE:
             return Object.assign({},state,{live:action.live});
-        case Actions.Types.SAVE:
+        case ActionTypes.SAVE:
             // console.warn('Not yet implemented '+action.type);
             return;
-        case Actions.Types.LOAD:
+        case ActionTypes.LOAD:
             return Object.assign({},state,action.newState);
-        case Actions.Types.DOWNLOAD:
+        case ActionTypes.DOWNLOAD:
             // no change to state here....
             return state;
         default:

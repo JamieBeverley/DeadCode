@@ -1,30 +1,90 @@
-import Actions from './index.js';
+import {Actions} from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
 import Model from "../model";
 import Id from "../model/Id";
+import EffectModel from "../model/EffectModel";
+import StemModel from "../model/StemModel";
+
+
 
 const GlobalActions = dispatch => {
-  return {
-    connect: (url,port)=>{
-      dispatch(Actions.connect({url,port}));
-    },
-    stemCopy: ()=>{dispatch(Actions.copy())},
-    stemPaste: (stemId)=>{},
-    save: ()=>{},
-    load: ()=>{},
-    download: ()=>{},
-    masterUpdate: ()=>{},
-    stemUpdate: ()=>{},
-    stemDeleteEffect: ()=>{},
-    stemAddEffect: ()=>{},
-    trackUpdate: ()=>{},
-    trackDeletestem: ()=>{},
-    trackAddstem: ()=>{},
-    trackDeleteEffect: ()=>{},
-    trackAddEffect: ()=>{},
-    EffectUpdate: ()=>{}
-  }
+    return {
+        connect: (url, port) => {
+            dispatch(Actions.connect({url, port}));
+        },
+        stemCopy: () => {
+            dispatch(Actions.copy())
+        },
+        stemPaste: (stemId) => {
+        },
+        save: () => {
+            window.localStorage.setItem('state', JSON.stringify(store.getState()));
+            console.log('saved')
+        },
+        load: () => {
+            let newState = window.localStorage.getItem('state');
+            if (newState) {
+                newState = JSON.parse(newState);
+                Id.init(newState);
+                dispatch(Actions.LOAD(newState));
+                // renderTempoChange(store.getState());
+                // renderBootScript(store.getState());
+            } else {
+                console.warn('Tried to load state but empty');
+            }
+        },
+        download: () => {
+            let dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(store.getState()));
+            let anchor = document.createElement('a');
+            anchor.setAttribute("href", dataStr);
+            anchor.setAttribute("download", "dead_state.json");
+            anchor.click();
+            dispatch(Actions.DOWNLOAD());
+        },
+        masterUpdate: (language, value) => {
+            dispatch(Actions.masterUpdate({language, value}));
+        },
+        stemUpdate: (stemId, value) => {
+            dispatch(Actions.stemUpdate({stemId,value}));
+        },
+        stemDeleteEffect: (stemId, effectId) => {
+            dispatch(Actions.stemDeleteEffect({stemId, effectId}));
+        },
+        stemAddEffect: (stemId,code, type, language, on, properties) => {
+            let effectId = Id.new();
+            let value = EffectModel.getNew(code, type, language, on, properties);
+            dispatch(Actions.stemAddEffect({stemId,effectId, value}));
+        },
+        trackUpdate: (trackId, value) => {
+            dispatch(Actions.trackUpdate({trackId,value}));
+        },
+        trackDeleteStem: (trackId, stemId) => {
+            dispatch(Actions.trackDeleteStem({trackId, stemId}));
+        },
+        // TODO: stuff like this would probably be better as sagas
+        trackAddStem: (trackId, language='TidalCycles') => {
+
+            // create stem and assign to track
+            let stemId = Id.new();
+            let stem = StemModel.getNew(language);
+            dispatch(Actions.trackAddStem({trackId,stemId, value:stem}));
+
+            // create default effects for the new stem
+            EffectModel.util.defaultEffects[language]().forEach(effect => {
+                GlobalActions(dispatch).stemAddEffect(stemId, effect.code, effect.type, effect.language, effect.on, effect.properties)
+            });
+        },
+        trackDeleteEffect: (trackId, effectId) => {
+            dispatch(Actions.trackDeleteEffect({trackId, effectId}));
+        },
+        trackAddEffect: (trackId) => {
+            dispatch(Actions.trackAddEffect({trackId}));
+        },
+        effectUpdate: (effectId, value) => {
+            dispatch(Actions.effectUpdate({effectId, value}));
+        }
+    }
 }
 
 export default GlobalActions

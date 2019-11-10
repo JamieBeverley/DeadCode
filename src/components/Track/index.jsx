@@ -6,18 +6,11 @@ import Effect from "../../containers/Effect";
 
 
 export default class Track extends Component {
-
-    // shouldComponentUpdate(nextProps, nextState) {
-    //     return JSON.stringify(nextProps) != JSON.stringify(this.props);
-    //     return nextProps !== this.props;
-    // }
-
     stemToComponent(id){
         return <Stem key={id}
                     id={id}
         />
     }
-
 
     render() {
         let stems = this.props.stems.map(this.stemToComponent.bind(this));
@@ -46,14 +39,15 @@ export default class Track extends Component {
 
 
     updateEffect(gainEffect) {
-        this.props.globalActions.updateTrack({id: this.props.id, gainEffect})
+        this.props.globalActions.trackUpdate(this.props.id, {effects:[gainEffect]});
     }
 
     addStem() {
-        this.props.globalActions.addStem(this.props.id);
+        this.props.globalActions.trackAddStem(this.props.id);
     }
 
     titleChange(e) {
-        this.props.globalActions.updateTrack({id: this.props.id, name: e.target.value});
+        this.props.globalActions.trackUpdate(this.props.id, {name: e.target.value});
     }
+
 }
