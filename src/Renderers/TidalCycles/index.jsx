@@ -156,7 +156,7 @@ function getTempoCode(state){
 
 const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x)=>{
-    return `(${x.properties.operator} ${x.name} ${x.properties.value})`
+    return `(${x.properties.operator} ${x.code} ${x.properties.value})`
 }
 
 
@@ -164,47 +164,60 @@ function effectToCode(x){
     return EffectsToCode[x.type](x)
 }
 
-function stemToCode(stem){
-    let effectsOn = stem.effects.filter(x=>x.on);
-    let code = effectsOn.map(effectToCode).join(" $ ");
+function stemToCode(state, stem){
+    if(stem.code==='') {return ''}
+    let effectsOn = [];
+    stem.effects.forEach(e=>{
+        let effect = state.effects[e];
+        if(effect.on){
+            effectsOn.push(effectToCode(effect));
+        }
+    });
+    let code = effectsOn.join(" $ ");
     code += effectsOn.length?' $ ':'';
     code += stem.code;
     return code
 }
 
-function trackToCode(track){
-    // let stemsCode = track.stems.filter(x=>{return x.on&&(x.language==="TidalCycles")&&x.code!==""}).map(stemToCode).join(", ");
+function trackToCode(state, track){
     let stemsCode = [];
-    for(let i in track.stems){
-        let s = track.stems[i]
-        if(s.on && s.language==='TidalCycles' && s.code!==''){
-            stemsCode.push(stemToCode(s));
+    track.stems.forEach(x=> {
+        let stem = state.stems[x];
+        if (stem.on && stem.language === 'TidalCycles') {
+            stemsCode.push(stemToCode(state, stem))
         }
-    }
+    });
+    if (stemsCode.length<1){return ''};
+
     stemsCode = stemsCode.join(", ");
 
-    if (stemsCode ===''){
-        return ''
-    }
-    // let trackGain = effectToCode(track.gainEffect);
-    let trackGain = `(|* gain ${track.gainEffect.properties.value*2} )`;
-    return `${trackGain} $ stack [${stemsCode}]`;
+    let effectsOn = [];
+    track.effects.forEach(e=>{
+        let effect = state.effects[e];
+        if(effect.on){
+            effectsOn.push(effectToCode(effect));
+        }
+    });
+    let effectsCode = effectsOn.join(" $ ");
+    return `${effectsCode} $ stack [${stemsCode}]`;
 }
 
 function getCode(state){
     let stems = 'stack [';
 
-    let tracks = [];
-    for(let i in state.tracks){
-        tracks.push(trackToCode(state.tracks[i]));
-    }
+    let tracks = Object.keys(state.tracks).map(x=>{return trackToCode(state, state.tracks[x])});
 
     stems += tracks.filter(x=>x!=='').join(", ")+']';
 
-    let onMasterEffects = state.master[Model.Languages.TidalCycles].effects.filter(x=>x.on);
-    let masterEffects = onMasterEffects.map(effectToCode).join(" $ ");
+    let masterEffects = [];
+    let onMasterEffects = state.master[Model.Languages.TidalCycles].effects.forEach(x=> {
+        let effect = state.effects[x];
+        if(effect.on){
+            masterEffects.push(effectToCode(effect));
+        }
+    })
+    let masterEffectsCode = masterEffects.join(" $ ");
 
-    let code = `d1 $ ${masterEffects}${onMasterEffects.length?' $ ':''}${stems}`;
-    console.log("Tidalcycles: ", code);
+    let code = `d1 $ ${masterEffectsCode}${masterEffects.length?' $ ':''}${stems}`;
     return code;
 }

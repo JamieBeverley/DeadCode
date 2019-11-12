@@ -37,18 +37,19 @@ export default class LaunchSpace extends Component {
 
     onKeyUp(e){
         if(e.key.toLowerCase()==='delete'){
-            let selectedStems = this.props.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
-            selectedStems.forEach(x=>{this.props.globalActions.removeStem(x.trackId,x.id)});
-        } else if (e.ctrlKey && e.key.toLowerCase()==='c'){
-            this.props.globalActions.copyStems();
+            let ids = Object.keys(this.props.tracks).map(x=>{return this.props.tracks[x].stems.map(y=>{return {trackId:x,stemId:y,selected:this.props.stems[y].selected}})}).flat();
+            let selectedIds = ids.filter(x=>x.selected);
+            selectedIds.forEach(x=>{this.props.globalActions.trackDeleteStem(x.trackId,x.stemId)});
+        }else if (e.ctrlKey && e.key.toLowerCase()==='c'){
+            this.props.globalActions.stemCopy();
         } else if (e.key.toLowerCase()==='escape'){
-            let selectedStems = this.props.tracks.map(x=>x.stems).flat().filter(x=>x.selected);
-            selectedStems.forEach(x=>this.props.globalActions.updateStem(x.trackId,x.id,{selected:false}));
+            let selectedStems = Object.keys(this.props.stems).filter(x=>{return this.props.stems[x].selected});
+            selectedStems.forEach(x=>this.props.globalActions.stemUpdate(x,{selected:false}));
         }
     }
 
     newTrack(){
-        this.props.globalActions.addTrack();
+        this.props.globalActions.trackAdd();
     }
 
 }

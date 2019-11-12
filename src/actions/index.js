@@ -1,40 +1,42 @@
 import {store} from '../index.js';
-import { createAction } from 'redux-actions'
+import {createAction} from 'redux-actions'
 
 export const ActionTypes = [
-  'CONNECT',
-  'SAVE',
-  'LOAD',
-  'DOWNLOAD',
+    'CONNECT',
+    'SAVE',
+    'LOAD',
+    'DOWNLOAD',
 
-  'MASTER_UPDATE',
+    'MASTER_UPDATE',
 
-  'STEM_UPDATE',
-  'STEM_DELETE_EFFECT',
-  'STEM_ADD_EFFECT',
-  'STEM_COPY',
-  'STEM_PASTE',
+    'STEM_UPDATE',
+    'STEM_DELETE_EFFECT',
+    'STEM_ADD_EFFECT',
+    'STEM_COPY',
+    'STEM_PASTE',
 
-  'TRACK_UPDATE',
-  'TRACK_DELETE_STEM',
-  'TRACK_ADD_STEM',
-  'TRACK_DELETE_EFFECT',
-  'TRACK_ADD_EFFECT',
+    'TRACK_UPDATE',
+    'TRACK_DELETE_STEM',
+    'TRACK_ADD_STEM',
+    'TRACK_DELETE_EFFECT',
+    'TRACK_ADD_EFFECT',
+    'TRACK_ADD',
+    'TRACK_DELETE',
 
-  'EFFECT_UPDATE'
+    'EFFECT_UPDATE'
 ]
 
-function camel (capitalSnake){
-  let s = capitalSnake.split("_");
-  s = s.map(x=>{
-    return x[0] + x.slice(1,x.length).toLowerCase();
-  })
-  s[0] = s[0].toLowerCase();
-  return s.join("");
+function camel(capitalSnake) {
+    let s = capitalSnake.split("_");
+    s = s.map(x => {
+        return x[0] + x.slice(1, x.length).toLowerCase();
+    })
+    s[0] = s[0].toLowerCase();
+    return s.join("");
 }
 
 const obj = {};
-ActionTypes.forEach(x=>{
+ActionTypes.forEach(x => {
     obj[camel(x)] = createAction(x)
 });
 export const Actions = obj

@@ -23,9 +23,16 @@ const TrackReducer = function (tracks, action) {
         obj[payload.trackId] = newTrack;
         return Object.assign({},tracks, obj)
     } else if (action.type === 'TRACK_DELETE_EFFECT') {
-        console.log('not yet implemented (tracks reducer');
+        tracks[payload.trackId] = {...tracks[payload.trackId]};
+        tracks[payload.trackId].effects = tracks[payload.track].filter(x=>{return x !== payload.effectId});
+        return {...tracks};
     } else if (action.type === 'TRACK_ADD_EFFECT') {
-        console.log('not yet implemented (tracks reducer');
+        tracks[payload.trackId] = {...tracks[payload.trackId]};
+        tracks[payload.trackId].effects.push(payload.effectId);
+        return {...tracks};
+    } else if (action.type === 'TRACK_ADD'){
+        tracks[payload.trackId] = payload.value;
+        return {...tracks};
     }
     return tracks
 }

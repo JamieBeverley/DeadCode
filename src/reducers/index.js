@@ -7,9 +7,16 @@ import StemModel from "../model/StemModel";
 import StemReducer from './Stem.js'
 import EffectReducer from "./Effect";
 
+const CopyReducer = (copy, action)=>{
+    if (action.type==='STEM_COPY'){
+        return {type:'stems', items:action.payload.items};
+    }
+    return copy
+}
+
 export default (state = Model.defaultState, action) =>{
     return {
-        copy: state.copy,
+        copy: CopyReducer(state.copy,action),
         master:MasterReducer(state.master, action),
         connection: ConnectionReducer(state.connection, action),
         tracks: TrackReducer(state.tracks, action),
@@ -20,30 +27,30 @@ export default (state = Model.defaultState, action) =>{
 
 
 
-function pasteStemAtPosition(state, stem, pos) {
-    if (pos.trackIndex >= state.tracks.length) return state;
-    if (pos.stemIndex >= state.tracks[pos.trackIndex].stems.length) return state;
-    let track = state.tracks[pos.trackIndex];
-    let newStem = StemModel.clone(stem);
-    newStem.trackId = track.id;
-    newStem.open = false;
-    track.stems = state.tracks[pos.trackIndex].stems.concat([]);//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
-    track.stems[pos.stemIndex] = newStem;//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
-    return Object.assign({}, state, {
-        tracks: state.tracks.map(x => {
-            if (x.id === track.id) {
-                return track
-            }
-            return x
-        })
-    })
-}
-
-function getStemPosition(stem, state) {
-    let trackIndex = state.tracks.findIndex(x => x.id === stem.trackId);
-    let stemIndex = state.tracks[trackIndex].stems.findIndex(x => x.id === stem.id);
-    return {trackIndex, stemIndex}
-}
+// function pasteStemAtPosition(state, stem, pos) {
+//     if (pos.trackIndex >= state.tracks.length) return state;
+//     if (pos.stemIndex >= state.tracks[pos.trackIndex].stems.length) return state;
+//     let track = state.tracks[pos.trackIndex];
+//     let newStem = StemModel.clone(stem);
+//     newStem.trackId = track.id;
+//     newStem.open = false;
+//     track.stems = state.tracks[pos.trackIndex].stems.concat([]);//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
+//     track.stems[pos.stemIndex] = newStem;//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
+//     return Object.assign({}, state, {
+//         tracks: state.tracks.map(x => {
+//             if (x.id === track.id) {
+//                 return track
+//             }
+//             return x
+//         })
+//     })
+// }
+//
+// function getStemPosition(stem, state) {
+//     let trackIndex = state.tracks.findIndex(x => x.id === stem.trackId);
+//     let stemIndex = state.tracks[trackIndex].stems.findIndex(x => x.id === stem.id);
+//     return {trackIndex, stemIndex}
+// }
 
 
 /*

@@ -17,7 +17,7 @@ const stems = {};
 const effects = {};
 
 const TidalCycles = MasterModel.getNew('TidalCycles',{tempo:120});
-for(let i in EffectModel.util.defaultEffects['TidalCycles']){
+for(let i in EffectModel.util.defaultEffects['TidalCycles']()){
   let effectId = Id.new();
   effects[effectId] = EffectModel.util.defaultEffects['TidalCycles']()[i];
   TidalCycles.effects.push(effectId);
@@ -25,14 +25,13 @@ for(let i in EffectModel.util.defaultEffects['TidalCycles']){
 
 
 const Hydra = MasterModel.getNew('Hydra');
-for(let i in EffectModel.util.defaultEffects['Hydra']){
+for(let i in EffectModel.util.defaultEffects['Hydra']()){
   let effectId = Id.new();
   effects[effectId] = EffectModel.util.defaultEffects['Hydra']()[i];
   Hydra.effects.push(effectId);
 }
 
 const master = {TidalCycles, Hydra}
-
 
 for (let i = 0; i < 5; i++) {
     let trackId = Id.new();

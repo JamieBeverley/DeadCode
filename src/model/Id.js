@@ -19,7 +19,7 @@ Id.init =  function (state){
 
 
 Id.new = function() {
-    return Id.index++;
+    return (Id.index++)+'';
 };
 
 export default Id

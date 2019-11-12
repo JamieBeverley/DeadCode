@@ -1,22 +1,69 @@
 import {Actions} from './index.js';
 import {store} from '../index.js';
 import Connection from "../Connection";
-import Model from "../model";
 import Id from "../model/Id";
 import EffectModel from "../model/EffectModel";
 import StemModel from "../model/StemModel";
+import TrackModel from "../model/TrackModel";
 
-
+function getPosition(state, stemId) {
+    let track = Object.keys(state.tracks).findIndex(x => {
+        return state.tracks[x].stems.includes(stemId)
+    });
+    let stem = state.tracks[Object.keys(state.tracks)[track]].stems.findIndex(x => {
+        return x === stemId
+    });
+    return {track, stem}
+}
 
 const GlobalActions = dispatch => {
     return {
         connect: (url, port) => {
-            dispatch(Actions.connect({url, port}));
+            let onOpen = () => {
+                dispatch(Actions.connect({url, port, isConnected: true}))
+            };
+            let onClose = () => {
+                dispatch(Actions.connect({url, port, isConnected: false}))
+            };
+            let onError = onClose;
+            Connection.init(url, port, onOpen, onClose, onError);
         },
         stemCopy: () => {
-            dispatch(Actions.copy())
+            let state = store.getState();
+            let items = Object.keys(state.stems).filter(x => {
+                return state.stems[x].selected
+            });
+            dispatch(Actions.stemCopy({items}))
         },
         stemPaste: (stemId) => {
+            let state = store.getState();
+            if (!state.copy || state.copy.items.length < 1) {
+                console.log('nothing copied');
+                return
+            }
+            let pastePos = getPosition(state, stemId);
+            let globalActions = GlobalActions(dispatch)
+            let anchorPos = getPosition(state, state.copy.items[0]);
+            let diffPos = {track: pastePos.track - anchorPos.track, stem: pastePos.stem - anchorPos.stem};
+            state.copy.items.forEach(sId => {
+                let cpPos = getPosition(state, sId);
+
+                let newPos = {track: cpPos.track + diffPos.track, stem: cpPos.stem + diffPos.stem};
+
+                if (newPos.track >= Object.keys(state.tracks).length) {
+                    console.log('too long');
+                    return
+                }
+
+                let targetTrackId = Object.keys(state.tracks)[newPos.track];
+
+                while (newPos.stem >= state.tracks[targetTrackId].stems.length) {
+                    globalActions.trackAddStem(targetTrackId);
+                    state = store.getState();
+                }
+                let targetStemId = state.tracks[targetTrackId].stems[newPos.stem];
+                globalActions.stemUpdate(targetStemId, state.stems[sId]);
+            })
         },
         save: () => {
             window.localStorage.setItem('state', JSON.stringify(store.getState()));
@@ -46,29 +93,29 @@ const GlobalActions = dispatch => {
             dispatch(Actions.masterUpdate({language, value}));
         },
         stemUpdate: (stemId, value) => {
-            dispatch(Actions.stemUpdate({stemId,value}));
+            dispatch(Actions.stemUpdate({stemId, value}));
         },
         stemDeleteEffect: (stemId, effectId) => {
             dispatch(Actions.stemDeleteEffect({stemId, effectId}));
         },
-        stemAddEffect: (stemId,code, type, language, on, properties) => {
+        stemAddEffect: (stemId, code, type, language, on, properties) => {
             let effectId = Id.new();
             let value = EffectModel.getNew(code, type, language, on, properties);
-            dispatch(Actions.stemAddEffect({stemId,effectId, value}));
+            dispatch(Actions.stemAddEffect({stemId, effectId, value}));
         },
         trackUpdate: (trackId, value) => {
-            dispatch(Actions.trackUpdate({trackId,value}));
+            dispatch(Actions.trackUpdate({trackId, value}));
         },
         trackDeleteStem: (trackId, stemId) => {
             dispatch(Actions.trackDeleteStem({trackId, stemId}));
         },
         // TODO: stuff like this would probably be better as sagas
-        trackAddStem: (trackId, language='TidalCycles') => {
+        trackAddStem: (trackId, language = 'TidalCycles') => {
 
             // create stem and assign to track
             let stemId = Id.new();
             let stem = StemModel.getNew(language);
-            dispatch(Actions.trackAddStem({trackId,stemId, value:stem}));
+            dispatch(Actions.trackAddStem({trackId, stemId, value: stem}));
 
             // create default effects for the new stem
             EffectModel.util.defaultEffects[language]().forEach(effect => {
@@ -79,7 +126,36 @@ const GlobalActions = dispatch => {
             dispatch(Actions.trackDeleteEffect({trackId, effectId}));
         },
         trackAddEffect: (trackId) => {
-            dispatch(Actions.trackAddEffect({trackId}));
+            let effectId = Id.new();
+            let value = EffectModel.getNew("gain", EffectModel.Types.SLIDER, "TidalCycles", true,
+                {
+                    value: 1,
+                    operator: "|*",
+                    min: 0,
+                    max: 2,
+                    step: 0.01,
+                    scale: 'linear'
+                });
+            dispatch(Actions.trackAddEffect({trackId, effectId, value}));
+        },
+        trackAdd: (opt_language) => {
+            let value = TrackModel.getNew(opt_language);
+            let trackId = Id.new();
+            dispatch(Actions.trackAdd({trackId, value}));
+            let globalActions = GlobalActions(dispatch);
+            [0, 0, 0, 0, 0].forEach(() => {
+                globalActions.trackAddStem(trackId)
+            });
+            globalActions.trackAddEffect(trackId,);
+        },
+        trackDelete: (trackId) => {
+            let state = store.getState();
+            let track = state.tracks[trackId];
+            let globalActions = GlobalActions(dispatch)
+            track.stems.forEach(s => {
+                globalActions.trackDeleteStem(trackId, s);
+            });
+            dispatch(Actions.trackDelete({trackId}));
         },
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));
