@@ -2,6 +2,7 @@
   "name": "y",
   "version": "y",
   "main": "index.js",
+  "homepage": "https://jamiebeverley.github.io/DeadCode",
   "repository": "https://github.com/JamieBeverley/Dead.git",
   "author": "Jamie Beverley",
   "license": "MIT",
