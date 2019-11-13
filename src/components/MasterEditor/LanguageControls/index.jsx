@@ -11,14 +11,13 @@ class LanguageControls extends Component {
         this.state = {};
     }
 
-    changeTempo(effect) {
+    changeTempo(id, effect) {
         let val = this.props
         val.properties.tempo = effect.properties.value;
-        this.props.globalActions.updateMaster(Model.Languages.TidalCycles, val);
+        this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
     }
 
     getLanguageSpecific() {
-    debugger
         switch (this.props.language) {
             case Model.Languages.TidalCycles:
                 let e = {
@@ -32,6 +31,7 @@ class LanguageControls extends Component {
                         step: 0.01,
                         value: this.props.properties.tempo
                     },
+                    globalActions:{effectUpdate:this.changeTempo.bind(this)},
                     noToggle: true,
                     key: 'tempo',
                     type:"SLIDER",
@@ -71,7 +71,6 @@ class LanguageControls extends Component {
     render() {
         const effects = this.props.effects.map(this.effectIdToComponent.bind(this));
         const languageSpecific = this.getLanguageSpecific();
-    debugger
         return (
             <div className="LanguageControls">
                 {languageSpecific}

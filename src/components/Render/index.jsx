@@ -22,6 +22,9 @@ export default class Render extends Component {
     componentDidMount() {
     }
 
+    shouldComponentUpdate(nextProps, nextState, nextContext) {
+        return true;
+    }
 
 
     render() {
@@ -30,19 +33,24 @@ export default class Render extends Component {
         // let send = false;
 
         // Render Tidal
-        if(this.tidalCycles.tempo !== this.props.master.TidalCycles.properties.tempo){
-            Connection.sendCode(Renderers.TidalCycles.getTempoCode(this.props));
-            this.tidalCycles.tempo = this.props.master.TidalCycles.properties.tempo;
-        }
-        if(this.tidalCycles.macros !== this.props.master.TidalCycles.macros){
-            Connection.sendCode(this.props.master.TidalCycles.macros);
-            this.tidalCycles.macros = this.props.master.TidalCycles.macros;
-        }
-        const tidalCode = Renderers.TidalCycles.getCode(this.props);
-        if(this.tidalCycles.code!==tidalCode){
-            console.log('tidal:', tidal);
-            Connection.sendCode(tidal);
-            this.tidalCycles.code = tidalCode;
+        console.log('render?')
+        if(this.props.connection.isConnected){
+            console.log(this.tidalCycles.tempo, this.props.master.TidalCycles.properties.tempo);
+            if(this.tidalCycles.tempo !== this.props.master.TidalCycles.properties.tempo){
+                Connection.sendCode(Renderers.TidalCycles.getTempoCode(this.props));
+                this.tidalCycles.tempo = this.props.master.TidalCycles.properties.tempo;
+                console.log('TidalCycles tempo: '+this.tidalCycles.tempo);
+            }
+            if(this.tidalCycles.macros !== this.props.master.TidalCycles.macros){
+                Connection.sendCode(this.props.master.TidalCycles.macros);
+                this.tidalCycles.macros = this.props.master.TidalCycles.macros;
+            }
+            const tidalCode = Renderers.TidalCycles.getCode(this.props);
+            if(this.tidalCycles.code!==tidalCode){
+                console.log('tidal:', tidal);
+                Connection.sendCode(tidal);
+                this.tidalCycles.code = tidalCode;
+            }
         }
 
         if(this.iframeRef.current && this.iframeRef.current.contentWindow){
