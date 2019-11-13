@@ -1,7 +1,8 @@
 # better selection stuff
 - select multiple stems and hit enter to toggle on/off
 - select multiple stems and hit arrow up to increase gain of all?
-- cue mechanism?
+#  
+cue mechanism?
 
 # config/settings
 - connection to different things
