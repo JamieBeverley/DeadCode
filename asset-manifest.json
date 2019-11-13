@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/DeadCode/static/css/main.4c90f244.chunk.css",
+    "main.js": "/DeadCode/static/js/main.0ac3151d.chunk.js",
+    "main.js.map": "/DeadCode/static/js/main.0ac3151d.chunk.js.map",
+    "runtime~main.js": "/DeadCode/static/js/runtime~main.6ab9e3ed.js",
+    "runtime~main.js.map": "/DeadCode/static/js/runtime~main.6ab9e3ed.js.map",
+    "static/js/2.18c5ad9c.chunk.js": "/DeadCode/static/js/2.18c5ad9c.chunk.js",
+    "static/js/2.18c5ad9c.chunk.js.map": "/DeadCode/static/js/2.18c5ad9c.chunk.js.map",
+    "index.html": "/DeadCode/index.html",
+    "precache-manifest.17cd7e01f59fd263907c8ac6ffe267d0.js": "/DeadCode/precache-manifest.17cd7e01f59fd263907c8ac6ffe267d0.js",
+    "service-worker.js": "/DeadCode/service-worker.js",
+    "static/css/main.4c90f244.chunk.css.map": "/DeadCode/static/css/main.4c90f244.chunk.css.map",
+    "static/media/index.css": "/DeadCode/static/media/3.e1075641.PNG"
+  }
+}
