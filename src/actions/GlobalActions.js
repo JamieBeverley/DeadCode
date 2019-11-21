@@ -74,11 +74,27 @@ const GlobalActions = dispatch => {
             if (newState) {
                 newState = JSON.parse(newState);
                 Id.init(newState);
-                dispatch(Actions.LOAD(newState));
+                dispatch(Actions.load(newState));
                 // renderTempoChange(store.getState());
                 // renderBootScript(store.getState());
             } else {
                 console.warn('Tried to load state but empty');
+            }
+        },
+        open: (file) => {
+            if (!file) {
+                let input = document.createElement('input');
+                input.type = 'file';
+                input.onchange = (e) => {
+                    input.files[0].text().then(x => {
+                        dispatch(Actions.load(JSON.parse(x)));
+                    });
+                };
+                input.click();
+            } else {
+                file.text().then(x => {
+                    dispatch(Actions.load(JSON.parse(x)));
+                });
             }
         },
         download: () => {
@@ -87,7 +103,7 @@ const GlobalActions = dispatch => {
             anchor.setAttribute("href", dataStr);
             anchor.setAttribute("download", "dead_state.json");
             anchor.click();
-            dispatch(Actions.DOWNLOAD());
+            dispatch(Actions.download());
         },
         masterUpdate: (language, value) => {
             dispatch(Actions.masterUpdate({language, value}));

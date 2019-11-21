@@ -58,7 +58,7 @@ export default class App extends Component{
                 this.props.globalActions.download();
             } else if (e.key ==='o'){
                 e.preventDefault();
-                this.props.globalActions.openFile();
+                this.props.globalActions.open();
             }
         }
     }

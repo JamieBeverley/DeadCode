@@ -1,4 +1,4 @@
-import Actions from '../actions'
+import Actions, {ActionTypes} from '../actions'
 import Model from '../model'
 import TrackReducer from "./Track";
 import ConnectionReducer from "./Connection";
@@ -15,6 +15,10 @@ const CopyReducer = (copy, action)=>{
 }
 
 export default (state = Model.defaultState, action) =>{
+    if(action.type === 'LOAD'){
+        return action.payload
+    }
+
     return {
         copy: CopyReducer(state.copy,action),
         master:MasterReducer(state.master, action),

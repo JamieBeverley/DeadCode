@@ -1,12 +1,29 @@
 # better selection stuff
 - select multiple stems and hit enter to toggle on/off
 - select multiple stems and hit arrow up to increase gain of all?
-#  
-cue mechanism?
 
 # config/settings
 - connection to different things
 - save to name
+- settings bar?
+
+# connection
+- WS state sharing?
+
+# progressions
+-  1, 2, 3, 4,
+
+# reimplement loading
+
+# stem tags
+- and re-order stems by tags (eg. all bass in one column, all drums in another)
+
+# effects 
+- toggle (different levels to different values)
+- code toggle on/off
+
+- encoder per stem?
+- redesign oepn to stem editor interaction
 
 # effects
 - per track
