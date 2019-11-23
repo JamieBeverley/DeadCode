@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './index.css'
-import {Grid, Slider, Switch,Input} from '@material-ui/core';
+import {Grid, Slider, Input} from '@material-ui/core';
+import Toggle from "../../util/Toggle";
 
 export default class SliderEffect extends Component {
     constructor (props){
@@ -45,22 +46,15 @@ export default class SliderEffect extends Component {
         this.props.globalActions.effectUpdate(this.props.id, {properties});
     }
 
-    toggle(e){
-        let on = e.target.checked;
+    toggle(on){
         this.props.globalActions.effectUpdate(this.props.id, {on})
     }
 
     renderHorizontal(){
         return (
             <div className={'Slider horizontal'}>
-                {this.props.properties.code}
-                {this.props.noToggle ? null :
-                    <Switch
-                        color='primary'
-                        onChange={this.toggle.bind(this)}
-                        checked={this.props.on}
-                    />
-                }
+                {this.props.noToggle ? null : <Toggle onChange={this.toggle.bind(this)} on={this.props.on}/>}
+                <div className={'text'}><div>{this.props.properties.code}</div></div>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs>
                         <Slider
@@ -138,11 +132,7 @@ export default class SliderEffect extends Component {
                         <div style={{textAlign:'center'}}>
                             {this.props.properties.code}
                             {this.props.noToggle ? null :
-                                <Switch
-                                    color='primary'
-                                    onChange={this.toggle.bind(this)}
-                                    checked={this.props.on}
-                                />
+                                <Toggle onChange={this.toggle.bind(this)} on={this.props.on}/>
                             }
                         </div>
             </div>

@@ -2,7 +2,8 @@
     width: 10%;
     display:inline-block;
     height: 100%;
-    /*float:right;*/
+    margin-right: 15px;
+
 }
 
 /*TODO cleanup*/
@@ -13,7 +14,6 @@
 
 .CodeToggle .text > div{
     transform: translateY(-100%);
-    margin-right: 15px;
 }
 
 .CodeToggle input{

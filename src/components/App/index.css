@@ -114,7 +114,10 @@ button{
     /*border:1pt solid var(--font-color-light);*/
     color:var(--font-color-light);
     background-color: var(--stem-off);
+    box-sizing: border-box;
 }
+
+
 
 input{
     color:var(--font-color-light);
@@ -150,6 +153,12 @@ select{
 /*::-webkit-scrollbar-thumb:hover {*/
 /*    background: rgb(200,200,200);*/
 /*}*/
+
+.verticalCenter{
+    top:50%;
+    position:relative;
+    transform: translateY(-50%);
+}
 
 .noselect {
     -webkit-touch-callout: none; /* iOS Safari */

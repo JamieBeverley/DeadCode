@@ -27,8 +27,8 @@ class CodeToggle extends Component {
         return (
             <div className={'CodeToggle'}>
                 <div>
-                    <div className={'text'}><div>Code Toggle</div></div>
                     <Toggle on={this.props.on} onChange={this.onToggle.bind(this)}/>
+                    <div className={'text'}><div>Code Toggle</div></div>
                 </div>
                 <div>
                     <input type={'text'} onChange={this.onChange.bind(this)} value={this.state.code}/>

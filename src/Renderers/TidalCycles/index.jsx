@@ -116,43 +116,9 @@ function effectToDom(effect){
     )
 }
 
-// function getAudienceDom(state){
-//
-//     let masterEffects = state.masterEffects.map(effectToCode).join(" $ ");
-//     masterEffects= masterEffects + (state.masterEffects.length?" $ ":"");
-//
-//     let stack = <span>{`d1 ${masterEffects} stack [`}</span>
-//     let stems = state.tracks.map(t=>t.stems).flat().filter(x=>{return x.on && x.language==='TidalCycles'}).map(stem=>{
-//         return [
-//             <div key={stem.id} className={'indented'}>{stemToCode(stem)}</div>,
-//             (<div key={stem.id+"_c"} style={{display:'inline-block'}}>{','}</div>)
-//                 ]
-//     });
-//
-//     stems = stems.flat();
-//     stems = stems.slice(0,-1);
-//
-//     return (
-//         <div>
-//             {stack}
-//             {stems}
-//                 ]
-//         </div>
-//     )
-// }
-
-// function renderTidalCyclesBootScript(state){
-//     Connection.sendCode(state.bootScript);
-// }
-//
-// function renderTidalCyclesTempoChange(state){
-//     Connection.sendCode(getTempoCode(state));
-// };
-
 function getTempoCode(state){
     return 'setcps ' + state.master.TidalCycles.properties.tempo/60/2;
 }
-
 
 const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x)=>{

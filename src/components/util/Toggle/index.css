@@ -1,6 +1,6 @@
 .Toggle{
-    min-width: 50px;
-    min-height: 50px;
+    width:50px;
+    height:40px;
     border-radius: var(--border-radius);
     border: 1pt solid var(--stem-on);
     box-sizing: border-box;

@@ -10,9 +10,9 @@ export default class Effect extends Component {
     render(){
         switch (this.props.type) {
             case EffectModel.Types.SLIDER:
-                return (<Slider {...this.props}/>)
+                return (<div className={'Effect'}><Slider {...this.props}/></div>)
             case EffectModel.Types.CODE_TOGGLE:
-                return (<CodeToggle {...this.props}/>)
+                return (<div className={'Effect'}><CodeToggle {...this.props}/></div>)
             default:
                 console.warn('unrecognized effect type: '+this.props.type);
                 debugger;

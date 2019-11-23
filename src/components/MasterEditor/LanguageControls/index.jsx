@@ -17,13 +17,17 @@ class LanguageControls extends Component {
         this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
     }
 
+    onChangeLive(value){
+
+    }
+
     getLanguageSpecific() {
         switch (this.props.language) {
             case Model.Languages.TidalCycles:
                 let e = {
-                    code: "Tempo",
                     language: "TidalCycles", on: true,
                     properties: {
+                        code: 'Tempo',
                         max: 300,
                         min: 0,
                         operator: "",
