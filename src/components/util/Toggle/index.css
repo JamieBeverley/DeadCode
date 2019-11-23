@@ -1,0 +1,29 @@
+.Toggle{
+    min-width: 50px;
+    min-height: 50px;
+    border-radius: var(--border-radius);
+    border: 1pt solid var(--stem-on);
+    box-sizing: border-box;
+    position: relative;
+    padding:2px;
+}
+
+.Toggle.on{
+    background-color: transparent;
+    border: 1pt solid var(--stem-on)
+}
+
+.Toggle > div{
+    box-sizing: border-box;
+    position: absolute;
+    border-radius: var(--border-radius);
+    bottom:4px;
+    top:4px;
+    left:4px;
+    right:4px;
+    background-color: var(--stem-off);
+}
+
+.Toggle.on > div{
+    background-color: var(--stem-on);
+}

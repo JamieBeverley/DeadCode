@@ -97,7 +97,7 @@ class EffectCreator extends Component {
 
         return (
             <div ref={this.ref} className={'EffectCreator'}>
-                <div><h>New Effect</h></div>
+                <div><div>New Effect</div></div>
                 {inside}
             </div>
         );

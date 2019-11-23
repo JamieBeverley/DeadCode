@@ -17,7 +17,8 @@ function clone(effect){
 }
 
 let Types = {
-    SLIDER:"SLIDER"
+    SLIDER:"SLIDER",
+    CODE_TOGGLE:'CODE_TOGGLE'
 }
 
 let PropertySpec = {
@@ -29,6 +30,9 @@ let PropertySpec = {
         max: 'float',
         step: 'float',
         scale: 'string' // 'linear' or 'log'
+    },
+    CODE_TOGGLE: {
+        code: 'string',
     }
 }
 

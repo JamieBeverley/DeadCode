@@ -25,5 +25,10 @@
     border-radius: 0;
     border-bottom:1pt solid var(--font-color-light);
     margin-left: 20px;
-    background-color: var(--stem);
+    background-color: transparent;
+}
+
+.EffectCreator > div > div {
+    padding-top:5px;
+    font-size: 20px;
 }

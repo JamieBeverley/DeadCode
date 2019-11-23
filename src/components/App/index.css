@@ -109,7 +109,7 @@ body{
 
 button{
     border-radius: var(--border-radius);
-    border:1pt solid var(--font-color-light);
+    border:1pt solid var(--stem-off);
     padding:5px;
     /*border:1pt solid var(--font-color-light);*/
     color:var(--font-color-light);
@@ -119,6 +119,7 @@ button{
 input{
     color:var(--font-color-light);
     border-radius: var(--border-radius);
+    border: 1pt solid var(--stem-off);
     padding:5px;
 }
 
@@ -126,7 +127,7 @@ select{
     background-color: var(--stem-off);
     color: var(--font-color-light);
     border-radius: var(--border-radius);
-    border:1pt solid var(--font-color-light);
+    border:1pt solid var(--stem-off);
     padding:5px;
 }
 

@@ -158,6 +158,9 @@ const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x)=>{
     return `(${x.properties.operator} ${x.properties.code} ${x.properties.value})`
 }
+EffectsToCode[EffectModel.Types.CODE_TOGGLE] = (x)=>{
+    return `(${x.properties.code})`
+}
 
 
 function effectToCode(x){

@@ -1,0 +1,29 @@
+.CodeToggle .Toggle{
+    width: 10%;
+    display:inline-block;
+    height: 100%;
+    /*float:right;*/
+}
+
+/*TODO cleanup*/
+.CodeToggle .text {
+    display: inline-block;
+    position: relative;
+}
+
+.CodeToggle .text > div{
+    transform: translateY(-100%);
+    margin-right: 15px;
+}
+
+.CodeToggle input{
+    background-color: transparent;
+    color: var(--font-color-light);
+    border-radius: 0px;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    width: 100%;
+    margin:auto;
+    box-sizing: border-box;
+}
