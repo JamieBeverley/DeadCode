@@ -61,7 +61,7 @@
     --stem-editor-color: rgba(30,30,30,0.9);
     --font-family: 'Helventica', sans-serif;
     --font-color-dark: rgb(200,200,200);
-    --font-color-light: rgb(white);
+    --font-color-light: lightgrey;
     --scrollbar-width: 0px;
     --track-border-color: rgb(40,40,40);
     --select-color: white;
@@ -108,9 +108,26 @@ body{
 }
 
 button{
-    border-radius: 5px;
-    border:1pt solid lightgrey;
+    border-radius: var(--border-radius);
+    border:1pt solid var(--font-color-light);
+    padding:5px;
+    /*border:1pt solid var(--font-color-light);*/
+    color:var(--font-color-light);
     background-color: var(--stem-off);
+}
+
+input{
+    color:var(--font-color-light);
+    border-radius: var(--border-radius);
+    padding:5px;
+}
+
+select{
+    background-color: var(--stem-off);
+    color: var(--font-color-light);
+    border-radius: var(--border-radius);
+    border:1pt solid var(--font-color-light);
+    padding:5px;
 }
 
 ::-webkit-scrollbar {

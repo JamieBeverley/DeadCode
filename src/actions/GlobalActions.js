@@ -114,9 +114,9 @@ const GlobalActions = dispatch => {
         stemDeleteEffect: (stemId, effectId) => {
             dispatch(Actions.stemDeleteEffect({stemId, effectId}));
         },
-        stemAddEffect: (stemId, code, type, language, on, properties) => {
+        stemAddEffect: (stemId, type, language, on, properties) => {
             let effectId = Id.new();
-            let value = EffectModel.getNew(code, type, language, on, properties);
+            let value = EffectModel.getNew(type, language, on, properties);
             dispatch(Actions.stemAddEffect({stemId, effectId, value}));
         },
         trackUpdate: (trackId, value) => {

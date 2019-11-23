@@ -47,7 +47,8 @@ for (let i = 0; i < 5; i++) {
         tracks[trackId].stems.push(stemId);
     }
     let mainEffectId = Id.new();
-    effects[mainEffectId] = EffectModel.getNew("gain", EffectModel.Types.SLIDER, "TidalCycles", true, {
+    effects[mainEffectId] = EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", true, {
+        code: 'gain',
         value: 1,
         operator: "|*",
         min: 0,

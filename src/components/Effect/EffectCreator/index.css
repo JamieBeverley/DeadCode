@@ -1,0 +1,24 @@
+.EffectCreator{
+    margin-left:auto;
+    margin-right: auto;
+    margin-top:15px;
+    border-radius: var(--border-radius);
+    width:95%;
+    /*border:1pt solid red;*/
+    box-sizing: border-box;
+    background-color: var(--stem-off);
+}
+
+.EffectCreator > *{
+    margin:5px;
+}
+
+.EffectCreator button {
+    min-width: 50px;
+}
+
+.EffectCreator input{
+    border:1pt solid var(--font-color-light);
+    margin-left: 20px;
+    background-color: var(--stem);
+}

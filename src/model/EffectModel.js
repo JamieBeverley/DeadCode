@@ -1,12 +1,13 @@
-function getNew(code, type, language, on=false, properties){
+
+function getNew(type, language, on=false, properties){
+    // TODO something to validate that properties object matches the type here
     return {
-        code,
-        on,
         type,
         language,
+        on,
         properties
     }
-};
+}
 
 function clone(effect){
     return {
@@ -19,11 +20,24 @@ let Types = {
     SLIDER:"SLIDER"
 }
 
+let PropertySpec = {
+    'SLIDER':{
+        code: "string",
+        value: 'float',
+        operator: "string",
+        min: 'float',
+        max: 'float',
+        step: 'float',
+        scale: 'string' // 'linear' or 'log'
+    }
+}
+
 const defaultEffects = {
     'TidalCycles': ()=>{
         return [
-            EffectModel.getNew("gain",EffectModel.Types.SLIDER,"TidalCycles",true,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",true,
                 {
+                    code: "gain",
                     value: 1,
                     operator: "|*",
                     min: 0,
@@ -31,8 +45,9 @@ const defaultEffects = {
                     step: 0.01,
                     scale: 'linear'
                 }),
-            EffectModel.getNew("lpf",EffectModel.Types.SLIDER,"TidalCycles",false,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
+                    code: "lpf",
                     value: 22000,
                     operator: "#",
                     min: 0,
@@ -40,8 +55,9 @@ const defaultEffects = {
                     step: 10,
                     scale: 'log'
                 }),
-            EffectModel.getNew("hpf",EffectModel.Types.SLIDER,"TidalCycles",false,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
+                    code: "hpf",
                     value: 0,
                     operator: "#",
                     min: 0,
@@ -49,8 +65,9 @@ const defaultEffects = {
                     step: 10,
                     scale: 'log'
                 }),
-            EffectModel.getNew("coarse",EffectModel.Types.SLIDER,"TidalCycles",false,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
+                    code: "coarse",
                     value: 0,
                     operator: "#",
                     min: 0,
@@ -58,8 +75,9 @@ const defaultEffects = {
                     step: 1,
                     scale: 'linear'
                 }),
-            EffectModel.getNew("room",EffectModel.Types.SLIDER,"TidalCycles",false,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
+                    code: "room",
                     value: 0,
                     operator: "#",
                     min: 0,
@@ -67,8 +85,9 @@ const defaultEffects = {
                     step: 0.01,
                     scale: 'linear'
                 }),
-            EffectModel.getNew("size",EffectModel.Types.SLIDER,"TidalCycles",false,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",false,
                 {
+                    code: "size",
                     value: 0,
                     operator: "#",
                     min: 0,
@@ -80,8 +99,9 @@ const defaultEffects = {
     },
     'Hydra':()=>{
         return [
-            EffectModel.getNew("kaleid",EffectModel.Types.SLIDER,"Hydra",false,
+            EffectModel.getNew(EffectModel.Types.SLIDER,"Hydra",false,
                 {
+                    code: "kaleid",
                     value: 1,
                     // operator: "#",
                     min: 0,
@@ -106,6 +126,7 @@ const EffectModel = {
     getNew,
     clone,
     Types,
+    PropertySpec,
     util
 }
 

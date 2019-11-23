@@ -53,7 +53,7 @@ export default class SliderEffect extends Component {
     renderHorizontal(){
         return (
             <div className={'Slider horizontal'}>
-                {this.props.code}
+                {this.props.properties.code}
                 {this.props.noToggle ? null :
                     <Switch
                         color='primary'
@@ -136,7 +136,7 @@ export default class SliderEffect extends Component {
                             }}
                         />
                         <div style={{textAlign:'center'}}>
-                            {this.props.code}
+                            {this.props.properties.code}
                             {this.props.noToggle ? null :
                                 <Switch
                                     color='primary'

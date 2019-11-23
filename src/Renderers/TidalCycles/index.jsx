@@ -156,7 +156,7 @@ function getTempoCode(state){
 
 const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x)=>{
-    return `(${x.properties.operator} ${x.code} ${x.properties.value})`
+    return `(${x.properties.operator} ${x.properties.code} ${x.properties.value})`
 }
 
 

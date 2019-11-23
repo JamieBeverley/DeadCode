@@ -13,7 +13,8 @@
 # progressions
 -  1, 2, 3, 4,
 
-# reimplement loading
+# notifcations (
+- code warnings, ws connection dropped, sc late messages?)
 
 # stem tags
 - and re-order stems by tags (eg. all bass in one column, all drums in another)
@@ -21,12 +22,12 @@
 # effects 
 - toggle (different levels to different values)
 - code toggle on/off
-
 - encoder per stem?
 - redesign oepn to stem editor interaction
 
-# effects
-- per track
+
+
+
 
 # + buttons 
 - tracks and stems
