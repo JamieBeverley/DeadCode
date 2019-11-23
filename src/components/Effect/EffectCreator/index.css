@@ -11,6 +11,7 @@
 
 .EffectCreator > *{
     margin:5px;
+    margin-top:10px;
 }
 
 .EffectCreator button {
@@ -18,7 +19,11 @@
 }
 
 .EffectCreator input{
-    border:1pt solid var(--font-color-light);
+    border-left: none;
+    border-top:none;
+    border-right: none;
+    border-radius: 0;
+    border-bottom:1pt solid var(--font-color-light);
     margin-left: 20px;
     background-color: var(--stem);
 }
