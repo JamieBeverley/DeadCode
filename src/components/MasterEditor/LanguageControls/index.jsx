@@ -4,6 +4,7 @@ import Effect from "../../../containers/Effect";
 import EffectComponent from "../../Effect";
 import Model from "../../../model";
 import EffectModel from "../../../model/EffectModel";
+import EffectCreator from "../../Effect/EffectCreator";
 
 class LanguageControls extends Component {
     constructor(props) {
@@ -64,6 +65,10 @@ class LanguageControls extends Component {
         }
     }
 
+    newEffect(type, properties){
+        this.props.globalActions.masterAddEffect(type, this.props.language,false,properties);
+    }
+
     updateEffect(e) {
         this.props.globalActions.updateMasterEffect(e);
     }
@@ -79,6 +84,7 @@ class LanguageControls extends Component {
             <div className="LanguageControls">
                 {languageSpecific}
                 {effects}
+                <EffectCreator onCreate={this.newEffect.bind(this)}/>
             </div>
         );
     }

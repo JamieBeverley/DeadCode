@@ -1,9 +1,10 @@
 .CodeToggle .Toggle{
-    width: 10%;
+    /*width: 10%;*/
     display:inline-block;
-    height: 100%;
+    /*height: 100%;*/
+    height: 40px;
+    width:50px;
     margin-right: 15px;
-
 }
 
 /*TODO cleanup*/

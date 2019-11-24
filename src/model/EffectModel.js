@@ -98,7 +98,10 @@ const defaultEffects = {
                     max: 1,
                     step: 0.01,
                     scale: 'linear'
-                })
+                }),
+            EffectModel.getNew(EffectModel.Types.CODE_TOGGLE, 'TidalCycles', false,{
+                code:''
+            })
         ]
     },
     'Hydra':()=>{
@@ -119,6 +122,9 @@ const defaultEffects = {
                 max:200,
                 step:1,
                 scale:'linear'
+            }),
+            EffectModel.getNew(EffectModel.Types.CODE_TOGGLE, 'Hydra', false,{
+                code:''
             })
         ]
     }

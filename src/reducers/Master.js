@@ -2,12 +2,17 @@ import {ActionTypes} from "../actions";
 import Model from "../model";
 
 const MasterReducer = function (master, action) {
-    let obj,newVal;
+    let obj,newLang;
     switch (action.type) {
         case "MASTER_UPDATE":
-            let newLang = Object.assign({},master[action.language],action.value);
+            newLang = Object.assign({},master[action.language],action.value);
             master[action.language] = newLang;
             return {...master};
+        case "MASTER_ADD_EFFECT":
+            newLang = Object.assign({},master[action.payload.language]);
+            newLang.effects = newLang.effects.concat([action.payload.effectId]);
+            master[action.payload.language] = newLang;
+            return {...master}
 
         // case ActionTypes.UPDATE_MASTER:
         //     newVal = Object.assign({}, master[action.language], action.value);

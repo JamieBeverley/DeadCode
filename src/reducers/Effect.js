@@ -17,7 +17,10 @@ const EffectReducer = (effects, action) => {
     } else if (action.type === "TRACK_DELETE_EFFECT") {
         delete effects[action.payload.effectId];
         return {...effects}
+    } else if (action.type === "MASTER_ADD_EFFECT") {
+        effects[action.payload.effectId] = action.payload.value;
+        return {...effects};
     }
     return effects;
 }
-    export default EffectReducer
+export default EffectReducer

@@ -108,6 +108,11 @@ const GlobalActions = dispatch => {
         masterUpdate: (language, value) => {
             dispatch(Actions.masterUpdate({language, value}));
         },
+        masterAddEffect: (type, language, on, properties) => {
+            let effectId = Id.new();
+            let value = EffectModel.getNew(type, language, on, properties);
+            dispatch(Actions.masterAddEffect({language, effectId, value}));
+        },
         stemUpdate: (stemId, value) => {
             dispatch(Actions.stemUpdate({stemId, value}));
         },
@@ -135,7 +140,7 @@ const GlobalActions = dispatch => {
 
             // create default effects for the new stem
             EffectModel.util.defaultEffects[language]().forEach(effect => {
-                GlobalActions(dispatch).stemAddEffect(stemId, effect.code, effect.type, effect.language, effect.on, effect.properties)
+                GlobalActions(dispatch).stemAddEffect(stemId, effect.type, effect.language, effect.on, effect.properties);
             });
         },
         trackDeleteEffect: (trackId, effectId) => {

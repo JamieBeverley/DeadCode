@@ -8,6 +8,7 @@ export const ActionTypes = [
     'DOWNLOAD',
 
     'MASTER_UPDATE',
+    'MASTER_ADD_EFFECT',
 
     'STEM_UPDATE',
     'STEM_DELETE_EFFECT',

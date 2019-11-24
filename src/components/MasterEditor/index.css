@@ -16,7 +16,8 @@
 .MasterEditor > *{
     display:block;
     margin-top:10px;
-    text-align: center;
+    /*text-align: center;*/
+    /*width:100%;*/
     /*width:100%;*/
     position: relative;
     box-sizing: border-box;
