@@ -4,15 +4,18 @@ import './index.css'
 
 function getInput(id, type) {
     return {
-        'string': (<input id={id} className={'specInput'} type='text'/>),
-        'float': (<input id={id} className={'specInput'} type='number'/>),
-        'integer': (<input id={id} className={'specInput'} type='number'/>),
-        'boolean': (<input id={id} className={'specInput'} type='checkbox'/>)
+        'array': (<input placeholder={'array'} id={id} className={'specInput'} type='text'/>),
+        'string': (<input placeholder={'string'} id={id} className={'specInput'} type='text'/>),
+        'float': (<input placeholder={'float'} id={id} className={'specInput'} type='number'/>),
+        'integer': (<input placeholder={'integer'} id={id} className={'specInput'} type='number'/>),
+        'boolean': (<input placeholder={'boolean'} id={id} className={'specInput'} type='checkbox'/>)
     }[type]
 }
 
 function parseValue(value, type){
     switch(type){
+        case 'array':
+            return JSON.parse(value);
         case 'string':
             return value;
         case 'float':

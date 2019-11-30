@@ -5,18 +5,24 @@ import EffectModel from "../../model/EffectModel";
 import Id from "../../model/Id";
 import Slider from "./Slider";
 import CodeToggle from "./CodeToggle";
+import CodeSlider from "./CodeSlider";
 
 export default class Effect extends Component {
-    render(){
-        switch (this.props.type) {
-            case EffectModel.Types.SLIDER:
-                return (<div className={'Effect'}><Slider {...this.props}/></div>)
-            case EffectModel.Types.CODE_TOGGLE:
-                return (<div className={'Effect'}><CodeToggle {...this.props}/></div>)
-            default:
-                console.warn('unrecognized effect type: '+this.props.type);
-                debugger;
-                return null;
+    render() {
+        let component;
+
+        if (this.props.type === EffectModel.Types.SLIDER) {
+            component = <Slider {...this.props}/>;
+        } else if (this.props.type === EffectModel.Types.CODE_TOGGLE) {
+            component = <CodeToggle {...this.props}/>;
+        } else if (this.props.type === EffectModel.Types.CODE_SLIDER) {
+            component = <CodeSlider {...this.props}/>;
+        } else {
+            debugger;
         }
+
+        return (
+            <div className={'Effect'}>{component}</div>
+        )
     }
 }

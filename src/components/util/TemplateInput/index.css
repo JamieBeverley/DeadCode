@@ -1,0 +1,36 @@
+.TemplateInput input{
+    background-color: transparent;
+    border:none;
+    border-radius: 0;
+    float:left;
+    border-bottom:1pt solid white;
+}
+
+
+/*.TemplateInput > .text{*/
+/*    width:100%;*/
+/*    position:relative;*/
+/*    border:1pt solid red;*/
+/*    box-sizing: border-box;*/
+/*    display:flex;*/
+/*    !*overflow-x:scroll;*!*/
+/*}*/
+
+
+
+/*.TemplateInput > .text > * {*/
+/*    !*flex-grow: 1;*!*/
+/*    height: 100%;*/
+/*    !*display:inline-block;*!*/
+/*    !*width:4px;*!*/
+/*    text-align: center;*/
+/*    border:1pt solid white;*/
+/*    box-sizing: border-box;*/
+/*    border-radius: 0px;*/
+/*    background-color: transparent;*/
+/*    float:left;*/
+/*}*/
+
+/*.TemplateInput > .text > .placeholder{*/
+/*    background-color: var(--stem-on);*/
+/*}*/

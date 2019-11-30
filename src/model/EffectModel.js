@@ -18,7 +18,8 @@ function clone(effect){
 
 let Types = {
     SLIDER:"SLIDER",
-    CODE_TOGGLE:'CODE_TOGGLE'
+    CODE_TOGGLE:'CODE_TOGGLE',
+    CODE_SLIDER:'CODE_SLIDER'
 }
 
 let PropertySpec = {
@@ -33,12 +34,30 @@ let PropertySpec = {
     },
     CODE_TOGGLE: {
         code: 'string',
+    },
+    CODE_SLIDER:{
+        code: 'string',
+        indices: 'array',
+        value: 'float',
+        min: 'float',
+        max: 'float',
+        step: 'float',
+        scale: 'string'
     }
 }
 
 const defaultEffects = {
     'TidalCycles': ()=>{
         return [
+            EffectModel.getNew(EffectModel.Types.CODE_SLIDER,'TidalCycles',false,{
+                code:'stut  0.5 0.66',
+                indices: [5],
+                value: 2,
+                min: 1,
+                max: 0,
+                step: 1,
+                scale: 'linear'
+            }),
             EffectModel.getNew(EffectModel.Types.SLIDER,"TidalCycles",true,
                 {
                     code: "gain",
