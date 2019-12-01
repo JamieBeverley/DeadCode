@@ -33,9 +33,7 @@ your machine) that receives TidalCycles code from the browser, and pipes it to t
 
 To run the NodeJS relay (in a new terminal):
 ```bash
-cd src/relay
-npm install
-node relay.js
+node src/relay/relay.js
 ```
 
 By default relay.js looks to `~/.atom/packages/TidalCycles/lib/BootTidal.hs` for the Tidal boot script. 

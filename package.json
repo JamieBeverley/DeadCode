@@ -9,8 +9,14 @@
   "dependencies": {
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
+    "child_process": "^1.0.2",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.0",
+    "https": "^1.0.0",
     "hydra-synth": "^1.0.25",
     "lodash": "^4.17.15",
+    "nopt": "^4.0.1",
+    "os": "^0.1.1",
     "rc-slider": "^8.6.13",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -19,7 +25,7 @@
     "react-scripts": "^3.1.0",
     "redux": "^4.0.4",
     "redux-logger": "^3.0.6",
-    "ws": "^7.1.2"
+    "ws": "^7.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
