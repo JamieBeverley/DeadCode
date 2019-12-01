@@ -15,7 +15,7 @@ var parsed = nopt(knownOpts, {},process.argv);
 
 // Tidal bootscript path
 const homedir = require('os').homedir()
-var bootTidal = parsed.bootTidal || homedir+"/.atom/packages/TidalCycles/lib/BootTidal.hs"
+var bootTidal = parsed.bootTidal || "./BootTidal.hs"
 
 
 // var output = process.stdout;
