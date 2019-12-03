@@ -5,7 +5,6 @@ import Effect from "../../containers/Effect";
 import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
 import Model from "../../model";
-import PlusButton from "../util/PlusButton/PlusButton";
 import EffectCreator from "../Effect/EffectCreator";
 
 

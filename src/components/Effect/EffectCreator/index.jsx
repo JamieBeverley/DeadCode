@@ -23,7 +23,10 @@ function parseValue(value, type){
         case 'integer':
             return parseInt(value);
         case 'boolean':
-            return value=='true';
+            return value==='true';
+        default:
+            console.warn('Type not defined: '+type);
+            return value
     }
 }
 

@@ -9,22 +9,53 @@
 /*}*/
 
 /* light teal */
+/*:root {*/
+/*    --bg-image: linear-gradient(to right, white ,white);*/
+/*    --launchspace-bg-color: transparent;*/
+/*    --border-radius:8px;*/
+/*    --stem-on: rgb(100,255,200);*/
+/*    --stem-off: lightgrey;*/
+/*    --stem-editor-color:rgba(120,120,120,0.5);*/
+/*    --font-family: 'Helventica', sans-serif;*/
+/*    --font-color-dark: black;*/
+/*    --font-color-light: rgb(30,30,30);*/
+/*    --scrollbar-width: 0px;*/
+/*    --track-border-color: rgb(215,215,215);*/
+/*    --select-color:rgb(100,100,100);*/
+/*}*/
+
+
 :root {
-    --bg-image: linear-gradient(to right, white ,white);
-    /*--bg-image: linear-gradient(to right, white , white, white, rgb(100,255,200));*/
+    --bg-image:radial-gradient(rgb(100,100,100), rgb(100,100,100));
     --launchspace-bg-color: transparent;
-    /*/--launchspace-bg-color: rgb(180,180,180);*!*/
-    --border-radius:8px;
-    --stem-on: rgb(100,255,200);
-    --stem-off: lightgrey;
-    --stem-editor-color:rgba(120,120,120,0.5);
+    --border-radius: 0px;
+    --stem-on: rgb(250,250,20);
+    --stem-off: rgba(255,255,255,0.5);
+    --stem-editor-color: rgba(220, 220, 220, 0.5);
     --font-family: 'Helventica', sans-serif;
     --font-color-dark: black;
-    --font-color-light: rgb(30,30,30);
+    --font-color-light: rgb(30, 30, 30);
     --scrollbar-width: 0px;
-    --track-border-color: rgb(215,215,215);
-    --select-color:rgb(100,100,100);
+    --track-border-color: lightgrey;
+    --select-color: rgb(250,10,10);
 }
+
+/*!* img purp *!*/
+/*:root {*/
+/*    --bg-image: url(../../assets/3.PNG);*/
+/*    --launchspace-bg-color: transparent;*/
+/*    --border-radius:8px;*/
+/*    --stem-on: rgb(100,30,150);*/
+/*    --stem-off: rgba(70,70,70,0.6);*/
+/*    --stem-editor-color: rgba(30,30,30,0.9);*/
+/*    --font-family: 'Helventica', sans-serif;*/
+/*    --font-color-dark: rgb(200,200,200);*/
+/*    --font-color-light: lightgrey;*/
+/*    --scrollbar-width: 0px;*/
+/*    --track-border-color: rgb(40,40,40);*/
+/*    --select-color: white;*/
+/*}*/
+
 
 /*dark purp */
 /*:root {*/
@@ -51,21 +82,7 @@
 }
 
 
-/* img purp */
-:root {
-    --bg-image: url(../../assets/3.PNG);
-    --launchspace-bg-color: transparent;
-    --border-radius:8px;
-    --stem-on: rgb(100,30,150);
-    --stem-off: rgba(70,70,70,0.6);
-    --stem-editor-color: rgba(30,30,30,0.9);
-    --font-family: 'Helventica', sans-serif;
-    --font-color-dark: rgb(200,200,200);
-    --font-color-light: lightgrey;
-    --scrollbar-width: 0px;
-    --track-border-color: rgb(40,40,40);
-    --select-color: white;
-}
+
 
 #root{
     width:100%;
@@ -104,7 +121,7 @@ body{
 }
 
 * {
-    font-family: 'Helventica', sans-serif;
+    font-family: var(--font-family);
 }
 
 button{

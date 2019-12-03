@@ -149,8 +149,9 @@ const GlobalActions = dispatch => {
         },
         trackAddEffect: (trackId) => {
             let effectId = Id.new();
-            let value = EffectModel.getNew("gain", EffectModel.Types.SLIDER, "TidalCycles", true,
+            let value = EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", true,
                 {
+                    code:'gain',
                     value: 1,
                     operator: "|*",
                     min: 0,

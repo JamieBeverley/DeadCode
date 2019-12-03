@@ -1,9 +1,7 @@
-import Actions, {ActionTypes} from '../actions'
 import Model from '../model'
 import TrackReducer from "./Track";
 import ConnectionReducer from "./Connection";
 import MasterReducer from "./Master";
-import StemModel from "../model/StemModel";
 import StemReducer from './Stem.js'
 import EffectReducer from "./Effect";
 

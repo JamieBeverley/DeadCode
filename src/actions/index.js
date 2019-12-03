@@ -1,4 +1,3 @@
-import {store} from '../index.js';
 import {createAction} from 'redux-actions'
 
 export const ActionTypes = [

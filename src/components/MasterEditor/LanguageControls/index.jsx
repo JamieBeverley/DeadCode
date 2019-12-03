@@ -3,7 +3,6 @@ import CodeEditor from "../../CodeEditor";
 import Effect from "../../../containers/Effect";
 import EffectComponent from "../../Effect";
 import Model from "../../../model";
-import EffectModel from "../../../model/EffectModel";
 import EffectCreator from "../../Effect/EffectCreator";
 
 class LanguageControls extends Component {
@@ -18,9 +17,6 @@ class LanguageControls extends Component {
         this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
     }
 
-    onChangeLive(value){
-
-    }
 
     getLanguageSpecific() {
         switch (this.props.language) {

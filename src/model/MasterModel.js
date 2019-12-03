@@ -1,5 +1,3 @@
-import EffectModel from "./EffectModel";
-
 
 function getNew(language,properties){
     return {

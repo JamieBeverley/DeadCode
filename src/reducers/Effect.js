@@ -1,4 +1,3 @@
-import {ActionTypes} from "../actions";
 
 
 const EffectReducer = (effects, action) => {

@@ -75,7 +75,7 @@ Model.defaultState = {
 export default Model
 
 
-
+/*
 // model structure:
 var a = {
     'connection': {},
@@ -113,3 +113,4 @@ var a = {
         }
     }
 }
+*/

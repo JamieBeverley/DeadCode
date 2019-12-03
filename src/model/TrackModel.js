@@ -1,26 +1,8 @@
 import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
 
-let getGainEffect = function () {
-    return EffectModel.getNew(
-        "gain",
-        EffectModel.Types.SLIDER,
-        '',
-        true,
-        {
-            value: 0.5,
-            operator: "#",
-            min: 0,
-            max: 1,
-            step: 0.01,
-            scale: 'linear'
-        }
-    )
-}
 
-
-
-function getNew(opt_language = "TidalCycles") {
+function getNew() {
     return {
         name: 'New Track',
         stems:[],

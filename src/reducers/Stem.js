@@ -1,5 +1,3 @@
-import {ActionTypes} from "../actions";
-
 
 const StemReducer = (stems, action) => {
     const payload = action.payload

@@ -20,12 +20,10 @@ export default class AudienceRender extends Component {
 
 
     render() {
-
+        console.log('audience render')
         let hydraDom;
         let tidalDom;
-        // debugger
         if (this.props.tracks) {
-            // debugger;
             hydraDom = null //Renderers.Hydra.getAudienceDom(this.props);
             tidalDom = null //Renderers.TidalCycles.getAudienceDom(this.props);
 
@@ -43,7 +41,7 @@ export default class AudienceRender extends Component {
 
         return (
             <div className={'AudienceRender'}>
-                <canvas ref={this.hydraRef}></canvas>
+                <canvas key={'hydra'} ref={this.hydraRef}></canvas>
                 <div className={"code"}>
                     <div id='tidalcycles' className="column">
                         {tidalDom}

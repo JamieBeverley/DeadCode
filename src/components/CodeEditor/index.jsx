@@ -1,7 +1,6 @@
-import React, {Component, useDebugValue} from 'react'
+import React, {Component} from 'react'
 import './index.css'
 import debounce from "lodash/debounce";
-import {Button, Switch} from "@material-ui/core";
 import Toggle from "../util/Toggle";
 
 export default class CodeEditor extends Component {

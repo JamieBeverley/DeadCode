@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import './index.css'
-import throttle from 'lodash/throttle'
 import EffectModel from "../../model/EffectModel";
-import Id from "../../model/Id";
 import Slider from "./Slider";
 import CodeToggle from "./CodeToggle";
 import CodeSlider from "./CodeSlider";

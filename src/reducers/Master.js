@@ -1,8 +1,6 @@
-import {ActionTypes} from "../actions";
-import Model from "../model";
 
 const MasterReducer = function (master, action) {
-    let obj,newLang;
+    let newLang;
     switch (action.type) {
         case "MASTER_UPDATE":
             newLang = Object.assign({},master[action.language],action.value);

@@ -92,21 +92,21 @@ function trackToDom(track){
     )
 }
 
-function stemToDom(stem){
-    const code = stemToCode(stem);
-    if(code==='' || code ==='silence'){
-        return null;
-    }
-
-    let effects = stem.effects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
-    effects = effects.map(x=>{return [x," . "]}).flat().slice(0,-1);
-    return (
-        <div key={stem.id} className="stemCode">
-            {effects} {code}
-        </div>
-    )
-
-}
+// function stemToDom(stem){
+//     const code = stemToCode(stem);
+//     if(code==='' || code ==='silence'){
+//         return null;
+//     }
+//
+//     let effects = stem.effects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
+//     effects = effects.map(x=>{return [x," . "]}).flat().slice(0,-1);
+//     return (
+//         <div key={stem.id} className="stemCode">
+//             {effects} {code}
+//         </div>
+//     )
+//
+// }
 
 function effectToDom(effect){
     if (!effect.on) {return null}
@@ -179,7 +179,7 @@ function getCode(state){
     stems += tracks.filter(x=>x!=='').join(", ")+']';
 
     let masterEffects = [];
-    let onMasterEffects = state.master[Model.Languages.TidalCycles].effects.forEach(x=> {
+    state.master[Model.Languages.TidalCycles].effects.forEach(x=> {
         let effect = state.effects[x];
         if(effect.on){
             masterEffects.push(effectToCode(effect));
