@@ -134,7 +134,7 @@ function effectToCode(x){
 }
 
 function stemToCode(state, stem){
-    if(stem.code==='') {return ''}
+    if(stem.code==='') {return null}
     let effectsOn = [];
     stem.effects.forEach(e=>{
         let effect = state.effects[e];
@@ -152,7 +152,7 @@ function trackToCode(state, track){
     let stemsCode = [];
     track.stems.forEach(x=> {
         let stem = state.stems[x];
-        if (stem.on && stem.language === 'TidalCycles') {
+        if (stem.on && stem.code!=='' && stem.language === 'TidalCycles') {
             stemsCode.push(stemToCode(state, stem))
         }
     });

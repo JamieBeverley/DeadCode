@@ -16,7 +16,7 @@ render(
             <Provider store={store}>
                 <Route path="/" exact component={App}/>
             </Provider>
-                {/*<Route path="/render" exact component={AudienceRender}/>*/}
+                <Route path="/render" exact component={AudienceRender}/>
         </Router>),
 document.getElementById('root')
 )

@@ -24,7 +24,7 @@ for(let i in EffectModel.util.defaultEffects['TidalCycles']()){
 }
 
 
-const Hydra = MasterModel.getNew('Hydra');
+const Hydra = MasterModel.getNew('Hydra', {mixMethod:'blend'});
 for(let i in EffectModel.util.defaultEffects['Hydra']()){
   let effectId = Id.new();
   effects[effectId] = EffectModel.util.defaultEffects['Hydra']()[i];

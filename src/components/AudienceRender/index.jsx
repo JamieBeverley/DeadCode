@@ -3,6 +3,7 @@ import Hydra from "hydra-synth";
 import './index.css'
 import {Renderers} from "../../Renderers";
 
+
 export default class AudienceRender extends Component {
 
     constructor(props) {
@@ -22,12 +23,13 @@ export default class AudienceRender extends Component {
 
         let hydraDom;
         let tidalDom;
+        // debugger
         if (this.props.tracks) {
             // debugger;
-            hydraDom = Renderers.Hydra.getAudienceDom(this.props);
-            tidalDom = Renderers.TidalCycles.getAudienceDom(this.props);
+            hydraDom = null //Renderers.Hydra.getAudienceDom(this.props);
+            tidalDom = null //Renderers.TidalCycles.getAudienceDom(this.props);
 
-            const hydraCode = Renderers.Hydra.getCode(this.props,"blend");
+            const hydraCode = Renderers.Hydra.getCode(this.props);
             if (hydraCode !== this.hydraCode) {
                 console.log('hydra: ',hydraCode)
                 try {
