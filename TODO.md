@@ -1,3 +1,29 @@
+0) react-scripts-start issue, gh pages
+1) Fix current issues: Hydra effects, auto-reconnect, new Id issue, effect deletion, track deletion
+2) Settings/config panel
+   a) password
+   b) move connection here
+   c) server meters?
+   d) colour theme
+   e) language-specific things:
+      - Tidal: superdirt layer, orbits?,
+      - Hydra: blendmode
+3) WS Server:
+   a) middleware on FE for forwarding stateful actions to backend
+   b) extend FE WS spec to receive remote actions
+   c) password/authentication
+   e) middleware on BE for broadcasting stateful actions within room
+
+...
+- connection to first is normal
+- connection to second: user asked whether it should connect to first or create new 'base'/layer
+- rendering happens in another window?
+
+# mobile stuff
+- accelerometer effects: global accelerometer object, with abstractions (lpfing at 3 different levels/speeds of movement)
+- each connection to relay defines a new superdirt layer (d1,d2,etc...), server responds to client with that dirt layer
+  so can have multiple interfaces at once
+
 # better selection stuff
 - select multiple stems and hit enter to toggle on/off
 - select multiple stems and hit arrow up to increase gain of all?
@@ -19,7 +45,7 @@
 # stem tags
 - and re-order stems by tags (eg. all bass in one column, all drums in another)
 
-# effects 
+# effects
 - toggle (different levels to different values)
 - code toggle on/off
 - encoder per stem?
@@ -29,10 +55,10 @@
 
 
 
-# + buttons 
+# + buttons
 - tracks and stems
 
-# tabs 
+# tabs
 open to tab
 
 
@@ -43,8 +69,8 @@ open to tab
 
 # eval bug
  actually a tidal bug:
- 
+
  ```d1 $ stack [s "...", iter 2 $ s "tamb*"]```
-  
-  Will cause crash. something about combination of stack, a pattern transformer (iter 2) 
+
+  Will cause crash. something about combination of stack, a pattern transformer (iter 2)
   that takes a parameter, and the pattern with an empty operator.
