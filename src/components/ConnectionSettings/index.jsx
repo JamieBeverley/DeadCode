@@ -42,6 +42,7 @@ class ConnectionSettings extends Component {
                         }}
                         margin="normal"
                     />
+                    <button style={{width:'80%'}} onClick={this.connect}>reconnect</button>
                 </div>
             </div>
         );
