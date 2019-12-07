@@ -21,6 +21,7 @@
 
 .Track input{
     z-index: 1;
+    border-radius: 0;
     color: var(--font-color-dark);
     background-color: var(--stem-editor-color);
     box-sizing: border-box;
@@ -45,12 +46,12 @@
 }
 
 .effects{
-    position: relative;
-    widows: 100%;
-    height:35%;
+    width: 100%;
+    height:260px;
     max-height: 260px;
     background-color: var(--stem-editor-color);
     bottom:0px;
+    position: absolute;
 }
 
 

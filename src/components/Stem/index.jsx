@@ -8,9 +8,6 @@ export default class Stem extends Component{
             id:props.id,
             name:props.name,
             on: props.on,
-            code: props.code,
-            language: props.language,
-            effects: props.effects,
             holdTime: new Date()
         }
     }
@@ -19,14 +16,10 @@ export default class Stem extends Component{
         return (
             <div
                 className={'Stem noselect'+(this.props.on?' on ':' off ')+ (this.props.selected?'selected':'')}
-                // onMouseUp={this.mouseUp.bind(this)}
                 tabIndex={0}
                 onKeyUp={this.onKeyUp.bind(this)}
-                onMouseUp={this.mouseDown.bind(this)}
+                onMouseUp={this.mouseUp.bind(this)}
                 onContextMenu={(x)=>{x.preventDefault();this.openInFlyout()}}
-                // onTouchMove={this.onTouchStart.bind(this)}
-                // onTouchStart={this.toggle.bind(this)}
-                // onTouchEnd={this.mouseUp.bind(this)}
             >
                 <div className="verticalCenter" style={{width:'100%'}}>
                     {this.props.name}
@@ -37,16 +30,7 @@ export default class Stem extends Component{
 
     onKeyUp(e){
         if(e.ctrlKey && e.key==='v'){
-            this.props.globalActions.pasteStems(this.props.trackId,this.props.id);
-        }
-
-    }
-
-    mouseUp(){
-        if((new Date())-this.state.holdTime > 1000){
-            this.openInFlyout();
-        } else{
-            this.toggle();
+            this.props.globalActions.stemPaste(this.props.id);
         }
     }
 
@@ -54,9 +38,9 @@ export default class Stem extends Component{
         this.toggle();
     }
 
-    mouseDown(e){
+    mouseUp(e){
         if(e.shiftKey){
-            this.props.globalActions.updateStem(this.props.trackId, this.props.id,{selected:!this.props.selected});
+            this.props.globalActions.stemUpdate(this.props.id,{selected:!this.props.selected});
         } else {
             if(e.button){
                 e.preventDefault();
@@ -67,10 +51,10 @@ export default class Stem extends Component{
     }
 
     openInFlyout(){
-        this.props.globalActions.updateStem(this.props.trackId,this.state.id, {open:true});
+        this.props.globalActions.stemUpdate(this.state.id, {open:true});
     }
 
     toggle(){
-        this.props.globalActions.updateStem(this.props.trackId, this.props.id, {on:!this.props.on} )
+        this.props.globalActions.stemUpdate(this.props.id, {on:!this.props.on});
     }
 }

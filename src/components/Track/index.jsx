@@ -1,25 +1,19 @@
 import React, {Component} from 'react'
 import './index.css'
-import Stem from '../Stem';
+import Stem from '../../containers/Stem';
 import PlusButton from "../util/PlusButton/PlusButton";
-import Effect from "../Effect";
+import Effect from "../../containers/Effect";
 
 
-export default class Track extends Component{
-
-    shouldComponentUpdate(nextProps, nextState){
-        return JSON.stringify(nextProps) != JSON.stringify(this.props);
-        debugger
-        return nextProps!==this.props;
+export default class Track extends Component {
+    stemToComponent(id){
+        return <Stem key={id}
+                    id={id}
+        />
     }
 
-
-    render(){
-        let stems = this.props.stems.map(x=>{
-            x.globalActions = this.props.globalActions;
-            return (<Stem key={x.id} {...x}/>)
-        });
-
+    render() {
+        let stems = this.props.stems.map(this.stemToComponent.bind(this));
         return (
             <div className='Track'>
                 <input onChange={this.titleChange.bind(this)} value={this.props.name}/>
@@ -30,9 +24,13 @@ export default class Track extends Component{
                 </div>
                 <div className={'effects'}>
                     <div className={'launchButton'}>
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="var(--font-color-dark)" width="24" height="24" viewBox="0 0 24 24"><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/><path d="M0 0h24v24H0z" fill="none"/></svg>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="var(--font-color-dark)" width="24" height="24"
+                             viewBox="0 0 24 24">
+                            <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                        </svg>
                     </div>
-                    <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} {...this.props.effects[0]}/>
+                    <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)} id={this.props.effects[0]}/>
                 </div>
 
             </div>
@@ -40,21 +38,16 @@ export default class Track extends Component{
     }
 
 
-    updateEffect(newEffect){
-        let newEffects = this.props.effects.map(x=>{
-            if(x.id===newEffect.id){
-                return newEffect
-            }
-            return x
-        });
-        this.props.globalActions.updateTrack({id:this.props.id,effects:newEffects})
+    updateEffect(gainEffect) {
+        this.props.globalActions.trackUpdate(this.props.id, {effects:[gainEffect]});
     }
 
-    addStem(){
-        this.props.globalActions.addStem(this.props.id);
+    addStem() {
+        this.props.globalActions.trackAddStem(this.props.id);
     }
 
-    titleChange(e){
-        this.props.globalActions.updateTrack({id:this.props.id,name:e.target.value});
+    titleChange(e) {
+        this.props.globalActions.trackUpdate(this.props.id, {name: e.target.value});
     }
+
 }

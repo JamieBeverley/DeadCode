@@ -3,6 +3,7 @@ import Hydra from "hydra-synth";
 import './index.css'
 import {Renderers} from "../../Renderers";
 
+
 export default class AudienceRender extends Component {
 
     constructor(props) {
@@ -19,17 +20,17 @@ export default class AudienceRender extends Component {
 
 
     render() {
-
+        console.log('audience render')
         let hydraDom;
         let tidalDom;
         if (this.props.tracks) {
-            // debugger;
-            hydraDom = Renderers.Hydra.getAudienceDom(this.props);
-            tidalDom = Renderers.TidalCycles.getAudienceDom(this.props);
+            hydraDom = null //Renderers.Hydra.getAudienceDom(this.props);
+            tidalDom = null //Renderers.TidalCycles.getAudienceDom(this.props);
 
             const hydraCode = Renderers.Hydra.getCode(this.props);
             if (hydraCode !== this.hydraCode) {
-                try {;
+                console.log('hydra: ',hydraCode)
+                try {
                     eval(hydraCode);
                 } catch (e) {
                     console.warn("Hydra ERR:", e);
@@ -40,7 +41,7 @@ export default class AudienceRender extends Component {
 
         return (
             <div className={'AudienceRender'}>
-                <canvas ref={this.hydraRef}></canvas>
+                <canvas key={'hydra'} ref={this.hydraRef}></canvas>
                 <div className={"code"}>
                     <div id='tidalcycles' className="column">
                         {tidalDom}

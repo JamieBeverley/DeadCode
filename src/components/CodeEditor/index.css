@@ -10,6 +10,30 @@
     transition: background 0.0s linear;
     margin-bottom:5px;
     outline: none;
+    border:none;
+}
+
+.CodeEditor .Liveness{
+    height: 40px;
+    box-sizing: border-box;
+    padding:2px;
+}
+
+
+
+.CodeEditor .Liveness > * {
+    height: 100%;
+    float:left;
+    /*display: inline-block;*/
+}
+
+.CodeEditor .Toggle {
+    display: inline-block;
+    position: relative;
+    padding: 0px;
+    width:50px;
+    height:100%;
+    margin: 0px 5px;
 }
 
 
@@ -18,6 +42,6 @@
     background-color: var(--stem-on) !important;
 }
 
-.CodeEditor > * {
-    margin-bottom: 5px;
+.CodeEditor{
+    margin-bottom: 15px;
 }

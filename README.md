@@ -28,7 +28,7 @@ Run the Dead interface (should open your web browser to the address localhost:30
 ```bash
 yarn start
 ```
-To evaluate TidalCylces code, Dead connects to a small NodeJS WebSocket server application (run locally on 
+To evaluate TidalCycles code, Dead connects to a small NodeJS WebSocket server application (run locally on 
 your machine) that receives TidalCycles code from the browser, and pipes it to the Haskell interpreter.
 
 To run the NodeJS relay (in a new terminal):

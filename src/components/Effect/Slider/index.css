@@ -1,0 +1,105 @@
+.Slider{
+    color: var(--font-color-dark);
+}
+
+.Slider .Toggle{
+    display: inline-block;
+    margin-right: 15px;
+}
+
+
+
+.Slider input{
+    color: var(--font-color-dark);
+    border-bottom: 1pt solid var(--stem-on);
+}
+
+.Slider span{
+    color: var(--stem-on)
+}
+
+.Slider.vertical{
+    height:calc(100%);
+    position: relative;
+    box-sizing: border-box;
+    padding:5px;
+    display: flex;
+    flex-flow: column;
+    /*border: 1pt solid red;*/
+}
+
+.Slider.vertical >.MuiSlider-root{
+    height:130px;
+    position: relative;
+    width: 50%;
+    left:25%;
+    margin: 5px auto;
+}
+
+.Slider.vertical >.MuiInput-root{
+    width: 75%;
+    left:12.5%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+
+.Slider.horizontal{
+    width:100%;
+    padding-left:20px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    text-align: left;
+    box-sizing: border-box;
+    height:auto;
+}
+
+.Slider > .text {
+    display:inline-block;
+    height: 100%;
+}
+
+.Slider > .text > div {
+    transform:translateY(-100%)
+}
+
+.Slider.horizontal > .MuiGrid-root{
+    margin-top: 0px;
+}
+
+
+/*.Slider > .indicator{*/
+/*    border-radius: 50%;*/
+/*    background: radial-gradient(white, var(--stem-on));*/
+/*    width:15px;*/
+/*    height:15px;*/
+/*    top:50%;*/
+/*    transform: translateY(-50%);*/
+/*    position: absolute;*/
+/*    z-index: 1;*/
+/*}*/
+
+/*.Slider > .bar {*/
+/*    left:0px;*/
+/*    position: absolute;*/
+/*    top:50%;*/
+/*    transform: translateY(-50%);*/
+/*    height:2px;*/
+/*    width:100%;*/
+/*    background-color: grey;*/
+/*    z-index: 0;*/
+/*}*/
+
+/*.Slider > *{*/
+/*    user-select: none;*/
+
+/*}*/
+
+/*.Slider {*/
+/*    user-select: none;*/
+/*    padding:15px;*/
+/*    height: 100%;*/
+/*    box-sizing: border-box;*/
+/*    position: relative;*/
+/*    width:100%;*/
+/*}*/
