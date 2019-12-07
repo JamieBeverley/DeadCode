@@ -36,7 +36,6 @@ function getCode(state){
 
 function trackToCode(state, track){
     let code;
-    debugger
     let stems = track.stems.map(x=>{return state.stems[x]}).filter(x=>{return x.on && x.code!=='' && x.language===Model.Languages.Hydra}).map(x=>stemToCode(state,x));
     stems.join(state.master.Hydra.properties.mixMethod+"("+1/stems.length+"")
 
@@ -56,7 +55,6 @@ function trackToCode(state, track){
 }
 
 function stemToCode(state, stem){
-    debugger
     let effects = stem.effects.map(x=>{return state.effects[x]}).filter(e=>e.on).map(effectToCode);
     return stem.code + effects.join("");
 }

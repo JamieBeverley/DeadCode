@@ -10,11 +10,17 @@ function getMaxId(obj){
             ids.push(getMaxId(obj[i]))
         }
     }
+    debugger
     return Math.max(...ids)
 }
 
 Id.init =  function (state){
-    Id.index = getMaxId(state);
+    const effects = Math.max(...Object.keys(state.effects).map(parseFloat));
+    const tracks = Math.max(...Object.keys(state.tracks).map(parseFloat));
+    const stems = Math.max(...Object.keys(state.stems).map(parseFloat));
+    Id.index = Math.max(effects,tracks,stems)+1;
+    console.log('loaded id index: '+Id.index);
+    debugger
 }
 
 

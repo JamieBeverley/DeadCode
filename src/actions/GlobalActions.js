@@ -88,7 +88,9 @@ const GlobalActions = dispatch => {
                 input.type = 'file';
                 input.onchange = (e) => {
                     input.files[0].text().then(x => {
-                        dispatch(Actions.load(JSON.parse(x)));
+                        let newState = JSON.parse(x);
+                        Id.init(newState);
+                        dispatch(Actions.load(newState));
                     });
                 };
                 input.click();
