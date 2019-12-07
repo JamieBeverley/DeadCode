@@ -33,7 +33,7 @@ your machine) that receives TidalCycles code from the browser, and pipes it to t
 
 To run the NodeJS relay (in a new terminal):
 ```bash
-yarn relay
+yarn backend
 ```
 
-`src/relay/` contains a Tidal boot file 'BootTidal.hs'. A different boot file can be specified with `node src/relay/relay.js --bootTidal some/new/path/BootTidal.hs`
+`src/backend/` contains a Tidal boot file 'BootTidal.hs' - to specify different Tidal Boot params edit/replace this file.

@@ -1,3 +1,4 @@
+import Client from "./Client";
 const spawn = require('child_process').spawn;
 const http = require('http');
 const WebSocket = require('ws');
@@ -14,12 +15,12 @@ var parsed = nopt(knownOpts, {},process.argv);
 
 
 // Tidal bootscript path
-const homedir = require('os').homedir();
-var bootTidal = parsed.bootTidal || "./src/relay/BootTidal.hs";
+// const homedir = require('os').homedir();
+var bootTidal = parsed.bootTidal || "./src/backend/BootTidal.hs";
 
 
 // var output = process.stdout;
-var stdin = process.stdin;
+// var stdin = process.stdin;
 var stderr = process.stderr;
 var defaultFeedbackFunction = function(x) {
   stderr.write(x);
@@ -43,7 +44,7 @@ tidal.stdout.addListener("data", function(m) {
 
 fs.readFile(bootTidal,'utf8', function (err,data) {
   if (err) { console.log(err+"\n"); return; }
-  tidal.stdin.write(data);
+  tidal.stdin .write(data);
   console.log("Tidal/GHCI initialized\n");
 });
 
@@ -75,26 +76,43 @@ function sanitizeStringForTidal(x) {
 
 
 const clients = {};
-Id
+
+function broadcast (msg, exclude=[]){
+  exclude = exclude.map(String);
+  Object.keys(clients).filter(x=>{return !exclude.includes(x)}).forEach(x=>{
+    let ws = clients[x].ws;
+    if(ws.readyState === WebSocket.OPEN){
+      ws.send(JSON.stringify(msg));
+    }
+  })
+}
 
 
-wss.on('connection', function connection(ws) {
 
-
-
-  console.log('connected\n');
-  ws.on('message', function (data) {
+function onMessage(data){
     var msg = JSON.parse(data);
-
     if(msg.type=="eval"){
       tidal.stdin.write(msg.code+"\n");
       stderr.write(msg.code+"\n");
     } else if (msg.type === 'action'){
       console.log('action received: ', JSON.stringify(msg.action));
+      broadcast(msg,[this.id]);
     } else {
-      console.warn('hmm');
+      console.warn('unrecognized ws message type: ',msg.type,JSON.stringify(data));
     }
-  });
+}
+
+function onClose(id){
+  delete clients[id];
+}
+
+
+wss.on('connection', function connection(ws) {
+  let client = new Client(ws);
+  clients[client.id] = client;
+  console.log('connected client ', client.id, new Date());
+  client.ws.on('message',onMessage.bind(client))
+  client.ws.on('close', ()=>{onClose(client.id)});
 });
 
 server.listen(8001);

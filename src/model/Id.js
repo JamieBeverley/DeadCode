@@ -10,7 +10,6 @@ function getMaxId(obj){
             ids.push(getMaxId(obj[i]))
         }
     }
-    debugger
     return Math.max(...ids)
 }
 

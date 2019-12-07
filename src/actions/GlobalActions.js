@@ -20,11 +20,14 @@ function getPosition(state, stemId) {
 const GlobalActions = dispatch => {
     return {
         connect: (url, port) => {
+            let actions = Actions
             let onOpen = () => {
                 dispatch(Actions.connect({url, port, isConnected: true}))
             };
             let onClose = () => {
-                dispatch(Actions.connect({url, port, isConnected: false}))
+                debugger;
+                console.log(Actions.connect.toString());
+                // dispatch(actions.connect({url:url, port:port, isConnected: false}))
             };
             let onError = onClose;
             Connection.init(url, port, onOpen, onClose, onError);

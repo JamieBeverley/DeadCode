@@ -34,11 +34,12 @@ Connection.init = function(host=window.location.hostname,port=8000, onOpen=()=>{
     }
 };
 
-Connection.onMessage = function(data){
-    let message = JSON.parse(data);
+Connection.onMessage = function(event){
+    let message = JSON.parse(event.data);
     if(message.type==='action'){
-        let action = message.data.action;
-        action.meta = action.meta || {fromServer:true};
+        let action = message.action;
+        action.meta = action.meta || {};
+        action.meta.fromServer = true;
         store.dispatch(action)
     } else{
         console.warn('Unrecognized message type from WS server: '+message.type, message);

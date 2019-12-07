@@ -16,7 +16,6 @@
     "hydra-synth": "^1.0.25",
     "lodash": "^4.17.15",
     "nopt": "^4.0.1",
-    "os": "^0.1.1",
     "rc-slider": "^8.6.13",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
@@ -30,7 +29,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "relay": "node src/relay/relay.js",
+    "backend": "nodemon --inspect --exec babel-node src/backend/server.js",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
@@ -49,6 +48,10 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^2.1.1"
+    "@babel/core": "^7.7.5",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.5",
+    "gh-pages": "^2.1.1",
+    "nodemon": "^2.0.1"
   }
 }
