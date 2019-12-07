@@ -119,6 +119,19 @@ const GlobalActions = dispatch => {
         stemUpdate: (stemId, value) => {
             dispatch(Actions.stemUpdate({stemId, value}));
         },
+        // Separated to a different action so not every stemUpdate required importing the store and checking if
+        // language changed.
+        stemUpdateLanguage:(stemId, language) =>{
+            let stem = store.getState().stems[stemId];
+            let globalActions = GlobalActions(dispatch);
+            if (stem.language!==language){
+                stem.effects.forEach(x=>{globalActions.stemDeleteEffect(stemId,x)});
+                EffectModel.util.defaultEffects[language]().forEach(effect => {
+                    globalActions.stemAddEffect(stemId, effect.type, effect.language, effect.on, effect.properties);
+                });
+                globalActions.stemUpdate(stemId,{language:language});
+            }
+        },
         stemDeleteEffect: (stemId, effectId) => {
             dispatch(Actions.stemDeleteEffect({stemId, effectId}));
         },

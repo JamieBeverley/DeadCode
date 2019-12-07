@@ -65,7 +65,7 @@ export default class StemEditor extends Component {
     }
 
     handleLanguageChange(e) {
-        this.props.globalActions.stemUpdate(this.props.id, {language: e.target.value});
+        this.props.globalActions.stemUpdateLanguage(this.props.id, e.target.value);
     }
 
     maybeEval(e) {

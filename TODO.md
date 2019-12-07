@@ -1,8 +1,7 @@
 0) react-scripts-start issue, gh pages
-1) Fix current issues: Hydra effects, auto-reconnect, new Id issue, effect deletion, track deletion
+1) Fix current issues: Hydra effects, auto-reconnect, effect deletion, track deletion
 2) Settings/config panel
    a) password
-   b) move connection here
    c) server meters?
    d) colour theme
    e) language-specific things:
