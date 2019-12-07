@@ -1,4 +1,7 @@
 
+// TODO this is probably bad practice.... (?)
+import {store} from "./index";
+
 const Connection = {};
 
 Connection.init = function(host=window.location.hostname,port=8000, onOpen=()=>{}, onClose=()=>{}, onErr=()=>{}){
@@ -15,6 +18,8 @@ Connection.init = function(host=window.location.hostname,port=8000, onOpen=()=>{
             console.log('ws connection established');
             onOpen();
         }
+        Connection.ws.onmessage = Connection.onMessage;
+
         Connection.ws.onerror = (e)=>{
             console.warn(e);
             onErr(e);
@@ -28,6 +33,26 @@ Connection.init = function(host=window.location.hostname,port=8000, onOpen=()=>{
         onErr();
     }
 };
+
+Connection.onMessage = function(data){
+    let message = JSON.parse(data);
+    if(message.type==='action'){
+        let action = message.data.action;
+        action.meta = action.meta || {fromServer:true};
+        store.dispatch(action)
+    } else{
+        console.warn('Unrecognized message type from WS server: '+message.type, message);
+    }
+};
+
+Connection.sendAction = function(action){
+    if(!Connection.ws || !Connection.ws.isOpen){
+        console.warn('Connection is closed');
+        return;
+    }
+    const data = {type:'action',action}
+    Connection.ws.send(JSON.stringify(data));
+}
 
 Connection.sendCode = function(code){
     if(!Connection.ws || !Connection.ws.isOpen){

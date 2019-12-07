@@ -74,17 +74,25 @@ function sanitizeStringForTidal(x) {
 }
 
 
+const clients = {};
+Id
 
 
 wss.on('connection', function connection(ws) {
-  console.log('connected\n')
-  ws.on('message', function (message) {
-    // console.log('received: %s', message);
-    var msg = JSON.parse(message);
+
+
+
+  console.log('connected\n');
+  ws.on('message', function (data) {
+    var msg = JSON.parse(data);
 
     if(msg.type=="eval"){
       tidal.stdin.write(msg.code+"\n");
       stderr.write(msg.code+"\n");
+    } else if (msg.type === 'action'){
+      console.log('action received: ', JSON.stringify(msg.action));
+    } else {
+      console.warn('hmm');
     }
   });
 });

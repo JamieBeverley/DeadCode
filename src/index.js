@@ -8,7 +8,9 @@ import logger from 'redux-logger'
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import AudienceRender from "./containers/AudienceRender";
 
-export const store = createStore(DeadReducer, applyMiddleware(logger));
+import serverControl from "./middleware";
+
+export const store = createStore(DeadReducer, applyMiddleware(serverControl,logger));
 
 render(
     (
