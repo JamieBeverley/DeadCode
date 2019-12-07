@@ -38,6 +38,8 @@
     --scrollbar-width: 0px;
     --track-border-color: lightgrey;
     --select-color: rgb(250,10,10);
+    --settings-background-color:rgb(50,50,50);
+    --settings-font-color:rgb(150,150,150);
 }
 
 /*!* img purp *!*/
@@ -95,7 +97,12 @@
     width:100%;
     overflow: hidden;
     display: flex;
+    flex-flow: column;
     background-color: transparent;
+}
+.App > div{
+    display:flex;
+    width:100%;
 }
 
 .App:focus{

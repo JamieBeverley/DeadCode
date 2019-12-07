@@ -1,0 +1,14 @@
+.Header{
+    height:40px;
+    border-bottom: 1pt solid var(--stem-on);
+    background-color: var(--settings-background-color);
+    color: var(--settings-font-color);
+    box-sizing: border-box;
+    padding: 5px;
+}
+
+.Header > svg{
+    height: 100%;
+    width:auto;
+    margin-left:24px;
+}

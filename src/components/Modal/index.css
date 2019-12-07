@@ -1,0 +1,47 @@
+.Modal{
+    outline: none;
+    width:100%;
+    height:100%;
+    position: absolute;
+    background-color: rgba(50,50,50,0.75);
+    z-index: 9;
+    margin:0px;
+    left:0px;
+    top:0px;
+    overflow: scroll;
+}
+
+.Modal  .modalBody{
+    background-color: white;
+    max-width: 75%;
+    min-width: 50%;
+    min-height: 100px;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    position: absolute;
+}
+
+
+.Modal .modalContent {
+    height:auto;
+    position: relative;
+    box-sizing: border-box;
+    padding:5px;
+}
+
+.Modal .modalClose {
+    display: block;
+    width:100%;
+    background-color: var(--stem-on);
+    height:40px;
+    padding:5px;
+    box-sizing: border-box;
+}
+.Modal .modalClose > * {
+    float:right;
+    top:50%;
+    height: 100%;
+    position: relative;
+    transform: translateY(-50%);
+}
