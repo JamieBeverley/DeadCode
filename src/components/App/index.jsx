@@ -36,7 +36,7 @@ export default class App extends Component {
                     <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>
                         <Flyout style={{height: this.state.horizontalDivider + "%"}}/>
                         {/*<ResizeDivider horizontal onResize={this.dividerResizeRightPanel.bind(this)}/>*/}
-                        <Render style={{height: (100 - this.state.horizontalDivider) + "%"}}/>
+                        {/*<Render style={{height: (100 - this.state.horizontalDivider) + "%"}}/>*/}
                     </div>
                 </div>
             </div>

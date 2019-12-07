@@ -147,6 +147,11 @@ const GlobalActions = dispatch => {
             dispatch(Actions.trackUpdate({trackId, value}));
         },
         trackDeleteStem: (trackId, stemId) => {
+            // if no trackId provided (not ideal), search for the track with the provided stemId
+            if(trackId===undefined){
+                let state = store.getState();
+                trackId = Object.keys(state.tracks).find(x=>{return state.tracks[x].stems.includes(stemId)});
+            }
             dispatch(Actions.trackDeleteStem({trackId, stemId}));
         },
         // TODO: stuff like this would probably be better as sagas
