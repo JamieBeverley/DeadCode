@@ -4,6 +4,7 @@ import ConnectionReducer from "./Connection";
 import MasterReducer from "./Master";
 import StemReducer from './Stem.js'
 import EffectReducer from "./Effect";
+import {ActionSpec} from "../actions";
 
 const CopyReducer = (copy, action)=>{
     if (action.type==='STEM_COPY'){
@@ -15,6 +16,8 @@ const CopyReducer = (copy, action)=>{
 export default (state = Model.defaultState, action) =>{
     if(action.type === 'LOAD'){
         return action.payload
+    } else if (action.type === ActionSpec.RECEIVE_STATE.name){
+        return Object.assign({}, state, action.payload)
     }
 
     return {

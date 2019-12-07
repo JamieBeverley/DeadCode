@@ -17,9 +17,9 @@ function clone(effect) {
 }
 
 let Types = {
-    SLIDER: "SLIDER",
     CODE_TOGGLE: 'CODE_TOGGLE',
-    CODE_SLIDER: 'CODE_SLIDER'
+    SLIDER: "SLIDER",
+    // CODE_SLIDER: 'CODE_SLIDER'
 }
 
 let PropertySpec = {

@@ -1,17 +1,17 @@
 
 const Id = {index:0};
 
-function getMaxId(obj){
-    let ids = [];
-    for (let i in obj){
-        if(i==='id'){
-            ids.push(obj[i])
-        } else if(typeof obj[i] === 'object'){
-            ids.push(getMaxId(obj[i]))
-        }
-    }
-    return Math.max(...ids)
-}
+// function getMaxId(obj){
+//     let ids = [];
+//     for (let i in obj){
+//         if(i==='id'){
+//             ids.push(obj[i])
+//         } else if(typeof obj[i] === 'object'){
+//             ids.push(getMaxId(obj[i]))
+//         }
+//     }
+//     return Math.max(...ids)
+// }
 
 Id.init =  function (state){
     const effects = Math.max(...Object.keys(state.effects).map(parseFloat));
@@ -19,7 +19,6 @@ Id.init =  function (state){
     const stems = Math.max(...Object.keys(state.stems).map(parseFloat));
     Id.index = Math.max(effects,tracks,stems)+1;
     console.log('loaded id index: '+Id.index);
-    debugger
 }
 
 

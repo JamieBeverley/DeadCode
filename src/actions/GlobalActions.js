@@ -19,15 +19,20 @@ function getPosition(state, stemId) {
 
 const GlobalActions = dispatch => {
     return {
+        pushState:()=>{
+            let providedState = {...store.getState(), connection:undefined};
+            dispatch(Actions.pushState(providedState));
+        },
+        receiveState:(state)=>{
+            dispatch(Actions.receiveState(state));
+        },
         connect: (url, port) => {
             let actions = Actions
             let onOpen = () => {
                 dispatch(Actions.connect({url, port, isConnected: true}))
             };
             let onClose = () => {
-                debugger;
-                console.log(Actions.connect.toString());
-                // dispatch(actions.connect({url:url, port:port, isConnected: false}))
+                dispatch(actions.connect({url:url, port:port, isConnected: false}))
             };
             let onError = onClose;
             Connection.init(url, port, onOpen, onClose, onError);
@@ -79,8 +84,6 @@ const GlobalActions = dispatch => {
                 newState = JSON.parse(newState);
                 Id.init(newState);
                 dispatch(Actions.load(newState));
-                // renderTempoChange(store.getState());
-                // renderBootScript(store.getState());
             } else {
                 console.warn('Tried to load state but empty');
             }

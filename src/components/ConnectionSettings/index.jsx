@@ -13,6 +13,7 @@ class ConnectionSettings extends Component {
         },2000);
     }
 
+
     render() {
         return (
             <div className={'ConnectionSettings'}>
@@ -42,7 +43,8 @@ class ConnectionSettings extends Component {
                         }}
                         margin="normal"
                     />
-                    <button style={{width:'80%'}} onClick={this.connect}>reconnect</button>
+                    <button style={{width:'100%'}} onClick={this.connect}>reconnect</button>
+                    <button style={{width:'100%'}} onClick={this.props.globalActions.pushState}>push state to other clients</button>
                 </div>
             </div>
         );
