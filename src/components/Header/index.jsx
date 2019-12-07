@@ -11,7 +11,7 @@ import HelpIcon from '@material-ui/icons/Help';
 import ConnectionSettings from "../../containers/ConnectionSettings";
 
 const modalContent = {
-    'settings': 'some content...',
+    'settings': 'Settings here at some point...',
     'connections':(<ConnectionSettings/>),
     'help': 'Welcome to DeadCode! Should probably fill out these docs soon...'
 };

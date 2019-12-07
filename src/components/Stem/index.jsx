@@ -8,9 +8,6 @@ export default class Stem extends Component{
             id:props.id,
             name:props.name,
             on: props.on,
-            // code: props.code,
-            // language: props.language,
-            // effects: props.effects,
             holdTime: new Date()
         }
     }
@@ -19,14 +16,10 @@ export default class Stem extends Component{
         return (
             <div
                 className={'Stem noselect'+(this.props.on?' on ':' off ')+ (this.props.selected?'selected':'')}
-                // onMouseUp={this.mouseUp.bind(this)}
                 tabIndex={0}
                 onKeyUp={this.onKeyUp.bind(this)}
-                onMouseUp={this.mouseDown.bind(this)}
+                onMouseUp={this.mouseUp.bind(this)}
                 onContextMenu={(x)=>{x.preventDefault();this.openInFlyout()}}
-                // onTouchMove={this.onTouchStart.bind(this)}
-                // onTouchStart={this.toggle.bind(this)}
-                // onTouchEnd={this.mouseUp.bind(this)}
             >
                 <div className="verticalCenter" style={{width:'100%'}}>
                     {this.props.name}
@@ -41,19 +34,11 @@ export default class Stem extends Component{
         }
     }
 
-    mouseUp(){
-        if((new Date())-this.state.holdTime > 1000){
-            this.openInFlyout();
-        } else{
-            this.toggle();
-        }
-    }
-
     onTouchStart(){
         this.toggle();
     }
 
-    mouseDown(e){
+    mouseUp(e){
         if(e.shiftKey){
             this.props.globalActions.stemUpdate(this.props.id,{selected:!this.props.selected});
         } else {
