@@ -17,7 +17,7 @@ export default (state = Model.defaultState, action) =>{
     if(action.type === 'LOAD'){
         return action.payload
     } else if (action.type === ActionSpec.RECEIVE_STATE.name){
-        return Object.assign({}, state, action.payload)
+        return {...action.payload, connection: state.connection};
     }
 
     return {

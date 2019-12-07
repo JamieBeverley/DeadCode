@@ -36,7 +36,7 @@ export default class App extends Component {
                     <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>
                         <Flyout style={{height: this.state.horizontalDivider + "%"}}/>
                         {/*<ResizeDivider horizontal onResize={this.dividerResizeRightPanel.bind(this)}/>*/}
-                        {/*<Render style={{height: (100 - this.state.horizontalDivider) + "%"}}/>*/}
+                        <Render style={{height: (100 - this.state.horizontalDivider) + "%"}}/>
                     </div>
                 </div>
             </div>
@@ -57,9 +57,13 @@ export default class App extends Component {
             if (e.key === 's') {
                 e.preventDefault();
                 this.props.globalActions.save();
-            } else if (e.key === "l") {
+            } else if (e.key.toLowerCase() === "l") {
                 e.preventDefault();
-                this.props.globalActions.load();
+                if(e.shiftKey){
+                    this.props.globalActions.loadFromServer();
+                } else{
+                    this.props.globalActions.load();
+                }
             } else if (e.key === "d") {
                 e.preventDefault();
                 this.props.globalActions.download();

@@ -8,7 +8,6 @@ export default class SliderEffect extends Component {
         super(props);
         let sliderValue = this.toSliderScale(this.props.properties.value);
         this.state = {value:this.props.properties.value, sliderValue};
-
     }
 
     toSliderScale(x){

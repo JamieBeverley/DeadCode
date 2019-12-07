@@ -6,6 +6,7 @@ import Id from "../model/Id";
 import EffectModel from "../model/EffectModel";
 import StemModel from "../model/StemModel";
 import TrackModel from "../model/TrackModel";
+import {ActionSpec} from "./index";
 
 function getPosition(state, stemId) {
     let track = Object.keys(state.tracks).findIndex(x => {
@@ -87,6 +88,9 @@ const GlobalActions = dispatch => {
             } else {
                 console.warn('Tried to load state but empty');
             }
+        },
+        loadFromServer: ()=>{
+            Connection.sendAction({type:ActionSpec.LOAD_FROM_SERVER.name,meta:{propogateToServer:true,fromServer:false}});
         },
         open: (file) => {
             if (!file) {

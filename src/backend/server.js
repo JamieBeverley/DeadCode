@@ -1,11 +1,27 @@
+import {applyMiddleware, createStore} from "redux";
+import logger from 'redux-logger';
 import Client from "./Client";
+import DeadReducer from '../reducers'
+import {ActionSpec,Actions} from "../actions";
 const spawn = require('child_process').spawn;
 const http = require('http');
 const WebSocket = require('ws');
-const fs = require('fs')
+const fs = require('fs');
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
+
+
+const serverMiddleware = store => next => action => {
+  if(action.type === ActionSpec.LOAD_FROM_SERVER.name){
+    let state = {...store.getState(), connection:null};
+    let msg = {type:'action',action:Actions.receiveState(state)};
+    broadcast(msg)
+  }
+  return next(action);
+}
+
+let store = createStore(DeadReducer, applyMiddleware(serverMiddleware, logger));
 
 // Cmdline opts
 var nopt = require('nopt');
@@ -95,7 +111,7 @@ function onMessage(data){
       tidal.stdin.write(msg.code+"\n");
       stderr.write(msg.code+"\n");
     } else if (msg.type === 'action'){
-      console.log('action received: ', JSON.stringify(msg.action));
+      store.dispatch(msg.action);
       broadcast(msg,[this.id]);
     } else {
       console.warn('unrecognized ws message type: ',msg.type,JSON.stringify(data));

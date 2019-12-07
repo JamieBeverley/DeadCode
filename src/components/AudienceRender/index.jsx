@@ -7,15 +7,18 @@ import {Renderers} from "../../Renderers";
 export default class AudienceRender extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.hydraRef = React.createRef();
 
         this.hydraCode = '';
     }
 
     componentDidMount() {
-        window.hydra = new Hydra({canvas: this.hydraRef.current});
-        // window.hydra.resize(this.hydraRef.current.getBoundingClientRect().width,this.hydraRef.current.getBoundingClientRect().height);
+        try{
+            window.hydra = new Hydra({canvas: this.hydraRef.current});
+        } catch (e){
+            console.warn('Unable to start hydra');
+        }
     }
 
 

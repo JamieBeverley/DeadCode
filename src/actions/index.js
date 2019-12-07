@@ -22,6 +22,10 @@ export const ActionSpec = {
         name: 'LOAD',
         propogateToServer: false
     },
+    'LOAD_FROM_SERVER': {
+        name: 'LOAD_FROM_SERVER',
+        propogateToServer: false
+    },
     'DOWNLOAD': {
         name: 'DOWNLOAD',
         propogateToServer: false
