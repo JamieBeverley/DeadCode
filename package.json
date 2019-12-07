@@ -30,6 +30,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "relay": "node src/relay/relay.js",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
