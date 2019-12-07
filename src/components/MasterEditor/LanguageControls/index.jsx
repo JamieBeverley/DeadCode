@@ -43,7 +43,7 @@ class LanguageControls extends Component {
                     <CodeEditor
                         key={'tidalEditorMain'}
                         onChange={(macros) => {
-                            this.props.globalActions.updateMaster(this.props.language, {macros});
+                            this.props.globalActions.masterUpdate(this.props.language, {macros});
                         }}
                         onChangeLive={(bootScriptLive) => {
                             this.setState({bootScriptLive})
@@ -54,7 +54,19 @@ class LanguageControls extends Component {
                     <EffectComponent {...e}/>
                 ]
             case Model.Languages.Hydra:
-                return null
+                return [
+                    <CodeEditor
+                        key={'HydraEditorMain'}
+                        onChange={(macros) => {
+                            this.props.globalActions.masterUpdate(this.props.language, {macros});
+                        }}
+                        onChangeLive={(bootScriptLive) => {
+                            this.setState({bootScriptLive})
+                        }}
+                        code={this.props.macros}
+                        live={false}
+                    />
+                ]
             default:
                 console.warn('unrecognized language: ' + this.props.language)
                 return null;

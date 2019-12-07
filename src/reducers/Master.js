@@ -3,8 +3,8 @@ const MasterReducer = function (master, action) {
     let newLang;
     switch (action.type) {
         case "MASTER_UPDATE":
-            newLang = Object.assign({},master[action.language],action.value);
-            master[action.language] = newLang;
+            newLang = Object.assign({},master[action.payload.language],action.payload.value);
+            master[action.payload.language] = newLang;
             return {...master};
         case "MASTER_ADD_EFFECT":
             newLang = Object.assign({},master[action.payload.language]);

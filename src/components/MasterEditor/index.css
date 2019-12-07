@@ -18,9 +18,13 @@
     margin-top:10px;
     /*text-align: center;*/
     /*width:100%;*/
-    /*width:100%;*/
+    width:100%;
     position: relative;
     box-sizing: border-box;
+    padding:5px;
+    margin-bottom:5px;
+    border-radius: var(--border-radius);
+    border: 1pt solid var(--stem-off);
 }
 
 .separator{
