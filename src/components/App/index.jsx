@@ -13,7 +13,7 @@ export default class App extends Component {
         super(props)
         this.state = {
             divider: 70, //%
-            horizontalDivider: 75
+            horizontalDivider: 100
         }
         this.appRef = React.createRef()
     }

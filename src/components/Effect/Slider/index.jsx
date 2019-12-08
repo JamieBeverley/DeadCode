@@ -10,6 +10,14 @@ export default class SliderEffect extends Component {
         this.state = {value:this.props.properties.value, sliderValue};
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        debugger
+        if(this.props.properties.value !== prevProps.properties.value){
+            const sliderValue = this.toSliderScale(this.props.properties.value);
+            this.setState({value:this.props.properties.value, sliderValue});
+        }
+    }
+
     toSliderScale(x){
         if (this.props.properties.scale==='log'){
             let range = this.props.properties.max-this.props.properties.min;

@@ -14,6 +14,12 @@ export default class CodeEditor extends Component {
         this.flashTimeout = null;
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.code !== this.props.code && (this.props.code !== this.state.code)){
+            this.setState({code:this.props.code});
+        }
+    }
+
     render() {
         return (
             <div className={'CodeEditor'}>
