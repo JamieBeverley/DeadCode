@@ -5,44 +5,68 @@ export default class Stem extends Component {
     constructor(props) {
         super(props);
         this.holdTime = new Date();
-        // this.state = {
-        //     holdTime: new Date()
-        // }
+        this.dragToggle = false;
+        this.ref = React.createRef();
+        this.timeout = null;
+    }
+
+    flash(){
+        this.ref.current.classList.add('flash');
+        // setTimeout(()=>{this.ref.current.classList},500)
+        setTimeout(()=>{this.ref.current.classList.remove('flash')},500)
     }
 
     onMouseDown() {
+        this.timeout = setTimeout(()=>{
+            this.openInFlyout();
+        },500);
         this.holdTime = new Date();
+        this.dragToggle = false;
     }
 
     onMouseUp(e) {
-        console.log(e)
         e.preventDefault();
         let now = new Date();
-        if (now - this.holdTime > 500) {
-            this.openInFlyout();
-        } else {
-            if (e.shiftKey) {
-                this.props.globalActions.stemUpdate(this.props.id, {selected: !this.props.selected});
-            } else {
-                if (e.button) {
-                    e.preventDefault();
+        if(!this.dragToggle){
+            if (now - this.holdTime < 500) {
+                clearTimeout(this.timeout);
+                if (e.shiftKey) {
+                    this.props.globalActions.stemUpdate(this.props.id, {selected: !this.props.selected});
                 } else {
-                    this.toggle()
+                    if (e.button) {
+                        e.preventDefault();
+                    } else {
+                        this.toggle()
+                    }
                 }
             }
         }
+
         this.holdTime = now;
+        this.dragToggle = false;
+    }
+
+    onTouchMove(e){
+        console.log('tm');
+        e.preventDefault();
+        clearTimeout(this.timeout);
+        this.dragToggle = true;
+    }
+
+    componentWillUnmount() {
+        clearTimeout(this.timeout);
     }
 
     render() {
         return (
             <div
+                ref={this.ref}
                 className={'Stem noselect' + (this.props.on ? ' on ' : ' off ') + (this.props.selected ? 'selected' : '')}
                 tabIndex={0}
                 onKeyUp={this.onKeyUp.bind(this)}
                 onTouchStart={this.onMouseDown.bind(this)}
                 onTouchEnd={this.onMouseUp.bind(this)}
-
+                onTouchMove={this.onTouchMove.bind(this)}
                 onMouseDown={this.onMouseDown.bind(this)}
                 onMouseUp={this.onMouseUp.bind(this)}
 

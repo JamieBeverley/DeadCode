@@ -11,7 +11,6 @@ export default class SliderEffect extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        debugger
         if(this.props.properties.value !== prevProps.properties.value){
             const sliderValue = this.toSliderScale(this.props.properties.value);
             this.setState({value:this.props.properties.value, sliderValue});

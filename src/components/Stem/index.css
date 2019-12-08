@@ -12,7 +12,9 @@
     box-sizing: border-box;
     overflow:hidden;
     padding:2px;
+    outline: var(--stem-on);
 }
+
 
 .Stem:focus{
     outline: none;
