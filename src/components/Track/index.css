@@ -12,8 +12,13 @@
 }
 
 .stems{
+    position: absolute;
+    bottom:260px;
+    top:0px;
+    box-sizing: border-box;
+    width:100%;
     padding:5px;
-    height:65%;
+    /*height:65%;*/
     overflow-y: scroll;
     z-index: 0;
 }

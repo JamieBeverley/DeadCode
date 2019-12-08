@@ -59,10 +59,11 @@ for (let i = 0; i < 5; i++) {
     tracks[trackId].effects.push(mainEffectId);
 }
 
+
 Model.defaultState = {
     connection: {
         isConnected: false,
-        url: '127.0.0.1',
+        url:'',
         port: 8001
     },
     master,
