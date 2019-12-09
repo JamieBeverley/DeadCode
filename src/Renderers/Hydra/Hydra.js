@@ -1,11 +1,11 @@
 import React from "react";
-import "./index.css";
+// import "./index.css";
 import EffectModel from "../../model/EffectModel";
 import Model from "../../model";
 export const Hydra = {
     language:'Hydra',
     getCode,
-    getAudienceDom,
+    // getAudienceDom,
 };
 
 
@@ -81,9 +81,9 @@ function effectToCode(effect){
 
 
 
-function getAudienceDom(state){
-    return <div className={'code'}>{Hydra.getCode(state,"blend")}</div>
-}
+// function getAudienceDom(state){
+//     return <div className={'code'}>{Hydra.getCode(state,"blend")}</div>
+// }
 
 // function getCode(fullState, mixMethod){
 //     let tracksCode = [];

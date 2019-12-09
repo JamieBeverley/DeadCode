@@ -6,7 +6,7 @@ import DeadReducer from './reducers'
 import React from 'react';
 import logger from 'redux-logger'
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import AudienceRender from "./containers/AudienceRender";
+import View from "./containers/View";
 
 import serverControl from "./middleware";
 
@@ -17,8 +17,8 @@ render(
         <Router>
             <Provider store={store}>
                 <Route path="/" exact component={App}/>
+                <Route path="/render" exact component={View}/>
             </Provider>
-                <Route path="/render" exact component={AudienceRender}/>
         </Router>),
 document.getElementById('root')
 )

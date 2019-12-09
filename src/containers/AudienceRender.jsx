@@ -8,6 +8,8 @@ export default class AudienceRender extends Component{
         this.state = {};
     }
 
+
+
     componentDidMount() {
         window.addEventListener('message',(e)=>{
             if(e.origin!== window.location.origin) return;
@@ -24,3 +26,4 @@ export default class AudienceRender extends Component{
     }
 
 }
+

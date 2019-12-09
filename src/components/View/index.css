@@ -1,0 +1,11 @@
+.View {
+    position: relative;
+    width:100%;
+    height: 100%;
+    background-color: black;
+}
+
+.View > canvas{
+    width:100%;
+    height: 100%;
+}

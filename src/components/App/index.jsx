@@ -13,7 +13,7 @@ export default class App extends Component {
         super(props)
         this.state = {
             divider: 70, //%
-            horizontalDivider: 100
+            horizontalDivider: 75
         }
         this.appRef = React.createRef()
     }
@@ -32,11 +32,9 @@ export default class App extends Component {
                 <Header/>
                 <div style={{height:'100%'}}>
                     <LaunchSpace style={{width: this.state.divider + "%"}}/>
-                    {/*<ResizeDivider onResize={this.dividerResize.bind(this)}vertical/>*/}
                     <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>
                         <Flyout style={{height: this.state.horizontalDivider + "%"}}/>
-                        {/*<ResizeDivider horizontal onResize={this.dividerResizeRightPanel.bind(this)}/>*/}
-                        <Render style={{height: (100 - this.state.horizontalDivider) + "%"}}/>
+                        <iframe style={{height:(100-this.state.horizontalDivider) + "%"}} src={"/render"}/>
                     </div>
                 </div>
             </div>

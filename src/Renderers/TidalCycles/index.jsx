@@ -1,5 +1,5 @@
 import React from "react";
-import './index.css';
+// import './index.css';
 import Model from "../../model";
 import EffectModel from "../../model/EffectModel";
 
@@ -8,7 +8,7 @@ export const TidalCycles = {
     getCode,
     trackToCode,
     getTempoCode,
-    getAudienceDom
+    // getAudienceDom
 }
 
 // function getAudienceDom(state){
@@ -36,61 +36,61 @@ export const TidalCycles = {
 //     )
 // }
 
-function getAudienceDom(state){
-    // let effects = state.masterEffects.filter(effect=>effect.on).map(effectToDom).filter(x=>{return x!=null});
-    let tracks = [];
-    for(let i in state.tracks){
-        let trackDom = trackToDom((state.tracks[i]));
-        if(trackDom){
-            tracks.push(trackDom);
-            tracks.push(",");
-        }
-    }
-    tracks = tracks.slice(0,-1);
-
-    let effects = state.master[Model.Languages.TidalCycles].effects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
-    effects = effects.map(x=>{return [x," . "]}).flat().slice(0,-1);
-
-
-    return (
-        <div className={'code TidalCycles'}>
-
-            d1 $ {effects} {effects.length?"$":""} stack [
-            {tracks}
-            ]
-
-        </div>
-    )
-
-}
-
-function trackToDom(track){
-    let stems = [];
-    for(let i in track.stems){
-        let stem = track.stems[i];
-        if(stem.on && stem.language === 'TidalCycles'){
-            let code = stemToCode(stem);
-            if(code){
-                stems.push(code);
-            }
-        }
-    }
-
-    if(!stems.length){
-        return null;
-    }
-    stems = stems.map(x=>[x,","]).flat().slice(0,-1);
-    let trackGain = `(|* gain ${track.gainEffect.properties.value*2})`;
-    return (
-        <div key={track.id} className="trackCode">
-
-            {trackGain} {" $ "}
-            stack [
-            {stems}
-            ]
-        </div>
-    )
-}
+// function getAudienceDom(state){
+//     // let effects = state.masterEffects.filter(effect=>effect.on).map(effectToDom).filter(x=>{return x!=null});
+//     let tracks = [];
+//     for(let i in state.tracks){
+//         let trackDom = trackToDom((state.tracks[i]));
+//         if(trackDom){
+//             tracks.push(trackDom);
+//             tracks.push(",");
+//         }
+//     }
+//     tracks = tracks.slice(0,-1);
+//
+//     let effects = state.master[Model.Languages.TidalCycles].effects.filter(effect=>effect.on).map(effectToDom).filter(x=>x);
+//     effects = effects.map(x=>{return [x," . "]}).flat().slice(0,-1);
+//
+//
+//     return (
+//         <div className={'code TidalCycles'}>
+//
+//             d1 $ {effects} {effects.length?"$":""} stack [
+//             {tracks}
+//             ]
+//
+//         </div>
+//     )
+//
+// }
+//
+// function trackToDom(track){
+//     let stems = [];
+//     for(let i in track.stems){
+//         let stem = track.stems[i];
+//         if(stem.on && stem.language === 'TidalCycles'){
+//             let code = stemToCode(stem);
+//             if(code){
+//                 stems.push(code);
+//             }
+//         }
+//     }
+//
+//     if(!stems.length){
+//         return null;
+//     }
+//     stems = stems.map(x=>[x,","]).flat().slice(0,-1);
+//     let trackGain = `(|* gain ${track.gainEffect.properties.value*2})`;
+//     return (
+//         <div key={track.id} className="trackCode">
+//
+//             {trackGain} {" $ "}
+//             stack [
+//             {stems}
+//             ]
+//         </div>
+//     )
+// }
 
 // function stemToDom(stem){
 //     const code = stemToCode(stem);
@@ -108,13 +108,13 @@ function trackToDom(track){
 //
 // }
 
-function effectToDom(effect){
-    if (!effect.on) {return null}
-    let code = effectToCode(effect);
-    return (
-        <div className={'effectCode'}>{code}</div>
-    )
-}
+// function effectToDom(effect){
+//     if (!effect.on) {return null}
+//     let code = effectToCode(effect);
+//     return (
+//         <div className={'effectCode'}>{code}</div>
+//     )
+// }
 
 function getTempoCode(state){
     return 'setcps ' + state.master.TidalCycles.properties.tempo/60/2;

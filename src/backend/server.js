@@ -3,6 +3,7 @@ import logger from 'redux-logger';
 import Client from "./Client";
 import DeadReducer from '../reducers'
 import {ActionSpec,Actions} from "../actions";
+import {Renderers} from "../Renderers";
 const spawn = require('child_process').spawn;
 const http = require('http');
 const WebSocket = require('ws');
@@ -21,7 +22,24 @@ const serverMiddleware = store => next => action => {
   return next(action);
 }
 
-let store = createStore(DeadReducer, applyMiddleware(serverMiddleware, logger));
+let tidalCode ='';
+const renderMiddleWare = store => next => action => {
+  next(action);
+  let state = store.getState();
+  if(action.type === ActionSpec.MASTER_UPDATE.name || action.type === ActionSpec.PUSH_STATE.name){
+    evalTidal(state.master.TidalCycles.macros);
+    evalTidal(Renderers.TidalCycles.getTempoCode(state));
+  }
+  let tc = Renderers.TidalCycles.getCode(state);
+  if(tidalCode!==tc){
+    evalTidal(tc);
+    tidalCode = tc;
+  }
+}
+
+
+let store = createStore(DeadReducer, applyMiddleware(renderMiddleWare, serverMiddleware, logger));
+// let store = createStore(DeadReducer, applyMiddleware(serverMiddleware, logger));
 
 // Cmdline opts
 var nopt = require('nopt');
@@ -88,6 +106,12 @@ function sanitizeStringForTidal(x) {
     blockOpen = false;
   }
   return result;
+}
+
+function evalTidal(str){
+  console.log("%c Tidal: "+str, 'color:green;background:darkgrey');
+  tidal.stdin.write(str+"\n");
+  stderr.write(str+"\n");
 }
 
 
