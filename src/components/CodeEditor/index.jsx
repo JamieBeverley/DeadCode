@@ -27,7 +27,7 @@ export default class CodeEditor extends Component {
                     <div><div className={'verticalCenter'}>Live</div></div>
                     <Toggle onChange={(e)=>{this.props.onChangeLive(e)}} on={this.props.live}/>
                     <button disabled={this.props.live} onClick={(e) => {
-                        this.updateCode.call(this, e.target.value)
+                        this.props.onChange(this.state.code)
                     }}>eval
                     </button>
                 </div>

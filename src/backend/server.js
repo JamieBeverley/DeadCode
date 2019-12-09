@@ -109,7 +109,6 @@ function sanitizeStringForTidal(x) {
 }
 
 function evalTidal(str){
-  console.log("%c Tidal: "+str, 'color:green;background:darkgrey');
   tidal.stdin.write(str+"\n");
   stderr.write(str+"\n");
 }
@@ -136,6 +135,7 @@ function onMessage(data){
       stderr.write(msg.code+"\n");
     } else if (msg.type === 'action'){
       store.dispatch(msg.action);
+      debugger
       broadcast(msg,[this.id]);
     } else {
       console.warn('unrecognized ws message type: ',msg.type,JSON.stringify(data));
@@ -143,6 +143,7 @@ function onMessage(data){
 }
 
 function onClose(id){
+  console.log('closed connection with client', id, new Date());
   delete clients[id];
 }
 
