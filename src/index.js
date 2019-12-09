@@ -6,7 +6,7 @@ import DeadReducer from './reducers'
 import React from 'react';
 import logger from 'redux-logger'
 import {BrowserRouter as Router, Route} from "react-router-dom";
-import View from "./containers/View";
+import View from "./containers/Render";
 
 import serverControl from "./middleware";
 

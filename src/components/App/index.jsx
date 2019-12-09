@@ -1,7 +1,6 @@
 import React, {Component} from 'react'
 import LaunchSpace from '../../containers/LaunchSpace.jsx';
 import Flyout from '../../containers/Flyout.jsx';
-import Render from '../../containers/Render'
 import './index.css';
 import Header from '../../containers/Header'
 
