@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Renderers} from "../../Renderers";
+import {Renderers} from "../../renderers";
 import Hydra from "hydra-synth";
 import './index.css'
 class Render extends Component {

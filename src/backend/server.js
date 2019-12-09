@@ -3,7 +3,7 @@ import logger from 'redux-logger';
 import Client from "./Client";
 import DeadReducer from '../reducers'
 import {ActionSpec,Actions} from "../actions";
-import {Renderers} from "../Renderers";
+import {Renderers} from "../renderers";
 const spawn = require('child_process').spawn;
 const http = require('http');
 const WebSocket = require('ws');
