@@ -135,7 +135,6 @@ function onMessage(data){
       stderr.write(msg.code+"\n");
     } else if (msg.type === 'action'){
       store.dispatch(msg.action);
-      debugger
       broadcast(msg,[this.id]);
     } else {
       console.warn('unrecognized ws message type: ',msg.type,JSON.stringify(data));
