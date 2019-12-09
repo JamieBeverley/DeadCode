@@ -14,6 +14,8 @@ For more info on how to use Dead see this [demo video](https://youtu.be/nTBwdGbf
 Dependencies:
 - NodeJS, npm or yarn
 - [TidalCycles](https://tidalcycles.org/index.php/Installation)
+- for MIDI, you may need to install dependencies for the npm [node-midi](https://www.npmjs.com/package/midi) and [easymidi](https://www.npmjs.com/package/easymidi) packages
+- Chrome web browser (currently untested on other browsers)
 
 ##### Clone and build JS dependencies:
 ```bash
