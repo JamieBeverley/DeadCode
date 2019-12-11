@@ -31,7 +31,7 @@
   "scripts": {
     "start": "react-scripts start",
     "backend": "nodemon --inspect --exec babel-node src/backend/server.js",
-    "midi": "nodemon --inspect --exec babel-node src/midi/index.js",
+    "midi": "nodemon --exec babel-node src/midi/index.js",
     "build": "react-scripts build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",

@@ -13,8 +13,9 @@ export default class Effect extends Component {
             component = <Slider {...this.props}/>;
         } else if (this.props.type === EffectModel.Types.CODE_TOGGLE) {
             component = <CodeToggle {...this.props}/>;
-        } else if (this.props.type === EffectModel.Types.CODE_SLIDER) {
-            component = <CodeSlider {...this.props}/>;
+        // } else if (this.props.type === EffectModel.Types.CODE_SLIDER) {
+        //     debugger
+        //     component = <CodeSlider {...this.props}/>;
         } else {
             debugger;
         }

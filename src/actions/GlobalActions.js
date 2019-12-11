@@ -1,6 +1,6 @@
 
 import {Actions} from './index.js';
-import {store} from '../index.js';
+import store from '../store.js';
 import Connection from "../Connection";
 import Id from "../model/Id";
 import EffectModel from "../model/EffectModel";

@@ -8,6 +8,7 @@ export default class Stem extends Component {
         this.dragToggle = false;
         this.ref = React.createRef();
         this.timeout = null;
+        this.touchMoveCount = 0;
     }
 
     flash(){
@@ -26,6 +27,7 @@ export default class Stem extends Component {
 
     onMouseUp(e) {
         e.preventDefault();
+        this.touchMoveCount = 0;
         let now = new Date();
         if(!this.dragToggle){
             if (now - this.holdTime < 500) {
@@ -47,10 +49,13 @@ export default class Stem extends Component {
     }
 
     onTouchMove(e){
-        console.log('tm');
+        this.touchMoveCount++;
+        console.log(this.touchMoveCount);
         e.preventDefault();
-        clearTimeout(this.timeout);
-        this.dragToggle = true;
+        if(this.touchMoveCount>5){
+            clearTimeout(this.timeout);
+            this.dragToggle = true;
+        }
     }
 
     componentWillUnmount() {

@@ -1,6 +1,8 @@
 
 // TODO this is probably bad practice.... (?)
-import {store} from "./index";
+// import {store} from "./index";
+
+import store from './store'
 
 const Connection = {};
 
@@ -8,7 +10,12 @@ Connection.init = function(host=window.location.hostname,port=8000, onOpen=()=>{
     if (Connection.ws){
         Connection.ws.close();
     }
-    window.WebSocket = window.WebSocket || window.MozWebSocket;
+    var WebSocket;
+    if(typeof window!=='undefined'){
+        WebSocket = window.WebSocket || window.MozWebSocket;
+    } else{
+        WebSocket = require('ws');
+    }
 
     try{
         Connection.ws = new WebSocket('ws://' + host + ":" + port);
