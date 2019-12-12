@@ -3,6 +3,7 @@ import MasterModel from "./MasterModel";
 import Id from "./Id";
 import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
+import Midi from "./Midi";
 
 
 const Model = {};
@@ -70,7 +71,8 @@ Model.defaultState = {
     copy: null,
     tracks,
     stems,
-    effects
+    effects,
+    midi:Midi
 }
 
 export default Model
