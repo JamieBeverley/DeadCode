@@ -4,6 +4,7 @@ import Connection from "../Connection";
 import store from "../store";
 import {addMiddleware} from 'redux-dynamic-middlewares'
 import {ActionSpec, Actions} from "../actions";
+import fs from 'fs';
 
 
 // on stem-related update, output appropriate midi msg.
@@ -19,7 +20,7 @@ const midiMiddleware = store => next => action => {
 
 addMiddleware(midiMiddleware);
 
-var input, output;
+var input, output, midiMap;
 
 const getInput = function (res) {
     try {
@@ -33,7 +34,8 @@ const getInput = function (res) {
         prompt('enter midi input device number\n').then(device => {
             let deviceNum = parseInt(device);
             input = new easymidi.Input(inputs[deviceNum]);
-            input.on('noteoff', onDeviceToggle);
+            input.on('noteoff', onDeviceNoteOff);
+            input.on('cc', onDeviceCC);
             console.log('\n\n');
             res && res(input);
         })
@@ -54,7 +56,7 @@ const getOutput = function (res) {
         prompt('enter midi output device number\n').then(device => {
             let deviceNum = parseInt(device);
             output = new easymidi.Output(outputs[deviceNum]);
-            res && res(output);
+            typeof res === 'function' && res(output);
         })
 
     } catch (e) {
@@ -63,9 +65,13 @@ const getOutput = function (res) {
 }
 
 function init() {
-    getInput(() => {
-        getOutput()
-    });
+    getMidiMap(()=>{
+        getInput(()=>{
+            getOutput(()=>{
+                console.log('\nMIDI Initialized\n\n')
+            });
+        });
+    })
 }
 
 Connection.init('127.0.0.1', 8001, init, console.log, console.log);
@@ -106,95 +112,41 @@ on server toggle (stemId provided):
 
 
 
-// let posToOutput = [[
-//     {
-//         on: {note: 24, channel: 0, velocity: 1},
-//         off: {note: 24, channel: 0, velocity: 0},
-//         cue: {note: 24, channel: 0, velocity: 0}
-//     },
-//     {
-//         on: {note: 25, channel: 0, velocity: 1},
-//         off: {note: 25, channel: 0, velocity: 0},
-//         cue: {note: 25, channel: 0, velocity: 0}
-//     },
-//     {
-//         on: {note: 26, channel: 0, velocity: 1},
-//         off: {note: 26, channel: 0, velocity: 0},
-//         cue: {note: 26, channel: 0, velocity: 0}
-//     },
-//     {
-//         on: {note: 27, channel: 0, velocity: 1},
-//         off: {note: 27, channel: 0, velocity: 0},
-//         cue: {note: 27, channel: 0, velocity: 0}
-//     }
-// ], [
-//     {
-//         on: {note: 28, channel: 0, velocity: 1},
-//         off: {note: 28, channel: 0, velocity: 0},
-//         cue: {note: 28, channel: 0, velocity: 0}
-//     },
-//     {
-//         on: {note: 29, channel: 0, velocity: 1},
-//         off: {note: 29, channel: 0, velocity: 0},
-//         cue: {note: 29, channel: 0, velocity: 0}
-//     },
-//     {
-//         on: {note: 30, channel: 0, velocity: 1},
-//         off: {note: 30, channel: 0, velocity: 0},
-//         cue: {note: 30, channel: 0, velocity: 0}
-//     },
-//     {
-//         on: {note: 31, channel: 0, velocity: 1},
-//         off: {note: 31, channel: 0, velocity: 0},
-//         cue: {note: 31, channel: 0, velocity: 0}
-//     }
-// ]
-// ];
 
-let midi = {
-    rows:2,
-    cols:4,
-    left: 0,
-    top: 0
+function getMidiMap(callback){
+    fs.readdir('src/midi/midi-maps',(err, files)=>{
+        if(err){
+            console.log(err)
+            return;
+        }
+        for(let i = 0; i<files.length; i++){
+            console.log(i+". "+files[i])
+        }
+        prompt('select a midi map').then(opt=>{
+            let filename = files[parseInt(opt)];
+            fs.readFile('src/midi/midi-maps/'+filename,(err, file)=>{
+                if(err){
+                    console.log(err);
+                    return;
+                }
+                midiMap = JSON.parse(file);
+                let midi = {
+                    rows: midiMap.meta.rows,
+                    columns: midiMap.meta.columns,
+                    left:0,
+                    top:0
+                }
+                console.log('\n\n')
+                store.dispatch(Actions.midiUpdate(midi));
+                callback();
+            })
+        });
+    })
 }
 
-
-let posToOutput = [];
-
-for (let row = 0; row <8; row ++){
-    let rowEntry = [];
-    for (let column = 0; column<8; column++){
-        rowEntry.push({
-            on: {note: column+(row*8), channel: 0, velocity: 1},
-            off: {note: column+(row*8), channel: 0, velocity: 0},
-            loaded: {note: column+(row*8), channel: 0, velocity: 5},
-            cue: {note: column+(row*8), channel: 0, velocity: 0}
-        })
-    }
-    posToOutput.push(rowEntry)
-}
-posToOutput = posToOutput.reverse()
-
-
-let notes = {}
-for(let note =0; note<(64); note++){
-    notes[note] = [7-Math.floor(note/8), note%8];
-}
-
-console.log(notes);
-
-let toPosMap = {
-    buttons: {
-        "0": notes
-    }
-}
-
-let midiMap = {toPosMap, posToOutput}
-
-
-
-function onDeviceToggle(msg) {
+function onDeviceNoteOff(msg) {
     const state = store.getState();
+    const midi = state.midi;
     const pos = midiMap.toPosMap.buttons[msg.channel][msg.note];
     pos[1] += midi.left;
     pos[0] += midi.top;
@@ -211,14 +163,29 @@ function onDeviceToggle(msg) {
 }
 
 
+function onDeviceCC(msg){
+    const state = store.getState();
+    let trackIndex = midiMap.toPosMap.faders[msg.channel][msg.controller];
+    let trackId = Object.keys(state.tracks)[trackIndex];
+    if(trackId===undefined){return}
+    let effectId = state.tracks[trackId].effects[0]; // TODO dangerous
+    if(effectId===undefined){return}
+    let value = {properties:Object.assign({},state.effects[effectId].properties,{value:msg.value*2/127})}
+    if(!!effectId){
+        store.dispatch(Actions.effectUpdate({effectId,value}));
+    } else{
+        console.warn('no effect found for track '+ trackId);
+    }
+}
+
 function onServerToggle(stemId) {
     const state = store.getState();
     const trackIds = Object.keys(state.tracks);
     const col = trackIds.findIndex(x => {
         return state.tracks[x].stems.includes(stemId)
-    }) - midi.left;
+    }) - state.midi.left;
     // if(col<0 || col > midi.cols) return;
-    const row = (state.tracks[trackIds[col]].stems.findIndex(x => x === stemId)) - midi.top;
+    const row = (state.tracks[trackIds[col]].stems.findIndex(x => x === stemId)) - state.midi.top;
     console.log(row,col);
     // if(row<0 || row > midi.rows) return;
     const stem = state.stems[stemId]
@@ -230,4 +197,3 @@ function onServerToggle(stemId) {
 }
 
 
-process.stdin.resume();

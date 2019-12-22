@@ -10,7 +10,8 @@ const WebSocket = require('ws');
 const fs = require('fs');
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
-
+import {throttle} from 'lodash';
+// let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare, logger));
 
 
 const serverMiddleware = store => next => action => {
@@ -37,10 +38,9 @@ const renderMiddleWare = store => next => action => {
   }
 }
 
+let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare));
 
-// let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare));
-let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare,logger));
-// let store = createStore(DeadReducer, applyMiddleware(serverMiddleware, logger));
+
 
 // Cmdline opts
 var nopt = require('nopt');
@@ -127,7 +127,9 @@ function broadcast (msg, exclude=[]){
   })
 }
 
+const effectThrottles = {};
 
+const throttledBroadcast = throttle(broadcast,200);
 
 function onMessage(data){
     var msg = JSON.parse(data);
@@ -136,7 +138,12 @@ function onMessage(data){
       stderr.write(msg.code+"\n");
     } else if (msg.type === 'action'){
       store.dispatch(msg.action);
-      broadcast(msg,[this.id]);
+      if(msg.action.type ==='EFFECT_UPDATE'){
+        effectThrottles[msg.action.payload.effectId] = effectThrottles[msg.action.payload.effectId] || throttle(broadcast,200);
+        effectThrottles[msg.action.payload.effectId](msg,[this.id]);
+      } else{
+        broadcast(msg,[this.id]);
+      }
     } else {
       console.warn('unrecognized ws message type: ',msg.type,JSON.stringify(data));
     }

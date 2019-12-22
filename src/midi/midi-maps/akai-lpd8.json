@@ -1,0 +1,1706 @@
+{
+  "toPosMap": {
+    "buttons": {
+      "0": {
+        "0": [
+          7,
+          0
+        ],
+        "1": [
+          7,
+          1
+        ],
+        "2": [
+          7,
+          2
+        ],
+        "3": [
+          7,
+          3
+        ],
+        "4": [
+          7,
+          4
+        ],
+        "5": [
+          7,
+          5
+        ],
+        "6": [
+          7,
+          6
+        ],
+        "7": [
+          7,
+          7
+        ],
+        "8": [
+          6,
+          0
+        ],
+        "9": [
+          6,
+          1
+        ],
+        "10": [
+          6,
+          2
+        ],
+        "11": [
+          6,
+          3
+        ],
+        "12": [
+          6,
+          4
+        ],
+        "13": [
+          6,
+          5
+        ],
+        "14": [
+          6,
+          6
+        ],
+        "15": [
+          6,
+          7
+        ],
+        "16": [
+          5,
+          0
+        ],
+        "17": [
+          5,
+          1
+        ],
+        "18": [
+          5,
+          2
+        ],
+        "19": [
+          5,
+          3
+        ],
+        "20": [
+          5,
+          4
+        ],
+        "21": [
+          5,
+          5
+        ],
+        "22": [
+          5,
+          6
+        ],
+        "23": [
+          5,
+          7
+        ],
+        "24": [
+          4,
+          0
+        ],
+        "25": [
+          4,
+          1
+        ],
+        "26": [
+          4,
+          2
+        ],
+        "27": [
+          4,
+          3
+        ],
+        "28": [
+          4,
+          4
+        ],
+        "29": [
+          4,
+          5
+        ],
+        "30": [
+          4,
+          6
+        ],
+        "31": [
+          4,
+          7
+        ],
+        "32": [
+          3,
+          0
+        ],
+        "33": [
+          3,
+          1
+        ],
+        "34": [
+          3,
+          2
+        ],
+        "35": [
+          3,
+          3
+        ],
+        "36": [
+          3,
+          4
+        ],
+        "37": [
+          3,
+          5
+        ],
+        "38": [
+          3,
+          6
+        ],
+        "39": [
+          3,
+          7
+        ],
+        "40": [
+          2,
+          0
+        ],
+        "41": [
+          2,
+          1
+        ],
+        "42": [
+          2,
+          2
+        ],
+        "43": [
+          2,
+          3
+        ],
+        "44": [
+          2,
+          4
+        ],
+        "45": [
+          2,
+          5
+        ],
+        "46": [
+          2,
+          6
+        ],
+        "47": [
+          2,
+          7
+        ],
+        "48": [
+          1,
+          0
+        ],
+        "49": [
+          1,
+          1
+        ],
+        "50": [
+          1,
+          2
+        ],
+        "51": [
+          1,
+          3
+        ],
+        "52": [
+          1,
+          4
+        ],
+        "53": [
+          1,
+          5
+        ],
+        "54": [
+          1,
+          6
+        ],
+        "55": [
+          1,
+          7
+        ],
+        "56": [
+          0,
+          0
+        ],
+        "57": [
+          0,
+          1
+        ],
+        "58": [
+          0,
+          2
+        ],
+        "59": [
+          0,
+          3
+        ],
+        "60": [
+          0,
+          4
+        ],
+        "61": [
+          0,
+          5
+        ],
+        "62": [
+          0,
+          6
+        ],
+        "63": [
+          0,
+          7
+        ]
+      }
+    },
+    "faders": {
+      "0": {
+        "48": 0,
+        "49": 1,
+        "50": 2,
+        "51": 3,
+        "52": 4,
+        "53": 5,
+        "54": 6,
+        "55": 7
+      }
+    }
+  },
+  "posToOutput": [
+    [
+      {
+        "on": {
+          "note": 56,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 56,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 56,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 56,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 57,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 57,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 57,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 57,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 58,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 58,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 58,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 58,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 59,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 59,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 59,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 59,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 60,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 60,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 60,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 60,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 61,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 61,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 61,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 61,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 62,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 62,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 62,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 62,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 63,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 63,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 63,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 63,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 48,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 48,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 48,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 48,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 49,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 49,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 49,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 49,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 50,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 50,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 50,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 50,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 51,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 51,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 51,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 51,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 52,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 52,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 52,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 52,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 53,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 53,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 53,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 53,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 54,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 54,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 54,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 54,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 55,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 55,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 55,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 55,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 40,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 40,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 40,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 40,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 41,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 41,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 41,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 41,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 42,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 42,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 42,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 42,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 43,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 43,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 43,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 43,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 44,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 44,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 44,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 44,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 45,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 45,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 45,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 45,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 46,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 46,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 46,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 46,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 47,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 47,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 47,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 47,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 32,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 32,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 32,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 32,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 33,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 33,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 33,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 33,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 34,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 34,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 34,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 34,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 35,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 35,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 35,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 35,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 36,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 36,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 36,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 36,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 37,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 37,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 37,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 37,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 38,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 38,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 38,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 38,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 39,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 39,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 39,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 39,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 24,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 24,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 24,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 24,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 25,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 25,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 25,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 25,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 26,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 26,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 26,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 26,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 27,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 27,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 27,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 27,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 28,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 28,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 28,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 28,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 29,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 29,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 29,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 29,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 30,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 30,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 30,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 30,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 31,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 31,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 31,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 31,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 16,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 16,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 16,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 16,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 17,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 17,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 17,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 17,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 18,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 18,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 18,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 18,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 19,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 19,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 19,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 19,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 20,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 20,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 20,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 20,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 21,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 21,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 21,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 21,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 22,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 22,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 22,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 22,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 23,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 23,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 23,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 23,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 8,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 8,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 8,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 8,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 9,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 9,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 9,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 9,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 10,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 10,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 10,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 10,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 11,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 11,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 11,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 11,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 12,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 12,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 12,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 12,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 13,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 13,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 13,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 13,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 14,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 14,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 14,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 14,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 15,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 15,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 15,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 15,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ],
+    [
+      {
+        "on": {
+          "note": 0,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 0,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 0,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 0,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 1,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 1,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 1,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 1,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 2,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 2,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 2,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 2,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 3,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 3,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 3,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 3,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 4,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 4,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 4,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 4,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 5,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 5,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 5,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 5,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 6,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 6,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 6,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 6,
+          "channel": 0,
+          "velocity": 0
+        }
+      },
+      {
+        "on": {
+          "note": 7,
+          "channel": 0,
+          "velocity": 1
+        },
+        "off": {
+          "note": 7,
+          "channel": 0,
+          "velocity": 0
+        },
+        "loaded": {
+          "note": 7,
+          "channel": 0,
+          "velocity": 5
+        },
+        "cue": {
+          "note": 7,
+          "channel": 0,
+          "velocity": 0
+        }
+      }
+    ]
+  ],
+  "meta": {
+    "rows": 8,
+    "columns": 8
+  }
+}
