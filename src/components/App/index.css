@@ -43,11 +43,13 @@
 }
 
 
+
+
 :root {
     --bg-image:radial-gradient(rgb(100,100,100), rgb(100,100,100));
     --launchspace-bg-color: transparent;
     --border-radius: 0px;
-    --stem-on: rgb(150,220,250);
+    --stem-on: rgb(250,250,20);
     --stem-off: rgba(255,255,255,0.5);
     --stem-editor-color: rgba(220, 220, 220, 0.5);
     --font-family: 'Helventica', sans-serif;
@@ -60,6 +62,24 @@
     --settings-font-color:rgb(150,150,150);
 }
 
+
+
+:root {
+    --bg-image:radial-gradient(rgb(10,10,10), rgb(10,10,10));
+    --launchspace-bg-color: transparent;
+    --border-radius: 2px;
+    --stem-on: rgb(205,20,20);
+    --stem-off: rgba(255,255,255,0.15);
+    --stem-editor-color: rgba(220, 220, 220, 0.5);
+    --font-family: 'Helventica', sans-serif;
+    --font-color-dark: black;
+    --font-color-light: rgb(30, 30, 30);
+    --scrollbar-width: 0px;
+    --track-border-color: transparent;
+    --select-color: rgb(250,10,10);
+    --settings-background-color:rgb(30,30,30);
+    --settings-font-color:rgb(150,150,150);
+}
 
 /*!* img purp *!*/
 /*:root {*/

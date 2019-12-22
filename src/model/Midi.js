@@ -1,10 +1,3 @@
-const Midi = null;
+const midi = {top:0, left:0, rows: 0, columns: 0}
 
-/*
-* Midi:{top:0, left:0, rows: 4, columns: 4 }
-*
-*
-* */
-
-
-export default Midi;
+export default midi;

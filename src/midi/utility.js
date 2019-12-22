@@ -2,6 +2,7 @@ import easymidi from 'easymidi'
 import prompt from 'prompt-promise'
 
 var input,output;
+var json = {};
 const getInput = function (res) {
   try {
     const inputs = easymidi.getInputs();
@@ -42,9 +43,9 @@ const getOutput = function (res){
       //     }
       //   }
       // }
-      output.send('noteon',{note:28,channel:0,velocity:1});
+      // output.send('noteon',{note:28,channel:0,velocity:1});
 
-      console.log('sent')
+      // console.log('sent')
       res && res(output);
     })
 

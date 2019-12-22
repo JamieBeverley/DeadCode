@@ -3,7 +3,8 @@ import MasterModel from "./MasterModel";
 import Id from "./Id";
 import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
-import Midi from "./Midi";
+
+import midi from './Midi'
 
 
 const Model = {};
@@ -61,6 +62,8 @@ for (let i = 0; i < 5; i++) {
 }
 
 
+
+
 Model.defaultState = {
     connection: {
         isConnected: false,
@@ -72,7 +75,7 @@ Model.defaultState = {
     tracks,
     stems,
     effects,
-    midi:Midi
+    midi
 }
 
 export default Model

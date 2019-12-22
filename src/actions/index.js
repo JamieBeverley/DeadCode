@@ -2,6 +2,10 @@ import {createAction} from 'redux-actions'
 
 
 export const ActionSpec = {
+    'MIDI_UPDATE':{
+        name:'MIDI_UPDATE',
+        propogateToServer:true
+    },
     'PUSH_STATE':{
         name: 'PUSH_STATE',
         propogateToServer:true

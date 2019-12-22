@@ -38,7 +38,8 @@ const renderMiddleWare = store => next => action => {
 }
 
 
-let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare , logger));
+// let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare));
+let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare,logger));
 // let store = createStore(DeadReducer, applyMiddleware(serverMiddleware, logger));
 
 // Cmdline opts

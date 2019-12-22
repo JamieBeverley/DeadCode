@@ -9,7 +9,7 @@ import {ActionSpec, Actions} from "../actions";
 // on stem-related update, output appropriate midi msg.
 const midiMiddleware = store => next => action => {
     next(action);
-    if (action.type === ActionSpec.STEM_UPDATE.name && action.payload.value.on !== undefined) {
+    if (action.type === ActionSpec.STEM_UPDATE.name && (action.payload.value.on !== undefined || action.payload.value.code !== undefined)) {
         onServerToggle(action.payload.stemId);
     } else if (action.type === ActionSpec.RECEIVE_STATE.name){
         Object.keys(store.getState().stems).forEach(onServerToggle)
@@ -105,6 +105,52 @@ on server toggle (stemId provided):
 */
 
 
+
+// let posToOutput = [[
+//     {
+//         on: {note: 24, channel: 0, velocity: 1},
+//         off: {note: 24, channel: 0, velocity: 0},
+//         cue: {note: 24, channel: 0, velocity: 0}
+//     },
+//     {
+//         on: {note: 25, channel: 0, velocity: 1},
+//         off: {note: 25, channel: 0, velocity: 0},
+//         cue: {note: 25, channel: 0, velocity: 0}
+//     },
+//     {
+//         on: {note: 26, channel: 0, velocity: 1},
+//         off: {note: 26, channel: 0, velocity: 0},
+//         cue: {note: 26, channel: 0, velocity: 0}
+//     },
+//     {
+//         on: {note: 27, channel: 0, velocity: 1},
+//         off: {note: 27, channel: 0, velocity: 0},
+//         cue: {note: 27, channel: 0, velocity: 0}
+//     }
+// ], [
+//     {
+//         on: {note: 28, channel: 0, velocity: 1},
+//         off: {note: 28, channel: 0, velocity: 0},
+//         cue: {note: 28, channel: 0, velocity: 0}
+//     },
+//     {
+//         on: {note: 29, channel: 0, velocity: 1},
+//         off: {note: 29, channel: 0, velocity: 0},
+//         cue: {note: 29, channel: 0, velocity: 0}
+//     },
+//     {
+//         on: {note: 30, channel: 0, velocity: 1},
+//         off: {note: 30, channel: 0, velocity: 0},
+//         cue: {note: 30, channel: 0, velocity: 0}
+//     },
+//     {
+//         on: {note: 31, channel: 0, velocity: 1},
+//         off: {note: 31, channel: 0, velocity: 0},
+//         cue: {note: 31, channel: 0, velocity: 0}
+//     }
+// ]
+// ];
+
 let midi = {
     rows:2,
     cols:4,
@@ -112,75 +158,50 @@ let midi = {
     top: 0
 }
 
+
+let posToOutput = [];
+
+for (let row = 0; row <8; row ++){
+    let rowEntry = [];
+    for (let column = 0; column<8; column++){
+        rowEntry.push({
+            on: {note: column+(row*8), channel: 0, velocity: 1},
+            off: {note: column+(row*8), channel: 0, velocity: 0},
+            loaded: {note: column+(row*8), channel: 0, velocity: 5},
+            cue: {note: column+(row*8), channel: 0, velocity: 0}
+        })
+    }
+    posToOutput.push(rowEntry)
+}
+posToOutput = posToOutput.reverse()
+
+
+let notes = {}
+for(let note =0; note<(64); note++){
+    notes[note] = [7-Math.floor(note/8), note%8];
+}
+
+console.log(notes);
+
 let toPosMap = {
     buttons: {
-        "0": {
-            "24": [0, 0],
-            "25": [0, 1],
-            "26": [0, 2],
-            "27": [0, 3],
-            "28": [1, 0],
-            "29": [1, 1],
-            "30": [1, 2],
-            "31": [1, 3],
-        }
+        "0": notes
     }
 }
 
+let midiMap = {toPosMap, posToOutput}
 
-let posToOutput = [[
-    {
-        on: {note: 24, channel: 0, velocity: 1},
-        off: {note: 24, channel: 0, velocity: 0},
-        cue: {note: 24, channel: 0, velocity: 0}
-    },
-    {
-        on: {note: 25, channel: 0, velocity: 1},
-        off: {note: 25, channel: 0, velocity: 0},
-        cue: {note: 25, channel: 0, velocity: 0}
-    },
-    {
-        on: {note: 26, channel: 0, velocity: 1},
-        off: {note: 26, channel: 0, velocity: 0},
-        cue: {note: 26, channel: 0, velocity: 0}
-    },
-    {
-        on: {note: 27, channel: 0, velocity: 1},
-        off: {note: 27, channel: 0, velocity: 0},
-        cue: {note: 27, channel: 0, velocity: 0}
-    }
-], [
-    {
-        on: {note: 28, channel: 0, velocity: 1},
-        off: {note: 28, channel: 0, velocity: 0},
-        cue: {note: 28, channel: 0, velocity: 0}
-    },
-    {
-        on: {note: 29, channel: 0, velocity: 1},
-        off: {note: 29, channel: 0, velocity: 0},
-        cue: {note: 29, channel: 0, velocity: 0}
-    },
-    {
-        on: {note: 30, channel: 0, velocity: 1},
-        off: {note: 30, channel: 0, velocity: 0},
-        cue: {note: 30, channel: 0, velocity: 0}
-    },
-    {
-        on: {note: 31, channel: 0, velocity: 1},
-        off: {note: 31, channel: 0, velocity: 0},
-        cue: {note: 31, channel: 0, velocity: 0}
-    }
-]
-];
 
 
 function onDeviceToggle(msg) {
     const state = store.getState();
-    const pos = toPosMap.buttons[msg.channel][msg.note];
+    const pos = midiMap.toPosMap.buttons[msg.channel][msg.note];
     pos[1] += midi.left;
     pos[0] += midi.top;
     const trackId = Object.keys(state.tracks)[pos[1]];
+    if(trackId===undefined) return;
     const stemId = state.tracks[trackId].stems[pos[0]];
+    if(stemId===undefined) return;
     const on = !state.stems[stemId].on;
 
     store.dispatch(Actions.stemUpdate({stemId, value: {on}}));
@@ -196,11 +217,13 @@ function onServerToggle(stemId) {
     const col = trackIds.findIndex(x => {
         return state.tracks[x].stems.includes(stemId)
     }) - midi.left;
-    if(col<0 || col > midi.cols) return;
+    // if(col<0 || col > midi.cols) return;
     const row = (state.tracks[trackIds[col]].stems.findIndex(x => x === stemId)) - midi.top;
-    if(row<0 || row > midi.rows) return;
-
-    const outputMsg = posToOutput[row][col][state.stems[stemId].on ? 'on' : 'off'];
+    console.log(row,col);
+    // if(row<0 || row > midi.rows) return;
+    const stem = state.stems[stemId]
+    const buttonState = stem.on?'on':(stem.code===''?'off':'loaded');
+    const outputMsg = midiMap.posToOutput[row][col][buttonState];
     console.log('row',row,'  ','col',col);
     console.log(JSON.stringify(outputMsg)+"\n\n")
     output.send('noteon', outputMsg);

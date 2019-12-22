@@ -5,6 +5,7 @@ import MasterReducer from "./Master";
 import StemReducer from './Stem.js'
 import EffectReducer from "./Effect";
 import {ActionSpec} from "../actions";
+import MidiReducer from "./MIDI";
 
 const CopyReducer = (copy, action)=>{
     if (action.type==='STEM_COPY'){
@@ -26,7 +27,8 @@ export default (state = Model.defaultState, action) =>{
         connection: ConnectionReducer(state.connection, action),
         tracks: TrackReducer(state.tracks, action),
         stems: StemReducer(state.stems, action),
-        effects: EffectReducer(state.effects, action)
+        effects: EffectReducer(state.effects, action),
+        midi: MidiReducer(state.midi, action)
     }
 }
 
