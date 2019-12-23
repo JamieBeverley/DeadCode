@@ -15,6 +15,9 @@
     outline: var(--stem-on);
 }
 
+.Stem.highlight{
+    background-color: yellow;
+}
 
 .Stem:focus{
     outline: none;

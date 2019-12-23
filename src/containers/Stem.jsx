@@ -3,8 +3,9 @@ import {connect} from 'react-redux';
 import GlobalActions from "../actions/GlobalActions";
 
 const mapStateToProps = (state,ownProps) => {
+
   // important for ownProps.id to refer to id of this stem
-  return {...state.stems[ownProps.id],...ownProps}
+  return {...state.stems[ownProps.id],...ownProps};
 };
 
 const mapDispatchToProps = dispatch => {

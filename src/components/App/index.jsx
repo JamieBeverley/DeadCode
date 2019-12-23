@@ -67,6 +67,9 @@ export default class App extends Component {
             } else if (e.key === 'o') {
                 e.preventDefault();
                 this.props.globalActions.open();
+            } else if (e.key === 'p'){
+                e.preventDefault();
+                this.props.globalActions.pushState();
             }
         }
     }

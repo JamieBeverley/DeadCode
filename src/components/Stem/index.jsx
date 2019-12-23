@@ -66,7 +66,7 @@ export default class Stem extends Component {
         return (
             <div
                 ref={this.ref}
-                className={'Stem noselect' + (this.props.on ? ' on ' : ' off ') + (this.props.selected ? 'selected' : '')}
+                className={'Stem noselect' + (this.props.on ? ' on ' : ' off ') + (this.props.selected ? 'selected' : '') +' '+(this.props.highlight?'highlight':'')}
                 tabIndex={0}
                 onKeyUp={this.onKeyUp.bind(this)}
                 onTouchStart={this.onMouseDown.bind(this)}

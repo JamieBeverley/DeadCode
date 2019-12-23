@@ -16,10 +16,13 @@ const midiMiddleware = store => next => action => {
         onStemChange(action.payload.stemId);
     } else if (action.type === ActionSpec.RECEIVE_STATE.name || action.type === ActionSpec.MIDI_UPDATE.name) {
         clearButtonGrid();
+
+        let state = store.getState();
+        let timeout = (state.midi.rows+state.midi.columns)*2;
         // TODO not totally sure why this timeout is necessary, something to do w/ io and event loop?...
         setTimeout(()=>{
             Object.keys(store.getState().stems).forEach(onStemChange)
-        },1)
+        },timeout);
     }
 }
 
@@ -240,9 +243,13 @@ function clearButtonGrid() {
     if(!output){
         return
     }
+    let i = 0;
     midiMap.posToOutput.forEach(row=>{
         row.forEach(cell=>{
-            output.send('noteon',cell.off)
+            setTimeout(()=>{
+                output.send('noteon',cell.off)
+            },i);
+            i++;
         })
     })
 }
