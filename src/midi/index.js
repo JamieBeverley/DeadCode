@@ -8,6 +8,7 @@ import fs from 'fs';
 import {clamp} from 'lodash'
 
 import logger from 'redux-logger'
+import {spread} from "../util";
 
 // on stem-related update, output appropriate midi msg.
 const midiMiddleware = store => next => action => {
@@ -30,7 +31,7 @@ const midiMiddleware = store => next => action => {
 addMiddleware(midiMiddleware);
 // addMiddleware(logger);
 
-var input, output, midiMap;
+var input, output, midiMap, spreadSend;
 
 const getInput = function (res) {
     try {
@@ -66,6 +67,8 @@ const getOutput = function (res) {
         prompt('enter midi output device number\n').then(device => {
             let deviceNum = parseInt(device);
             output = new easymidi.Output(outputs[deviceNum]);
+            // output.send = throttle(output.send,10);
+            spreadSend = spread((...x)=>{output.send(...x)},1);
             typeof res === 'function' && res(output);
         })
 
@@ -234,7 +237,8 @@ function onStemChange(stemId) {
     const buttonState = stem.on ? 'on' : (stem.code === '' ? 'off' : 'loaded');
     const outputMsg = midiMap.posToOutput[row][col][buttonState];
     if(output){
-        output.send('noteon', outputMsg);
+        // output.send('noteon', outputMsg);
+        spreadSend('noteon', outputMsg);
     }
 }
 
