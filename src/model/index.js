@@ -35,10 +35,10 @@ for(let i in EffectModel.util.defaultEffects['Hydra']()){
 
 const master = {TidalCycles, Hydra}
 
-for (let i = 0; i < 5; i++) {
+for (let i = 0; i < 8; i++) {
     let trackId = Id.new();
     tracks[trackId] = TrackModel.getNew();
-    for (let j = 0; j < 5; j++) {
+    for (let j = 0; j < 8; j++) {
         let stemId = Id.new();
         stems[stemId] = StemModel.getNew();
         EffectModel.util.defaultEffects['TidalCycles']().forEach(effect => {

@@ -1702,5 +1702,13 @@
   "meta": {
     "rows": 8,
     "columns": 8
+  },
+  "controls": {
+    "0": {
+      "64": "up",
+      "65": "down",
+      "66": "left",
+      "67": "right"
+    }
   }
 }

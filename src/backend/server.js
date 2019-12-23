@@ -139,6 +139,7 @@ function onMessage(data){
     } else if (msg.type === 'action'){
       store.dispatch(msg.action);
       if(msg.action.type ==='EFFECT_UPDATE'){
+        // console.log(msg.action.payload.effectId, JSON.stringify(msg.action.payload));
         effectThrottles[msg.action.payload.effectId] = effectThrottles[msg.action.payload.effectId] || throttle(broadcast,200);
         effectThrottles[msg.action.payload.effectId](msg,[this.id]);
       } else{

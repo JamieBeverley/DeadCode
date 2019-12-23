@@ -86,11 +86,14 @@ for(let note =0; note<(64); note++){
 
 
 
-
-let up = {note:64, channel:0};
-let down = {note:65, channel:0};
-let left = {note:66, channel:0};
-let right = {note:67, channel:0};
+let controls = {
+  '0':{
+    64:'up',
+    65:'down',
+    66:'left',
+    67:'right'
+  }
+};
 
 let faders = {};
 
@@ -108,7 +111,7 @@ let toPosMap = {
 
 }
 
-let midiMap = {toPosMap, posToOutput, meta:{rows:8, columns:8}};
+let midiMap = {toPosMap, posToOutput, meta:{rows:8, columns:8},controls};
 
 fs.writeFile('src/midi/midi-maps/akai-lpd8.json',JSON.stringify(midiMap));
 
