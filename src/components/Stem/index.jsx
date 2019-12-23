@@ -66,7 +66,7 @@ export default class Stem extends Component {
         return (
             <div
                 ref={this.ref}
-                className={'Stem noselect' + (this.props.on ? ' on ' : ' off ') + (this.props.selected ? 'selected' : '') +' '+(this.props.highlight?'highlight':'')}
+                className={'Stem noselect' +' '+(this.props.highlight?'highlight':'')}
                 tabIndex={0}
                 onKeyUp={this.onKeyUp.bind(this)}
                 onTouchStart={this.onMouseDown.bind(this)}
@@ -80,8 +80,10 @@ export default class Stem extends Component {
                     this.openInFlyout()
                 }}
             >
-                <div className="verticalCenter" style={{width: '100%'}}>
-                    {this.props.name}
+                <div className={'stemButton' + (this.props.selected ? ' selected' : '') + (this.props.on ? ' on ' : ' off ')}>
+                    <div className="verticalCenter" style={{width: '100%'}}>
+                        {this.props.name}
+                    </div>
                 </div>
             </div>
         )

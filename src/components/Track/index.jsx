@@ -9,7 +9,6 @@ export default class Track extends Component {
     stemToComponent(id, row) {
 
         let highlight = row < (this.props.midi.top+this.props.midi.rows) && row >= this.props.midi.top && this.props.index< (this.props.midi.left+this.props.midi.columns) && this.props.index >= this.props.midi.left;
-        debugger;
         return <Stem key={id}
                      id={id}
                      highlight={highlight}
