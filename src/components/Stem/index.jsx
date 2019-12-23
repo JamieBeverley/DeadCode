@@ -50,7 +50,6 @@ export default class Stem extends Component {
 
     onTouchMove(e){
         this.touchMoveCount++;
-        console.log(this.touchMoveCount);
         e.preventDefault();
         if(this.touchMoveCount>5){
             clearTimeout(this.timeout);

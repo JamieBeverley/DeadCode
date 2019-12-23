@@ -82,7 +82,6 @@ export default class StemEditor extends Component {
     }
 
     delete() {
-        debugger
         this.props.globalActions.trackDeleteStem(this.props.trackId, this.props.id)
     }
 

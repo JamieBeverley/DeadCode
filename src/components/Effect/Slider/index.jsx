@@ -77,22 +77,19 @@ export default class SliderEffect extends Component {
                         />
                     </Grid>
                     <Grid item>
-                        <Input
+                        <input
                             margin="dense"
-                            onChange={(e)=>{
+                            onInput={(e)=>{
                                 let value = parseFloat(e.target.value);
                                 e.persist()
                                 this.setState({value:value, sliderValue:this.toSliderScale(value)});
                                 this.handleInputChange.bind(this)(e);
                             }}
                             value={this.state.value}
-                            inputProps={{
-                                step: this.props.properties.step,
-                                min: this.props.properties.min,
-                                max: this.props.properties.max,
-                                type: 'number',
-                                'aria-labelledby': 'input-slider',
-                            }}
+                            step={this.props.properties.step}
+                            min={this.props.properties.min}
+                            max={this.props.properties.max}
+                            type={'number'}
                         />
                     </Grid>
                 </Grid>

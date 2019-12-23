@@ -11,7 +11,12 @@
 
 .Slider input{
     color: var(--font-color-dark);
+    border:none;
     border-bottom: 1pt solid var(--stem-on);
+    max-width: 70px;
+    background-color: transparent;
+    padding:5px;
+    box-sizing: border-box;
 }
 
 .Slider span{

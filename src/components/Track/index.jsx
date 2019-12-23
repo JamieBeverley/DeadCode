@@ -23,7 +23,9 @@ export default class Track extends Component {
                 <div style={{position:'relative',height:'100%'}}>
                     <div className={'stems'}>
                         {stems}
-                        <PlusButton onClick={this.addStem.bind(this)}/>
+                        <div style={{padding:'5px'}}>
+                            <PlusButton onClick={this.addStem.bind(this)}/>
+                        </div>
                     </div>
                     <div className={'effects'}>
                         <div className={'launchButton'}>

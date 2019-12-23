@@ -33,7 +33,7 @@ export default class App extends Component {
                     <LaunchSpace style={{width: this.state.divider + "%"}}/>
                     <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>
                         <Flyout style={{height: this.state.horizontalDivider + "%"}}/>
-                        <iframe style={{height:(100-this.state.horizontalDivider) + "%"}} src={"/render"}/>
+                        <iframe style={{height:(100-this.state.horizontalDivider) + "%",border:'1pt solid var(--stem-on)',borderBottom:'none',borderRight:'none'}} src={"/render"}/>
                     </div>
                 </div>
             </div>
