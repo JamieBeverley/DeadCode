@@ -23,6 +23,14 @@ class CodeToggle extends Component {
         this.props.globalActions.effectUpdate(this.props.id, {on});
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        // if props are different from state the let props override (eg. from server)
+        // but only if theres an actual difference in prev props and current props
+        if(prevProps.properties.code!== this.props.properties.code && this.props.properties.code!==this.state.code){
+            this.setState({...this.state, code:this.props.properties.code});
+        }
+    }
+
     render() {
         return (
             <div className={'CodeToggle'}>

@@ -21,7 +21,7 @@ export default class Effect extends Component {
         }
 
         return (
-            <div className={'Effect'}>{component}</div>
+            <div className={'Effect'} id={this.props.id}>{component}</div>
         )
     }
 }
