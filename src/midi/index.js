@@ -235,6 +235,9 @@ function onStemChange(stemId) {
     }
     const stem = state.stems[stemId];
     const buttonState = stem.on ? 'on' : (stem.code === '' ? 'off' : 'loaded');
+    if(!midiMap[row] || !midiMap[row][col]){
+        return
+    }
     const outputMsg = midiMap.posToOutput[row][col][buttonState];
     if(output){
         // output.send('noteon', outputMsg);
