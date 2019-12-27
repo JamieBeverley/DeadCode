@@ -6,9 +6,9 @@ import {addMiddleware} from 'redux-dynamic-middlewares'
 import {ActionSpec, Actions} from "../actions";
 import fs from 'fs';
 import {clamp} from 'lodash'
-
 import logger from 'redux-logger'
 import {spread} from "../util";
+import midi from "../model/Midi";
 
 // on stem-related update, output appropriate midi msg.
 const midiMiddleware = store => next => action => {
@@ -88,7 +88,20 @@ function init() {
     })
 }
 
-Connection.init('127.0.0.1', 8001, init, console.log, console.log);
+function reconnect(){
+    prompt('disconnected, hit enter to reconnect').then(x=>{
+        if(midiMap && input && output){
+            Connection.init('127.0.0.1', 8001, ()=>{console.log('connected')}, reconnect, console.log);
+        } else {
+            Connection.init('127.0.0.1', 8001, init, reconnect, console.log);
+
+        }
+    })
+}
+
+Connection.init('127.0.0.1', 8001, init, reconnect, console.log);
+
+
 
 
 // notes[chan][note] = [0,0];
@@ -235,7 +248,8 @@ function onStemChange(stemId) {
     }
     const stem = state.stems[stemId];
     const buttonState = stem.on ? 'on' : (stem.code === '' ? 'off' : 'loaded');
-    if(!midiMap[row] || !midiMap[row][col]){
+    if(midiMap.posToOutput[row]===undefined || midiMap.posToOutput[row][col] === undefined){
+        console.log('hmm');
         return
     }
     const outputMsg = midiMap.posToOutput[row][col][buttonState];

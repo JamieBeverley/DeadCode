@@ -7,7 +7,7 @@ import {ActionSpec, ActionTypes} from "../actions";
 
 
 
-const serverControl = store => next => action => {
+export const serverControl = store => next => action => {
     const meta = action.meta;
     if (!meta.fromServer && meta.propogateToServer){
         var newAction = {...action}
@@ -21,5 +21,3 @@ const serverControl = store => next => action => {
     }
     return next(action);
 }
-
-export default serverControl

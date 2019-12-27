@@ -1,6 +1,6 @@
 import {applyMiddleware, createStore} from "redux";
 import DeadReducer from './reducers'
-import serverControl from "./middleware";
+import {serverControl} from "./middleware/index";
 import dynamicMiddlewares from 'redux-dynamic-middlewares'
 
 

@@ -32,7 +32,6 @@ Connection.init = function(host=window.location.hostname,port=8000, onOpen=()=>{
             onErr(e);
         }
         Connection.ws.onclose =  function incoming(data) {
-            console.warn('ws closed')
             Connection.ws.isOpen = false;
             onClose(data);
         };
