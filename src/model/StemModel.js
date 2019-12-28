@@ -1,10 +1,9 @@
 import EffectModel from "./EffectModel";
 
 
-function clone (stem,trackId){
+function clone (stem){
     return {
         ...stem,
-        trackId,
         effects:[...stem.effects].map(EffectModel.clone),
     }
 }
