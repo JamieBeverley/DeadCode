@@ -16,7 +16,7 @@ addMiddleware(logger);
 
 render(
     (
-        <Router>
+        <Router basename={process.env.PUBLIC_URL}>
             <Provider store={store}>
                 <Route path="/" exact component={App}/>
                 <Route path="/render" exact component={View}/>
