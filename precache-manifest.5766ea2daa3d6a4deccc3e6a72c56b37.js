@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "711d6f84018f26d933b2a5c8e76bb47b",
+    "revision": "9f5b3fc2db2ef17707efc8aeeb1f75d0",
     "url": "/deadcode/index.html"
   },
   {
-    "revision": "cd6ea2e0f64727256e8e",
+    "revision": "059b6423dfad870cad9e",
     "url": "/deadcode/static/css/main.879d227e.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/deadcode/static/js/2.eb9ab882.chunk.js.LICENSE"
   },
   {
-    "revision": "cd6ea2e0f64727256e8e",
-    "url": "/deadcode/static/js/main.7ea211ff.chunk.js"
+    "revision": "059b6423dfad870cad9e",
+    "url": "/deadcode/static/js/main.8c92f681.chunk.js"
   },
   {
     "revision": "0ce00ddb4317f6b69ef3",
