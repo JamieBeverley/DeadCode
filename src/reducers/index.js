@@ -6,6 +6,7 @@ import StemReducer from './Stem.js'
 import EffectReducer from "./Effect";
 import {ActionSpec} from "../actions";
 import MidiReducer from "./MIDI";
+import SettingsReducer from "./Settings";
 
 const CopyReducer = (copy, action)=>{
     if (action.type==='STEM_COPY'){
@@ -13,6 +14,8 @@ const CopyReducer = (copy, action)=>{
     }
     return copy
 }
+
+console.log(Model.defaultState)
 
 export default (state = Model.defaultState, action) =>{
     if(action.type === 'LOAD'){
@@ -28,7 +31,8 @@ export default (state = Model.defaultState, action) =>{
         tracks: TrackReducer(state.tracks, action),
         stems: StemReducer(state.stems, action),
         effects: EffectReducer(state.effects, action),
-        midi: MidiReducer(state.midi, action)
+        midi: MidiReducer(state.midi, action),
+        settings: SettingsReducer(state.settings, action)
     }
 }
 

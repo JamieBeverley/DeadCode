@@ -212,6 +212,9 @@ const GlobalActions = dispatch => {
         },
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));
+        },
+        settingsUpdateStyle: (value) =>{
+            dispatch(Actions.settingsUpdateStyle({value}))
         }
     }
 }

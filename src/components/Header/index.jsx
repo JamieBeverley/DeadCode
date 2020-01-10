@@ -9,9 +9,10 @@ import FolderIcon from '@material-ui/icons/Folder';
 import Modal from "../Modal";
 import HelpIcon from '@material-ui/icons/Help';
 import ConnectionSettings from "../../containers/ConnectionSettings";
+import Settings from '../../containers/Settings'
 
 const modalContent = {
-    'settings': 'Settings here at some point...',
+    'settings': <Settings/>,
     'connections':(<ConnectionSettings/>),
     'help': 'Welcome to DeadCode! Should probably fill out these docs soon...'
 };

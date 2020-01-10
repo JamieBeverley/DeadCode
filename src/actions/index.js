@@ -93,6 +93,10 @@ export const ActionSpec = {
     'EFFECT_UPDATE': {
         name: 'EFFECT_UPDATE',
         propogateToServer: true
+    },
+    'SETTINGS_UPDATE_STYLE':{
+        name: 'SETTINGS_UPDATE_STYLE',
+        propogateToServer:false
     }
 }
 

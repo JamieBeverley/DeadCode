@@ -3,7 +3,7 @@ import MasterModel from "./MasterModel";
 import Id from "./Id";
 import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
-
+import settings from "./Settings";
 import midi from './Midi'
 
 
@@ -75,7 +75,8 @@ Model.defaultState = {
     tracks,
     stems,
     effects,
-    midi
+    midi,
+    settings
 }
 
 export default Model
