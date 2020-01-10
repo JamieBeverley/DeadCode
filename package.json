@@ -2,6 +2,7 @@
   "name": "deadcode",
   "version": "0.1.0",
   "private": false,
+  "homepage": "http://jamiebeverley.github.io/deadcode",
   "dependencies": {
     "@material-ui/core": "^4.3.2",
     "@material-ui/icons": "^4.2.1",
@@ -35,6 +36,7 @@
     "midi": "nodemon --inspect --exec babel-node src/midi/index.js localhost 8080",
     "midi-util": "nodemon --inspect --exec babel-node src/midi/utility.js localhost 8081",
     "build": "react-scripts build",
+    "predeploy": "yarn build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
