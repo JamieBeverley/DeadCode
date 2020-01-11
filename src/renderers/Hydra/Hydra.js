@@ -5,11 +5,14 @@ import Model from "../../model";
 export const Hydra = {
     language:'Hydra',
     getCode,
+    getMacros
     // getAudienceDom,
 };
 
 
-
+function getMacros(state) {
+    return state.master['Hydra'].macros
+}
 
 
 

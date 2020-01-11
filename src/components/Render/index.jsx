@@ -8,6 +8,7 @@ class Render extends Component {
         super(props);
         this.hydraRef = React.createRef();
         this.hydraCode = Renderers.Hydra.getCode(this.props);
+        this.hydraMacros = Renderers.Hydra.getMacros(this.props);
         // this.tidalCode = Renderers.TidalCycles.getCode();
     }
 
@@ -23,6 +24,17 @@ class Render extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         let hydraCode = Renderers.Hydra.getCode(this.props);
+        let hydraMacros = Renderers.Hydra.getMacros(this.props);
+        console.log("????")
+        if(hydraMacros !== this.hydraMacros){
+            try {
+                eval(hydraMacros);
+            } catch(e){
+                console.warn('Hydra Error',e);
+            }
+            this.hydraMacros = hydraMacros;
+        }
+
         if(hydraCode !== this.hydraCode){
             try {
                 eval(hydraCode);
@@ -31,9 +43,11 @@ class Render extends Component {
             }
             this.hydraCode = hydraCode;
         }
+
     }
 
     render() {
+        console.log("????")
 
         // if(this.props.connection.isConnected){
         //     console.log(this.tidalCycles.tempo, this.props.master.TidalCycles.properties.tempo);
