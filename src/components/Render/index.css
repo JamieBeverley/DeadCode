@@ -1,11 +1,80 @@
 .Render {
-    position: relative;
-    width:100%;
+    position: absolute;
+    /*width:100%;*/
+    /*height: 100%;*/
+    left:0px;
+    top:0px;
+    bottom:0px;
+    right:0px;
     height: 100%;
+    overflow:hidden;
     background-color: black;
+    padding:25px;
+    box-sizing: border-box;
 }
 
 .Render > canvas{
-    width:100%;
+    /*width:100%;*/
+    /*height: 100%;*/
+    position: absolute;
+    left:0px;
+    top:0px;
+    bottom:0px;
+    right:0px;
+}
+
+/*.Render .code {*/
+/*    background-color: rgba(150,150,150,0.5);*/
+/*    color: white;*/
+/*    width:50%;*/
+/*    float:left;*/
+/*    font-size: 24px;*/
+/*}*/
+
+/*.Render .code span {*/
+/*    display:block;*/
+/*    margin-bottom: 15px;*/
+/*    font-family: Courier;*/
+/*}*/
+
+.Render .code{
     height: 100%;
+    overflow-y: hidden;
+    padding:5px;
+    box-sizing: border-box;
+    float:left;
+    width: 50%;
+    color: white;
+    font-family: Courier!important;
+    position: relative;
+    overflow-wrap: break-word;
+}
+
+.justAdded{
+    background-color: rgba(100,50,50,0.5)!important;
+}
+
+.Render .code .track {
+    maring-bottom:30px;
+    background-color: rgba(100,100,100, 0.5);
+    transition: background 1s linear;
+}
+
+.Render .code .track .stem {
+    transition: background 1s linear;
+    display: block;
+    margin-left: 5%;
+    margin-bottom: 2%;
+    margin-top:2%;
+
+}
+
+.Render .code .track .stem > .effect{
+    opacity: 0.5;
+}
+
+.Render .code .track > .effect {
+    /*background-color: rgba(50,50,50,0.5);*/
+    transition: background 1s linear;
+    opacity: 0.5;
 }

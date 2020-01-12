@@ -32,6 +32,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start-https": "HTTPS=true react-scripts start",
     "backend": "nodemon --exec babel-node src/backend/server.js",
     "midi": "nodemon --inspect --exec babel-node src/midi/index.js localhost 8080",
     "midi-util": "nodemon --inspect --exec babel-node src/midi/utility.js localhost 8081",
