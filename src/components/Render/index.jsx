@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Renderers} from "../../renderers";
 import Hydra from "hydra-synth";
 import './index.css'
+import TidalComponent from '../../renderers/TidalCycles/dom'
 
 class Render extends Component {
 
@@ -46,11 +47,12 @@ class Render extends Component {
     }
 
     render() {
-        const TidalComponent = Renderers.TidalCycles.RenderComponent
         return (
-            <div className={'Render'}>
-                <TidalComponent {...this.props}/>
-                <canvas ref={this.hydraRef}/>
+            <div style={{backgroundColor:'black',width:'100%',height:'100%'}}>
+                <div className={'Render'}>
+                    <TidalComponent {...this.props}/>
+                </div>
+                <canvas id={'HydraCanvas'} ref={this.hydraRef}/>
             </div>
         )
     }
