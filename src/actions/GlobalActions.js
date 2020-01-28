@@ -1,4 +1,3 @@
-
 import {Actions} from './index.js';
 import store from '../store.js';
 import Connection from "../Connection";
@@ -20,11 +19,11 @@ function getPosition(state, stemId) {
 
 const GlobalActions = dispatch => {
     return {
-        pushState:()=>{
-            let providedState = {...store.getState(), connection:undefined};
+        pushState: () => {
+            let providedState = {...store.getState(), connection: undefined};
             dispatch(Actions.pushState(providedState));
         },
-        receiveState:(state)=>{
+        receiveState: (state) => {
             dispatch(Actions.receiveState(state));
         },
         connect: (url, port) => {
@@ -33,7 +32,7 @@ const GlobalActions = dispatch => {
                 dispatch(Actions.connect({url, port, isConnected: true}))
             };
             let onClose = () => {
-                dispatch(actions.connect({url:url, port:port, isConnected: false}))
+                dispatch(actions.connect({url: url, port: port, isConnected: false}))
             };
             let onError = onClose;
             Connection.init(url, port, onOpen, onClose, onError);
@@ -89,8 +88,11 @@ const GlobalActions = dispatch => {
                 console.warn('Tried to load state but empty');
             }
         },
-        loadFromServer: ()=>{
-            Connection.sendAction({type:ActionSpec.LOAD_FROM_SERVER.name,meta:{propogateToServer:true,fromServer:false}});
+        loadFromServer: () => {
+            Connection.sendAction({
+                type: ActionSpec.LOAD_FROM_SERVER.name,
+                meta: {propogateToServer: true, fromServer: false}
+            });
         },
         open: (file) => {
             if (!file) {
@@ -131,15 +133,17 @@ const GlobalActions = dispatch => {
         },
         // Separated to a different action so not every stemUpdate required importing the store and checking if
         // language changed.
-        stemUpdateLanguage:(stemId, language) =>{
+        stemUpdateLanguage: (stemId, language) => {
             let stem = store.getState().stems[stemId];
             let globalActions = GlobalActions(dispatch);
-            if (stem.language!==language){
-                stem.effects.forEach(x=>{globalActions.stemDeleteEffect(stemId,x)});
+            if (stem.language !== language) {
+                stem.effects.forEach(x => {
+                    globalActions.stemDeleteEffect(stemId, x)
+                });
                 EffectModel.util.defaultEffects[language]().forEach(effect => {
                     globalActions.stemAddEffect(stemId, effect.type, effect.language, effect.on, effect.properties);
                 });
-                globalActions.stemUpdate(stemId,{language:language});
+                globalActions.stemUpdate(stemId, {language: language});
             }
         },
         stemDeleteEffect: (stemId, effectId) => {
@@ -155,9 +159,11 @@ const GlobalActions = dispatch => {
         },
         trackDeleteStem: (trackId, stemId) => {
             // if no trackId provided (not ideal), search for the track with the provided stemId
-            if(trackId===undefined){
+            if (trackId === undefined) {
                 let state = store.getState();
-                trackId = Object.keys(state.tracks).find(x=>{return state.tracks[x].stems.includes(stemId)});
+                trackId = Object.keys(state.tracks).find(x => {
+                    return state.tracks[x].stems.includes(stemId)
+                });
             }
             dispatch(Actions.trackDeleteStem({trackId, stemId}));
         },
@@ -181,7 +187,7 @@ const GlobalActions = dispatch => {
             let effectId = Id.new();
             let value = EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", true,
                 {
-                    code:'gain',
+                    code: 'gain',
                     value: 1,
                     operator: "|*",
                     min: 0,
@@ -213,7 +219,19 @@ const GlobalActions = dispatch => {
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));
         },
-        settingsUpdateStyle: (value) =>{
+        settingsUpdateStyle: (value) => {
+            let styleElement = document.body.querySelector('#style style');
+            if (styleElement === null) {
+                styleElement = document.createElement('style');
+                styleElement.setAttribute('id', 'style');
+                document.body.append(styleElement)
+            }
+            styleElement.innerHTML = `:root{${
+                Object.keys(value).map(key => {
+                    return `${key}: ${value[key]}`
+                }).join(";\n  ")
+            }}`;
+
             dispatch(Actions.settingsUpdateStyle({value}))
         }
     }

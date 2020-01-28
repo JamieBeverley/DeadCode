@@ -8,17 +8,20 @@
     margin:0px;
     left:0px;
     top:0px;
-    overflow: scroll;
+    /*overflow: scroll;*/
 }
 
 .Modal  .modalBody{
     max-width: 75%;
-    min-width: 50%;
+    min-width: 60%;
     left:50%;
     top:50%;
+    max-height: 95%;
     transform: translate(-50%,-50%);
     position: absolute;
     background-color: white;
+    display: flex;
+    flex-flow: column;
 }
 
 .Modal button {
@@ -33,6 +36,7 @@
     min-height: 100px;
     padding:5px;
     background-color: var(--stem-editor-color);
+    overflow-y: scroll;
 }
 
 .Modal .modalClose {

@@ -27,13 +27,17 @@ class Render extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         let hydraCode = Renderers.Hydra.getCode(this.props);
         let hydraMacros = Renderers.Hydra.getMacros(this.props);
-        try {
-            eval(hydraMacros);
 
-        } catch (e) {
-            console.warn('Hydra Error', e);
+
+        if (hydraMacros!== this.hydraMacros){
+            try {
+                eval(hydraMacros);
+
+            } catch (e) {
+                console.warn('Hydra Error', e);
+            }
+            this.hydraMacros =hydraMacros
         }
-        this.hydraMacros = hydraMacros;
 
         if (hydraCode !== this.hydraCode) {
             try {

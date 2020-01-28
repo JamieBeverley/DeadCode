@@ -1,24 +1,25 @@
 import React, {Component} from 'react';
 import debounce from "lodash/debounce";
 import './index.css'
+import TextColorPicker from "../util/TextColorPicker";
 
 const SettingsWidgetMap = {
-    '--bg-image': (props) => <input value={props.value} type='text'/>,
-    '--launchspace-bg-color': (props) => <input value={props.value} type="color"/>,
-    '--border-radius': (props) => <input value={props.value} type="number"/>,
-    '--stem-on': (props) => <input value={props.value} type="color"/>,
-    '--stem-off': (props) => <input value={props.value} type="color"/>,
-    '--stem-editor-color': (props) => <input value={props.value} type="color"/>,
-    '--font-family': (props) => <input value={props.value} type="text"/>,
-    '--font-color-dark': (props) => <input value={props.value} type="color"/>,
-    '--font-color-light': (props) => <input value={props.value} type="color"/>,
-    '--scrollbar-width': (props) => <input value={props.value} type="number"/>,
-    '--track-border-color': (props) => <input value={props.value} type="color"/>,
-    '--select-color': (props) => <input value={props.value} type="color"/>,
-    '--settings-background-color': (props) => <input value={props.value} type="color"/>,
-    '--settings-font-color': (props) => <input value={props.value} type="color"/>,
-    '--midi-background-color': (props) => <input value={props.value} type="color"/>
-}
+    '--bg-image': (props) => <input onChange={props.onChange} value={props.value} type='text'/>,
+    '--border-radius': (props) => <input onChange={props.onChange} value={props.value} type="text"/>,
+    '--stem-on': (props) => <input onChange={props.onChange} value={props.value} type="text"/>,
+    '--stem-off': (props) => <input onChange={props.onChange} value={props.value} type="text"/>,
+    '--font-family': (props) => <input onChange={props.onChange} value={props.value} type="text"/>,
+    '--scrollbar-width': (props) => <input onChange={props.onChange} value={props.value} type="text"/>,
+    '--launchspace-bg-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--stem-editor-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--font-color-dark': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--font-color-light': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--track-border-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--select-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--settings-background-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--settings-font-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>,
+    '--midi-background-color': (props) => <TextColorPicker onChange={props.onChange} value={props.value}/>
+};
 
 
 class Settings extends Component {
@@ -26,21 +27,30 @@ class Settings extends Component {
         super(props);
         this.state = {
             connection: {...this.props},
+            styleForm:{}
         };
         this.connect = debounce(() => {
             this.props.globalActions.connect(this.state.connection.url, this.state.connection.port)
         }, 2000);
     }
 
+    updateStyleForm(e){
+        this.setState({
+            styleForm: Object.assign({}, this.state.styleForm, {[e.target.name]:e.target.value})
+        })
+    }
+
+    updateStyle(){
+        this.props.globalActions.settingsUpdateStyle(this.state.styleForm)
+    }
 
     render() {
         let widgets = Object.keys(SettingsWidgetMap).map(x => {
             let Widget = SettingsWidgetMap[x]
-            debugger
             return (
                 <div key={x}>
-                    {x}
-                    <Widget value={this.props[x]}/>
+                    <div>{x}</div>
+                    <Widget onChange={this.updateStyleForm.bind(this)} value={this.props.style[x]}/>
                 </div>
             )
         });
@@ -48,15 +58,14 @@ class Settings extends Component {
         return (
             <div id={'Settings'}>
                 <div className={'Setting'}>
-                    <h1>Style</h1>
-                    <form>
+                    <div className="style">
+                        <h1>Style</h1>
                         {widgets}
-                    </form>
+                        <button onClick={this.updateStyle.bind(this)}>Apply</button>
+                    </div>
                 </div>
             </div>
         )
-
-
     }
 }
 
