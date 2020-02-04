@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import {EffectsToCode} from './index'
 import StemEditor from "../../components/StemEditor";
 import {throttle} from 'lodash'
+import CodeWriter from "../../components/util/CodeWriter";
+import CodeEditor from "../../components/CodeEditor";
 
 export default class RenderComponent extends Component {
     constructor(props) {
@@ -13,7 +15,7 @@ export default class RenderComponent extends Component {
         }
         this.justMinimized = false;
         // this.componentDidUpdate = throttle(this.componentDidUpdate.bind(this),100,{leading:false, trailing:true})
-        this.triggerResize = throttle(this.triggerResize.bind(this),2,{leading:false, trailing:true})
+        this.triggerResize = throttle(this.triggerResize.bind(this), 2, {leading: false, trailing: true})
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -38,7 +40,7 @@ export default class RenderComponent extends Component {
         // this.triggerResize()
     }
 
-    triggerResize(){
+    triggerResize() {
         const diff = this.ref.current.scrollHeight - this.ref.current.clientHeight;
         const percent = diff / this.ref.current.clientHeight
 
@@ -77,10 +79,11 @@ export default class RenderComponent extends Component {
 
 function trackToDom(state, track, id, triggerResize) {
     let stemsDom = [];
-    track.stems.forEach(x => {
-        let stem = state.stems[x];
+    track.stems.forEach(stemId => {
+        let stem = state.stems[stemId];
         if (stem.on && stem.code !== '' && stem.language === 'TidalCycles') {
-            stemsDom.push(<StemToDom state={state} stem={stem} id={x} triggerResize={triggerResize}/>)
+            stemsDom.push(<StemToDom key={`stem_${stemId}`} state={state} stem={stem} id={stemId}
+                                     triggerResize={triggerResize}/>)
         }
     });
     if (stemsDom.length < 1) {
@@ -92,12 +95,15 @@ function trackToDom(state, track, id, triggerResize) {
     track.effects.forEach(e => {
         let effect = state.effects[e];
         if (effect.on) {
-            effectsOn.push(effectToDom(state, effect, e));
+            effectsOn.push(effectToDom(state, effect, e, triggerResize));
         }
     });
-
+    if (track.stems.filter(x => {
+        return state.stems[x].on
+    }).length > 0) {
+    }
     return (
-        <div key={id} className={'track'}>
+        <div key={`track_${id}`} id={`track_${id}`} className={'track'}>
             {
                 effectsOn
             }
@@ -118,23 +124,6 @@ class StemToDom extends Component {
     constructor(props) {
         super(props);
         this.ref = React.createRef();
-        this.state = {visibleCode: ''}
-    }
-
-    componentDidMount() {
-        setTimeout(() => {
-            this.ref.current && this.ref.current.classList.remove('justAdded')
-        }, 0)
-        for (let i = 0; i < this.props.stem.code.length; i++) {
-            setTimeout(() => {
-                console.log(this.props.stem.code.substring(0, i));
-                this.setState({visibleCode: this.props.stem.code.substring(0, i + 1)})
-                if(i+1===this.props.stem.code.length){
-                    console.log('trigger resize');
-                    this.props.triggerResize();
-                }
-            }, i * 20)
-        }
     }
 
     render() {
@@ -146,51 +135,30 @@ class StemToDom extends Component {
         stem.effects.forEach(e => {
             let effect = state.effects[e];
             if (effect.on) {
-                effectsOn.push(effectToDom(state, effect, e));
+                effectsOn.push(effectToDom(state, effect, e, this.props.triggerResize));
             }
         });
-
-        // return (
-        //     <Textfit>
-        //         {this.state.visibleCode}
-        //     </Textfit>
-        // )
         return (
-            <span ref={this.ref} id={id} key={id} className={'stem justAdded'}>
+            <span ref={this.ref} id={`stem_${id}`} key={`stem_${id}`} className={'stem justAdded'}>
                 {effectsOn}
                 $
-                <span>{this.state.visibleCode}</span>
+                <CodeWriter text={this.props.stem.code} rate={20} triggerResize={this.props.triggerResize}/>
             </span>
         )
     }
 }
-//
-// function stemToDom(state, stem, id) {
-//     if (stem.code === '') {
-//         return null
-//     }
-//     let effectsOn = [];
-//     stem.effects.forEach(e => {
-//         let effect = state.effects[e];
-//         if (effect.on) {
-//             effectsOn.push(effectToDom(state, effect, e));
-//         }
-//     });
-//
-//     setTimeout(()=>{document.getElementById(id).classList.remove('justAdded')},0)
-//
-//     return (
-//         <span id={id} key={id} className={'stem justAdded'}>
-//             {
-//                 effectsOn
-//             }
-//             $
-//             <span>{stem.code}</span>
-//         </span>
-//     )
-// }
 
-function effectToDom(state, effect, id) {
+function effectToDom(state, effect, id, triggerResize) {
     const effectCode = EffectsToCode[effect.type](effect) + " ";
-    return <span id={id} key={id} className={'effect'}>{effectCode === '(|* gain 1) ' ? '' : effectCode}</span>
+    debugger
+    return (
+        <CodeWriter
+            className={'effect'}
+            rate={20}
+            triggerResize={triggerResize}
+            text={effectCode === '(|* gain 1) ' ? '' : effectCode}
+        />
+    )
+    // return <span id={`effect_${id}`} key={`effect_${id}`}
+    //              className={'effect'}>{effectCode === '(|* gain 1) ' ? '' : effectCode}</span>
 }
