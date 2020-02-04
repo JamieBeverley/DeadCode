@@ -5,7 +5,7 @@ import {throttle} from 'lodash'
 import CodeWriter from "../../components/util/CodeWriter";
 import CodeEditor from "../../components/CodeEditor";
 
-export default class RenderComponent extends Component {
+export default class TidalComponent extends Component {
     constructor(props) {
         super(props);
         this.ref = React.createRef();
@@ -18,7 +18,7 @@ export default class RenderComponent extends Component {
         this.triggerResize = throttle(this.triggerResize.bind(this), 2, {leading: false, trailing: true})
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    // componentDidUpdate(prevProps, prevState, snapshot) {
         // const diff = this.ref.current.scrollHeight - this.ref.current.clientHeight;
         // const percent = diff / this.ref.current.clientHeight
         //
@@ -38,7 +38,7 @@ export default class RenderComponent extends Component {
         //     this.justMinimized = false;
         // }
         // this.triggerResize()
-    }
+    // }
 
     triggerResize() {
         const diff = this.ref.current.scrollHeight - this.ref.current.clientHeight;
@@ -150,7 +150,6 @@ class StemToDom extends Component {
 
 function effectToDom(state, effect, id, triggerResize) {
     const effectCode = EffectsToCode[effect.type](effect) + " ";
-    debugger
     return (
         <CodeWriter
             className={'effect'}

@@ -6,7 +6,7 @@
    d) colour theme
    e) language-specific things:
       - Tidal: superdirt layer, orbits?,
-      - Hydra: blendmode
+      - Index: blendmode
 3) WS Server:
    a) middleware on FE for forwarding stateful actions to backend
    b) extend FE WS spec to receive remote actions

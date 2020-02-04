@@ -89,7 +89,7 @@ var a = {
     'copy': null,
     'master': {
         'TidalCycles': {},
-        'Hydra': {}
+        'Index': {}
     },
     'tracks': {
         'track_1': {

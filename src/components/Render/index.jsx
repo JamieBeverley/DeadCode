@@ -3,6 +3,7 @@ import {Renderers} from "../../renderers";
 import Hydra from "hydra-synth";
 import './index.css'
 import TidalComponent from '../../renderers/TidalCycles/dom'
+import HydraComponent from "../../renderers/Hydra/dom";
 
 class Render extends Component {
 
@@ -34,7 +35,7 @@ class Render extends Component {
                 eval(hydraMacros);
 
             } catch (e) {
-                console.warn('Hydra Error', e);
+                console.warn('Index Error', e);
             }
             this.hydraMacros =hydraMacros
         }
@@ -43,7 +44,7 @@ class Render extends Component {
             try {
                 eval(hydraCode);
             } catch (e) {
-                console.warn('Hydra Error', e);
+                console.warn('Index Error', e);
             }
             this.hydraCode = hydraCode;
         }
@@ -55,6 +56,7 @@ class Render extends Component {
             <div style={{backgroundColor:'black',width:'100%',height:'100%'}}>
                 <div className={'Render'}>
                     <TidalComponent {...this.props}/>
+                    <HydraComponent {...this.props}/>
                 </div>
                 <canvas id={'HydraCanvas'} ref={this.hydraRef}/>
             </div>

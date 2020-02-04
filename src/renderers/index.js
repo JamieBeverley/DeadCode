@@ -1,7 +1,7 @@
-import {Hydra} from "./Hydra/Hydra"
+import {Index} from "./Hydra"
 import {TidalCycles} from "./TidalCycles/index";
 
 export const Renderers = {
-    Hydra,
+    Hydra: Index,
     TidalCycles
 }
