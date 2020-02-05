@@ -38,19 +38,19 @@ yarn backend
 
 `src/backend/` contains a Tidal boot file 'BootTidal.hs' - to specify different Tidal Boot params edit/replace this file.
 
-#### Using the Performance Interface
+### Using the Performance Interface
 
 Each button on the left side of the interface (called a 'Stem') contains some code that will be toggled on/off
 when the button is clicked/tapped. To edit a Stem's code, right click on a button and it will appear in the 
 menu on the right of the interface.
 
-##### Stems
+#### Stems
 You can give a name to the Stem, choose which language it runs, edit its code, and add effects to apply to 
 that stem. Enter code in the text box and hit 'eval' or shift+enter to evaluate it - if the stem is toggled on you should 
 see/hear the result. TidalCycles code should omit the dirt layer (eg. no `d1` `d2`, etc...) - all stems are combined into 
 a single`stack` expression.
 
-##### Effects
+#### Effects
 Stems have effects below the code editor that can be toggled on/off. There are 2 types of effects: sliders and 'code toggles':
 Sliders can be used to control parameters that take one numerical value. Code toggles take code in the language of the stem 
 and apply them to that stem's code when toggled.
@@ -61,7 +61,7 @@ and apply them to that stem's code when toggled.
 `Hydra`: Effects for hydra stems are appended to the code for that stem: Eg. a code toggle effect with the code
 `.modulate(noise())` applied to a stem with code `osc()` would produce `osc().modulate(noise())`.
 
-##### Master Settings
+#### Master Settings
 Master effects and settings can be defined under the `master` tab in the menu on the right.
 Macros that are evaluated prior to any stem evaluation can be entered here as well.
 
@@ -79,7 +79,7 @@ the state from browser storage with CTRL+L, or hitting the icon next to the save
 **Note:** Be careful if saving only to local storage if running on `localhost` - another `localhost` application may write-over 
 your saved data (always download the state as well just in case)
 
-##### Connecting to the WebSocket Server + Pushing the State
+#### Connecting to the WebSocket Server + Pushing the State
 If you lose connection to the websocket server the icon in the top bar will turn red. To re-conenct, click the icon and 
 click reconnect (you can specify a different address/port here too for the WS Server).
 
