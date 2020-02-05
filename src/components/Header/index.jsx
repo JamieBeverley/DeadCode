@@ -14,7 +14,7 @@ import Settings from '../../containers/Settings'
 const modalContent = {
     'settings': <Settings/>,
     'connections':(<ConnectionSettings/>),
-    'help': 'Welcome to DeadCode! Should probably fill out these docs soon...'
+    'help':(<a href="https://github.com/JamieBeverley/DeadCode/blob/master/README.md" target="_blank">See docs here</a>)
 };
 
 
