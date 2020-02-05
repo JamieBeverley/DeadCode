@@ -89,3 +89,8 @@ you could click on the network icon in the menu bar, and click the 'Push State t
 
 The WebSocket Server also needs an up-to-date version of the state when you load a set (to render TidalCycles)
 so hitting CTRL+P after loading a set is common. 
+
+### Contributing and Support
+Please feel free to reach out to me at <my_first_name>_<my_last_name>[at]hotmail.com or make PRs!
+
+Happy to field feature requests and requests for support for new languages :)
