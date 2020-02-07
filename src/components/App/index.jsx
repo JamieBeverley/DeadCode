@@ -11,7 +11,7 @@ export default class App extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            divider: 70, //%
+            divider: 55, //%
             horizontalDivider: 75
         }
         this.appRef = React.createRef()
@@ -19,6 +19,7 @@ export default class App extends Component {
 
     componentDidMount() {
         this.props.globalActions.connect(window.location.hostname, this.props.connection.port);
+        document.title = "deadcode";
     }
 
     render() {

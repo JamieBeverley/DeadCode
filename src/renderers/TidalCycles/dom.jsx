@@ -64,13 +64,22 @@ export default class TidalComponent extends Component {
     }
 
     render() {
+        let n=14;
+        const masterEffects = this.props.master.TidalCycles.effects.map(effectId=>{
+            const effect = this.props.effects[effectId];
+            if(effect && n<=0 && effect.on){
+                return effectToDom(this.props, effect, effectId,this.triggerResize)
+            }
+            n--;
+        }).filter(x=>x);
         let lines = Object.keys(this.props.tracks).map(x => {
             // return trackToDom(this.props, this.props.tracks[x], x)
-            return trackToDom(this.props, this.props.tracks[x], x, this.triggerResize.bind(this))
+            return trackToDom(this.props, this.props.tracks[x], x, this.triggerResize.bind(this));
         });
 
         return (
             <div style={{fontSize: this.state.fontSize}} ref={this.ref} className={'code'}>
+                {masterEffects}
                 {lines}
             </div>
         )

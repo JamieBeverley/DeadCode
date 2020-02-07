@@ -17,7 +17,7 @@ class Render extends Component {
 
     componentDidMount() {
         this.props.globalActions.connect(window.location.hostname, this.props.connection.port);
-
+        document.title = "deadcode-render";
         try {
             window.hydra = new Hydra({canvas: this.hydraRef.current});
         } catch (e) {
@@ -56,7 +56,7 @@ class Render extends Component {
             <div style={{backgroundColor:'black',width:'100%',height:'100%'}}>
                 <div className={'Render'}>
                     <TidalComponent {...this.props}/>
-                    <HydraComponent {...this.props}/>
+                    {/*<HydraComponent {...this.props}/>*/}
                 </div>
                 <canvas id={'HydraCanvas'} ref={this.hydraRef}/>
             </div>
