@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import Model from "../../model";
 import EffectModel from "../../model/EffectModel";
+import Languages from "../../model/Languages";
 
 function getTempoCode(state) {
     return 'setcps ' + state.master.TidalCycles.properties.tempo / 60 / 2;
@@ -73,7 +73,7 @@ function getCode(state) {
     stems += tracks.filter(x => x !== '').join(", ") + ']';
 
     let masterEffects = [];
-    state.master[Model.Languages.TidalCycles].effects.forEach(x => {
+    state.master[Languages.TidalCycles.name].effects.forEach(x => {
         let effect = state.effects[x];
         if (effect.on) {
             masterEffects.push(effectToCode(effect));

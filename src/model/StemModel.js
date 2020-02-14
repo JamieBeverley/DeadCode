@@ -1,5 +1,5 @@
 import EffectModel from "./EffectModel";
-
+import Languages from './Languages';
 
 function clone (stem){
     return {
@@ -8,7 +8,7 @@ function clone (stem){
     }
 }
 
-function getNew(language = "TidalCycles"){
+function getNew(language = Languages.TidalCycles.name){
     return {
         name:'',
         on: false,
@@ -17,7 +17,8 @@ function getNew(language = "TidalCycles"){
         live:false,
         language,
         code:"",
-        effects: []
+        effects: [],
+        properties:Languages[language].defaultStemProperties
     }
 };
 

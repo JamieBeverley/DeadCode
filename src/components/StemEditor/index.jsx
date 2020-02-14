@@ -6,6 +6,7 @@ import debounce from 'lodash/debounce'
 import CodeEditor from "../CodeEditor";
 import Model from "../../model";
 import EffectCreator from "../Effect/EffectCreator";
+import Languages from "../../model/Languages";
 
 
 export default class StemEditor extends Component {
@@ -38,7 +39,7 @@ export default class StemEditor extends Component {
                     onChange={this.handleLanguageChange.bind(this)}
                     name='language'
                 >
-                    {Object.keys(Model.Languages).map(x => <option key={x} value={x}>{x}</option>)}
+                    {Object.keys(Languages).map(x => <option key={x} value={x}>{x}</option>)}
                 </select>
 
                 <CodeEditor

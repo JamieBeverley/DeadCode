@@ -2,6 +2,7 @@ import React from "react";
 // import "./index.css";
 import EffectModel from "../../model/EffectModel";
 import Model from "../../model";
+import Languages from "../../model/Languages";
 export const Index = {
     language:'Index',
     getCode,
@@ -39,7 +40,7 @@ function getCode(state){
 
 export function trackToCode(state, track){
     let code;
-    let stems = track.stems.map(x=>{return state.stems[x]}).filter(x=>{return x.on && x.code!=='' && x.language===Model.Languages.Hydra}).map(x=>stemToCode(state,x));
+    let stems = track.stems.map(x=>{return state.stems[x]}).filter(x=>{return x.on && x.code!=='' && x.language===Languages.Hydra.name}).map(x=>stemToCode(state,x));
     stems.join(state.master.Hydra.properties.mixMethod+"("+1/stems.length+"")
 
     if(stems.length>0){

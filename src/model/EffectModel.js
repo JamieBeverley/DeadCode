@@ -1,3 +1,4 @@
+import Languages from "./Languages";
 
 function getNew(type, language, on = false, properties) {
     // TODO something to validate that properties object matches the type here
@@ -49,15 +50,6 @@ let PropertySpec = {
 const defaultEffects = {
     'TidalCycles': () => {
         return [
-            // EffectModel.getNew(EffectModel.Types.CODE_SLIDER,'TidalCycles',false,{
-            //     code:'stut  0.5 0.66',
-            //     indices: [5],
-            //     value: 2,
-            //     min: 1,
-            //     max: 0,
-            //     step: 1,
-            //     scale: 'linear'
-            // }),
             EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", true,
                 {
                     code: "gain",
@@ -125,7 +117,7 @@ const defaultEffects = {
     },
     'Hydra': () => {
         return [
-            EffectModel.getNew(EffectModel.Types.SLIDER, 'Hydra', false,
+            EffectModel.getNew(EffectModel.Types.SLIDER, Languages.Hydra.name, false,
                 {
                     code: "kaleid",
                     value: 1,
@@ -134,7 +126,7 @@ const defaultEffects = {
                     step: 1,
                     scale: 'linear'
                 }),
-            EffectModel.getNew(EffectModel.Types.SLIDER, 'Hydra', false,
+            EffectModel.getNew(EffectModel.Types.SLIDER, Languages.Hydra.name, false,
                 {
                     code: "pixelate",
                     value: 1,
@@ -144,9 +136,21 @@ const defaultEffects = {
                     scale: 'linear'
                 })
         ]
+    },
+    'SuperCollider': () => {
+        return [
+            EffectModel.getNew(EffectModel.Types.SLIDER, Languages.SuperCollider.name, false,
+                {
+                    code: "RLPF",
+                    value: 22049,
+                    min: 1,
+                    max: 22049,
+                    step: 10,
+                    scale: 'log'
+                })
+        ]
     }
 }
-
 const util = {defaultEffects};
 
 const EffectModel = {

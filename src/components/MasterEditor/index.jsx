@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './index.css'
 import LanguageControls from "./LanguageControls";
+import Languages from "../../model/Languages";
 
 export default class MasterEditor extends Component {
     constructor(props){
@@ -16,7 +17,8 @@ export default class MasterEditor extends Component {
 
     render(){
 
-        const languageOpts = Object.keys(this.props.master).map(lang=>{return <option key={lang} value={lang}>{lang}</option>});
+        // const languageOpts = Object.keys(this.props.master).map(lang=>{return <option key={lang} value={lang}>{lang}</option>});
+        const languageOpts = Object.keys(Languages).map(lang=>{return <option key={lang} value={lang}>{lang}</option>});
         return (
             <div className={'MasterEditor'} style={this.props.style}>
 

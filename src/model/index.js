@@ -5,36 +5,29 @@ import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
 import settings from "./Settings";
 import midi from './Midi'
+import Languages from "./Languages";
 
 
 const Model = {};
-
-Model.Languages = {
-    TidalCycles: "TidalCycles",
-    Hydra: "Hydra"
-};
 
 const tracks = {};
 const stems = {};
 const effects = {};
 
-const TidalCycles = MasterModel.getNew('TidalCycles',{tempo:120});
-for(let i in EffectModel.util.defaultEffects['TidalCycles']()){
-  let effectId = Id.new();
-  effects[effectId] = EffectModel.util.defaultEffects['TidalCycles']()[i];
-  TidalCycles.effects.push(effectId);
-}
+const master = {};
 
 
-const Hydra = MasterModel.getNew('Hydra', {mixMethod:'blend'});
-for(let i in EffectModel.util.defaultEffects['Hydra']()){
-  let effectId = Id.new();
-  effects[effectId] = EffectModel.util.defaultEffects['Hydra']()[i];
-  Hydra.effects.push(effectId);
-}
+master[Languages.TidalCycles.name] = MasterModel.getNew('TidalCycles',{tempo:120});
+master[Languages.Hydra.name] = MasterModel.getNew('Hydra', {mixMethod:'blend'});
+master[Languages.SuperCollider.name]  = MasterModel.getNew(Languages.SuperCollider.name, {tempo:120});
 
-const master = {TidalCycles, Hydra}
-
+Object.keys(Languages).forEach(language=>{
+    for(let effect in EffectModel.util.defaultEffects[language]()){
+        let effectId = Id.new();
+        effects[effectId] = EffectModel.util.defaultEffects[language]()[effect];
+        master[language].effects.push(effectId);
+    }
+});
 for (let i = 0; i < 8; i++) {
     let trackId = Id.new();
     tracks[trackId] = TrackModel.getNew();

@@ -4,6 +4,7 @@ import Effect from "../../../containers/Effect";
 import EffectComponent from "../../Effect";
 import Model from "../../../model";
 import EffectCreator from "../../Effect/EffectCreator";
+import Languages from "../../../model/Languages";
 
 class LanguageControls extends Component {
     constructor(props) {
@@ -14,13 +15,13 @@ class LanguageControls extends Component {
     changeTempo(id, effect) {
         let val = this.props
         val.properties.tempo = effect.properties.value;
-        this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
+        this.props.globalActions.masterUpdate(Languages.TidalCycles.name, val);
     }
 
 
     getLanguageSpecific() {
         switch (this.props.language) {
-            case Model.Languages.TidalCycles:
+            case Languages.TidalCycles.name:
                 let e = {
                     language: "TidalCycles", on: true,
                     properties: {
@@ -53,7 +54,7 @@ class LanguageControls extends Component {
                     />,
                     <EffectComponent {...e}/>
                 ]
-            case Model.Languages.Hydra:
+            case Languages.Hydra.name:
                 return [
                     <CodeEditor
                         key={'HydraEditorMain'}
@@ -67,6 +68,9 @@ class LanguageControls extends Component {
                         live={false}
                     />
                 ]
+            case Languages.SuperCollider.name:
+                debugger;
+                return null;
             default:
                 console.warn('unrecognized language: ' + this.props.language)
                 return null;
