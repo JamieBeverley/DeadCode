@@ -26,5 +26,5 @@ yarn-error.log*
 .idea
 Dead.iml
 
-src/backend/BootSuperCollider.sc
-src/backend/BootTidal.hs
+
+/src/backend
