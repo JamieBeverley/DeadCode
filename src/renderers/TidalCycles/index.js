@@ -6,6 +6,14 @@ function getTempoCode(state) {
     return 'setcps ' + state.master.TidalCycles.properties.tempo / 60 / 2;
 }
 
+function getTempoNudgeCode(state, beats){
+    return `nudgeAll ${beats}`
+}
+
+function getTempoBeatsResetCode(){
+    return `resetCycles`
+}
+
 export const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x) => {
     return `(${x.properties.operator} ${x.properties.code} ${x.properties.value})`
@@ -91,4 +99,6 @@ export const TidalCycles = {
     getCode,
     trackToCode,
     getTempoCode,
+    getTempoNudgeCode,
+    getTempoBeatsResetCode
 }

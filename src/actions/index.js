@@ -4,101 +4,109 @@ import {createAction} from 'redux-actions'
 export const ActionSpec = {
     'MIDI_UPDATE':{
         name:'MIDI_UPDATE',
-        propogateToServer:true
+        propagateToServer:true
     },
     'PUSH_STATE':{
         name: 'PUSH_STATE',
-        propogateToServer:true
+        propagateToServer:true
     },
     'RECEIVE_STATE':{
         name: 'RECEIVE_STATE',
-        propogateToServer:false
+        propagateToServer:false
     },
     'CONNECT': {
         name: 'CONNECT',
-        propogateToServer: false
+        propagateToServer: false
     },
     'SAVE': {
         name: 'SAVE',
-        propogateToServer: false
+        propagateToServer: false
     },
     'LOAD': {
         name: 'LOAD',
-        propogateToServer: false
+        propagateToServer: false
     },
     'LOAD_FROM_SERVER': {
         name: 'LOAD_FROM_SERVER',
-        propogateToServer: false
+        propagateToServer: false
     },
     'DOWNLOAD': {
         name: 'DOWNLOAD',
-        propogateToServer: false
+        propagateToServer: false
     },
     'MASTER_UPDATE': {
         name: 'MASTER_UPDATE',
-        propogateToServer: true
+        propagateToServer: true
     },
     'MASTER_ADD_EFFECT': {
         name: 'MASTER_ADD_EFFECT',
-        propogateToServer: true
+        propagateToServer: true
     },
     'STEM_UPDATE': {
         name: 'STEM_UPDATE',
-        propogateToServer: true
+        propagateToServer: true
     },
     'STEM_DELETE_EFFECT': {
         name: 'STEM_DELETE_EFFECT',
-        propogateToServer: true
+        propagateToServer: true
     },
     'STEM_ADD_EFFECT': {
         name: 'STEM_ADD_EFFECT',
-        propogateToServer: true
+        propagateToServer: true
     },
     'STEM_COPY': {
         name: 'STEM_COPY',
-        propogateToServer: true
+        propagateToServer: true
     },
     'STEM_PASTE': {
         name: 'STEM_PASTE',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_UPDATE': {
         name: 'TRACK_UPDATE',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_DELETE_STEM': {
         name: 'TRACK_DELETE_STEM',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_ADD_STEM': {
         name: 'TRACK_ADD_STEM',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_DELETE_EFFECT': {
         name: 'TRACK_DELETE_EFFECT',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_ADD_EFFECT': {
         name: 'TRACK_ADD_EFFECT',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_ADD': {
         name: 'TRACK_ADD',
-        propogateToServer: true
+        propagateToServer: true
     },
     'TRACK_DELETE': {
         name: 'TRACK_DELETE',
-        propogateToServer: true
+        propagateToServer: true
     },
     'EFFECT_UPDATE': {
         name: 'EFFECT_UPDATE',
-        propogateToServer: true
+        propagateToServer: true
     },
     'SETTINGS_UPDATE_STYLE':{
         name: 'SETTINGS_UPDATE_STYLE',
-        propogateToServer:false
+        propagateToServer:false
+    },
+    "TEMPO_NUDGE":{
+        name:"TEMPO_NUDGE",
+        propagateToServer: true
+    },
+    "TEMPO_BEATS_RESET":{
+        name:"TEMPO_BEATS_RESET",
+        propagateToServer: true
     }
-}
+};
 
 function camel(capitalSnake) {
     let s = capitalSnake.split("_");
@@ -112,7 +120,7 @@ function camel(capitalSnake) {
 export let ActionTypes = {};
 export let Actions = {};
 for (let action in ActionSpec) {
-    let meta = {propogateToServer: ActionSpec[action].propogateToServer, fromServer:false};
+    let meta = {propagateToServer: ActionSpec[action].propagateToServer, fromServer:false};
     Actions[camel(action)] = createAction(action, x => x, () => meta);
     ActionTypes[action] = action;
 }

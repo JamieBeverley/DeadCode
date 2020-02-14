@@ -1,9 +1,9 @@
 import {connect} from 'react-redux';
 import GlobalActions from "../actions/GlobalActions";
-import Settings from "../components/Header/Settings";
+import TempoSettings from "../components/Header/TempoSettings";
 
-const mapStateToProps = (state,ownProps) => {
-  return {...state.settings,...ownProps}
+const mapStateToProps = (state, ownProps) => {
+  return {master:state.master, ...ownProps}
 };
 
 const mapDispatchToProps = dispatch => {
@@ -15,4 +15,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Settings);
+)(TempoSettings);

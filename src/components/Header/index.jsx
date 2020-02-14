@@ -10,11 +10,13 @@ import Modal from "../Modal";
 import HelpIcon from '@material-ui/icons/Help';
 import ConnectionSettings from "../../containers/ConnectionSettings";
 import Settings from '../../containers/Settings'
+import TempoSettings from '../../containers/TempoSettings';
 
 const modalContent = {
     'settings': <Settings/>,
     'connections':(<ConnectionSettings/>),
-    'help':(<a href="https://github.com/JamieBeverley/DeadCode/blob/master/README.md" target="_blank">See docs here</a>)
+    'help':(<a href="https://github.com/JamieBeverley/DeadCode/blob/master/README.md" target="_blank">See docs here</a>),
+    'tempo':<TempoSettings/>
 };
 
 
@@ -35,6 +37,7 @@ class Header extends Component {
                 <SaveAltIcon onClick={this.props.globalActions.download}/>
                 <FolderIcon onClick={()=>{this.props.globalActions.open()}}/>
                 <SignalCellularAltIcon onClick={this.openConnections.bind(this)} style={{fill:this.props.connection.isConnected?'green':'red'}}/>
+                <SignalCellularAltIcon onClick={this.openTempoTools.bind(this)}/>
                 <HelpIcon onClick={this.openHelp.bind(this)}/>
                 {modal}
             </div>
@@ -61,6 +64,10 @@ class Header extends Component {
 
     openConnections(){
         this.setState({modal:'connections'});
+    }
+
+    openTempoTools(){
+        this.setState({modal:'tempo'});
     }
 
     openHelp(){

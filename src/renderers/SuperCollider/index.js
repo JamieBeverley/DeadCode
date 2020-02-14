@@ -3,7 +3,15 @@ import Languages from "../../model/Languages";
 
 
 function getTempoCode(state) {
-    return 'TempoClock.default.tempo = ' + state.master.SuperCollider.properties.tempo / 60 / 2;
+    return 'TempoClock.default.tempo = ' + state.master.SuperCollider.properties.tempo / 60 / 2+';';
+}
+
+function getTempoNudgeCode(state, beats){
+    return `TempoClock.default.beats = TempoClock.default.beats + ${beats};`
+}
+
+function getTempoBeatsResetCode(){
+    return `TempoClock.default.beats = 0;`
 }
 
 function getCode(state) {
@@ -45,5 +53,7 @@ function getStemDefs(state, stem, id) {
 export const SuperCollider = {
     language: Languages.SuperCollider.name,
     getCode,
-    getTempoCode
-}
+    getTempoCode,
+    getTempoNudgeCode,
+    getTempoBeatsResetCode
+};

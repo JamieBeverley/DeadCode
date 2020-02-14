@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import debounce from "lodash/debounce";
 import './index.css'
-import TextColorPicker from "../util/TextColorPicker";
+import TextColorPicker from "../../util/TextColorPicker";
 
 const SettingsWidgetMap = {
     '--bg-image': (props) => <input onChange={props.onChange} value={props.value} type='text'/>,

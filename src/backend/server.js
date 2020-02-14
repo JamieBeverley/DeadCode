@@ -11,6 +11,7 @@ const fs = require('fs');
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 import {throttle} from 'lodash';
+import Languages from "../model/Languages";
 // let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare, logger));
 
 
@@ -21,7 +22,7 @@ const serverMiddleware = store => next => action => {
     broadcast(msg)
   }
   return next(action);
-}
+};
 
 let tidalCode ='';
 let superColliderCode = '';
@@ -29,19 +30,26 @@ const renderMiddleWare = store => next => action => {
   next(action);
   let state = store.getState();
   if(action.type === ActionSpec.MASTER_UPDATE.name || action.type === ActionSpec.PUSH_STATE.name){
-    evalTidal(state.master.TidalCycles.macros);
-    evalTidal(Renderers.TidalCycles.getTempoCode(state));
-    evalSuperCollider(state.master.SuperCollider.macros);
-    evalSuperCollider(Renderers.SuperCollider.getTempoCode(state));
+    Evaluators[Languages.TidalCycles.name](state.master.TidalCycles.macros);
+    Evaluators[Languages.TidalCycles.name](Renderers.TidalCycles.getTempoCode(state));
+    Evaluators[Languages.SuperCollider.name](state.master.SuperCollider.macros);
+    Evaluators[Languages.SuperCollider.name](Renderers.SuperCollider.getTempoCode(state));
+  } else if (action.type === ActionSpec.TEMPO_NUDGE.name){
+    Evaluators[action.payload.language](Renderers[action.payload.language].getTempoNudgeCode(state, action.payload.beats));
+  } else if (action.type === ActionSpec.TEMPO_BEATS_RESET.name){
+    action.payload.languages.forEach(language=>{
+      Evaluators[language](Renderers[language].getTempoBeatsResetCode());
+    })
   }
+
   const tc = Renderers.TidalCycles.getCode(state);
   if(tidalCode!==tc){
-    evalTidal(tc);
+    Evaluators[Languages.TidalCycles.name](tc);
     tidalCode = tc;
   }
   const scc = Renderers.SuperCollider.getCode(state);
   if(superColliderCode!==scc){
-    evalSuperCollider(scc);
+    Evaluators[Languages.SuperCollider.name](scc);
     superColliderCode = scc;
   }
 };
@@ -135,13 +143,13 @@ function sanitizeStringForTidal(x) {
   return result;
 }
 
-function evalTidal(str){
+const Evaluators = {};
+Evaluators[Languages.TidalCycles.name] = (str) => {
   tidal.stdin.write(str+"\n");
   stderr.write("TIDALCYLCES________________\n");
   stderr.write(str+"\n");
-}
-
-function evalSuperCollider(str){
+};
+Evaluators[Languages.SuperCollider.name] = (str) => {
   superCollider.stdin.write(str+"\n");
   stderr.write("SUPERCOLLIDER________________\n");
   stderr.write(str+"\n");

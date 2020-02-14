@@ -91,7 +91,7 @@ const GlobalActions = dispatch => {
         loadFromServer: () => {
             Connection.sendAction({
                 type: ActionSpec.LOAD_FROM_SERVER.name,
-                meta: {propogateToServer: true, fromServer: false}
+                meta: {propagateToServer: true, fromServer: false}
             });
         },
         open: (file) => {
@@ -233,9 +233,15 @@ const GlobalActions = dispatch => {
             }}`;
 
             dispatch(Actions.settingsUpdateStyle({value}))
+        },
+        tempoNudge: (language, beats)=>{
+            dispatch(Actions.tempoNudge({language,beats}));
+        },
+        tempoBeatsReset: (languages)=>{
+            dispatch(Actions.tempoBeatsReset({languages}));
         }
     }
-}
+};
 
 export default GlobalActions
 
