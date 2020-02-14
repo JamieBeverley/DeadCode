@@ -5,6 +5,8 @@ import EffectComponent from "../../Effect";
 import Model from "../../../model";
 import EffectCreator from "../../Effect/EffectCreator";
 import Languages from "../../../model/Languages";
+import CodeWriter from "../../util/CodeWriter";
+import SuperColliderMaster from "./SuperColliderMaster";
 
 class LanguageControls extends Component {
     constructor(props) {
@@ -69,8 +71,7 @@ class LanguageControls extends Component {
                     />
                 ]
             case Languages.SuperCollider.name:
-                debugger;
-                return null;
+                return <SuperColliderMaster {...this.props} changeTempo={this.changeTempo.bind(this)}/>;
             default:
                 console.warn('unrecognized language: ' + this.props.language)
                 return null;

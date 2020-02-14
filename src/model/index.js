@@ -19,7 +19,7 @@ const master = {};
 
 master[Languages.TidalCycles.name] = MasterModel.getNew('TidalCycles',{tempo:120});
 master[Languages.Hydra.name] = MasterModel.getNew('Hydra', {mixMethod:'blend'});
-master[Languages.SuperCollider.name]  = MasterModel.getNew(Languages.SuperCollider.name, {tempo:120});
+master[Languages.SuperCollider.name]  = MasterModel.getNew(Languages.SuperCollider.name, {tempo:120, channels:2});
 
 Object.keys(Languages).forEach(language=>{
     for(let effect in EffectModel.util.defaultEffects[language]()){

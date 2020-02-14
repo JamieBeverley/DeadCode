@@ -31,6 +31,8 @@ const renderMiddleWare = store => next => action => {
   if(action.type === ActionSpec.MASTER_UPDATE.name || action.type === ActionSpec.PUSH_STATE.name){
     evalTidal(state.master.TidalCycles.macros);
     evalTidal(Renderers.TidalCycles.getTempoCode(state));
+    evalSuperCollider(state.master.SuperCollider.macros);
+    evalSuperCollider(Renderers.SuperCollider.getTempoCode(state));
   }
   const tc = Renderers.TidalCycles.getCode(state);
   if(tidalCode!==tc){
