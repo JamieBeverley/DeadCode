@@ -24,6 +24,7 @@ const serverMiddleware = store => next => action => {
 }
 
 let tidalCode ='';
+let superColliderCode = '';
 const renderMiddleWare = store => next => action => {
   next(action);
   let state = store.getState();
@@ -31,12 +32,17 @@ const renderMiddleWare = store => next => action => {
     evalTidal(state.master.TidalCycles.macros);
     evalTidal(Renderers.TidalCycles.getTempoCode(state));
   }
-  let tc = Renderers.TidalCycles.getCode(state);
+  const tc = Renderers.TidalCycles.getCode(state);
   if(tidalCode!==tc){
     evalTidal(tc);
     tidalCode = tc;
   }
-}
+  const scc = Renderers.SuperCollider.getCode(state);
+  if(superColliderCode!==scc){
+    evalSuperCollider(scc);
+    superColliderCode = scc;
+  }
+};
 
 let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare));
 
@@ -45,25 +51,36 @@ let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMidd
 // Cmdline opts
 var nopt = require('nopt');
 var path = require('path');
-var knownOpts = {'bootTidal':path};
+var knownOpts = {'bootTidal':path, 'bootSuperCollider':path};
 var parsed = nopt(knownOpts, {},process.argv);
 
 
-// Tidal bootscript path
-// const homedir = require('os').homedir();
+// Tidal/SC bootscript path
 var bootTidal = parsed.bootTidal || "./src/backend/BootTidal.hs";
+var bootSuperCollider = parsed.bootSuperCollider || "./src/backend/BootSuperCollider.sc";
 
-
-// var output = process.stdout;
-// var stdin = process.stdin;
 var stderr = process.stderr;
 var defaultFeedbackFunction = function(x) {
   stderr.write(x);
-}
+};
 
+// INIT SUPERCOLLIDER
+var superCollider = spawn('sclang');
+superCollider.on('close',code=>{
+  stderr.write('SuperCollider process exited with code '+ code + "\n");
+});
+
+superCollider.stderr.addListener("data", function(m) {
+  defaultFeedbackFunction(m.toString());
+});
+
+superCollider.stdout.addListener("data", function(m) {
+  defaultFeedbackFunction(m.toString());
+});
+
+
+// INIT TIDAL
 var tidal = spawn('ghci', ['-XOverloadedStrings']);
-// var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.hs"
-console.log(bootTidal)
 tidal.on('close', function (code) {
   stderr.write('Tidal process exited with code ' + code + "\n");
 });
@@ -82,6 +99,13 @@ fs.readFile(bootTidal,'utf8', function (err,data) {
   tidal.stdin .write(data);
   console.log("Tidal/GHCI initialized\n");
 });
+
+fs.readFile(bootSuperCollider,'utf8', function (err,data) {
+  if (err) { console.log(err+"\n"); return; }
+  superCollider.stdin .write(data+"\n");
+  console.log("SuperCollider Initialized\n");
+});
+
 
 function sanitizeStringForTidal(x) {
   var lines = x.split("\n");
@@ -111,9 +135,15 @@ function sanitizeStringForTidal(x) {
 
 function evalTidal(str){
   tidal.stdin.write(str+"\n");
+  stderr.write("TIDALCYLCES________________\n");
   stderr.write(str+"\n");
 }
 
+function evalSuperCollider(str){
+  superCollider.stdin.write(str+"\n");
+  stderr.write("SUPERCOLLIDER________________\n");
+  stderr.write(str+"\n");
+}
 
 const clients = {};
 

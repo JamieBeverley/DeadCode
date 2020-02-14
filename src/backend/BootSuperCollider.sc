@@ -1,0 +1,1 @@
+Server.default.waitForBoot({Server.default.meter});
