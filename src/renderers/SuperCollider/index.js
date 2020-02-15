@@ -20,7 +20,8 @@ function getCode(state) {
     let trackOuts = Object.keys(state.tracks).map(trackId => `Ndef(\\t_${trackId}_out)`);
     return `
     ${trackDefs.join("\n")}
-    Ndef('deadcode_master',{0!~deadcodeNumChannels + ${trackOuts.join(".ar + ")};}).play();
+    Ndef('deadcode_master').ar(~deadcodeNumChannels);
+    Ndef('deadcode_master',{${trackOuts.join(".ar + ")};}).play();
     `;
 }
 
@@ -37,16 +38,16 @@ function getTrackDefs(state, track, id) {
 
     return `
     ${stemDefs.join('\n')}
-    Ndef(\\t_${id}, {${stemOuts.length?stemOuts.join(" + "):'0!~deadcodeNumChannels'}});
-    Ndef(\\t_${id}_out, {Ndef(\\t_${id})});
+    Ndef('t_${id}'${stemOuts.length?`, {${stemOuts.join(" + ")}}`:''}).ar(~deadcodeNumChannels);
+    Ndef('t_${id}_out', {Ndef(\\t_${id})}).ar(~deadcodeNumChannels);
     `;
 }
 
 function getStemDefs(state, stem, id) {
-    let stemCode = (!stem.on) || (stem.code.trim()==='') ?'0!~deadcodeNumChannels': stem.code;
+    let stemCode = (!stem.on) || (stem.code.trim()==='') ?'Silent.ar(~deadcodeNumChannels)': stem.code;
     return `
-    Ndef(\\s_${id}, {${stemCode}});
-    Ndef(\\s_${id}_out, {Ndef(\\s_${id})});
+    Ndef(\\s_${id}, {${stemCode}}).ar(~deadcodeNumChannels);
+    Ndef(\\s_${id}_out, {Ndef(\\s_${id})}).ar(~deadcodeNumChannels);
     `
 }
 
