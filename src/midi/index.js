@@ -223,12 +223,17 @@ function onDeviceCC(msg) {
     if (effectId === undefined) {
         return
     }
-    let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: msg.value * 2 / 127})}
+    let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: roundTo(msg.value * 2 / 127,3)})};
     if (!!effectId) {
         store.dispatch(Actions.effectUpdate({effectId, value}));
     } else {
         console.warn('no effect found for track ' + trackId);
     }
+}
+
+function roundTo(num, decimals){
+    const ten = Math.pow(10, decimals);
+    return Math.round(num*ten)/ten
 }
 
 function onStemChange(stemId) {

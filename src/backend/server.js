@@ -4,65 +4,33 @@ import Client from "./Client";
 import DeadReducer from '../reducers'
 import {ActionSpec,Actions} from "../actions";
 import {Renderers} from "../renderers";
+import {throttle} from 'lodash';
+import {serverMiddleware,renderMiddleWare} from "./middleware";
+
 const spawn = require('child_process').spawn;
 const http = require('http');
 const WebSocket = require('ws');
 const fs = require('fs');
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
-import {throttle} from 'lodash';
-// let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare, logger));
-
-
-const serverMiddleware = store => next => action => {
-  if(action.type === ActionSpec.LOAD_FROM_SERVER.name){
-    let state = {...store.getState(), connection:null};
-    let msg = {type:'action',action:Actions.receiveState(state)};
-    broadcast(msg)
-  }
-  return next(action);
-}
-
-let tidalCode ='';
-const renderMiddleWare = store => next => action => {
-  next(action);
-  let state = store.getState();
-  if(action.type === ActionSpec.MASTER_UPDATE.name || action.type === ActionSpec.PUSH_STATE.name){
-    evalTidal(state.master.TidalCycles.macros);
-    evalTidal(Renderers.TidalCycles.getTempoCode(state));
-  }
-  let tc = Renderers.TidalCycles.getCode(state);
-  if(tidalCode!==tc){
-    evalTidal(tc);
-    tidalCode = tc;
-  }
-}
 
 let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare));
 
-
-
 // Cmdline opts
-var nopt = require('nopt');
-var path = require('path');
-var knownOpts = {'bootTidal':path};
-var parsed = nopt(knownOpts, {},process.argv);
-
+let nopt = require('nopt');
+let path = require('path');
+let knownOpts = {'bootTidal':path};
+let parsed = nopt(knownOpts, {},process.argv);
 
 // Tidal bootscript path
-// const homedir = require('os').homedir();
-var bootTidal = parsed.bootTidal || "./src/backend/BootTidal.hs";
+let bootTidal = parsed.bootTidal || "./src/backend/BootTidal.hs";
 
-
-// var output = process.stdout;
-// var stdin = process.stdin;
-var stderr = process.stderr;
-var defaultFeedbackFunction = function(x) {
+let stderr = process.stderr;
+let defaultFeedbackFunction = function(x) {
   stderr.write(x);
 }
 
-var tidal = spawn('ghci', ['-XOverloadedStrings']);
-// var bootTidal = "C:\\Users\\jamie\\.atom\\packages\\tidalcycles\\lib\\BootTidal.hs"
+let tidal = spawn('ghci', ['-XOverloadedStrings']);
 console.log(bootTidal)
 tidal.on('close', function (code) {
   stderr.write('Tidal process exited with code ' + code + "\n");
@@ -83,31 +51,6 @@ fs.readFile(bootTidal,'utf8', function (err,data) {
   console.log("Tidal/GHCI initialized\n");
 });
 
-function sanitizeStringForTidal(x) {
-  var lines = x.split("\n");
-  var result = "";
-  var blockOpen = false;
-  for(var n in lines) {
-    var line = lines[n];
-    var startsWithSpace = false;
-    if(line[0] == " " || line[0] == "\t") startsWithSpace = true;
-    if(blockOpen == false) {
-      blockOpen = true;
-      result = result + ":{\n" + line + "\n";
-    }
-    else if(startsWithSpace == false) {
-      result = result + ":}\n:{\n" + line + "\n";
-    }
-    else if(startsWithSpace == true) {
-      result = result + line + "\n";
-    }
-  }
-  if(blockOpen == true) {
-    result = result + ":}\n";
-    blockOpen = false;
-  }
-  return result;
-}
 
 function evalTidal(str){
   tidal.stdin.write(str+"\n");
@@ -129,17 +72,14 @@ function broadcast (msg, exclude=[]){
 
 const effectThrottles = {};
 
-const throttledBroadcast = throttle(broadcast,200);
-
 function onMessage(data){
     var msg = JSON.parse(data);
-    if(msg.type=="eval"){
+    if(msg.type==='eval'){
       tidal.stdin.write(msg.code+"\n");
       stderr.write(msg.code+"\n");
     } else if (msg.type === 'action'){
       store.dispatch(msg.action);
       if(msg.action.type ==='EFFECT_UPDATE'){
-        // console.log(msg.action.payload.effectId, JSON.stringify(msg.action.payload));
         effectThrottles[msg.action.payload.effectId] = effectThrottles[msg.action.payload.effectId] || throttle(broadcast,200);
         effectThrottles[msg.action.payload.effectId](msg,[this.id]);
       } else{
@@ -165,22 +105,4 @@ wss.on('connection', function connection(ws) {
 });
 
 server.listen(8001);
-console.log('listening...\n')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
+console.log('listening...\n');
