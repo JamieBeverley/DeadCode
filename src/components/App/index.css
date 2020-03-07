@@ -36,6 +36,7 @@
     --font-color-dark: black;
     --font-color-light: rgb(30, 30, 30);
     --scrollbar-width: 0px;
+    --scrollbar-height: 0px;
     --track-border-color: lightgrey;
     --select-color: rgb(250,10,10);
     --settings-background-color:rgb(50,50,50);
@@ -203,6 +204,7 @@ select{
 
 ::-webkit-scrollbar {
     width: var(--scrollbar-width);
+    height: var(--scrollbar-height);
 }
 
 /* Track */
