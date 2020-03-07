@@ -5,14 +5,11 @@ import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
 import settings from "./Settings";
 import midi from './Midi'
-
+import languages from './LanguageModel'
 
 const Model = {};
 
-Model.Languages = {
-    TidalCycles: "TidalCycles",
-    Hydra: "Hydra"
-};
+Model.Languages = languages
 
 const tracks = {};
 const stems = {};

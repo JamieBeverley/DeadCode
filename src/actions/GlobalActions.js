@@ -168,13 +168,13 @@ const GlobalActions = dispatch => {
             dispatch(Actions.trackDeleteStem({trackId, stemId}));
         },
         // TODO: stuff like this would probably be better as sagas
-        trackAddStem: (trackId, language = 'TidalCycles') => {
-
+        trackAddStem: (trackId) => {
+            const state = store.getState();
+            let language = state.tracks[trackId].language;
             // create stem and assign to track
             let stemId = Id.new();
             let stem = StemModel.getNew(language);
             dispatch(Actions.trackAddStem({trackId, stemId, value: stem}));
-
             // create default effects for the new stem
             EffectModel.util.defaultEffects[language]().forEach(effect => {
                 GlobalActions(dispatch).stemAddEffect(stemId, effect.type, effect.language, effect.on, effect.properties);
@@ -197,8 +197,8 @@ const GlobalActions = dispatch => {
                 });
             dispatch(Actions.trackAddEffect({trackId, effectId, value}));
         },
-        trackAdd: (opt_language) => {
-            let value = TrackModel.getNew(opt_language);
+        trackAdd: (language) => {
+            let value = TrackModel.getNew(language);
             let trackId = Id.new();
             dispatch(Actions.trackAdd({trackId, value}));
             let globalActions = GlobalActions(dispatch);

@@ -1,15 +1,15 @@
 import EffectModel from "./EffectModel";
 import StemModel from "./StemModel";
+import languages from './LanguageModel'
 
-
-function getNew() {
+function getNew(language=languages.TidalCycles) {
     return {
         name: 'New Track',
         stems:[],
-        effects:[]
+        effects:[],
+        language
     }
 }
-
 
 function clone(track) {
     return {
@@ -24,6 +24,6 @@ function clone(track) {
 const TrackModel = {
     getNew,
     clone
-}
+};
 
 export default TrackModel
