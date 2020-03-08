@@ -6,6 +6,7 @@ import EffectModel from "../model/EffectModel";
 import StemModel from "../model/StemModel";
 import TrackModel from "../model/TrackModel";
 import {ActionSpec} from "./index";
+import Languages from "../model/LanguageModel";
 
 function getPosition(state, stemId) {
     let track = Object.keys(state.tracks).findIndex(x => {
@@ -183,18 +184,9 @@ const GlobalActions = dispatch => {
         trackDeleteEffect: (trackId, effectId) => {
             dispatch(Actions.trackDeleteEffect({trackId, effectId}));
         },
-        trackAddEffect: (trackId) => {
+        trackAddEffect: (trackId, type, language, on, properties) => {
             let effectId = Id.new();
-            let value = EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", true,
-                {
-                    code: 'gain',
-                    value: 1,
-                    operator: "|*",
-                    min: 0,
-                    max: 2,
-                    step: 0.01,
-                    scale: 'linear'
-                });
+            let value = EffectModel.getNew(type, language, on, properties);
             dispatch(Actions.trackAddEffect({trackId, effectId, value}));
         },
         trackAdd: (language) => {
@@ -202,10 +194,12 @@ const GlobalActions = dispatch => {
             let trackId = Id.new();
             dispatch(Actions.trackAdd({trackId, value}));
             let globalActions = GlobalActions(dispatch);
-            [0, 0, 0, 0, 0].forEach(() => {
+            [0, 0, 0, 0, 0, 0, 0, 0].forEach(() => {
                 globalActions.trackAddStem(trackId)
             });
-            globalActions.trackAddEffect(trackId,);
+            EffectModel.util.defaultEffects[language]().forEach(x=>{
+                globalActions.trackAddEffect(trackId, x.type, language, x.on, x.properties)
+            });
         },
         trackDelete: (trackId) => {
             let state = store.getState();

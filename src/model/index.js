@@ -9,56 +9,53 @@ import languages from './LanguageModel'
 
 const Model = {};
 
-Model.Languages = languages
+Model.Languages = languages;
 
 const tracks = {};
 const stems = {};
 const effects = {};
 
-const TidalCycles = MasterModel.getNew('TidalCycles',{tempo:120});
-for(let i in EffectModel.util.defaultEffects['TidalCycles']()){
+const TidalCycles = MasterModel.getNew(languages.TidalCycles,{tempo:120});
+for(let i in EffectModel.util.defaultEffects[languages.TidalCycles]()){
   let effectId = Id.new();
-  effects[effectId] = EffectModel.util.defaultEffects['TidalCycles']()[i];
+  effects[effectId] = EffectModel.util.defaultEffects[languages.TidalCycles]()[i];
   TidalCycles.effects.push(effectId);
 }
 
 
-const Hydra = MasterModel.getNew('Hydra', {mixMethod:'blend'});
-for(let i in EffectModel.util.defaultEffects['Hydra']()){
+const Hydra = MasterModel.getNew(languages.Hydra, {mixMethod:'blend'});
+for(let i in EffectModel.util.defaultEffects[languages.Hydra]()){
   let effectId = Id.new();
-  effects[effectId] = EffectModel.util.defaultEffects['Hydra']()[i];
+  effects[effectId] = EffectModel.util.defaultEffects[languages.Hydra]()[i];
   Hydra.effects.push(effectId);
 }
 
-const master = {TidalCycles, Hydra}
+const master = {TidalCycles, Hydra};
 
 for (let i = 0; i < 8; i++) {
     let trackId = Id.new();
     tracks[trackId] = TrackModel.getNew();
+
+    // Create Stems for Track
     for (let j = 0; j < 8; j++) {
         let stemId = Id.new();
         stems[stemId] = StemModel.getNew();
-        EffectModel.util.defaultEffects['TidalCycles']().forEach(effect => {
+        EffectModel.util.defaultEffects[languages.TidalCycles]().forEach(effect => {
             let effectId = Id.new();
             effects[effectId] = effect;
             stems[stemId].effects.push(effectId);
         });
         tracks[trackId].stems.push(stemId);
     }
-    let mainEffectId = Id.new();
-    effects[mainEffectId] = EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", true, {
-        code: 'gain',
-        value: 1,
-        operator: "|*",
-        min: 0,
-        max: 2,
-        step: 0.01,
-        scale: 'linear'
-    });
-    tracks[trackId].effects.push(mainEffectId);
+
+    // Create Effects for Track
+    const defaultEffects = EffectModel.util.defaultEffects[languages.TidalCycles]();
+    for(let effectIndex=0; effectIndex<defaultEffects.length; effectIndex++){
+        let effectId = Id.new();
+        effects[effectId] = EffectModel.util.defaultEffects[languages.TidalCycles]()[effectIndex];
+        tracks[trackId].effects.push(effectId);
+    }
 }
-
-
 
 
 Model.defaultState = {
@@ -85,7 +82,7 @@ var a = {
     'connection': {},
     'copy': null,
     'master': {
-        'TidalCycles': {},
+        languages.TidalCycles: {},
         'Index': {}
     },
     'tracks': {
@@ -102,7 +99,7 @@ var a = {
             selected: false,
             open: false,
             live: false,
-            language: 'TidalCycles',
+            language: languages.TidalCycles,
             code: '',
             effects: ['effect_1', 'effect_2']
         }
@@ -112,7 +109,7 @@ var a = {
             name: '',
             on: false,
             type: EffectModel.Types.SLIDER,
-            language: 'TidalCycles',
+            language: languages.TidalCycles,
             properties: {}
         }
     }
