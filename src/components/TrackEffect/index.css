@@ -1,3 +1,9 @@
-.TrackEffects{
+.TrackEffect{
+    box-sizing: border-box;
+    margin: 10px 10px;
+    width: 100%;
+    padding:15px;
+    border-radius: var(--border-radius);
+    background-color: var(--stem-editor-color);
 
 }

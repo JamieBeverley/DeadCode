@@ -39,8 +39,7 @@ export default class Track extends Component {
 
                         <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)}
                                 id={this.props.effects[0]}/>
-                        <div className={'more'}>. . .</div>
-
+                        <div className={'more' + (this.props.effectsOpen?' highlighted':"")} onClick={()=>{this.props.openTrackEffects(this.props.id)}}>. . .</div>
                     </div>
                 </div>
 

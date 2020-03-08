@@ -92,3 +92,8 @@
     vertical-align: center;
     cursor: pointer;
 }
+
+.Track .effects > .more.highlighted {
+    background-color: var(--stem-on);
+    color: var(--font-color-light);
+}

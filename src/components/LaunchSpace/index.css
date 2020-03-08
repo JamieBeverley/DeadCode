@@ -16,3 +16,17 @@
 .LaunchSpace:focus{
     outline: none;
 }
+
+.LaunchSpace .trackEffects{
+    z-index: 3;
+    position: absolute;
+    left:0px;
+    bottom:30px;
+    /*right:0px;*/
+    width: 70%;
+    top:40px;
+    background-color: rgba(50,50,50, 0.75);
+    display: flex;
+    text-align: center;
+    overflow-x: scroll;
+}
