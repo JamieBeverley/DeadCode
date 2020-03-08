@@ -9,7 +9,17 @@
     overflow-y: scroll;
 }
 
-.StemEditor > * {
+/*.StemEditor > .effects > * {*/
+/*    border-bottom: 1pt solid var(--stem-off);*/
+/*    padding-top:20px;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*.StemEditor > .effects{*/
+/*    display: block;*/
+/*}*/
+
+.StemEditor > div {
     display:block;
     padding:5px;
     width:100%;
@@ -32,4 +42,9 @@
     background-color: var(--stem-off);
     transition: background 0.25s linear;
     margin-bottom:5px;
+}
+
+.StemEditor > .effects > .Effect {
+    margin-top:15px;
+    border-bottom: 1pt solid var(--stem-off);
 }

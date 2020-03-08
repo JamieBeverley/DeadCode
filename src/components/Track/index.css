@@ -1,6 +1,5 @@
 .Track{
     height:100%;
-    /*background-color: turquoise;*/
     min-width: 100px;
     width:100px;
     border-right:1pt solid var(--track-border-color);
@@ -17,8 +16,6 @@
     top:0px;
     box-sizing: border-box;
     width:100%;
-    /*padding:5px;*/
-    /*height:65%;*/
     overflow-y: scroll;
     z-index: 0;
 }
@@ -54,7 +51,7 @@
     outline:none;
 }
 
-.effects{
+.Track .effects{
     width: 100%;
     height:260px;
     max-height: 260px;
@@ -64,7 +61,7 @@
 }
 
 
-.launchButton{
+.Track .launchButton{
     text-align: center;
     background-color: var(--stem-on);
     width: 100%;
@@ -72,7 +69,7 @@
     position: relative;
 }
 
-.launchButton > svg{
+.Track .launchButton > svg{
     position: absolute;
     top:50%;
     left:50%;
@@ -80,3 +77,18 @@
 }
 
 
+.Track .effects > .Effect {
+    height:200px;
+}
+
+.Track .effects > .more {
+    height:30px;
+    text-align: center;
+    font-weight: bolder;
+    border-top: 1pt solid var(--stem-on);
+    font-size: 24px;
+    width:100%;
+    color: var(--stem-on);
+    vertical-align: center;
+    cursor: pointer;
+}

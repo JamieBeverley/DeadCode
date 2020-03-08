@@ -21,22 +21,23 @@ export default class StemEditor extends Component {
 
         return (
             <div className={'StemEditor'} style={this.props.style}>
-                Name:
-                <input
-                    style={{backgroundColor: 'var(--stem-off)'}}
-                    onChange={this.updateName.bind(this)}
-                    type='text'
-                    value={this.props.name}
-                />
+                <div>
+                    Name:
+                    <input
+                        style={{backgroundColor: 'var(--stem-off)'}}
+                        onChange={this.updateName.bind(this)}
+                        type='text'
+                        value={this.props.name}
+                    />
+                </div>
                 <CodeEditor
                     onChange={(code) => this.props.globalActions.stemUpdate(this.props.id, {code})}
                     onChangeLive={(live) => this.props.globalActions.stemUpdate(this.props.id, {live})}
                     code={this.props.code}
                     live={this.props.live}
                 />
-                <div>
+                <div className={'effects'}>
                     {effects}
-
                     <EffectCreator onCreate={this.createEffect.bind(this)}/>
                 </div>
                 <button style={{marginTop: '5px'}} onClick={this.delete.bind(this)}>delete</button>
@@ -45,7 +46,7 @@ export default class StemEditor extends Component {
     }
 
     createEffect(type, properties) {
-        this.props.globalActions.stemAddEffect(this.props.id,type,this.props.language,false,properties);
+        this.props.globalActions.stemAddEffect(this.props.id, type, this.props.language, false, properties);
     }
 
 
