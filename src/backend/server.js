@@ -5,7 +5,7 @@ import DeadReducer from '../reducers'
 import {ActionSpec,Actions} from "../actions";
 import {Renderers} from "../renderers";
 import {throttle} from 'lodash';
-import {serverMiddleware,renderMiddleWare} from "./middleware";
+// import {serverMiddleware,renderMiddleWare} from "./middleware";
 
 const spawn = require('child_process').spawn;
 const http = require('http');
@@ -14,7 +14,34 @@ const fs = require('fs');
 const server = http.createServer();
 const wss = new WebSocket.Server({ server });
 
+
+
+export const serverMiddleware = store => next => action => {
+  if(action.type === ActionSpec.LOAD_FROM_SERVER.name){
+    let state = {...store.getState(), connection:null};
+    let msg = {type:'action',action:Actions.receiveState(state)};
+    broadcast(msg)
+  }
+  return next(action);
+};
+
+let tidalCode ='';
+export const renderMiddleWare = store => next => action => {
+  next(action);
+  let state = store.getState();
+  if(action.type === ActionSpec.MASTER_UPDATE.name || action.type === ActionSpec.PUSH_STATE.name){
+    evalTidal(state.master.TidalCycles.macros);
+    evalTidal(Renderers.TidalCycles.getTempoCode(state));
+  }
+  let tc = Renderers.TidalCycles.getCode(state);
+  if(tidalCode!==tc){
+    evalTidal(tc);
+    tidalCode = tc;
+  }
+};
+
 let store = createStore(DeadReducer, applyMiddleware(serverMiddleware,renderMiddleWare));
+
 
 // Cmdline opts
 let nopt = require('nopt');
@@ -56,6 +83,8 @@ function evalTidal(str){
   tidal.stdin.write(str+"\n");
   stderr.write(str+"\n");
 }
+
+
 
 
 const clients = {};
