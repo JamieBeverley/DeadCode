@@ -27,6 +27,11 @@ const StemReducer = (stems, action) => {
     } else if (action.type === 'TRACK_DELETE_STEM') {
         delete stems[payload.stemId];
         return {...stems}
+    } else if (action.type === 'TRACK_DELETE') {
+        payload.stems.forEach(stemId=>{
+            delete stems[stemId]
+        });
+        return {...stems}
     }
 
     return stems

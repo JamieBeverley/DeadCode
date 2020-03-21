@@ -16,6 +16,13 @@ export default class LaunchSpace extends Component {
         }
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        const definedOpen = this.state.openTrackEffects.filter(x=>this.props.tracks[x]!==undefined);
+        if(definedOpen.length !== this.state.openTrackEffects.length){
+            this.setState({openTrackEffects: definedOpen});
+        }
+    }
+
     trackIdToComponent(id) {
         return <Track key={id} id={id} effectsOpen={this.state.openTrackEffects.includes(id)} openTrackEffects={this.openTrackEffects.bind(this)}/>
     }

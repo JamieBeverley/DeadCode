@@ -25,24 +25,43 @@
 /*}*/
 
 
+/*:root {*/
+/*    --bg-image:radial-gradient(rgb(170,170,170), rgb(170,170,170));*/
+/*    --launchspace-bg-color: transparent;*/
+/*    --border-radius: 0px;*/
+/*    --stem-on: rgb(0,255,240);*/
+/*    --stem-off: rgba(230,230,230);*/
+/*    --stem-editor-color: rgba(200, 200, 200, 0.5);*/
+/*    --font-family: 'Helventica', sans-serif;*/
+/*    --font-color-dark: black;*/
+/*    --font-color-light: rgb(30, 30, 30);*/
+/*    --scrollbar-width: 0px;*/
+/*    --scrollbar-height: 0px;*/
+/*    --track-border-color: lightgrey;*/
+/*    --select-color: rgb(250,10,10);*/
+/*    --settings-background-color:rgb(50,50,50);*/
+/*    --settings-font-color:rgb(150,150,150);*/
+/*    --midi-background-color:rgba(255,255,255,0.600);*/
+/*    --midi-background-color:rgba(100,100,100,0.600);*/
+/*}*/
+
 :root {
-    --bg-image:radial-gradient(rgb(170,170,170), rgb(170,170,170));
+    --bg-image:radial-gradient(rgb(10,10,10), rgb(10,10,10));
     --launchspace-bg-color: transparent;
     --border-radius: 0px;
-    --stem-on: rgb(0,255,240);
-    --stem-off: rgba(230,230,230);
+    --stem-on: rgb(115,20, 40);
+    --stem-off: rgba(60,60,60);
     --stem-editor-color: rgba(200, 200, 200, 0.5);
     --font-family: 'Helventica', sans-serif;
     --font-color-dark: black;
-    --font-color-light: rgb(30, 30, 30);
+    --font-color-light: rgb(230, 230, 230);
     --scrollbar-width: 0px;
     --scrollbar-height: 0px;
-    --track-border-color: lightgrey;
+    --track-border-color: transparent;
     --select-color: rgb(250,10,10);
-    --settings-background-color:rgb(50,50,50);
+    --settings-background-color:rgba(50,50,50,0);
     --settings-font-color:rgb(150,150,150);
-    --midi-background-color:rgba(255,255,255,0.600);
-    --midi-background-color:rgba(100,100,100,0.600);
+    --midi-background-color: rgba(255,255,255,0.4);
 }
 
 
@@ -257,4 +276,3 @@ input:focus{
 select:focus{
     outline:none;
 }
-

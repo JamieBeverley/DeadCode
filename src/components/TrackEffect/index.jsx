@@ -11,6 +11,7 @@ class TrackEffect extends Component {
                 </div>
                 <div>
                     {this.props.effects.map(effectId=><Effect key={effectId} id={effectId}/>)}
+                    <button onClick={()=>{this.props.globalActions.trackDelete(this.props.id)}}>delete track</button>
                 </div>
             </div>
         );

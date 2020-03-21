@@ -19,7 +19,7 @@ const TrackReducer = function (tracks, action) {
         return Object.assign({},tracks, obj)
     } else if (action.type === 'TRACK_DELETE_EFFECT') {
         tracks[payload.trackId] = {...tracks[payload.trackId]};
-        tracks[payload.trackId].effects = tracks[payload.track].filter(x=>{return x !== payload.effectId});
+        tracks[payload.trackId].effects = tracks[payload.trackId].effects.filter(x=>{return x !== payload.effectId});
         return {...tracks};
     } else if (action.type === 'TRACK_ADD_EFFECT') {
         tracks[payload.trackId] = {...tracks[payload.trackId]};
@@ -28,7 +28,11 @@ const TrackReducer = function (tracks, action) {
     } else if (action.type === 'TRACK_ADD'){
         tracks[payload.trackId] = payload.value;
         return {...tracks};
+    } else if (action.type === 'TRACK_DELETE'){
+        delete tracks[payload.trackId];
+        return {...tracks};
     }
+
     return tracks
 }
 

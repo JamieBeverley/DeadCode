@@ -59,8 +59,8 @@ function trackToCode(state, track) {
             effectsOn.push(effectToCode(effect));
         }
     });
-    let effectsCode = effectsOn.join(" $ ");
-    return `${effectsCode} $ stack [${stemsCode}]`;
+    let effectsCode = `${effectsOn.join(' $ ')} ${effectsOn.length?' $ ':''}`;
+    return `${effectsCode} stack [${stemsCode}]`;
 }
 
 function getCode(state) {

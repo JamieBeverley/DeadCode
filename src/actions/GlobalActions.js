@@ -138,8 +138,8 @@ const GlobalActions = dispatch => {
             let stem = store.getState().stems[stemId];
             let globalActions = GlobalActions(dispatch);
             if (stem.language !== language) {
-                stem.effects.forEach(x => {
-                    globalActions.stemDeleteEffect(stemId, x)
+                stem.effects.forEach(effectId => {
+                    globalActions.stemDeleteEffect({stemId, effectId})
                 });
                 EffectModel.util.defaultEffects[language]().forEach(effect => {
                     globalActions.stemAddEffect(stemId, effect.type, effect.language, effect.on, effect.properties);
@@ -160,13 +160,18 @@ const GlobalActions = dispatch => {
         },
         trackDeleteStem: (trackId, stemId) => {
             // if no trackId provided (not ideal), search for the track with the provided stemId
+            const state = store.getState();
+            const stem = state.stems[stemId];
+            // stem.effects.forEach(effectId=>{
+            //     dispatch(Actions.stemDeleteEffect({stemId, effectId}));
+            // });
             if (trackId === undefined) {
                 let state = store.getState();
                 trackId = Object.keys(state.tracks).find(x => {
                     return state.tracks[x].stems.includes(stemId)
                 });
             }
-            dispatch(Actions.trackDeleteStem({trackId, stemId}));
+            dispatch(Actions.trackDeleteStem({trackId, stemId, effects:stem.effects}));
         },
         // TODO: stuff like this would probably be better as sagas
         trackAddStem: (trackId) => {
@@ -204,11 +209,10 @@ const GlobalActions = dispatch => {
         trackDelete: (trackId) => {
             let state = store.getState();
             let track = state.tracks[trackId];
-            let globalActions = GlobalActions(dispatch)
-            track.stems.forEach(s => {
-                globalActions.trackDeleteStem(trackId, s);
-            });
-            dispatch(Actions.trackDelete({trackId}));
+            let stems = track.stems.map(x=>state.stems[x]);
+            let stemEffects = stems.map(s=>s.effects).flat();
+            let trackEffects = track.effects;
+            dispatch(Actions.trackDelete({trackId, stems:track.stems, effects: trackEffects.concat(stemEffects)}));
         },
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));

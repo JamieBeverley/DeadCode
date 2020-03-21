@@ -1,6 +1,7 @@
 
 
 const EffectReducer = (effects, action) => {
+    const payload = action.payload;
     if (action.type === 'EFFECT_UPDATE') {
         effects[action.payload.effectId] = Object.assign({}, effects[action.payload.effectId], action.payload.value);
         return {...effects};
@@ -19,6 +20,16 @@ const EffectReducer = (effects, action) => {
     } else if (action.type === "MASTER_ADD_EFFECT") {
         effects[action.payload.effectId] = action.payload.value;
         return {...effects};
+    } else if (action.type === 'TRACK_DELETE_STEM') {
+        payload.effects.forEach(effectId=>{
+            delete effects[effectId]
+        });
+        return {...effects}
+    }  else if (action.type === 'TRACK_DELETE') {
+        payload.effects.forEach(effectId=>{
+            delete effects[effectId]
+        });
+        return {...effects}
     }
     return effects;
 }
