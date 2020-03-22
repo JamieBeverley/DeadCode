@@ -214,12 +214,12 @@ function onDeviceNoteOff(msg) {
 
 function onDeviceCC(msg) {
     const state = store.getState();
-    let trackIndex = midiMap.toPosMap.faders[msg.channel][msg.controller];
+    let trackIndex = state.midi.left + midiMap.toPosMap.faders[msg.channel][msg.controller];
     let trackId = Object.keys(state.tracks)[trackIndex];
     if (trackId === undefined) {
         return
     }
-    let effectId = state.tracks[trackId].effects[0]; // TODO dangerous
+    let effectId = state.tracks[trackId].effects[0];
     if (effectId === undefined) {
         return
     }
@@ -254,7 +254,6 @@ function onStemChange(stemId) {
     const stem = state.stems[stemId];
     const buttonState = stem.on ? 'on' : (stem.code === '' ? 'off' : 'loaded');
     if(midiMap.posToOutput[row]===undefined || midiMap.posToOutput[row][col] === undefined){
-        console.log('hmm');
         return
     }
     const outputMsg = midiMap.posToOutput[row][col][buttonState];

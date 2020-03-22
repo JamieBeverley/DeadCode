@@ -4,7 +4,6 @@ import Hydra from "hydra-synth";
 import './index.css'
 import TidalComponent from '../../renderers/TidalCycles/dom'
 import HydraComponent from "../../renderers/Hydra/dom";
-
 class Render extends Component {
 
     constructor(props) {
