@@ -1,7 +1,9 @@
 .TrackEffect{
     box-sizing: border-box;
-    margin: 10px 10px;
+    margin: 0px 10px;
     width: 100%;
+    height: 100%;
+    overflow-y: scroll;
     padding:15px;
     border-radius: var(--border-radius);
     background-color: var(--stem-editor-color);

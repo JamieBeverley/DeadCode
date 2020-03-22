@@ -27,20 +27,31 @@ export default class App extends Component {
                 }}
                 ref={this.appRef} className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
                 <Header/>
-                <div style={{height:'100%'}}>
+                <div style={{height: '100%'}}>
                     <SplitterLayout>
                         <LaunchSpace/>
-                        <SplitterLayout vertical={true}>
+                        <div style={{height: '100%'}}>
                             <Flyout/>
                             <div className={'renderView'}>
                                 <div></div>
                                 <iframe style={{
                                     height: "100%",
-                                    width:"100%",
-                                    border:'none'
+                                    width: "100%",
+                                    border: 'none'
                                 }} src={"/render"}/>
                             </div>
-                        </SplitterLayout>
+                        </div>
+                        {/*<SplitterLayout vertical={false}>*/}
+                        {/*    <Flyout/>*/}
+                        {/*    <div className={'renderView'}>*/}
+                        {/*        <div></div>*/}
+                        {/*<iframe style={{*/}
+                        {/*    height: "100%",*/}
+                        {/*    width:"100%",*/}
+                        {/*    border:'none'*/}
+                        {/*}} src={"/render"}/>*/}
+                        {/*</div>*/}
+                        {/*</SplitterLayout>*/}
                     </SplitterLayout>
                 </div>
                 {/*<div style={{height:'100%'}}>*/}
