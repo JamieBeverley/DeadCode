@@ -1,0 +1,16 @@
+/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:50
+    if (effect.on) {
+               ^
+
+TypeError: Cannot read property 'on' of undefined
+    at forEach (/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:30:20)
+    at Array.forEach (<anonymous>)
+    at stemToCode (/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:28:18)
+    at forEach (/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:45:28)
+    at Array.forEach (<anonymous>)
+    at trackToCode (/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:42:17)
+    at map (/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:70:16)
+    at Array.map (<anonymous>)
+    at Object.getCode (/home/jamie/repos/DeadCode/src/renderers/TidalCycles/index.js:69:44)
+    at /home/jamie/repos/DeadCode/src/backend/server.js:36:34
+[nodemon] app crashed - waiting for file changes before starting...

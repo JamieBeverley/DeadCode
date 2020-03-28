@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import './index.css'
-import {Grid, Slider, Input} from '@material-ui/core';
+import {Grid, Input} from '@material-ui/core';
 import Toggle from "../../util/Toggle";
+import Slider from "../../util/Slider";
 
 export default class SliderEffect extends Component {
     constructor (props){
@@ -28,7 +29,7 @@ export default class SliderEffect extends Component {
     fromSliderScale(x){
         if(this.props.properties.scale==='log'){
             let range = this.props.properties.max-this.props.properties.min;
-            return Math.round(Math.pow(x/range,2)*range*this.props.properties.step)/this.props.properties.step;
+            return Math.pow(x/range,2)*range
         }
         return x
     }
@@ -63,17 +64,25 @@ export default class SliderEffect extends Component {
                 <div className={'text'}><div>{this.props.properties.code}</div></div>
                 <Grid container spacing={2} alignItems="center">
                     <Grid item xs>
+                        {/*<Slider*/}
+                        {/*    onChange={(e,newValue)=>{*/}
+                        {/*        if(newValue){*/}
+                        {/*            this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});*/}
+                        {/*            this.handleSliderChange(e,newValue);*/}
+                        {/*        }*/}
+                        {/*    }}*/}
+                        {/*    min={this.props.properties.min}*/}
+                        {/*    max={this.props.properties.max}*/}
+                        {/*    step={this.props.properties.step}*/}
+                        {/*    value={parseFloat(this.state.sliderValue)}*/}
+                        {/*/>*/}
                         <Slider
+                            value={this.props.value}
                             onChange={(e,newValue)=>{
-                                if(newValue){
-                                    this.setState({sliderValue:newValue,value:this.fromSliderScale(newValue)});
-                                    this.handleSliderChange(e,newValue);
-                                }
+                                this.setState({sliderValue:newValue, value:this.fromSliderScale(newValue)});
+                                this.handleSliderChange(e,newValue);
                             }}
-                            min={this.props.properties.min}
-                            max={this.props.properties.max}
-                            step={this.props.properties.step}
-                            value={parseFloat(this.state.sliderValue)}
+                            {...this.props.properties}
                         />
                     </Grid>
                     <Grid item>
@@ -90,11 +99,16 @@ export default class SliderEffect extends Component {
                             min={this.props.properties.min}
                             max={this.props.properties.max}
                             type={'number'}
+                            onChange={this.inputOnChange.bind(this)}
                         />
                     </Grid>
                 </Grid>
             </div>
         )
+    }
+
+    inputOnChange(e){
+        this.props.onChange(e, e.target.value)
     }
 
 
