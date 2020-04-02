@@ -11,7 +11,7 @@ export const Index = {
 
 
 function getMacros(state) {
-    return state.master['Hydra'].macros
+    return state.master['Hydra'].code
 }
 
 

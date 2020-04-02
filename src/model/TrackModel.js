@@ -7,6 +7,7 @@ function getNew(language=languages.TidalCycles) {
         name: 'New Track',
         stems:[],
         effects:[],
+        macros:[],
         language
     }
 }

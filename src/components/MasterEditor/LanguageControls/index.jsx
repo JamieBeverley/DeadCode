@@ -7,12 +7,12 @@ import EffectCreator from "../../Effect/EffectCreator";
 
 class LanguageControls extends Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {};
     }
 
     changeTempo(id, effect) {
-        let val = this.props
+        let val = this.props;
         val.properties.tempo = effect.properties.value;
         this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
     }
@@ -37,18 +37,18 @@ class LanguageControls extends Component {
                     key: 'tempo',
                     type:"SLIDER",
                     updateEffect: this.changeTempo.bind(this),
-                }
+                };
 
                 return [
                     <CodeEditor
                         key={'tidalEditorMain'}
-                        onChange={(macros) => {
-                            this.props.globalActions.masterUpdate(this.props.language, {macros});
+                        onChange={(code) => {
+                            this.props.globalActions.masterUpdate(this.props.language, {code});
                         }}
                         onChangeLive={(bootScriptLive) => {
                             this.setState({bootScriptLive})
                         }}
-                        code={this.props.macros}
+                        code={this.props.code}
                         live={false}
                     />,
                     <EffectComponent {...e}/>
@@ -57,13 +57,13 @@ class LanguageControls extends Component {
                 return [
                     <CodeEditor
                         key={'HydraEditorMain'}
-                        onChange={(macros) => {
-                            this.props.globalActions.masterUpdate(this.props.language, {macros});
+                        onChange={(code) => {
+                            this.props.globalActions.masterUpdate(this.props.language, {code});
                         }}
                         onChangeLive={(bootScriptLive) => {
                             this.setState({bootScriptLive})
                         }}
-                        code={this.props.macros}
+                        code={this.props.code}
                         live={false}
                     />
                 ]

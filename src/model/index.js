@@ -6,6 +6,7 @@ import StemModel from "./StemModel";
 import settings from "./Settings";
 import midi from './Midi'
 import languages from './LanguageModel'
+// import MacroModel from './MacroModel';
 
 const Model = {};
 

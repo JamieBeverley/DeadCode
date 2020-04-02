@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import './index.css'
 import {Grid, Input, Slider} from '@material-ui/core';
 import Toggle from "../../util/Toggle";
-// import Slider from "../../util/Slider";
 
 
 export default class SliderEffect extends Component {

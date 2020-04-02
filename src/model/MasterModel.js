@@ -1,9 +1,10 @@
 
 function getNew(language,properties){
     return {
-        macros:'',
+        code:'',
         effects:[],
-        properties
+        properties,
+        macros:[]
     }
 }
 
