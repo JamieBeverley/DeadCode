@@ -1,6 +1,6 @@
 
 const StemReducer = (stems, action) => {
-    const payload = action.payload
+    const payload = action.payload;
 
     if (action.type === 'STEM_UPDATE') {
         stems[payload.stemId] = Object.assign({}, stems[payload.stemId], payload.value);
@@ -35,6 +35,6 @@ const StemReducer = (stems, action) => {
     }
 
     return stems
-}
+};
 
 export default StemReducer

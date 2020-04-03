@@ -7,7 +7,6 @@ const path = require('path');
 const knownOpts = {'inputFile':path, outputFile:path};
 const parsed = nopt(knownOpts, {},process.argv);
 const file = fs.readFileSync(parsed.inputFile);
-
 const state = JSON.parse(file);
 
 function addTrackLanguages(state){
@@ -24,12 +23,46 @@ function addTrackLanguages(state){
     return state;
 }
 
+const stateComponents = {
+    master: 'master',
+    connection: 'connection',
+    tracks: 'tracks',
+    stems: 'stems',
+    effects: 'effects',
+    midi: 'midi'
+};
+
+function _applyTo(state, stateComponent, fn){
+    if(!Object.values(stateComponents).includes(stateComponent)){
+        throw Error(`Invalid state component ${stateComponent}`)
+    }
+    const newComponent = Object.keys(state[stateComponent]).reduce((acc,v)=>{
+        acc[v] = fn(state[stateComponent][v]);
+        return acc;
+    },{});
+    state[stateComponent] = newComponent;
+    return state;
+}
+
+function addEmptyMacros(state){
+    const addMacros = x => Object.assign(x,{macros:[]});
+    state = _applyTo(state, stateComponents.stems, addMacros);
+    state = _applyTo(state, stateComponents.master, addMacros);
+    state = _applyTo(state, stateComponents.tracks, addMacros);
+    state.macros = {};
+    return state
+}
+
 function writeNewState(state, path){
+    if(!path){
+        path = `new_state_${new Date().getTime()}.json`
+    }
     console.log(`Writing state to ${path}`);
     fs.writeFileSync(path, JSON.stringify(state));
 }
 
-const newState = addTrackLanguages(state);
+// const newState = addTrackLanguages(state);
+const newState = addEmptyMacros(state);
 writeNewState(newState, parsed.outputFile);
 
 console.log('done');
