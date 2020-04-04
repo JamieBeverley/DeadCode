@@ -1,5 +1,5 @@
-'use strict';
 import Languages from "../LanguageModel";
+import Model from "../index";
 const readlineSync = require('readline-sync');
 const fs = require('fs');
 const nopt = require('nopt');
@@ -23,14 +23,7 @@ function addTrackLanguages(state){
     return state;
 }
 
-const stateComponents = {
-    master: 'master',
-    connection: 'connection',
-    tracks: 'tracks',
-    stems: 'stems',
-    effects: 'effects',
-    midi: 'midi'
-};
+const stateComponents = Object.keys(Model.defaultState).reduce((acc,x)=>{acc[x]=x; return acc}, {});
 
 function _applyTo(state, stateComponent, fn){
     if(!Object.values(stateComponents).includes(stateComponent)){

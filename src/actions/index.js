@@ -97,8 +97,15 @@ export const ActionSpec = {
     'SETTINGS_UPDATE_STYLE':{
         name: 'SETTINGS_UPDATE_STYLE',
         propogateToServer:false
-    }
-}
+    },
+    'TRACK_ADD_MACRO': {name: "TRACK_ADD_MACRO", propogateToServer:true},
+    'MASTER_ADD_MACRO': {name: "MASTER_ADD_MACRO", propogateToServer:true},
+    'STEM_ADD_MACRO': {name: "STEM_ADD_MACRO", propogateToServer:true},
+    'TRACK_DELETE_MACRO': {name: "TRACK_DELETE_MACRO", propogateToServer:true},
+    'MASTER_DELETE_MACRO': {name: "MASTER_DELETE_MACRO", propogateToServer:true},
+    'STEM_DELETE_MACRO': {name: "STEM_DELETE_MACRO", propogateToServer:true},
+    'MACRO_UPDATE': {name:"MACRO_UPDATE", propogateToServer: true}
+};
 
 function camel(capitalSnake) {
     let s = capitalSnake.split("_");

@@ -6,7 +6,7 @@ import EffectModel from "../model/EffectModel";
 import StemModel from "../model/StemModel";
 import TrackModel from "../model/TrackModel";
 import {ActionSpec} from "./index";
-import Languages from "../model/LanguageModel";
+import MacroModel from '../model/MacroModel'
 
 function getPosition(state, stemId) {
     let track = Object.keys(state.tracks).findIndex(x => {
@@ -231,9 +231,42 @@ const GlobalActions = dispatch => {
             }}`;
 
             dispatch(Actions.settingsUpdateStyle({value}))
+        },
+        ///////////////////////////////////////////////////////////////////////
+        // Macros
+
+        // Create
+        trackAddMacro: (trackId) => {
+            const macroId = Id.new();
+            const value = MacroModel.getNew();
+            dispatch(Actions.trackAddMacro({trackId, macroId, value}))
+        },
+        masterAddMacro: (masterId) => {
+            const macroId = Id.new();
+            const value = MacroModel.getNew();
+            dispatch(Actions.masterAddMacro({masterId, macroId, value}))
+        },
+        stemAddMacro: (stemId) => {
+            const macroId = Id.new();
+            const value = MacroModel.getNew();
+            dispatch(Actions.stemAddMacro({stemId, macroId, value}))
+        },
+        // Delete
+        trackDeleteMacro: (trackId, macroId) => {
+            dispatch(Actions.trackDeleteMacro({trackId, macroId}))
+        },
+        masterDeleteMacro: (masterId, macroId) => {
+            dispatch(Actions.masterDeleteMacro({masterId, macroId}))
+        },
+        stemDeleteMacro: (stemId, macroId) => {
+            dispatch(Actions.stemDeleteMacro({stemId, macroId}))
+        },
+        // Update
+        macroUpdate: (macroId, value) => {
+            dispatch(Actions.macroUpdate({macroId, value}))
         }
     }
-}
+};
 
 export default GlobalActions
 
