@@ -1,10 +1,12 @@
 import React, {Component} from 'react';
-import Track from '../../containers/Track';
 import './index.css';
 import PlusButton from "../util/PlusButton/PlusButton";
 import languages from '../../model/LanguageModel';
 import Modal from "../Modal";
-import TrackEffect from "../../containers/TrackEffect";
+import TrackEffect from "../../containers/TrackEditor";
+import TrackStems from "../../containers/Track/TrackStems";
+import TrackEffects from "../../containers/Track/TrackEffects";
+import TrackTitle from "../../containers/Track/TrackTitle";
 
 export default class LaunchSpace extends Component {
 
@@ -12,19 +14,25 @@ export default class LaunchSpace extends Component {
         super(props);
         this.state = {
             newTrack: {dialogue: false, language: languages.TidalCycles},
-            openTrackEffects:[] // id's of tracks w/ effects open
+            openTrackEffects: [] // id's of tracks w/ effects open
         }
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const definedOpen = this.state.openTrackEffects.filter(x=>this.props.tracks[x]!==undefined);
-        if(definedOpen.length !== this.state.openTrackEffects.length){
+        const definedOpen = this.state.openTrackEffects.filter(x => this.props.tracks[x] !== undefined);
+        if (definedOpen.length !== this.state.openTrackEffects.length) {
             this.setState({openTrackEffects: definedOpen});
         }
     }
 
-    trackIdToComponent(id) {
-        return <Track key={id} id={id} effectsOpen={this.state.openTrackEffects.includes(id)} openTrackEffects={this.openTrackEffects.bind(this)}/>
+    trackIdToComponents(id) {
+        const title = <TrackTitle id={id}/>;
+        const stems = <TrackStems id={id}/>;
+        const effects = (
+            <TrackEffects key={id} id={id} effectsOpen={this.state.openTrackEffects.includes(id)}
+                          openTrackEffects={this.openTrackEffects.bind(this)}/>
+        );
+        return {title,stems,effects};
     }
 
     //////////////////////////////////////////
@@ -35,7 +43,7 @@ export default class LaunchSpace extends Component {
         this.setState(Object.assign({}, this.state, {newTrack}));
     };
 
-    closeNewTrackModal(){
+    closeNewTrackModal() {
         this.setState(Object.assign({}, this.state, {
             newTrack: {
                 dialogue: false,
@@ -78,24 +86,28 @@ export default class LaunchSpace extends Component {
     // Track Effects Stuff                  //
     /////////////////////////////////////////
 
-    openTrackEffects(trackId){
+    openTrackEffects(trackId) {
         let openTrackEffects;
-        if (this.state.openTrackEffects.includes(trackId)){
-            openTrackEffects = this.state.openTrackEffects.filter(x=>x!==trackId);
+        if (this.state.openTrackEffects.includes(trackId)) {
+            openTrackEffects = this.state.openTrackEffects.filter(x => x !== trackId);
         } else {
-            openTrackEffects = Object.keys(this.props.tracks).filter(tId=>{return this.state.openTrackEffects.includes(tId) || tId===trackId});
+            openTrackEffects = Object.keys(this.props.tracks).filter(tId => {
+                return this.state.openTrackEffects.includes(tId) || tId === trackId
+            });
         }
-        this.setState(Object.assign({},this.state,{openTrackEffects}));
+        this.setState(Object.assign({}, this.state, {openTrackEffects}));
     }
 
-    trackEffects(){
-        if (this.state.openTrackEffects.length <1){
+    trackEffects() {
+        if (this.state.openTrackEffects.length < 1) {
             return null;
         }
 
-        return(
+        return (
             <div className="trackEffects">
-                {this.state.openTrackEffects.map(trackId=>{return <TrackEffect key={trackId} id={trackId}></TrackEffect>})}
+                {this.state.openTrackEffects.map(trackId => {
+                    return <TrackEffect key={trackId} id={trackId}></TrackEffect>
+                })}
             </div>
         )
     }
@@ -127,8 +139,32 @@ export default class LaunchSpace extends Component {
     }
 
     render() {
+        const tracks = Object.keys(this.props.tracks).map(this.trackIdToComponents.bind(this));
+        const newTrackModal = this.state.newTrack.dialogue ? this.newTrackModal() : null;
+        const titles = tracks.map(x => x.title);
+        const stems = tracks.map(x => x.stems);
+        const effects = tracks.map(x => x.effects);
+        const pb = (
+            <button onClick={this.openNewTrack.bind(this)} style={{
+            backgroundColor:'var(--stem-on)',border:'none'}}> + </button>
+        );
+        titles.push(pb);
+        return (
+            <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
+                <div className={'TrackContainer'}>
+                    <div className={'title'}>{titles}</div>
+                    <div className={'stems'}>{stems}</div>
+                    <div className={'trackGain'}>{effects}</div>
+                </div>
+                {newTrackModal}
+                {this.trackEffects()}
+            </div>
+        )
+    }
 
-        const tracks = Object.keys(this.props.tracks).map(this.trackIdToComponent.bind(this));
+    renderOld() {
+
+        const tracks = Object.keys(this.props.tracks).map(this.trackIdToComponents.bind(this));
         const newTrackModal = this.state.newTrack.dialogue ? this.newTrackModal() : null;
 
         return (

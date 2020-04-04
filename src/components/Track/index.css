@@ -1,99 +1,149 @@
-.Track{
-    height:100%;
-    min-width: 100px;
-    width:100px;
-    border-right:1pt solid var(--track-border-color);
-    float:left;
-    position: relative;
-    display: flex;
-    flex-flow: column;
+/*.TrackTitle{*/
+/*    width: 100%;*/
+/*    padding: 10px;*/
+/*    box-sizing: border-box;*/
+/*    background-color: transparent;*/
+/*    overflow:*/
+/*}*/
+/*.TrackTitle > input{*/
+/*    width: 100%;*/
+/*    border: none;*/
+/*    background-color: var(--stem-off);*/
+/*    text-align: center;*/
+/*}*/
+
+.TrackTitle {
+    width: 10px;
     box-sizing: border-box;
 }
 
-.stems{
-    position: absolute;
-    bottom:260px;
-    top:0px;
+.TrackTitle > input {
+    text-align: center;
     box-sizing: border-box;
-    width:100%;
-    overflow-y: scroll;
-    z-index: 0;
+    background-color: var(--stem-editor-color);
+    width: 100%;
 }
 
-
-.Track .plusButton{
-    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;
-}
-
-.Track input{
-    z-index: 1;
-    border-radius: 0;
-    color: var(--font-color-dark);
+.TrackEffects {
+    height: 100%;
     background-color: var(--stem-editor-color);
     box-sizing: border-box;
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    padding-left:5px;
-    padding-right:5px;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    text-align: center;
-    border-bottom: 3pt solid var(--stem-on);
-    width:100%;
-    overflow:hidden;
-    font-size: 12pt;
-    font-weight: normal;
-    /*box-shadow:5px 5px 5px rgb(90,90,90);*/
+    border-top: 15px solid var(--stem-on);
 }
 
-.Track input:focus{
-    outline:none;
-}
-
-.Track .effects{
-    width: 100%;
-    height:260px;
-    max-height: 260px;
-    background-color: var(--stem-editor-color);
-    bottom:0px;
-    position: absolute;
-}
-
-
-.Track .launchButton{
-    text-align: center;
-    background-color: var(--stem-on);
-    width: 100%;
-    height:30px;
-    position: relative;
-}
-
-.Track .launchButton > svg{
-    position: absolute;
-    top:50%;
-    left:50%;
-    transform: translate(-50%,-50%);
-}
-
-
-.Track .effects > .Effect {
-    height:160px;
-}
-
-.Track .effects > .more {
-    height:30px;
+.TrackEffects .more {
+    height: 30px;
     text-align: center;
     font-weight: bolder;
-    border-top: 1pt solid var(--stem-on);
+    border-top: 4pt solid var(--stem-on);
     font-size: 24px;
-    width:100%;
+    width: 100%;
     color: var(--stem-on);
     vertical-align: center;
     cursor: pointer;
 }
 
-.Track .effects > .more.highlighted {
+.TrackEffects .more.highlighted {
     background-color: var(--stem-on);
     color: var(--font-color-light);
 }
+
+/*.Track{*/
+/*    height:100%;*/
+/*    min-width: 100px;*/
+/*    width:100px;*/
+/*    border-right:1pt solid var(--track-border-color);*/
+/*    float:left;*/
+/*    position: relative;*/
+/*    display: flex;*/
+/*    flex-flow: column;*/
+/*    box-sizing: border-box;*/
+/*}*/
+
+/*!*.stems{*!*/
+/*!*    position: absolute;*!*/
+/*!*    bottom:260px;*!*/
+/*!*    top:0px;*!*/
+/*!*    box-sizing: border-box;*!*/
+/*!*    width:100%;*!*/
+/*!*    overflow-y: scroll;*!*/
+/*!*    z-index: 0;*!*/
+/*!*}*!*/
+
+
+/*.Track .plusButton{*/
+/*    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 3px -2px, rgba(0, 0, 0, 0.14) 0px 3px 4px 0px, rgba(0, 0, 0, 0.12) 0px 1px 8px 0px;*/
+/*}*/
+
+/*.Track input{*/
+/*    z-index: 1;*/
+/*    border-radius: 0;*/
+/*    color: var(--font-color-dark);*/
+/*    background-color: var(--stem-editor-color);*/
+/*    box-sizing: border-box;*/
+/*    border-top: none;*/
+/*    border-left: none;*/
+/*    border-right: none;*/
+/*    padding-left:5px;*/
+/*    padding-right:5px;*/
+/*    padding-top: 10px;*/
+/*    padding-bottom: 10px;*/
+/*    text-align: center;*/
+/*    border-bottom: 3pt solid var(--stem-on);*/
+/*    width:100%;*/
+/*    overflow:hidden;*/
+/*    font-size: 12pt;*/
+/*    font-weight: normal;*/
+/*    !*box-shadow:5px 5px 5px rgb(90,90,90);*!*/
+/*}*/
+
+/*.Track input:focus{*/
+/*    outline:none;*/
+/*}*/
+
+/*.Track .effects{*/
+/*    width: 100%;*/
+/*    height:260px;*/
+/*    max-height: 260px;*/
+/*    background-color: var(--stem-editor-color);*/
+/*    bottom:0px;*/
+/*    position: absolute;*/
+/*}*/
+
+
+/*.Track .launchButton{*/
+/*    text-align: center;*/
+/*    background-color: var(--stem-on);*/
+/*    width: 100%;*/
+/*    height:30px;*/
+/*    position: relative;*/
+/*}*/
+
+/*.Track .launchButton > svg{*/
+/*    position: absolute;*/
+/*    top:50%;*/
+/*    left:50%;*/
+/*    transform: translate(-50%,-50%);*/
+/*}*/
+
+
+/*.Track .effects > .Effect {*/
+/*    height:160px;*/
+/*}*/
+
+/*.Track .effects > .more {*/
+/*    height:30px;*/
+/*    text-align: center;*/
+/*    font-weight: bolder;*/
+/*    border-top: 1pt solid var(--stem-on);*/
+/*    font-size: 24px;*/
+/*    width:100%;*/
+/*    color: var(--stem-on);*/
+/*    vertical-align: center;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.Track .effects > .more.highlighted {*/
+/*    background-color: var(--stem-on);*/
+/*    color: var(--font-color-light);*/
+/*}*/

@@ -42,30 +42,8 @@
     background-color: transparent;
     padding:5px;
     box-sizing: border-box;
+    text-align: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 .Slider input[type="range"][vertical="true"]{

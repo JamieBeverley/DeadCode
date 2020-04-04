@@ -31,3 +31,54 @@
     display: flex;
     text-align: center;
 }
+
+.LaunchSpace .TrackContainer {
+    height: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    padding:0;
+}
+
+.LaunchSpace .TrackContainer{
+    height: 100%;
+    position: absolute;
+    box-sizing: border-box;
+    overflow-x:scroll;
+    white-space: nowrap;
+}
+
+.LaunchSpace .TrackContainer > div > * {
+    width: 100px;
+    display: inline-block;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.LaunchSpace .TrackContainer .title {
+    height:30px;
+    max-height: 30px;
+    width: 100%;
+}
+
+.LaunchSpace .TrackContainer .stems {
+    /*width: 100%;*/
+    left: 0px;
+    right: 0px;
+    position: absolute;
+    top:30px;
+    bottom:280px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.LaunchSpace .TrackContainer .trackGain {
+    position: absolute;
+    bottom:0px;
+    height:280px;
+    overflow-x: hidden;
+}
+
+.LaunchSpace .TrackContainer td{
+    width:50px;
+    height: 100%;
+}

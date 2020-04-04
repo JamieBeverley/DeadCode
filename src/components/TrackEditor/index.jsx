@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import './index.css';
 import Effect from "../../containers/Effect";
 
-class TrackEffect extends Component {
+class TrackEditor extends Component {
     render() {
         return (
-            <div className="TrackEffect">
+            <div className="TrackEditor">
                 <div>
                     <b>{this.props.name}</b>
                 </div>
@@ -18,4 +18,4 @@ class TrackEffect extends Component {
     }
 }
 
-export default TrackEffect;
+export default TrackEditor;
