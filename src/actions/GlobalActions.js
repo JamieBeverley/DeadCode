@@ -92,7 +92,7 @@ const GlobalActions = dispatch => {
         loadFromServer: () => {
             Connection.sendAction({
                 type: ActionSpec.LOAD_FROM_SERVER.name,
-                meta: {propogateToServer: true, fromServer: false}
+                meta: {propagateToServer: true, fromServer: false}
             });
         },
         open: (file) => {
