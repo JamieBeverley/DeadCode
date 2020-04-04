@@ -7,14 +7,14 @@ import EffectReducer from "./Effect";
 import {ActionSpec} from "../actions";
 import MidiReducer from "./MIDI";
 import SettingsReducer from "./Settings";
-import MacrosReducer from "./Macros";
+import MacroReducer from "./Macros";
 
 const CopyReducer = (copy, action)=>{
     if (action.type==='STEM_COPY'){
         return {type:'stems', items:action.payload.items};
     }
     return copy
-}
+};
 
 
 export default (state = Model.defaultState, action) =>{
@@ -27,7 +27,7 @@ export default (state = Model.defaultState, action) =>{
         connection: ConnectionReducer(state.connection, action),
         copy: CopyReducer(state.copy,action),
         effects: EffectReducer(state.effects, action),
-        macros: MacrosReducer(state.macros, action),
+        macros: MacroReducer(state.macros, action),
         master:MasterReducer(state.master, action),
         midi: MidiReducer(state.midi, action),
         settings: SettingsReducer(state.settings, action),
