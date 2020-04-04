@@ -1,4 +1,5 @@
 import {ActionTypes} from "../actions";
+import {red} from "@material-ui/core/colors";
 
 const reducerFns = {};
 
@@ -49,8 +50,16 @@ reducerFns[ActionTypes.TRACK_DELETE] = (tracks, payload) => {
 
 reducerFns[ActionTypes.TRACK_ADD_MACRO] = (tracks, payload) => {
     tracks[payload.trackId] = {...tracks[payload.trackId]};
-    tracks[payload.trackId].macros.push(payload.macroId);
+    tracks[payload.trackId].macros = [...tracks[payload.trackId].macros, payload.macroId];
     return {...tracks};
+};
+
+reducerFns[ActionTypes.TRACK_DELETE_MACRO] = (tracks, payload) => {
+    tracks[payload.trackId] = {...tracks[payload.trackId]};
+    tracks[payload.trackId].macros = tracks[payload.trackId].macros.filter(x => {
+        return x !== payload.macroId
+    });
+    return {...tracks}
 };
 
 const TrackReducer = (tracks, {type, payload}) => reducerFns[type]?reducerFns[type](tracks, payload):tracks;

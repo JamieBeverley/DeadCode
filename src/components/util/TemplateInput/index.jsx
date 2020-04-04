@@ -49,7 +49,6 @@ class TemplateInput extends Component {
     }
 
     textChange(e) {
-    // debugger;
     }
 
     render() {

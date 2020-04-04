@@ -1,4 +1,4 @@
-import Effect from '../components/Effect'
+import Macro from '../components/Macro';
 import {connect} from 'react-redux';
 import GlobalActions from "../actions/GlobalActions";
 
@@ -18,4 +18,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(Effect);
+)(Macro);

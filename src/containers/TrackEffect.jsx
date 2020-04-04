@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import GlobalActions from "../actions/GlobalActions";
 
 const mapStateToProps = (state,ownProps) => {
-    let track = state.tracks[ownProps.id];
+    const track = state.tracks[ownProps.id];
   return {...track,...ownProps}
 };
 
