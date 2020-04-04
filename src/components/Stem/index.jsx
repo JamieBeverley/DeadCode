@@ -50,7 +50,7 @@ export default class Stem extends Component {
 
     onTouchMove(e){
         this.touchMoveCount++;
-        e.preventDefault();
+        // e.preventDefault();
         if(this.touchMoveCount>5){
             clearTimeout(this.timeout);
             this.dragToggle = true;
@@ -66,12 +66,11 @@ export default class Stem extends Component {
             <div
                 ref={this.ref}
                 className={'Stem noselect' +' '+(this.props.highlight?'highlight':'')}
-                tabIndex={0}
                 onKeyUp={this.onKeyUp.bind(this)}
                 onTouchStart={this.onMouseDown.bind(this)}
+                onMouseDown={this.onMouseDown.bind(this)}
                 onTouchEnd={this.onMouseUp.bind(this)}
                 onTouchMove={this.onTouchMove.bind(this)}
-                onMouseDown={this.onMouseDown.bind(this)}
                 onMouseUp={this.onMouseUp.bind(this)}
 
                 onContextMenu={(x) => {
