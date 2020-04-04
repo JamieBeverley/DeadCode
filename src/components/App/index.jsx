@@ -6,8 +6,6 @@ import './index.css';
 import Header from '../../containers/Header'
 import 'react-splitter-layout/lib/index.css'
 
-// import ResizeDivider from "../ResizeDivider";
-
 export default class App extends Component {
 
     constructor(props) {
@@ -22,24 +20,21 @@ export default class App extends Component {
     render() {
         return (
             <div
-                onDragOver={(e) => {
-                    e.preventDefault()
-                }}
                 ref={this.appRef} className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
                 <Header/>
-                <div style={{height: '100%'}}>
+                <div id={'contentContainer'}>
                     <SplitterLayout>
                         <LaunchSpace/>
                         <div style={{height: '100%'}}>
                             <Flyout/>
-                            <div className={'renderView'}>
-                                <div></div>
-                                <iframe style={{
-                                    height: "100%",
-                                    width: "100%",
-                                    border: 'none'
-                                }} src={"/render"}/>
-                            </div>
+                            {/*<div className={'renderView'}>*/}
+                            {/*    <div></div>*/}
+                            {/*    <iframe style={{*/}
+                            {/*        height: "100%",*/}
+                            {/*        width: "100%",*/}
+                            {/*        border: 'none'*/}
+                            {/*    }} src={"/render"}/>*/}
+                            {/*</div>*/}
                         </div>
                         {/*<SplitterLayout vertical={false}>*/}
                         {/*    <Flyout/>*/}
@@ -64,15 +59,6 @@ export default class App extends Component {
             </div>
         )
     }
-
-    dividerResize(px) {
-        this.setState({divider: px * 100 / document.body.clientWidth})
-    }
-
-    dividerResizeRightPanel(px) {
-        this.setState({horizontalDivider: px * 100 / document.body.clientHeight})
-    }
-
 
     macros(e) {
         if (e.ctrlKey) {

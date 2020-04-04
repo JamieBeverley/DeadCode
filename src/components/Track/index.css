@@ -20,8 +20,10 @@
 .TrackTitle > input {
     text-align: center;
     box-sizing: border-box;
-    background-color: var(--stem-editor-color);
+    background-color: transparent;
     width: 100%;
+    border:none;
+    border-bottom: 1pt solid var(--stem-on);
 }
 
 .TrackEffects {
@@ -46,6 +48,9 @@
 .TrackEffects .more.highlighted {
     background-color: var(--stem-on);
     color: var(--font-color-light);
+}
+
+.TrackStems {
 }
 
 /*.Track{*/

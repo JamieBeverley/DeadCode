@@ -6,6 +6,7 @@ import StemModel from "./StemModel";
 import settings from "./Settings";
 import midi from './Midi'
 import languages from './LanguageModel'
+// import MacroModel from './MacroModel';
 
 const Model = {};
 
@@ -14,6 +15,7 @@ Model.Languages = languages;
 const tracks = {};
 const stems = {};
 const effects = {};
+const macros = {};
 
 const TidalCycles = MasterModel.getNew(languages.TidalCycles,{tempo:120});
 for(let i in EffectModel.util.defaultEffects[languages.TidalCycles]()){
@@ -64,14 +66,15 @@ Model.defaultState = {
         url:'',
         port: 8001
     },
-    master,
     copy: null,
-    tracks,
-    stems,
     effects,
+    macros,
+    master,
     midi,
-    settings
-}
+    settings,
+    stems,
+    tracks
+};
 
 export default Model
 

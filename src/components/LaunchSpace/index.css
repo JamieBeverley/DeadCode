@@ -52,6 +52,7 @@
     display: inline-block;
     box-sizing: border-box;
     text-align: center;
+    vertical-align: top;
 }
 
 .LaunchSpace .TrackContainer .title {
@@ -68,7 +69,7 @@
     top:30px;
     bottom:280px;
     overflow-y: scroll;
-    overflow-x: hidden;
+    /*overflow-x: hidden;*/
 }
 
 .LaunchSpace .TrackContainer .trackGain {
@@ -76,6 +77,13 @@
     bottom:0px;
     height:280px;
     overflow-x: hidden;
+}
+
+.LaunchSpace .TrackContainer .trackGain > .TrackEffects{
+    /*position: absolute;*/
+    height: 250px;
+    top:0px;
+    bottom:5px;
 }
 
 .LaunchSpace .TrackContainer td{

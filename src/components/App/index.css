@@ -76,6 +76,7 @@
 }
 
 .splitter-layout-vertical .layout-splitter{
+    background-color: var(--settings-background-color);
     width:100% !important;
     height:15px !important;
 }
@@ -303,4 +304,12 @@ input:focus{
 
 select:focus{
     outline:none;
+}
+
+#contentContainer{
+    position: absolute;
+    top:40px;
+    bottom:0px;
+    left:0px;
+    right:0px;
 }

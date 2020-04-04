@@ -1,10 +1,12 @@
-import TrackEditor from '../components/TrackEditor'
+import Macro from '../components/Macro';
 import {connect} from 'react-redux';
 import GlobalActions from "../actions/GlobalActions";
 
 const mapStateToProps = (state,ownProps) => {
-    const track = state.tracks[ownProps.id];
-  return {...track,...ownProps}
+  return {
+    ...state.macros[ownProps.id],
+    ...ownProps
+  }
 };
 
 const mapDispatchToProps = dispatch => {
@@ -16,4 +18,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
     mapStateToProps,
     mapDispatchToProps,
-)(TrackEditor);
+)(Macro);

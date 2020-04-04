@@ -12,19 +12,18 @@
 }
 
 .Tab{
-
     color: var(--font-color-dark);
     display:inline-block;
     width:100%;
     padding-left:20px;
     padding-right: 20px;
-    min-width:70px;
+    min-width:90px;
     background-color: var(--stem-on);
     height:100%;
     text-align: center;
     position: relative;
     border-bottom: 2pt solid black;
-    opacity: 0.85;
+    opacity: 1;
 }
 
 .Tab > .indicator{
@@ -40,7 +39,7 @@
 
 .Tab > svg{
     top:50%;
-    right:0px;
+    right:10px;
     transform: translateY(-50%);
     /*padding:5px;*/
     position: absolute;
@@ -66,7 +65,7 @@
 }
 
 .unselected{
-    opacity:1;
+    opacity:0.9;
 }
 
 .scrollbarHidden{

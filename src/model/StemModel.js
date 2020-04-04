@@ -1,3 +1,4 @@
+import MacroModel from './MacroModel';
 import EffectModel from "./EffectModel";
 
 
@@ -5,6 +6,7 @@ function clone (stem){
     return {
         ...stem,
         effects:[...stem.effects].map(EffectModel.clone),
+        macros:[...stem.macros].map(MacroModel.clone)
     }
 }
 
@@ -17,7 +19,8 @@ function getNew(language = "TidalCycles"){
         live:false,
         language,
         code:"",
-        effects: []
+        effects: [],
+        macros:[]
     }
 };
 

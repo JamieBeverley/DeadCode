@@ -1,6 +1,10 @@
+.Effect.vertical{
+    height: 100%;
+    margin-top:0px;
+}
+
 .Effect{
-    /*margin-top: 10px;*/
-    /*padding-top:15px;*/
+    margin-top:25px;
 }
 
 

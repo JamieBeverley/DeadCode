@@ -6,7 +6,7 @@ import EffectModel from "../model/EffectModel";
 import StemModel from "../model/StemModel";
 import TrackModel from "../model/TrackModel";
 import {ActionSpec} from "./index";
-import Languages from "../model/LanguageModel";
+import MacroModel from '../model/MacroModel'
 
 function getPosition(state, stemId) {
     let track = Object.keys(state.tracks).findIndex(x => {
@@ -92,7 +92,7 @@ const GlobalActions = dispatch => {
         loadFromServer: () => {
             Connection.sendAction({
                 type: ActionSpec.LOAD_FROM_SERVER.name,
-                meta: {propogateToServer: true, fromServer: false}
+                meta: {propagateToServer: true, fromServer: false}
             });
         },
         open: (file) => {
@@ -159,19 +159,10 @@ const GlobalActions = dispatch => {
             dispatch(Actions.trackUpdate({trackId, value}));
         },
         trackDeleteStem: (trackId, stemId) => {
-            // if no trackId provided (not ideal), search for the track with the provided stemId
             const state = store.getState();
             const stem = state.stems[stemId];
-            // stem.effects.forEach(effectId=>{
-            //     dispatch(Actions.stemDeleteEffect({stemId, effectId}));
-            // });
-            if (trackId === undefined) {
-                let state = store.getState();
-                trackId = Object.keys(state.tracks).find(x => {
-                    return state.tracks[x].stems.includes(stemId)
-                });
-            }
-            dispatch(Actions.trackDeleteStem({trackId, stemId, effects:stem.effects}));
+            const macros = stem.map(x=>x.macros);
+            dispatch(Actions.trackDeleteStem({trackId, stemId, effects:stem.effects, macros}));
         },
         // TODO: stuff like this would probably be better as sagas
         trackAddStem: (trackId) => {
@@ -207,12 +198,13 @@ const GlobalActions = dispatch => {
             });
         },
         trackDelete: (trackId) => {
-            let state = store.getState();
-            let track = state.tracks[trackId];
-            let stems = track.stems.map(x=>state.stems[x]);
-            let stemEffects = stems.map(s=>s.effects).flat();
-            let trackEffects = track.effects;
-            dispatch(Actions.trackDelete({trackId, stems:track.stems, effects: trackEffects.concat(stemEffects)}));
+            const state = store.getState();
+            const track = state.tracks[trackId];
+            const stems = track.stems.map(x=>state.stems[x]);
+            const stemEffects = stems.map(s=>s.effects).flat();
+            const trackEffects = track.effects;
+            const macros = track.macros.concat(stems.map(x=>x.macros).flat());
+            dispatch(Actions.trackDelete({trackId, stems:track.stems, effects: trackEffects.concat(stemEffects), macros}));
         },
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));
@@ -231,9 +223,42 @@ const GlobalActions = dispatch => {
             }}`;
 
             dispatch(Actions.settingsUpdateStyle({value}))
+        },
+        ///////////////////////////////////////////////////////////////////////
+        // Macros
+
+        // Create
+        trackAddMacro: (trackId) => {
+            const macroId = Id.new();
+            const value = MacroModel.getNew();
+            dispatch(Actions.trackAddMacro({trackId, macroId, value}))
+        },
+        masterAddMacro: (masterId) => {
+            const macroId = Id.new();
+            const value = MacroModel.getNew();
+            dispatch(Actions.masterAddMacro({masterId, macroId, value}))
+        },
+        stemAddMacro: (stemId) => {
+            const macroId = Id.new();
+            const value = MacroModel.getNew();
+            dispatch(Actions.stemAddMacro({stemId, macroId, value}))
+        },
+        // Delete
+        trackDeleteMacro: (trackId, macroId) => {
+            dispatch(Actions.trackDeleteMacro({trackId, macroId}))
+        },
+        masterDeleteMacro: (masterId, macroId) => {
+            dispatch(Actions.masterDeleteMacro({masterId, macroId}))
+        },
+        stemDeleteMacro: (stemId, macroId) => {
+            dispatch(Actions.stemDeleteMacro({stemId, macroId}))
+        },
+        // Update
+        macroUpdate: (macroId, value) => {
+            dispatch(Actions.macroUpdate({macroId, value}))
         }
     }
-}
+};
 
 export default GlobalActions
 

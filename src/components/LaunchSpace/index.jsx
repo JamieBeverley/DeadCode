@@ -26,8 +26,8 @@ export default class LaunchSpace extends Component {
     }
 
     trackIdToComponents(id) {
-        const title = <TrackTitle id={id}/>;
-        const stems = <TrackStems id={id}/>;
+        const title = <TrackTitle key={id + 'trackTitle'} id={id}/>;
+        const stems = <TrackStems key={id + 'trackStems'} id={id}/>;
         const effects = (
             <TrackEffects key={id} id={id} effectsOpen={this.state.openTrackEffects.includes(id)}
                           openTrackEffects={this.openTrackEffects.bind(this)}/>
@@ -145,7 +145,7 @@ export default class LaunchSpace extends Component {
         const stems = tracks.map(x => x.stems);
         const effects = tracks.map(x => x.effects);
         const pb = (
-            <button onClick={this.openNewTrack.bind(this)} style={{
+            <button key={'pb'} onClick={this.openNewTrack.bind(this)} style={{
             backgroundColor:'var(--stem-on)',border:'none'}}> + </button>
         );
         titles.push(pb);
