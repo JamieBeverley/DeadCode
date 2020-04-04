@@ -54,12 +54,17 @@ export function trackToCode(state, track){
 
     let effects = track.effects.map(x=>{return state.effects[x]}).filter(e=>e.on).map(effectToCode);
 
-    return code + effects.join("");
+    const preMacro = code + effects.join("");
+    return track.macros.map(x=>state.macros[x]).reduce((acc,macro)=>{
+        return acc.split(macro.placeholder).join(macro.value);
+    }, preMacro);
 }
 
 export function stemToCode(state, stem){
     let effects = stem.effects.map(x=>{return state.effects[x]}).filter(e=>e.on).map(effectToCode);
-    return stem.code + effects.join("");
+    return stem.macros.map(x=>state.macros[x]).reduce((acc,macro)=>{
+        return acc.split(macro.placeholder).join(macro.value);
+    }, stem.code + effects.join(""));
 }
 
 
@@ -80,7 +85,7 @@ export function effectToCode(effect){
     }
 }
 
-const effectToCodeFuncs  = {}
+const effectToCodeFuncs  = {};
 effectToCodeFuncs[EffectModel.Types.SLIDER] = function(effect){
     return `.${effect.name}(${effect.properties.value})`
-}
+};

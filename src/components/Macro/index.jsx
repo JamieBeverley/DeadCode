@@ -10,10 +10,10 @@ class Macro extends Component {
     }
 
     // TODO is this necessary? eg. for updates from serer to register in this component...
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        const {placeholder, value} = this.props;
-        this.setState({placeholder,value});
-    }
+    // componentDidUpdate(prevProps, prevState, snapshot) {
+    //     const {placeholder, value} = this.props;
+    //     this.setState({placeholder,value});
+    // }
 
     updateMacro(){
         const {placeholder, value} = this.state;

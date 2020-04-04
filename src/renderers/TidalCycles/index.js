@@ -9,10 +9,11 @@ function getTempoCode(state) {
 export const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x) => {
     return `(${x.properties.operator} ${x.properties.code} ${x.properties.value})`
-}
+};
+
 EffectsToCode[EffectModel.Types.CODE_TOGGLE] = (x) => {
     return `(${x.properties.code})`
-}
+};
 
 
 
@@ -34,7 +35,9 @@ function stemToCode(state, stem) {
     let code = effectsOn.join(" $ ");
     code += effectsOn.length ? ' $ ' : '';
     code += stem.code;
-    return code
+    return stem.macros.map(x=>state.macros[x]).reduce((acc,macro)=>{
+        return acc.split(macro.placeholder).join(macro.value);
+    }, code);
 }
 
 function trackToCode(state, track) {
@@ -48,41 +51,45 @@ function trackToCode(state, track) {
     if (stemsCode.length < 1) {
         return ''
     }
-    ;
-
     stemsCode = stemsCode.join(", ");
-
-    let effectsOn = [];
+    const effectsOn = [];
     track.effects.forEach(e => {
         let effect = state.effects[e];
         if (effect.on) {
             effectsOn.push(effectToCode(effect));
         }
     });
-    let effectsCode = `${effectsOn.join(' $ ')} ${effectsOn.length?' $ ':''}`;
-    return `${effectsCode} stack [${stemsCode}]`;
+    const effectsCode = `${effectsOn.join(' $ ')} ${effectsOn.length?' $ ':''}`;
+    const preMacro = `${effectsCode} stack [${stemsCode}]`;
+    return track.macros.map(x=>state.macros[x]).reduce((acc,macro)=>{
+       return acc.split(macro.placeholder).join(macro.value);
+    }, preMacro);
 }
 
 function getCode(state) {
     let stems = 'stack [';
 
-    let tracks = Object.keys(state.tracks).map(x => {
+    const tracks = Object.keys(state.tracks).map(x => {
         return trackToCode(state, state.tracks[x])
     });
 
     stems += tracks.filter(x => x !== '').join(", ") + ']';
 
-    let masterEffects = [];
-    state.master[Model.Languages.TidalCycles].effects.forEach(x => {
+    const masterEffects = [];
+    const master = state.master[Model.Languages.TidalCycles];
+    master.effects.forEach(x => {
         let effect = state.effects[x];
         if (effect.on) {
             masterEffects.push(effectToCode(effect));
         }
-    })
-    let masterEffectsCode = masterEffects.join(" $ ");
+    });
+    const masterEffectsCode = masterEffects.join(" $ ");
 
-    let code = `d1 $ ${masterEffectsCode}${masterEffects.length ? ' $ ' : ''}${stems}`;
-    return code;
+    const preMacro = `${masterEffectsCode}${masterEffects.length ? ' $ ' : ''}${stems}`;
+    const code = master.macros.map(x=>state.macros[x]).reduce((acc,macro)=>{
+        return acc.split(macro.placeholder).join(macro.value);
+    }, preMacro);
+    return `d1 $ ${code}`;
 }
 
 

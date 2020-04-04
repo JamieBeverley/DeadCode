@@ -122,4 +122,3 @@ for (let action in ActionSpec) {
     Actions[camel(action)] = createAction(action, x => x, () => meta);
     ActionTypes[action] = action;
 }
-window.ActionTypes = ActionTypes;
