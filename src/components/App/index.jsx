@@ -22,43 +22,41 @@ export default class App extends Component {
         return (
             <div
                 ref={this.appRef} className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
-                <Helmet title={"deadcode"}>
-                    <Header/>
-                    <div id={'contentContainer'}>
-                        <SplitterLayout>
-                            <LaunchSpace/>
-                            <div style={{height: '100%'}}>
-                                <Flyout/>
-                                {/*<div className={'renderView'}>*/}
-                                {/*    <div></div>*/}
-                                {/*    <iframe style={{*/}
-                                {/*        height: "100%",*/}
-                                {/*        width: "100%",*/}
-                                {/*        border: 'none'*/}
-                                {/*    }} src={"/render"}/>*/}
-                                {/*</div>*/}
-                            </div>
-                            {/*<SplitterLayout vertical={false}>*/}
-                            {/*    <Flyout/>*/}
-                            {/*    <div className={'renderView'}>*/}
-                            {/*        <div></div>*/}
-                            {/*<iframe style={{*/}
-                            {/*    height: "100%",*/}
-                            {/*    width:"100%",*/}
-                            {/*    border:'none'*/}
-                            {/*}} src={"/render"}/>*/}
+                <Header/>
+                <div id={'contentContainer'}>
+                    <SplitterLayout>
+                        <LaunchSpace/>
+                        <div style={{height: '100%'}}>
+                            <Flyout/>
+                            {/*<div className={'renderView'}>*/}
+                            {/*    <div></div>*/}
+                            {/*    <iframe style={{*/}
+                            {/*        height: "100%",*/}
+                            {/*        width: "100%",*/}
+                            {/*        border: 'none'*/}
+                            {/*    }} src={"/render"}/>*/}
                             {/*</div>*/}
-                            {/*</SplitterLayout>*/}
-                        </SplitterLayout>
-                    </div>
-                    {/*<div style={{height:'100%'}}>*/}
-                    {/*    <LaunchSpace style={{width: this.state.divider + "%"}}/>*/}
-                    {/*    <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>*/}
-                    {/*        <Flyout style={{height: this.state.horizontalDivider + "%"}}/>*/}
-                    {/*        <iframe style={{height:(100-this.state.horizontalDivider) + "%",border:'1pt solid var(--stem-on)',borderBottom:'none',borderRight:'none'}} src={"/render"}/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
-                </Helmet>
+                        </div>
+                        {/*<SplitterLayout vertical={false}>*/}
+                        {/*    <Flyout/>*/}
+                        {/*    <div className={'renderView'}>*/}
+                        {/*        <div></div>*/}
+                        {/*<iframe style={{*/}
+                        {/*    height: "100%",*/}
+                        {/*    width:"100%",*/}
+                        {/*    border:'none'*/}
+                        {/*}} src={"/render"}/>*/}
+                        {/*</div>*/}
+                        {/*</SplitterLayout>*/}
+                    </SplitterLayout>
+                </div>
+                {/*<div style={{height:'100%'}}>*/}
+                {/*    <LaunchSpace style={{width: this.state.divider + "%"}}/>*/}
+                {/*    <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>*/}
+                {/*        <Flyout style={{height: this.state.horizontalDivider + "%"}}/>*/}
+                {/*        <iframe style={{height:(100-this.state.horizontalDivider) + "%",border:'1pt solid var(--stem-on)',borderBottom:'none',borderRight:'none'}} src={"/render"}/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
         )
     }
