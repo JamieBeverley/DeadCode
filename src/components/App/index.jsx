@@ -5,7 +5,7 @@ import SplitterLayout from 'react-splitter-layout';
 import './index.css';
 import Header from '../../containers/Header'
 import 'react-splitter-layout/lib/index.css'
-import Helmet from 'react-helmet'
+
 
 export default class App extends Component {
 
