@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import './index.css'
 class Macro extends Component {
     constructor(props) {
         super(props);
@@ -27,10 +27,10 @@ class Macro extends Component {
     render() {
         return (
             <div className={'Macro'}>
-                <input onChange={this.handleChange.bind(this)} name='placeholder' value={this.state.placeholder}/>
-                <input onChange={this.handleChange.bind(this)} name='value' value={this.state.value}/>
+                <input placeholder="macro" onChange={this.handleChange.bind(this)} name='placeholder' value={this.state.placeholder}/>
+                <input placeholder="value" onChange={this.handleChange.bind(this)} name='value' value={this.state.value}/>
                 <button onClick={this.updateMacro.bind(this)}>eval</button>
-                <button onClick={this.props.delete}>delete</button>
+                <button onClick={()=>{this.props.delete(this.props.id)}}>delete</button>
             </div>
         );
     }

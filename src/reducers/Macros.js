@@ -13,7 +13,6 @@ reducerFns[ActionTypes.STEM_ADD_MACRO] = addMacro;
 reducerFns[ActionTypes.MASTER_ADD_MACRO] = addMacro;
 
 const deleteMacro = (macros, payload) => {
-    debugger
     delete macros[payload.macroId];
     return {...macros}
 };

@@ -5,6 +5,7 @@ import Macro from '../../containers/Macro';
 import PlusButton from "../util/PlusButton/PlusButton";
 import EffectCreator from "../Effect/EffectCreator";
 import EffectContainer from "../EffectContainer";
+import MacroContainer from "../MacroContainer";
 
 class TrackEditor extends Component {
 
@@ -12,8 +13,12 @@ class TrackEditor extends Component {
         this.props.globalActions.trackDeleteMacro(this.props.id, macroId);
     }
 
-    addMacro(){
+    createMacro(){
         this.props.globalActions.trackAddMacro(this.props.id);
+    }
+
+    deleteMacro(macroId){
+        this.props.globalActions.trackDeleteMacro(this.props.id, macroId)
     }
 
     createEffect(type, properties) {
@@ -28,11 +33,7 @@ class TrackEditor extends Component {
                 </div>
                 <div>
                     <EffectContainer effects={this.props.effects} createEffect={this.createEffect.bind(this)}/>
-                    <div className={'macroContainer'}>
-                        <h2>Macros</h2>
-                        {this.props.macros.map(macroId => <Macro delete={()=>{this.deleteMacro.call(this, macroId)}} key={macroId} id={macroId}/>)}
-                        <PlusButton style={{width:'50%', maxWidth:'80px'}} onClick={this.addMacro.bind(this)}/>
-                    </div>
+                    <MacroContainer macros={this.props.macros} createMacro={this.createMacro.bind(this)} deleteMacro={this.deleteMacro.bind(this)}/>
                     <div>
                         <h2>Delete</h2>
                         <button onClick={()=>{this.props.globalActions.trackDelete(this.props.id)}}>delete track</button>

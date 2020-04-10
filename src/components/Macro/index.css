@@ -1,3 +1,4 @@
-.Macro{
-
+.Macro > *{
+    background-color: var(--stem-off);
+    margin:5px;
 }
