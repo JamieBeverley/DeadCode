@@ -7,6 +7,7 @@
     /*border:1pt solid red;*/
     box-sizing: border-box;
     background-color: var(--stem-off);
+    color: var(--stem-editor-color);
 }
 
 .EffectCreator > *{
@@ -16,6 +17,7 @@
 
 .EffectCreator button {
     min-width: 50px;
+    background-color: var(--stem-on);
 }
 
 .EffectCreator input{

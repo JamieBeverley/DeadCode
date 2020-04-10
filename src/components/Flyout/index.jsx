@@ -39,8 +39,7 @@ export default class Flyout extends Component {
         }
     }
 
-    closeTab(stemId) {
-
+    closeTab(stemId, e) {
         let tab, history;
         if (this.state.history.length - 1) {
             history = this.state.history.slice(0, -1);
@@ -67,7 +66,7 @@ export default class Flyout extends Component {
                     id={x.id}
                     selected={this.state.tab === x.id}
                     closeAble={true}
-                    closeTab={() => {this.closeTab.bind(this)(x.id)}}
+                    closeTab={e => {this.closeTab.call(this, x.id, e)}}
                 />);
             let content = (<StemEditor
                     style={{display: (this.state.tab === x.id ? 'block' : 'none')}}

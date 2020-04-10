@@ -1,3 +1,6 @@
+.Macro {
+    border-bottom: 1pt solid var(--stem-off);
+}
 .Macro > *{
     background-color: var(--stem-off);
     margin:5px;

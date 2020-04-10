@@ -4,7 +4,7 @@ function clone (macro){
 
 function getNew(){
     return {
-        placeholder:'x',
+        placeholder:'',
         value:''
     }
 };

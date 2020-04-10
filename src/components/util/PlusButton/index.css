@@ -1,6 +1,5 @@
 .plusButton{
-    background-color: red;
-    color:var(--font-color-dark);
+    color:var(--font-color-light);
     text-align: center;
     height:40px;
     border-radius: var(--border-radius);
