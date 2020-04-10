@@ -33,8 +33,7 @@ reducerFns[ActionTypes.TRACK_DELETE_EFFECT] = (tracks, payload) => {
 };
 
 reducerFns[ActionTypes.TRACK_ADD_EFFECT] = (tracks, payload) => {
-    tracks[payload.trackId] = {...tracks[payload.trackId]};
-    tracks[payload.trackId].effects.push(payload.effectId);
+    tracks[payload.trackId] = {...tracks[payload.trackId], effects: [...tracks[payload.trackId].effects, payload.effectId]};
     return {...tracks};
 };
 

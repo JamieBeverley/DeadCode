@@ -3,6 +3,8 @@ import './index.css';
 import Effect from "../../containers/Effect";
 import Macro from '../../containers/Macro';
 import PlusButton from "../util/PlusButton/PlusButton";
+import EffectCreator from "../Effect/EffectCreator";
+import EffectContainer from "../EffectContainer";
 
 class TrackEditor extends Component {
 
@@ -14,6 +16,10 @@ class TrackEditor extends Component {
         this.props.globalActions.trackAddMacro(this.props.id);
     }
 
+    createEffect(type, properties) {
+        this.props.globalActions.trackAddEffect(this.props.id, type, this.props.language, false, properties);
+    }
+
     render() {
         return (
             <div className="TrackEditor">
@@ -21,10 +27,7 @@ class TrackEditor extends Component {
                     <h1>{this.props.name}</h1>
                 </div>
                 <div>
-                    <div>
-                        <h2>Effects</h2>
-                        {this.props.effects.map(effectId=><Effect key={effectId} id={effectId}/>)}
-                    </div>
+                    <EffectContainer effects={this.props.effects} createEffect={this.createEffect.bind(this)}/>
                     <div className={'macroContainer'}>
                         <h2>Macros</h2>
                         {this.props.macros.map(macroId => <Macro delete={()=>{this.deleteMacro.call(this, macroId)}} key={macroId} id={macroId}/>)}
