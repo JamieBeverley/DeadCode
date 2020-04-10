@@ -5,6 +5,10 @@ const EffectReducer = (effects, action) => {
     if (action.type === 'EFFECT_UPDATE') {
         effects[action.payload.effectId] = Object.assign({}, effects[action.payload.effectId], action.payload.value);
         return {...effects};
+    } else if (action.type === 'EFFECT_UPDATE_SLIDER_VALUE'){
+        const effect = effects[action.payload.effectId];
+        effects[action.payload.effectId] = {...effect, properties:{...effect.properties, value:payload.value}};
+        return {...effects}
     } else if (action.type === "STEM_ADD_EFFECT") {
         effects[action.payload.effectId] = action.payload.value;
         return {...effects};
@@ -32,5 +36,6 @@ const EffectReducer = (effects, action) => {
         return {...effects}
     }
     return effects;
-}
+};
+
 export default EffectReducer

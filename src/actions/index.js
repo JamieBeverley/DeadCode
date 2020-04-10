@@ -93,6 +93,10 @@ export const ActionSpec = {
         name: 'EFFECT_UPDATE',
         propagateToServer: true
     },
+    'EFFECT_UPDATE_SLIDER_VALUE': {
+        name: 'EFFECT_UPDATE_SLIDER_VALUE',
+        propagateToServer: true
+    },
     'SETTINGS_UPDATE_STYLE':{
         name: 'SETTINGS_UPDATE_STYLE',
         propagateToServer:false

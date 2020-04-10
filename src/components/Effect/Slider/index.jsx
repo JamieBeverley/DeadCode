@@ -40,9 +40,10 @@ export default class SliderEffect extends Component {
 
     handleSliderChange(e, newValue) {
         if (newValue) {
-            const properties = this.props.properties;
-            properties.value = newValue;
-            this.props.globalActions.effectUpdate(this.props.id, {properties});
+            // const properties = this.props.properties;
+            // properties.value = newValue;
+            // this.props.globalActions.effectUpdate(this.props.id, {properties});
+            this.props.globalActions.effectUpdateSliderValue(this.props.id, newValue)
         }
     }
 

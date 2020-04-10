@@ -92,10 +92,9 @@ function getCode(state) {
     return `d1 $ ${code}`;
 }
 
-
 export const TidalCycles = {
     language: 'TidalCycles',
     getCode,
     trackToCode,
     getTempoCode,
-}
+};

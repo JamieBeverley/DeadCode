@@ -26,6 +26,7 @@ export const serverMiddleware = store => next => action => {
 };
 
 let tidalCode ='';
+
 export const renderMiddleWare = store => next => action => {
   next(action);
   let state = store.getState();
@@ -58,6 +59,7 @@ let defaultFeedbackFunction = function(x) {
 }
 
 let tidal = spawn('ghci', ['-XOverloadedStrings']);
+console.log(bootTidal)
 tidal.on('close', function (code) {
   stderr.write('Tidal process exited with code ' + code + "\n");
 });

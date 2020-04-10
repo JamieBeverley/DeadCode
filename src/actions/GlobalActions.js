@@ -209,6 +209,10 @@ const GlobalActions = dispatch => {
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));
         },
+        // Special event only for updating the effect value permits efficiency improvements in rendering, eg. for sliders.
+        effectUpdateSliderValue: (effectId, value) => {
+            dispatch(Actions.effectUpdateSliderValue({effectId, value}))
+        },
         settingsUpdateStyle: (value) => {
             let styleElement = document.body.querySelector('#style style');
             if (styleElement === null) {

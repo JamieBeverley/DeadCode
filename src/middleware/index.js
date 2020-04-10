@@ -1,23 +1,18 @@
 import Connection from "../Connection";
-import {ActionSpec, ActionTypes} from "../actions";
-
+import {ActionTypes} from "../actions";
 
 // propagate action to server if it didn't originate from there
-//
-
-
-
 export const serverControl = store => next => action => {
     const meta = action.meta;
     if (!meta.fromServer && meta.propagateToServer){
-        var newAction = {...action}
+        let newAction = {...action};
         // if pushing state, change the action to a receive for other clients
-        if(newAction.type === ActionSpec.PUSH_STATE.name){
-            newAction.type = ActionSpec.RECEIVE_STATE.name
+        if(newAction.type === ActionTypes.PUSH_STATE){
+            newAction.type = ActionTypes.RECEIVE_STATE
         }
 
         // dispatch to server
         Connection.sendAction(newAction);
     }
     return next(action);
-}
+};
