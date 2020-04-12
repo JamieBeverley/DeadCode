@@ -10,7 +10,6 @@ export const serverControl = store => next => action => {
         if(newAction.type === ActionTypes.PUSH_STATE){
             newAction.type = ActionTypes.RECEIVE_STATE
         }
-
         // dispatch to server
         Connection.sendAction(newAction);
     }

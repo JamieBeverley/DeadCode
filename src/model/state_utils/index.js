@@ -46,6 +46,23 @@ function addEmptyMacros(state){
     return state
 }
 
+function notifyEffectBugs(state){
+    const stemEffects = Object.keys(state.stems).map(x=>({stemName:state.stems[x].name, effects:state.stems[x].effects}));
+    const effectDNE = e => state.effects[e] === undefined;
+    const bugs = stemEffects.filter(x=>{
+        return x.effects.filter(effectDNE).length;
+    }).forEach(x=>{
+       console.log(JSON.stringify({stemName: x.stemName, missingEffects: x.effects.filter(effectDNE)}));
+    });
+}
+
+function deleteNonExistingStemEffects(state){
+    for (let i in state.stems){
+        state.stems[i].effects = state.stems[i].effects.filter(x=>state.effects[x]);
+    }
+    return state
+};
+
 function writeNewState(state, path){
     if(!path){
         path = `new_state_${new Date().getTime()}.json`
@@ -55,7 +72,8 @@ function writeNewState(state, path){
 }
 
 // const newState = addTrackLanguages(state);
-const newState = addEmptyMacros(state);
+// const newState = addEmptyMacros(state);
+const newState = deleteNonExistingStemEffects(state);
 writeNewState(newState, parsed.outputFile);
 
 console.log('done');
