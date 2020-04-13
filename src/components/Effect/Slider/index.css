@@ -1,5 +1,6 @@
 .Slider{
     color: var(--font-color-dark);
+    user-select: none;
 }
 
 .Slider .Toggle{
@@ -10,29 +11,13 @@
 .Slider input[type="range"]{
     width: 100%;
     -webkit-appearance: none;
-    height: 10px;
+    height: 30px;
     background-color: var(--stem-off);
     position: relative;
-    padding: 0px;
+    padding: 0;
+    overflow-x: hidden;
 }
 
-.Slider input[type="range"]::-webkit-slider-thumb{
-    width: 10px;
-    appearance: none;
-    -webkit-appearance:none;
-    height: 25px;
-    background-color: var(--stem-on);
-    position: relative;
-}
-
-.Slider input[type="range"]::-moz-range-thumb {
-    width: 10px;
-    appearance: none;
-    -webkit-appearance:none;
-    height: 20px;
-    background-color: var(--stem-on);
-    position: relative;
-}
 
 .Slider input[type="number"]{
     color: var(--font-color-dark);
@@ -46,24 +31,17 @@
 }
 
 
-.Slider input[type="range"][vertical="true"]{
-    width: 100%;
-    width:10px;
-    -webkit-appearance: none;
-    height: 10px;
-    background-color: var(--stem-off);
-    position: relative;
-    padding: 0px;
-    transform: rotate(90deg);
-}
+
 
 .Slider input[type="range"]::-webkit-slider-thumb{
-    width: 10px;
+    width: 20px;
     appearance: none;
     -webkit-appearance:none;
-    height: 25px;
+    height: 35px;
     background-color: var(--stem-on);
     position: relative;
+    outline:none;
+    box-sizing: content-box;
 }
 
 .Slider input[type="range"]::-moz-range-thumb {
@@ -93,7 +71,16 @@
 
 
 
-
+.Slider input[type="range"][vertical="true"]{
+    width: 100%;
+    width:10px;
+    -webkit-appearance: none;
+    height: 10px;
+    background-color: var(--stem-off);
+    position: relative;
+    padding: 0px;
+    transform: rotate(90deg);
+}
 
 
 

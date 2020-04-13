@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './index.css'
-import {Grid, Input, Slider} from '@material-ui/core';
+import {Grid, Slider} from '@material-ui/core';
 import Toggle from "../../util/Toggle";
 
 
@@ -38,17 +38,16 @@ export default class SliderEffect extends Component {
         return (this.props.isVertical ? this.renderVertical() : this.renderHorizontal())
     }
 
-    handleSliderChange(e, newValue) {
-        if (newValue) {
-            // const properties = this.props.properties;
-            // properties.value = newValue;
-            // this.props.globalActions.effectUpdate(this.props.id, {properties});
-            this.props.globalActions.effectUpdateSliderValue(this.props.id, newValue)
-        }
+    handleSliderChange(value) {
+        this.props.globalActions.effectUpdateSliderValue(this.props.id, value)
     }
 
-    handleInputChange(e) {
-        let value = parseFloat(e.target.value);
+    // Uhg
+    handleVerticalSliderChange(e, newValue) {
+        this.props.globalActions.effectUpdateSliderValue(this.props.id, newValue)
+    }
+
+    handleInputChange(value) {
         const properties = this.props.properties;
         properties.value = value;
         this.props.globalActions.effectUpdate(this.props.id, {properties});
@@ -58,20 +57,24 @@ export default class SliderEffect extends Component {
         this.props.globalActions.effectUpdate(this.props.id, {on})
     }
 
-    getSlider(vertical=false) {
+    getSlider(vertical = false) {
+        if (!this.state.sliderValue && this.state.sliderValue !== 0) {
+            debugger
+        }
         return (
             <input
-                vertical={vertical.toString()}
                 className={'the-slider'}
                 type={'range'}
-                onChange={(e, newValue) => {
-                    this.setState({sliderValue: e.target.value, value: this.fromSliderScale(e.target.value)});
-                    this.handleSliderChange(e, e.target.value);
+                onChange={(e) => {
+                    const sliderValue = parseFloat(e.target.value);
+                    const value = this.fromSliderScale(sliderValue);
+                    this.setState({sliderValue, value});
+                    this.handleSliderChange(value);
                 }}
                 min={this.props.properties.min}
                 max={this.props.properties.max}
                 step={this.props.properties.step}
-                value={parseFloat(this.state.sliderValue)}
+                value={this.state.sliderValue}
             />
         )
     }
@@ -110,12 +113,11 @@ export default class SliderEffect extends Component {
                     </Grid>
                     <Grid item>
                         <input
-                            margin="dense"
                             onChange={(e) => {
-                                let value = parseFloat(e.target.value);
+                                let value = parseFloat(e.nativeEvent.target.value);
                                 e.persist();
                                 this.setState({value: value, sliderValue: this.toSliderScale(value)});
-                                this.handleInputChange.bind(this)(e);
+                                this.handleInputChange.bind(this)(value);
                             }}
                             value={this.state.value}
                             step={this.props.properties.step}
@@ -139,7 +141,7 @@ export default class SliderEffect extends Component {
                     onChange={(e, newValue) => {
                         if (newValue) {
                             this.setState({sliderValue: newValue, value: this.fromSliderScale(newValue)});
-                            this.handleSliderChange(e, newValue);
+                            this.handleVerticalSliderChange(e, newValue);
                         }
                     }}
                     min={this.props.properties.min}
@@ -147,22 +149,18 @@ export default class SliderEffect extends Component {
                     step={this.props.properties.step}
                     value={parseFloat(this.state.sliderValue)}
                 />
-                <Input
-                    margin="dense"
+                <input
                     onChange={(e) => {
-                        let value = parseFloat(e.target.value);
-                        e.persist()
+                        let value = parseFloat(e.nativeEvent.target.value);
+                        e.persist();
                         this.setState({value: value, sliderValue: this.toSliderScale(value)});
                         this.handleInputChange.bind(this)(e);
                     }}
                     value={this.state.value}
-                    inputProps={{
-                        step: this.props.properties.step,
-                        min: this.props.properties.min,
-                        max: this.props.properties.max,
-                        type: 'number',
-                        'aria-labelledby': 'input-slider',
-                    }}
+                    step={this.props.properties.step}
+                    min={this.props.properties.min}
+                    max={this.props.properties.max}
+                    type={'number'}
                 />
                 <div style={{textAlign: 'center'}}>
                     {this.props.properties.code}

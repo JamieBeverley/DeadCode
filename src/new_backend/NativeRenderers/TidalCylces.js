@@ -20,7 +20,6 @@ udpPort.on("ready", function () {
 });
 
 const sendTidalOsc = (address, args) => {
-    console.log(address, args)
     udpPort.send({address, args}, "127.0.0.1", 6010);
 };
 
@@ -72,23 +71,3 @@ export const TidalRenderer = new NativeRenderer(
     './src/backend/BootTidal.hs',
     tidalRender
 );
-
-// TidalRenderer.renderer = tidalRender(TidalRenderer);
-// // Listen for incoming OSC messages.
-// udpPort.on("message", function (oscMsg, timeTag, info) {
-//     console.log("An OSC message just arrived!", oscMsg);
-//     console.log("Remote info is: ", info);
-// });
-// udpPort.send({
-//     address: "/s_new",
-//     args: [
-//         {
-//             type: "s",
-//             value: "default"
-//         },
-//         {
-//             type: "i",
-//             value: 100
-//         }
-//     ]
-// }, "127.0.0.1", 57110);
