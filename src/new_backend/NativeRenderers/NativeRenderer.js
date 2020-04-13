@@ -7,7 +7,7 @@ export default class NativeRenderer {
         this.interpreter = interpreter;
         this.interpreterOptions = interpreterOptions;
         this.bootScriptPath = bootScriptPath;
-        // this.renderer = renderer(this);
+        this.renderer = renderer;
         this.silent = silent;
     }
 
@@ -41,7 +41,7 @@ export default class NativeRenderer {
     }
 
     render(state, action) {
-        this.renderer(state, action);
+        this.renderer.call(this, state, action);
     }
 
     evaluate(str) {

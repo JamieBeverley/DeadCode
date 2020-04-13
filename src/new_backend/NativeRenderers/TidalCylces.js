@@ -20,54 +20,60 @@ udpPort.on("ready", function () {
 });
 
 const sendTidalOsc = (address, args) => {
-    debugger
-    udpPort.send({address, args}, "127.0.0.1", 6012);
+    console.log(address, args)
+    udpPort.send({address, args}, "127.0.0.1", 6010);
 };
 
-const renderFnMap = {};
-
-renderFnMap[ActionTypes.MASTER_UPDATE] = state => {
+function EVAL_MASTER_UPDATE (state) {
     this.evaluate(state.master.TidalCycles.code);
     this.evaluate(Renderers.TidalCycles.getTempoCode(state));
-};
+}
 
-renderFnMap[ActionTypes.PUSH_STATE] = state => {
+function EVAL_PUSH_STATE (state) {
     this.evaluate(state.master.TidalCycles.code);
     this.evaluate(Renderers.TidalCycles.getTempoCode(state));
     this.evaluate(Renderers.TidalCycles.getCode(state));
-};
+}
 
-renderFnMap[ActionTypes.EFFECT_UPDATE_SLIDER_VALUE] = (state, {payload}) => {
+function EVAL_EFFECT_UPDATE_SLIDER_VALUE (state, {payload}){
     const effectId = {type: 'i', value: payload.effectId};
     const value = {type: 'f', value: payload.value};
     sendTidalOsc("/ctrl", [effectId, value]);
-};
+}
 
 // Note: this func is bound to NativeRenderer object.
-const tidalRender = context => (state, action) => {
-    const fn = renderFnMap[action.type];
-    if (fn === undefined) {
-        context.evaluate(Renderers.TidalCycles.getCode(state))
-    } else {
-        fn.call(context, state, action);
+function tidalRender(state, action){
+    if(!action.meta.render){
+        return
     }
-};
-
-const config = {
-    interpreter:'ghci',
-    interpreterOptions: ['-XOverloadedStrings'],
-    bootScriptPath:'./src/backend/BootTidal.hs',
-    renderer: tidalRender
-};
+    // Don't crash if render fails, warn instead...
+    try {
+        switch (action.type) {
+            case ActionTypes.MASTER_UPDATE:
+                EVAL_MASTER_UPDATE.call(this, state, action);
+                return;
+            case ActionTypes.PUSH_STATE:
+                EVAL_PUSH_STATE.call(this, state, action);
+                return;
+            case ActionTypes.EFFECT_UPDATE_SLIDER_VALUE:
+                EVAL_EFFECT_UPDATE_SLIDER_VALUE.call(this, state, action);
+                return;
+            default:
+                this.evaluate(Renderers.TidalCycles.getCode(state))
+        }
+    } catch(e){
+        console.error(e);
+    }
+}
 
 export const TidalRenderer = new NativeRenderer(
-    config.interpreter,
-    config.interpreterOptions,
-    config.bootScriptPath,
-    config.renderer
+    'ghci',
+    ['-XOverloadedStrings'],
+    './src/backend/BootTidal.hs',
+    tidalRender
 );
-TidalRenderer.renderer = tidalRender(TidalRenderer);
 
+// TidalRenderer.renderer = tidalRender(TidalRenderer);
 // // Listen for incoming OSC messages.
 // udpPort.on("message", function (oscMsg, timeTag, info) {
 //     console.log("An OSC message just arrived!", oscMsg);

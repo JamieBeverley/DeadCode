@@ -1,113 +1,38 @@
 import {createAction} from 'redux-actions'
 
 export const ActionSpec = {
-    'MIDI_UPDATE':{
-        name:'MIDI_UPDATE',
-        propagateToServer:true
-    },
-    'PUSH_STATE':{
-        name: 'PUSH_STATE',
-        propagateToServer:true
-    },
-    'RECEIVE_STATE':{
-        name: 'RECEIVE_STATE',
-        propagateToServer:false
-    },
-    'CONNECT': {
-        name: 'CONNECT',
-        propagateToServer: false
-    },
-    'SAVE': {
-        name: 'SAVE',
-        propagateToServer: false
-    },
-    'LOAD': {
-        name: 'LOAD',
-        propagateToServer: false
-    },
-    'LOAD_FROM_SERVER': {
-        name: 'LOAD_FROM_SERVER',
-        propagateToServer: false
-    },
-    'DOWNLOAD': {
-        name: 'DOWNLOAD',
-        propagateToServer: false
-    },
-    'MASTER_UPDATE': {
-        name: 'MASTER_UPDATE',
-        propagateToServer: true
-    },
-    'MASTER_ADD_EFFECT': {
-        name: 'MASTER_ADD_EFFECT',
-        propagateToServer: true
-    },
-    'STEM_UPDATE': {
-        name: 'STEM_UPDATE',
-        propagateToServer: true
-    },
-    'STEM_DELETE_EFFECT': {
-        name: 'STEM_DELETE_EFFECT',
-        propagateToServer: true
-    },
-    'STEM_ADD_EFFECT': {
-        name: 'STEM_ADD_EFFECT',
-        propagateToServer: true
-    },
-    'STEM_COPY': {
-        name: 'STEM_COPY',
-        propagateToServer: true
-    },
-    'STEM_PASTE': {
-        name: 'STEM_PASTE',
-        propagateToServer: true
-    },
-    'TRACK_UPDATE': {
-        name: 'TRACK_UPDATE',
-        propagateToServer: true
-    },
-    'TRACK_DELETE_STEM': {
-        name: 'TRACK_DELETE_STEM',
-        propagateToServer: true
-    },
-    'TRACK_ADD_STEM': {
-        name: 'TRACK_ADD_STEM',
-        propagateToServer: true
-    },
-    'TRACK_DELETE_EFFECT': {
-        name: 'TRACK_DELETE_EFFECT',
-        propagateToServer: true
-    },
-    'TRACK_ADD_EFFECT': {
-        name: 'TRACK_ADD_EFFECT',
-        propagateToServer: true
-    },
-    'TRACK_ADD': {
-        name: 'TRACK_ADD',
-        propagateToServer: true
-    },
-    'TRACK_DELETE': {
-        name: 'TRACK_DELETE',
-        propagateToServer: true
-    },
-    'EFFECT_UPDATE': {
-        name: 'EFFECT_UPDATE',
-        propagateToServer: true
-    },
-    'EFFECT_UPDATE_SLIDER_VALUE': {
-        name: 'EFFECT_UPDATE_SLIDER_VALUE',
-        propagateToServer: true
-    },
-    'SETTINGS_UPDATE_STYLE':{
-        name: 'SETTINGS_UPDATE_STYLE',
-        propagateToServer:false
-    },
-    'TRACK_ADD_MACRO': {name: "TRACK_ADD_MACRO", propagateToServer:true},
-    'MASTER_ADD_MACRO': {name: "MASTER_ADD_MACRO", propagateToServer:true},
-    'STEM_ADD_MACRO': {name: "STEM_ADD_MACRO", propagateToServer:true},
-    'TRACK_DELETE_MACRO': {name: "TRACK_DELETE_MACRO", propagateToServer:true},
-    'MASTER_DELETE_MACRO': {name: "MASTER_DELETE_MACRO", propagateToServer:true},
-    'STEM_DELETE_MACRO': {name: "STEM_DELETE_MACRO", propagateToServer:true},
-    'MACRO_UPDATE': {name:"MACRO_UPDATE", propagateToServer: true}
+    'MIDI_UPDATE':{name:'MIDI_UPDATE', propagateToServer:true, render:true},
+    'PUSH_STATE':{name: 'PUSH_STATE', propagateToServer:true, render:true},
+    'RECEIVE_STATE':{name: 'RECEIVE_STATE', propagateToServer:false, render:true},
+    'CONNECT': {name: 'CONNECT', propagateToServer: false, render:false},
+    'SAVE': {name: 'SAVE', propagateToServer: false, render:false},
+    'LOAD': {name: 'LOAD', propagateToServer: false, render:false},
+    'LOAD_FROM_SERVER': {name: 'LOAD_FROM_SERVER', propagateToServer: false, render:true},
+    'DOWNLOAD': {name: 'DOWNLOAD', propagateToServer: false, render:false},
+    'MASTER_UPDATE': {name: 'MASTER_UPDATE', propagateToServer: true, render:true},
+    'MASTER_ADD_EFFECT': {name: 'MASTER_ADD_EFFECT', propagateToServer: true, render:true},
+    'STEM_UPDATE': {name: 'STEM_UPDATE', propagateToServer: true, render:true},
+    'STEM_DELETE_EFFECT': {name: 'STEM_DELETE_EFFECT', propagateToServer: true, render:true},
+    'STEM_ADD_EFFECT': {name: 'STEM_ADD_EFFECT', propagateToServer: true, render:true},
+    'STEM_COPY': {name: 'STEM_COPY', propagateToServer: true, render:false},
+    'STEM_PASTE': {name: 'STEM_PASTE', propagateToServer: true, render:true},
+    'TRACK_UPDATE': {name: 'TRACK_UPDATE', propagateToServer: true, render:true},
+    'TRACK_DELETE_STEM': {name: 'TRACK_DELETE_STEM', propagateToServer: true, render:true},
+    'TRACK_ADD_STEM': {name: 'TRACK_ADD_STEM', propagateToServer: true, render:true},
+    'TRACK_DELETE_EFFECT': {name: 'TRACK_DELETE_EFFECT', propagateToServer: true, render:true},
+    'TRACK_ADD_EFFECT': {name: 'TRACK_ADD_EFFECT', propagateToServer: true, render:true},
+    'TRACK_ADD': {name: 'TRACK_ADD', propagateToServer: true, render:true},
+    'TRACK_DELETE': {name: 'TRACK_DELETE', propagateToServer: true, render:true},
+    'EFFECT_UPDATE': {name: 'EFFECT_UPDATE', propagateToServer: true, render:true},
+    'EFFECT_UPDATE_SLIDER_VALUE': {name: 'EFFECT_UPDATE_SLIDER_VALUE', propagateToServer: true, render:true},
+    'SETTINGS_UPDATE_STYLE':{name: 'SETTINGS_UPDATE_STYLE', propagateToServer:false, render:false},
+    'TRACK_ADD_MACRO': {name: "TRACK_ADD_MACRO", propagateToServer:true, render:true},
+    'MASTER_ADD_MACRO': {name: "MASTER_ADD_MACRO", propagateToServer:true, render:true},
+    'STEM_ADD_MACRO': {name: "STEM_ADD_MACRO", propagateToServer:true, render:true},
+    'TRACK_DELETE_MACRO': {name: "TRACK_DELETE_MACRO", propagateToServer:true, render:true},
+    'MASTER_DELETE_MACRO': {name: "MASTER_DELETE_MACRO", propagateToServer:true, render:true},
+    'STEM_DELETE_MACRO': {name: "STEM_DELETE_MACRO", propagateToServer:true, render:true},
+    'MACRO_UPDATE': {name:"MACRO_UPDATE", propagateToServer:true, render:true}
 };
 
 function camel(capitalSnake) {
@@ -122,7 +47,7 @@ function camel(capitalSnake) {
 export let ActionTypes = {};
 export let Actions = {};
 for (let action in ActionSpec) {
-    let meta = {propagateToServer: ActionSpec[action].propagateToServer, fromServer:false};
+    const meta = {propagateToServer: ActionSpec[action].propagateToServer, fromServer:false, render:ActionSpec[action].render};
     Actions[camel(action)] = createAction(action, x => x, () => meta);
     ActionTypes[action] = action;
 }

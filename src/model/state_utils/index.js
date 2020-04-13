@@ -1,5 +1,6 @@
 import Languages from "../LanguageModel";
 import Model from "../index";
+import EffectModel from "../EffectModel";
 const readlineSync = require('readline-sync');
 const fs = require('fs');
 const nopt = require('nopt');
@@ -29,11 +30,10 @@ function _applyTo(state, stateComponent, fn){
     if(!Object.values(stateComponents).includes(stateComponent)){
         throw Error(`Invalid state component ${stateComponent}`)
     }
-    const newComponent = Object.keys(state[stateComponent]).reduce((acc,v)=>{
+    state[stateComponent] = Object.keys(state[stateComponent]).reduce((acc,v)=>{
         acc[v] = fn(state[stateComponent][v]);
         return acc;
     },{});
-    state[stateComponent] = newComponent;
     return state;
 }
 
@@ -61,7 +61,21 @@ function deleteNonExistingStemEffects(state){
         state.stems[i].effects = state.stems[i].effects.filter(x=>state.effects[x]);
     }
     return state
-};
+}
+
+function assignSliderTypes(state){
+    function applyType(effect){
+        if(effect.type===EffectModel.Types.SLIDER){
+            if(effect.properties.code==='coarse'){
+                effect.properties.type = EffectModel.SliderTypes.int;
+            } else {
+                effect.properties.type = EffectModel.SliderTypes.float;
+            }
+        }
+        return effect
+    }
+    return _applyTo(state, stateComponents.effects, applyType);
+}
 
 function writeNewState(state, path){
     if(!path){
@@ -73,7 +87,7 @@ function writeNewState(state, path){
 
 // const newState = addTrackLanguages(state);
 // const newState = addEmptyMacros(state);
-const newState = deleteNonExistingStemEffects(state);
+// const newState = deleteNonExistingStemEffects(state);
+const newState = assignSliderTypes(state);
 writeNewState(newState, parsed.outputFile);
-
 console.log('done');

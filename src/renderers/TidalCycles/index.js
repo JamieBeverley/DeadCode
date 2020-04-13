@@ -8,7 +8,8 @@ function getTempoCode(state) {
 
 export const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x) => {
-    return `(${x.properties.operator} ${x.properties.code} ${x.properties.value})`
+    const type = x.properties.type===EffectModel.SliderTypes.int?'I':'F';
+    return `(${x.properties.operator} ${x.properties.code} (c${type} ${x.properties.value} "${x.id}"))`
 };
 
 EffectsToCode[EffectModel.Types.CODE_TOGGLE] = (x) => {
@@ -29,6 +30,7 @@ function stemToCode(state, stem) {
     stem.effects.forEach(e => {
         let effect = state.effects[e];
         if (effect.on) {
+            effect.id = e;
             effectsOn.push(effectToCode(effect));
         }
     });
@@ -56,6 +58,7 @@ function trackToCode(state, track) {
     track.effects.forEach(e => {
         let effect = state.effects[e];
         if (effect.on) {
+            effect.id = e;
             effectsOn.push(effectToCode(effect));
         }
     });
@@ -80,6 +83,7 @@ function getCode(state) {
     master.effects.forEach(x => {
         let effect = state.effects[x];
         if (effect.on) {
+            effect.id = x;
             masterEffects.push(effectToCode(effect));
         }
     });

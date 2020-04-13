@@ -17,6 +17,11 @@ class LanguageControls extends Component {
         this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
     }
 
+    changeTempoSlider(id, tempo){
+        const val = this.props;
+        val.properties.tempo = tempo;
+        this.props.globalActions.masterUpdate(Model.Languages.TidalCycles, val);
+    }
 
     getLanguageSpecific() {
         switch (this.props.language) {
@@ -32,12 +37,13 @@ class LanguageControls extends Component {
                         step: 0.01,
                         value: this.props.properties.tempo
                     },
-                    globalActions:{effectUpdate:this.changeTempo.bind(this)},
+                    globalActions:{effectUpdate:this.changeTempo.bind(this), effectUpdateSliderValue:this.changeTempoSlider.bind(this)},
                     noToggle: true,
                     key: 'tempo',
                     type:"SLIDER",
                     updateEffect: this.changeTempo.bind(this),
                 };
+
 
                 return [
                     <CodeEditor

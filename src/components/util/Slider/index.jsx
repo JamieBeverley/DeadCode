@@ -7,7 +7,7 @@ import {throttle} from 'lodash';
 class Slider extends Component {
     constructor(props) {
         super(props);
-        const defaultThrottle = 50;
+        const defaultThrottle = 10;
         this._onEvent = throttle(this._onMouseDown.bind(this), this.props.throttle === undefined ? defaultThrottle : this.props.throttle, {leading:true, trailing:true});
         this.onEvent = (e) => {
             e.persist();

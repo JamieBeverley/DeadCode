@@ -18,9 +18,14 @@ function clone(effect) {
     }
 }
 
-let Types = {
+const Types = {
     CODE_TOGGLE: 'CODE_TOGGLE',
     SLIDER: "SLIDER",
+};
+
+const SliderTypes = {
+  float:'float',
+  int:'int'
 };
 
 let PropertySpec = {
@@ -31,7 +36,8 @@ let PropertySpec = {
         min: 'float',
         max: 'float',
         step: 'float',
-        scale: 'string' // 'linear' or 'log'
+        scale: 'string', // 'linear' or 'log'
+        type:'string' // 'float' or 'int'
     },
     CODE_TOGGLE: {
         code: 'string',
@@ -45,7 +51,7 @@ let PropertySpec = {
         step: 'float',
         scale: 'string'
     }
-}
+};
 
 const defaultEffects = {};
 defaultEffects[Languages.TidalCycles] = () => {
@@ -67,7 +73,8 @@ defaultEffects[Languages.TidalCycles] = () => {
                 min: 0,
                 max: 2,
                 step: 0.01,
-                scale: 'linear'
+                scale: 'linear',
+                type: SliderTypes.float
             }),
         EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", false,
             {
@@ -77,7 +84,8 @@ defaultEffects[Languages.TidalCycles] = () => {
                 min: 0,
                 max: 22000,
                 step: 10,
-                scale: 'log'
+                scale: 'log',
+                type: SliderTypes.float
             }),
         EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", false,
             {
@@ -87,7 +95,8 @@ defaultEffects[Languages.TidalCycles] = () => {
                 min: 0,
                 max: 22000,
                 step: 10,
-                scale: 'log'
+                scale: 'log',
+                type: SliderTypes.float
             }),
         EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", false,
             {
@@ -97,7 +106,8 @@ defaultEffects[Languages.TidalCycles] = () => {
                 min: 0,
                 max: 24,
                 step: 1,
-                scale: 'linear'
+                scale: 'linear',
+                type: SliderTypes.int
             }),
         EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", false,
             {
@@ -107,7 +117,8 @@ defaultEffects[Languages.TidalCycles] = () => {
                 min: 0,
                 max: 1,
                 step: 0.01,
-                scale: 'linear'
+                scale: 'linear',
+                type: SliderTypes.float
             }),
         EffectModel.getNew(EffectModel.Types.SLIDER, "TidalCycles", false,
             {
@@ -117,7 +128,8 @@ defaultEffects[Languages.TidalCycles] = () => {
                 min: 0,
                 max: 1,
                 step: 0.01,
-                scale: 'linear'
+                scale: 'linear',
+                type: SliderTypes.float
             }),
         EffectModel.getNew(EffectModel.Types.CODE_TOGGLE, 'TidalCycles', false, {
             code: ''
@@ -134,7 +146,8 @@ defaultEffects[Languages.Hydra] = () => {
                 min: 0,
                 max: 50,
                 step: 1,
-                scale: 'linear'
+                scale: 'linear',
+                type: SliderTypes.int
             }),
         EffectModel.getNew(EffectModel.Types.SLIDER, 'Hydra', false,
             {
@@ -143,7 +156,8 @@ defaultEffects[Languages.Hydra] = () => {
                 min: 0,
                 max: 200,
                 step: 1,
-                scale: 'linear'
+                scale: 'linear',
+                type: SliderTypes.int
             })
     ]
 };
@@ -154,8 +168,9 @@ const EffectModel = {
     getNew,
     clone,
     Types,
+    SliderTypes,
     PropertySpec,
     util
-}
+};
 
 export default EffectModel
