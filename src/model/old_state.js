@@ -46,7 +46,7 @@ State.getDefaultTrack = function  (){
     let id = uniqueId();
     return {
         id,
-        name:'New Track',
+        name:'',
         stems:([0,0,0,0,0]).map(x=>{return State.getDefaultStem(id)}),
         effects:[
             {

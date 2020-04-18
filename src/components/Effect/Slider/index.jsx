@@ -57,10 +57,7 @@ export default class SliderEffect extends Component {
         this.props.globalActions.effectUpdate(this.props.id, {on})
     }
 
-    getSlider(vertical = false) {
-        if (!this.state.sliderValue && this.state.sliderValue !== 0) {
-            debugger
-        }
+    getSlider() {
         return (
             <input
                 className={'the-slider'}

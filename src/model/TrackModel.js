@@ -4,7 +4,7 @@ import languages from './LanguageModel'
 
 function getNew(language=languages.TidalCycles) {
     return {
-        name: 'New Track',
+        name: '',
         stems:[],
         effects:[],
         macros:[],

@@ -36,7 +36,7 @@ function stemToCode(state, stem) {
     });
     let code = effectsOn.join(" $ ");
     code += effectsOn.length ? ' $ ' : '';
-    code += stem.code;
+    code += `stack [${stem.code.split("\n").map(x=>x.trim()).filter(x=>x!=='').join(", ")}]`;
     return stem.macros.map(x=>state.macros[x]).reduce((acc,macro)=>{
         return acc.split(macro.placeholder).join(macro.value);
     }, code);
