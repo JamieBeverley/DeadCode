@@ -53,7 +53,7 @@ const getInput = function (res) {
     } catch (e) {
         console.warn("could not init midi input")
     }
-}
+};
 
 
 const getOutput = function (res) {
@@ -75,7 +75,7 @@ const getOutput = function (res) {
     } catch (e) {
         console.warn("could not init midi output")
     }
-}
+};
 
 function init() {
     getMidiMap(() => {
@@ -176,8 +176,8 @@ function onDeviceNoteOff(msg) {
     if (midiMap.controls[msg.channel] && midiMap.controls[msg.channel][msg.note]) {
         const op = midiMap.controls[msg.channel][msg.note];
         const payload = {};
-        const topLim = state.tracks.values[Object.keys(state.tracks)[state.midi.left]].stems.length-1;
-        const leftLim = Object.keys(state.tracks).length-1;
+        const topLim = state.tracks.values[state.tracks.order[state.midi.left]].stems.length-1;
+        const leftLim = state.tracks.order.length-1;
         switch (op) {
             case 'up':
                 payload['top'] = clamp(midi.top - 1,0, topLim);
@@ -199,7 +199,7 @@ function onDeviceNoteOff(msg) {
         const pos = [...midiMap.toPosMap.buttons[msg.channel][msg.note]];
         pos[1] = pos[1] + midi.left;
         pos[0] = pos[0] + midi.top;
-        const trackId = Object.keys(state.tracks)[pos[1]];
+        const trackId = state.tracks.order[pos[1]];
         if (trackId === undefined) return;
         const stemId = state.tracks.values[trackId].stems[pos[0]];
         if (stemId === undefined) return;
@@ -215,7 +215,7 @@ function onDeviceNoteOff(msg) {
 function onDeviceCC(msg) {
     const state = store.getState();
     let trackIndex = state.midi.left + midiMap.toPosMap.faders[msg.channel][msg.controller];
-    let trackId = Object.keys(state.tracks)[trackIndex];
+    let trackId = state.tracks.order[trackIndex];
     if (trackId === undefined) {
         return
     }
@@ -238,7 +238,7 @@ function roundTo(num, decimals){
 
 function onStemChange(stemId) {
     const state = store.getState();
-    const trackIds = Object.keys(state.tracks);
+    const trackIds = state.tracks.order;
     const trackIndex = trackIds.findIndex(x => {
         return state.tracks.values[x].stems.includes(stemId)
     });

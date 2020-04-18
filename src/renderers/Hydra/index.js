@@ -19,7 +19,7 @@ function getMacros(state) {
 function getCode(state){
     let mixMethod = state.master.Hydra.properties.mixMethod;
 
-    let tracks = Object.keys(state.tracks).map(x=>{return trackToCode(state, state.tracks.values[x],mixMethod)}).filter(x=>x);
+    let tracks = state.tracks.order.map(x=>{return trackToCode(state, state.tracks.values[x],mixMethod)}).filter(x=>x);
 
     let code;
     if(tracks.length>0){

@@ -12,7 +12,7 @@ export const mapStateToProps = (state,props) => {
     //
     // newState.tracks = Object.keys(Object.assign({},state.tracks)).map((x)=>{return populateTrack(state, x)});
     // return newState;
-    // // Object.keys(state.tracks).forEach(trackId=>{
+    // // state.tracks.order.forEach(trackId=>{
     // //     let stems = state.tracks.values[trackId].stems.map(x=>{return state.stems[x]});
     // // });
 };

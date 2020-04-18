@@ -9,10 +9,10 @@ import {ActionSpec} from "./index";
 import MacroModel from '../model/MacroModel'
 
 function getPosition(state, stemId) {
-    let track = Object.keys(state.tracks).findIndex(x => {
+    let track = state.tracks.order.findIndex(x => {
         return state.tracks.values[x].stems.includes(stemId)
     });
-    let stem = state.tracks.values[Object.keys(state.tracks)[track]].stems.findIndex(x => {
+    let stem = state.tracks.values[state.tracks.order[track]].stems.findIndex(x => {
         return x === stemId
     });
     return {track, stem}
@@ -60,12 +60,12 @@ const GlobalActions = dispatch => {
 
                 let newPos = {track: cpPos.track + diffPos.track, stem: cpPos.stem + diffPos.stem};
 
-                if (newPos.track >= Object.keys(state.tracks).length) {
+                if (newPos.track >= state.tracks.order.length) {
                     console.log('too long');
                     return
                 }
 
-                let targetTrackId = Object.keys(state.tracks)[newPos.track];
+                let targetTrackId = state.tracks.order[newPos.track];
 
                 while (newPos.stem >= state.tracks.values[targetTrackId].stems.length) {
                     globalActions.trackAddStem(targetTrackId);

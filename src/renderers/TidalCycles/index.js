@@ -72,7 +72,7 @@ function trackToCode(state, track) {
 function getCode(state) {
     let stems = 'stack [';
 
-    const tracks = Object.keys(state.tracks).map(x => {
+    const tracks = Object.keys(state.tracks.values).map(x => {
         return trackToCode(state, state.tracks.values[x])
     });
 

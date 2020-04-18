@@ -10,6 +10,7 @@ const parsed = nopt(knownOpts, {},process.argv);
 const file = fs.readFileSync(parsed.inputFile);
 const state = JSON.parse(file);
 
+// Before orders were added for tracks...
 function addTrackLanguages(state){
     const languages = Object.values(Languages);
     const languageString = languages.map((x,i)=>{return `${i}. ${x}`}).join("\n");
@@ -63,6 +64,7 @@ function deleteNonExistingStemEffects(state){
     return state
 }
 
+// For effect refactor
 function assignSliderTypes(state){
     function applyType(effect){
         if(effect.type===EffectModel.Types.SLIDER){
@@ -77,6 +79,16 @@ function assignSliderTypes(state){
     return _applyTo(state, stateComponents.effects, applyType);
 }
 
+function addTrackOrders(state){
+    state.tracks = {
+        values: state.tracks,
+        order: Object.keys(state.tracks)
+    };
+    return state
+}
+
+
+
 function writeNewState(state, path){
     if(!path){
         path = `new_state_${new Date().getTime()}.json`
@@ -88,6 +100,8 @@ function writeNewState(state, path){
 // const newState = addTrackLanguages(state);
 // const newState = addEmptyMacros(state);
 // const newState = deleteNonExistingStemEffects(state);
-const newState = assignSliderTypes(state);
+// const newState = assignSliderTypes(state);
+const newState = addTrackOrders(state);
+
 writeNewState(newState, parsed.outputFile);
 console.log('done');
