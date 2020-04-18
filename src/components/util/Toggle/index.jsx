@@ -14,7 +14,7 @@ export default class Toggle extends Component {
     render() {
         return (
             <div onContextMenu={this.onClick.bind(this)} onClick={this.onClick.bind(this)} className={"Toggle"+(this.props.on?" on":"")}>
-                <div></div>
+                <button></button>
             </div>
         )
     }

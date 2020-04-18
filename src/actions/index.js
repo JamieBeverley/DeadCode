@@ -23,6 +23,7 @@ export const ActionSpec = {
     'TRACK_ADD_EFFECT': {name: 'TRACK_ADD_EFFECT', propagateToServer: true, render:true},
     'TRACK_ADD': {name: 'TRACK_ADD', propagateToServer: true, render:true},
     'TRACK_DELETE': {name: 'TRACK_DELETE', propagateToServer: true, render:true},
+    'TRACK_REORDER': {name: 'TRACK_REORDER', propagateToServer: true, render:false},
     'EFFECT_UPDATE': {name: 'EFFECT_UPDATE', propagateToServer: true, render:true},
     'EFFECT_UPDATE_SLIDER_VALUE': {name: 'EFFECT_UPDATE_SLIDER_VALUE', propagateToServer: true, render:true},
     'SETTINGS_UPDATE_STYLE':{name: 'SETTINGS_UPDATE_STYLE', propagateToServer:false, render:false},

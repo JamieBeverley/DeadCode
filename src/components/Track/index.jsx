@@ -40,14 +40,10 @@ export class TrackStems extends Component {
         this.props.globalActions.trackAddStem(this.props.id);
     }
 
-    onScroll(e){
-        debugger
-    }
-
     render() {
         let stems = this.props.stems.map(this.stemToComponent.bind(this));
         return (
-            <div onScroll={this.onScroll.bind(this)} key={`track_${this.props.id}_stems`} className={'TrackStems'}>
+            <div key={`track_${this.props.id}_stems`} className={'TrackStems'}>
                 {stems}
                 <div style={{padding: '5px'}}>
                     <PlusButton onClick={this.addStem.bind(this)}/>

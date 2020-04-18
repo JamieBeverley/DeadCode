@@ -176,7 +176,7 @@ function onDeviceNoteOff(msg) {
     if (midiMap.controls[msg.channel] && midiMap.controls[msg.channel][msg.note]) {
         const op = midiMap.controls[msg.channel][msg.note];
         const payload = {};
-        const topLim = state.tracks[Object.keys(state.tracks)[state.midi.left]].stems.length-1;
+        const topLim = state.tracks.values[Object.keys(state.tracks)[state.midi.left]].stems.length-1;
         const leftLim = Object.keys(state.tracks).length-1;
         switch (op) {
             case 'up':
@@ -201,7 +201,7 @@ function onDeviceNoteOff(msg) {
         pos[0] = pos[0] + midi.top;
         const trackId = Object.keys(state.tracks)[pos[1]];
         if (trackId === undefined) return;
-        const stemId = state.tracks[trackId].stems[pos[0]];
+        const stemId = state.tracks.values[trackId].stems[pos[0]];
         if (stemId === undefined) return;
         const on = !state.stems[stemId].on;
 
@@ -219,7 +219,7 @@ function onDeviceCC(msg) {
     if (trackId === undefined) {
         return
     }
-    let effectId = state.tracks[trackId].effects[0];
+    let effectId = state.tracks.values[trackId].effects[0];
     if (effectId === undefined) {
         return
     }
@@ -240,10 +240,10 @@ function onStemChange(stemId) {
     const state = store.getState();
     const trackIds = Object.keys(state.tracks);
     const trackIndex = trackIds.findIndex(x => {
-        return state.tracks[x].stems.includes(stemId)
+        return state.tracks.values[x].stems.includes(stemId)
     });
     const trackId = trackIds[trackIndex];
-    const stemIndex = state.tracks[trackId].stems.findIndex(x=>{return x === stemId});
+    const stemIndex = state.tracks.values[trackId].stems.findIndex(x=>{return x === stemId});
 
 
     const row = stemIndex - state.midi.top;

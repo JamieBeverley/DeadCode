@@ -10,9 +10,9 @@ import MacroModel from '../model/MacroModel'
 
 function getPosition(state, stemId) {
     let track = Object.keys(state.tracks).findIndex(x => {
-        return state.tracks[x].stems.includes(stemId)
+        return state.tracks.values[x].stems.includes(stemId)
     });
-    let stem = state.tracks[Object.keys(state.tracks)[track]].stems.findIndex(x => {
+    let stem = state.tracks.values[Object.keys(state.tracks)[track]].stems.findIndex(x => {
         return x === stemId
     });
     return {track, stem}
@@ -67,11 +67,11 @@ const GlobalActions = dispatch => {
 
                 let targetTrackId = Object.keys(state.tracks)[newPos.track];
 
-                while (newPos.stem >= state.tracks[targetTrackId].stems.length) {
+                while (newPos.stem >= state.tracks.values[targetTrackId].stems.length) {
                     globalActions.trackAddStem(targetTrackId);
                     state = store.getState();
                 }
-                let targetStemId = state.tracks[targetTrackId].stems[newPos.stem];
+                let targetStemId = state.tracks.values[targetTrackId].stems[newPos.stem];
                 globalActions.stemUpdate(targetStemId, state.stems[sId]);
             })
         },
@@ -167,7 +167,7 @@ const GlobalActions = dispatch => {
         // TODO: stuff like this would probably be better as sagas
         trackAddStem: (trackId) => {
             const state = store.getState();
-            let language = state.tracks[trackId].language;
+            let language = state.tracks.values[trackId].language;
             // create stem and assign to track
             let stemId = Id.new();
             let stem = StemModel.getNew(language);
@@ -199,12 +199,15 @@ const GlobalActions = dispatch => {
         },
         trackDelete: (trackId) => {
             const state = store.getState();
-            const track = state.tracks[trackId];
+            const track = state.tracks.values[trackId];
             const stems = track.stems.map(x=>state.stems[x]);
             const stemEffects = stems.map(s=>s.effects).flat();
             const trackEffects = track.effects;
             const macros = track.macros.concat(stems.map(x=>x.macros).flat());
             dispatch(Actions.trackDelete({trackId, stems:track.stems, effects: trackEffects.concat(stemEffects), macros}));
+        },
+        trackReorder: (trackId, position) => {
+            dispatch(Actions.trackReorder({trackId, position}))
         },
         effectUpdate: (effectId, value) => {
             dispatch(Actions.effectUpdate({effectId, value}));

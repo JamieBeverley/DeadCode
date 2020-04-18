@@ -13,14 +13,14 @@ export const mapStateToProps = (state,props) => {
     // newState.tracks = Object.keys(Object.assign({},state.tracks)).map((x)=>{return populateTrack(state, x)});
     // return newState;
     // // Object.keys(state.tracks).forEach(trackId=>{
-    // //     let stems = state.tracks[trackId].stems.map(x=>{return state.stems[x]});
+    // //     let stems = state.tracks.values[trackId].stems.map(x=>{return state.stems[x]});
     // // });
 };
 
 // function populateTrack(state, trackId){
-//     let track = state.tracks[trackId];
+//     let track = state.tracks.values[trackId];
 //     track.id = trackId
-//     // let track = state.tracks[trackId];
+//     // let track = state.tracks.values[trackId];
 //     track.stems = track.stems.map(x=>{return populateStem(state, x)});
 //     //TODO temp hack
 //     // track.gainEffect = track.effects.map(x=>{return state.effects[x]});
@@ -43,8 +43,8 @@ export const mapStateToProps = (state,props) => {
 // }
 
 // function populateTrack(state, trackId){
-//     let track = Object.assign({},state.tracks[trackId]);
-//     // let track = state.tracks[trackId];
+//     let track = Object.assign({},state.tracks.values[trackId]);
+//     // let track = state.tracks.values[trackId];
 //     track.stems = track.stems.map(x=>{return populateStem(state, x)});
 //     //TODO temp hack
 //     // track.gainEffect = track.effects.map(x=>{return state.effects[x]});

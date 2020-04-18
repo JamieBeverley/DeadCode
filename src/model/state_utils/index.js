@@ -14,11 +14,11 @@ function addTrackLanguages(state){
     const languages = Object.values(Languages);
     const languageString = languages.map((x,i)=>{return `${i}. ${x}`}).join("\n");
     Object.keys(state.tracks).forEach(trackId=>{
-        const track = state.tracks[trackId];
+        const track = state.tracks.values[trackId];
         if(track.language===undefined){
             const languageChoice = readlineSync.question(`Enter Language for Track: ${track.name} (${trackId}).\n${languageString}\n`);
             console.log(languages[languageChoice]);
-            state.tracks[trackId].language = languages[languageChoice];
+            state.tracks.values[trackId].language = languages[languageChoice];
         }
     });
     return state;

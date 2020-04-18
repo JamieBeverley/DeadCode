@@ -12,7 +12,10 @@ const Model = {};
 
 Model.Languages = languages;
 
-const tracks = {};
+const tracks = {
+    order:[],
+    values:{}
+};
 const stems = {};
 const effects = {};
 const macros = {};
@@ -36,8 +39,8 @@ const master = {TidalCycles, Hydra};
 
 for (let i = 0; i < 8; i++) {
     let trackId = Id.new();
-    tracks[trackId] = TrackModel.getNew();
-
+    tracks.values[trackId] = TrackModel.getNew();
+    tracks.order.push(trackId);
     // Create Stems for Track
     for (let j = 0; j < 8; j++) {
         let stemId = Id.new();
@@ -47,7 +50,7 @@ for (let i = 0; i < 8; i++) {
             effects[effectId] = effect;
             stems[stemId].effects.push(effectId);
         });
-        tracks[trackId].stems.push(stemId);
+        tracks.values[trackId].stems.push(stemId);
     }
 
     // Create Effects for Track
@@ -55,10 +58,9 @@ for (let i = 0; i < 8; i++) {
     for(let effectIndex=0; effectIndex<defaultEffects.length; effectIndex++){
         let effectId = Id.new();
         effects[effectId] = EffectModel.util.defaultEffects[languages.TidalCycles]()[effectIndex];
-        tracks[trackId].effects.push(effectId);
+        tracks.values[trackId].effects.push(effectId);
     }
 }
-
 
 Model.defaultState = {
     connection: {

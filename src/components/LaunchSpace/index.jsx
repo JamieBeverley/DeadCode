@@ -3,7 +3,7 @@ import './index.css';
 import PlusButton from "../util/PlusButton/PlusButton";
 import languages from '../../model/LanguageModel';
 import Modal from "../Modal";
-import TrackEffect from "../../containers/TrackEditor";
+import TrackEditor from "../../containers/TrackEditor";
 import TrackStems from "../../containers/Track/TrackStems";
 import TrackEffects from "../../containers/Track/TrackEffects";
 import TrackTitle from "../../containers/Track/TrackTitle";
@@ -19,7 +19,7 @@ export default class LaunchSpace extends Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-        const definedOpen = this.state.openTrackEffects.filter(x => this.props.tracks[x] !== undefined);
+        const definedOpen = this.state.openTrackEffects.filter(x => this.props.tracks.values[x] !== undefined);
         if (definedOpen.length !== this.state.openTrackEffects.length) {
             this.setState({openTrackEffects: definedOpen});
         }
@@ -91,7 +91,7 @@ export default class LaunchSpace extends Component {
         if (this.state.openTrackEffects.includes(trackId)) {
             openTrackEffects = this.state.openTrackEffects.filter(x => x !== trackId);
         } else {
-            openTrackEffects = Object.keys(this.props.tracks).filter(tId => {
+            openTrackEffects = Object.keys(this.props.tracks.values).filter(tId => {
                 return this.state.openTrackEffects.includes(tId) || tId === trackId
             });
         }
@@ -102,11 +102,10 @@ export default class LaunchSpace extends Component {
         if (this.state.openTrackEffects.length < 1) {
             return null;
         }
-
         return (
             <div className="trackEffects">
                 {this.state.openTrackEffects.map(trackId => {
-                    return <TrackEffect key={trackId} id={trackId}></TrackEffect>
+                    return <TrackEditor key={trackId} id={trackId}></TrackEditor>
                 })}
             </div>
         )
@@ -119,8 +118,8 @@ export default class LaunchSpace extends Component {
 
     onKeyUp(e) {
         if (e.key.toLowerCase() === 'delete') {
-            let ids = Object.keys(this.props.tracks).map(x => {
-                return this.props.tracks[x].stems.map(y => {
+            let ids = Object.keys(this.props.tracks.values).map(x => {
+                return this.props.tracks.values[x].stems.map(y => {
                     return {trackId: x, stemId: y, selected: this.props.stems[y].selected}
                 })
             }).flat();
@@ -139,7 +138,7 @@ export default class LaunchSpace extends Component {
     }
 
     render() {
-        const tracks = Object.keys(this.props.tracks).map(this.trackIdToComponents.bind(this));
+        const tracks = this.props.tracks.order.map(this.trackIdToComponents.bind(this));
         const newTrackModal = this.state.newTrack.dialogue ? this.newTrackModal() : null;
         const titles = tracks.map(x => x.title);
         const stems = tracks.map(x => x.stems);
@@ -161,27 +160,4 @@ export default class LaunchSpace extends Component {
             </div>
         )
     }
-
-    renderOld() {
-
-        const tracks = Object.keys(this.props.tracks).map(this.trackIdToComponents.bind(this));
-        const newTrackModal = this.state.newTrack.dialogue ? this.newTrackModal() : null;
-
-        return (
-            <div className="LaunchSpace" style={this.props.style} tabIndex="1" onKeyUp={this.onKeyUp.bind(this)}>
-                {tracks}
-                <PlusButton onClick={this.openNewTrack.bind(this)} style={{
-                    display: 'inline-block',
-                    top: '0px',
-                    width: '50px',
-                    minWidth: '50px',
-                    height: '30px',
-                    margin: '5px'
-                }}/>
-                {newTrackModal}
-                {this.trackEffects()}
-            </div>
-        )
-    }
-
 }

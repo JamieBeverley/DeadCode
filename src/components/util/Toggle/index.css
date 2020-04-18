@@ -2,7 +2,7 @@
     width:50px;
     height:40px;
     border-radius: var(--border-radius);
-    border: 1pt solid var(--stem-on);
+    border: 2pt solid var(--stem-on);
     box-sizing: border-box;
     position: relative;
     padding:2px;
@@ -10,20 +10,19 @@
 
 .Toggle.on{
     background-color: transparent;
-    border: 1pt solid var(--stem-on)
+    border: 2pt solid var(--stem-on)
 }
 
-.Toggle > div{
+.Toggle > button{
+    outline-color: var(--font-color-light);
     box-sizing: border-box;
-    position: absolute;
+    position: relative;
+    width: 100%;
+    height: 100%;
     border-radius: var(--border-radius);
-    bottom:4px;
-    top:4px;
-    left:4px;
-    right:4px;
     background-color: var(--stem-off);
 }
 
-.Toggle.on > div{
+.Toggle.on > button{
     background-color: var(--stem-on);
 }

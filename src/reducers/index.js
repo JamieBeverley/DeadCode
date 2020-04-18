@@ -40,13 +40,13 @@ export default (state = Model.defaultState, action) =>{
 
 // function pasteStemAtPosition(state, stem, pos) {
 //     if (pos.trackIndex >= state.tracks.length) return state;
-//     if (pos.stemIndex >= state.tracks[pos.trackIndex].stems.length) return state;
-//     let track = state.tracks[pos.trackIndex];
+//     if (pos.stemIndex >= state.tracks.values[pos.trackIndex].stems.length) return state;
+//     let track = state.tracks.values[pos.trackIndex];
 //     let newStem = StemModel.clone(stem);
 //     newStem.trackId = track.id;
 //     newStem.open = false;
-//     track.stems = state.tracks[pos.trackIndex].stems.concat([]);//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
-//     track.stems[pos.stemIndex] = newStem;//insertAt(state.tracks[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
+//     track.stems = state.tracks.values[pos.trackIndex].stems.concat([]);//insertAt(state.tracks.values[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
+//     track.stems[pos.stemIndex] = newStem;//insertAt(state.tracks.values[pos.trackIndex].stems,pos.stemIndex,newStem).concat([]);
 //     return Object.assign({}, state, {
 //         tracks: state.tracks.map(x => {
 //             if (x.id === track.id) {
@@ -59,7 +59,7 @@ export default (state = Model.defaultState, action) =>{
 //
 // function getStemPosition(stem, state) {
 //     let trackIndex = state.tracks.findIndex(x => x.id === stem.trackId);
-//     let stemIndex = state.tracks[trackIndex].stems.findIndex(x => x.id === stem.id);
+//     let stemIndex = state.tracks.values[trackIndex].stems.findIndex(x => x.id === stem.id);
 //     return {trackIndex, stemIndex}
 // }
 

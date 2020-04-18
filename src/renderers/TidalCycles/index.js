@@ -73,7 +73,7 @@ function getCode(state) {
     let stems = 'stack [';
 
     const tracks = Object.keys(state.tracks).map(x => {
-        return trackToCode(state, state.tracks[x])
+        return trackToCode(state, state.tracks.values[x])
     });
 
     stems += tracks.filter(x => x !== '').join(", ") + ']';
