@@ -4,7 +4,7 @@ Dead is a browser-based, language-agnostic, and tablet-friendly environment for 
 and Code Jockeying. Dead provides an interface for authoring code snippets that can be toggled on and off
 on a grid of buttons (called ‘stems’). The interface contains sliders and other continuous control inputs
 to facilitate smooth transitioning between stems and ‘tracks’ (columns of stems). Currently Dead supports
-the [TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Index](https://github.com/ojack/hydra) live
+the [TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Hydra](https://github.com/ojack/hydra) live
 coding languages, with the capability (and desire!) to include renderers for other languages in future versions.
 
 For more info on how to use Dead see this [demo video](https://youtu.be/nTBwdGbfgmU) and [this short performance](https://www.youtube.com/watch?v=kuJlpd2i25k)
@@ -13,7 +13,7 @@ For more info on how to use Dead see this [demo video](https://youtu.be/nTBwdGbf
 ### Versions
 `master` branch is stable and consistent with the v1.0.0 release.
 
-If you're just using TidalCycles `development` is stable and much more feature rich/efficient (Hydra support is currently broken in `development`). New features include:
+**If you're just using TidalCycles** `development` is stable and much more feature rich/efficient (Hydra support is currently broken in `development`). New features include:
 - track-level effects (eg. any Tidal pattern transformer applied over an entire track)
 - UI improvements: side bar resizing, better scrolling in button grid, re-ordering of tracks, styling/layout fixes/redesigns
 - re-written websocket server and efficiency improvements for slider effects
