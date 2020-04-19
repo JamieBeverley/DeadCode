@@ -1,13 +1,24 @@
 # DeadCode
 
-Dead is a browser-based, language-agnostic, and tablet-friendly environment for audio-visual live coding 
-and Code Jockeying. Dead provides an interface for authoring code snippets that can be toggled on and off 
-on a grid of buttons (called ‘stems’). The interface contains sliders and other continuous control inputs 
-to facilitate smooth transitioning between stems and ‘tracks’ (columns of stems). Currently Dead supports 
-the [TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Index](https://github.com/ojack/hydra) live 
+Dead is a browser-based, language-agnostic, and tablet-friendly environment for audio-visual live coding
+and Code Jockeying. Dead provides an interface for authoring code snippets that can be toggled on and off
+on a grid of buttons (called ‘stems’). The interface contains sliders and other continuous control inputs
+to facilitate smooth transitioning between stems and ‘tracks’ (columns of stems). Currently Dead supports
+the [TidalCycles](https://tidalcycles.org/index.php/Welcome) and [Index](https://github.com/ojack/hydra) live
 coding languages, with the capability (and desire!) to include renderers for other languages in future versions.
 
 For more info on how to use Dead see this [demo video](https://youtu.be/nTBwdGbfgmU) and [this short performance](https://www.youtube.com/watch?v=kuJlpd2i25k)
+
+
+### Versions
+`master` branch is stable and consistent with the v1.0.0 release.
+
+If you're just using TidalCycles `development` is stable and much more feature rich/efficient (Hydra support is currently broken in `development`). New features include:
+- track-level effects (eg. any Tidal pattern transformer applied over an entire track)
+- UI improvements: side bar resizing, better scrolling in button grid, re-ordering of tracks, styling/layout fixes/redesigns
+- re-written websocket server and efficiency improvements for slider effects
+- Track and master level 'Macros' - defining a macro called `notes` as `"0 4 7"` (in the new track effects editor) allows me to use it like a variable in
+ the code underneath that track: eg: `up notes # s "synth"`
 
 ### Installing/Running
 
@@ -41,18 +52,18 @@ yarn backend
 ### Using the Performance Interface
 
 Each button on the left side of the interface (called a 'Stem') contains some code that will be toggled on/off
-when the button is clicked/tapped. To edit a Stem's code, right click on a button and it will appear in the 
+when the button is clicked/tapped. To edit a Stem's code, right click on a button and it will appear in the
 menu on the right of the interface.
 
 #### Stems
-You can give a name to the Stem, choose which language it runs, edit its code, and add effects to apply to 
-that stem. Enter code in the text box and hit 'eval' or shift+enter to evaluate it - if the stem is toggled on you should 
-see/hear the result. TidalCycles code should omit the dirt layer (eg. no `d1` `d2`, etc...) - all stems are combined into 
+You can give a name to the Stem, choose which language it runs, edit its code, and add effects to apply to
+that stem. Enter code in the text box and hit 'eval' or shift+enter to evaluate it - if the stem is toggled on you should
+see/hear the result. TidalCycles code should omit the dirt layer (eg. no `d1` `d2`, etc...) - all stems are combined into
 a single`stack` expression.
 
 #### Effects
 Stems have effects below the code editor that can be toggled on/off. There are 2 types of effects: sliders and 'code toggles':
-Sliders can be used to control parameters that take one numerical value. Code toggles take code in the language of the stem 
+Sliders can be used to control parameters that take one numerical value. Code toggles take code in the language of the stem
 and apply them to that stem's code when toggled.
 
 `TidalCycles`: Effects for stems are pre-pended to the code for that stem. Eg. a code toggle effect with the code
@@ -73,22 +84,22 @@ tab you could define: `let melody = "0 3 7 14 19"` and use the `melody` variable
 #### Saving and Loading
 You can download a `.json` containing your set with CTRL-D (or the download icon) and open a `.json` file with CTRL-O (or the folder icon).
 
-To save a set to local browser storage hit CTRL+S or hit the floppy disk icon at the top of the interface. You can load 
-the state from browser storage with CTRL+L, or hitting the icon next to the save button. 
+To save a set to local browser storage hit CTRL+S or hit the floppy disk icon at the top of the interface. You can load
+the state from browser storage with CTRL+L, or hitting the icon next to the save button.
 
-**Note:** Be careful if saving only to local storage if running on `localhost` - another `localhost` application may write-over 
+**Note:** Be careful if saving only to local storage if running on `localhost` - another `localhost` application may write-over
 your saved data (always download the state as well just in case)
 
 #### Connecting to the WebSocket Server + Pushing the State
-If you lose connection to the websocket server the icon in the top bar will turn red. To re-conenct, click the icon and 
+If you lose connection to the websocket server the icon in the top bar will turn red. To re-conenct, click the icon and
 click reconnect (you can specify a different address/port here too for the WS Server).
 
-Sometimes you need to force-push the state of the browser to all connected clients. For instance, if you load a set 
-from a `.json` file on your desktop browser and want the state to be re synchronized on a tablet that is also connected 
+Sometimes you need to force-push the state of the browser to all connected clients. For instance, if you load a set
+from a `.json` file on your desktop browser and want the state to be re synchronized on a tablet that is also connected
 you could click on the network icon in the menu bar, and click the 'Push State to Other Clients' button (or CTRL+P).
 
 The WebSocket Server also needs an up-to-date version of the state when you load a set (to render TidalCycles)
-so hitting CTRL+P after loading a set is common. 
+so hitting CTRL+P after loading a set is common.
 
 ### Contributing and Support
 Please feel free to reach out to me at <my_first_name>_<my_last_name>[at]hotmail.com or make PRs!
