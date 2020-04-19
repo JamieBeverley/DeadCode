@@ -101,6 +101,12 @@ function writeNewState(state, path){
 // const newState = addEmptyMacros(state);
 // const newState = deleteNonExistingStemEffects(state);
 // const newState = assignSliderTypes(state);
+
+/*
+commit 62d7609f6731abba3c4671a52030dd1e3dc15356 (HEAD -> orders)
+Author: JamieBeverley <jamie_beverley@hotmail.com>
+Date:   Sat Apr 18 19:12:26 2020 -0400
+ */
 const newState = addTrackOrders(state);
 
 writeNewState(newState, parsed.outputFile);
