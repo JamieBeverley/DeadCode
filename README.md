@@ -13,7 +13,7 @@ For more info on how to use Dead see this [demo video](https://youtu.be/nTBwdGbf
 ### Versions
 `master` branch is stable and consistent with the v1.0.0 release.
 
-If you're just using TidalCycles `development` is stable and much more feature rich/efficient (Hydra support is currently broken in `development`). New features include:
+**If you're just using TidalCycles** `development` is stable and much more feature rich/efficient (Hydra support is currently broken in `development`). New features include:
 - track-level effects (eg. any Tidal pattern transformer applied over an entire track)
 - UI improvements: side bar resizing, better scrolling in button grid, re-ordering of tracks, styling/layout fixes/redesigns
 - re-written websocket server and efficiency improvements for slider effects
