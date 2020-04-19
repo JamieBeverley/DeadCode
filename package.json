@@ -38,7 +38,7 @@
     "start": "react-scripts start",
     "start-https": "HTTPS=true react-scripts start",
     "state-utils": "npx babel-node src/model/state_utils/index.js",
-    "backend": "nodemon --exec babel-node src/backend/server.js",
+    "backend": "nodemon --exec babel-node src/backend/wsServer.js",
     "midi": "nodemon --exec babel-node src/midi/index.js localhost 8080",
     "midi-util": "nodemon --exec babel-node src/midi/utility.js localhost 8081",
     "build": "react-scripts build",
