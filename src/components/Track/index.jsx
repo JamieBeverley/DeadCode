@@ -58,10 +58,20 @@ export class TrackEffects extends Component {
     updateEffect(gainEffect) {
         this.props.globalActions.trackUpdate(this.props.id, {effects: [gainEffect]});
     }
+
+    onKeyDown(e){
+        e.preventDefault();
+        console.log(e.key);
+        if(e.key==='ArrowLeft'){
+            this.props.globalActions.trackReorder(this.props.id, this.props.position-1)
+        } else if (e.key==='ArrowRight'){
+            this.props.globalActions.trackReorder(this.props.id, this.props.position+1)
+        }
+    }
+
     render() {
         return (
-            <div key={`track_${this.props.id}_effects`} className={'TrackEffects'}>
-
+            <div tabIndex={0} key={`track_${this.props.id}_effects`} className={'TrackEffects'} onKeyDown={this.onKeyDown.bind(this)}>
                 <Effect isVertical noToggle updateEffect={this.updateEffect.bind(this)}
                         id={this.props.effects[0]}/>
                 <div className={'more' + (this.props.effectsOpen ? ' highlighted' : "")} onClick={() => {

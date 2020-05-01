@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import './index.css'
-import {Button} from "@material-ui/core";
 import Effect from "../../containers/Effect";
 import CodeEditor from "../CodeEditor";
 import EffectCreator from "../Effect/EffectCreator";

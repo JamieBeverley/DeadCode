@@ -6,6 +6,7 @@
     background-color: var(--stem-on);
     position: relative;
     margin-top: 15px;
+    user-select: none;
 }
 .plusButton > div{
     text-align: center;

@@ -25,11 +25,11 @@ export default class LaunchSpace extends Component {
         }
     }
 
-    trackIdToComponents(id) {
-        const title = <TrackTitle key={id + 'trackTitle'} id={id}/>;
-        const stems = <TrackStems key={id + 'trackStems'} id={id}/>;
+    trackIdToComponents(id, position) {
+        const title = <TrackTitle position={position} key={id + 'trackTitle'} id={id}/>;
+        const stems = <TrackStems position={position} key={id + 'trackStems'} id={id}/>;
         const effects = (
-            <TrackEffects key={id} id={id} effectsOpen={this.state.openTrackEffects.includes(id)}
+            <TrackEffects key={id} position={position} id={id} effectsOpen={this.state.openTrackEffects.includes(id)}
                           openTrackEffects={this.openTrackEffects.bind(this)}/>
         );
         return {title,stems,effects};

@@ -26,6 +26,11 @@
     border-bottom: 1pt solid var(--stem-on);
 }
 
+.TrackEffects:focus{
+    background-color: var(--stem-off);
+    outline:none;
+}
+
 .TrackEffects {
     height: 100%;
     background-color: var(--stem-editor-color);

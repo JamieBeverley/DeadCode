@@ -57,6 +57,7 @@ export default class Flyout extends Component {
     }
 
     render() {
+
         let tabs = this.props.stems.map(x => {
             let tab = (
                 <Tab
@@ -72,6 +73,7 @@ export default class Flyout extends Component {
                     style={{display: (this.state.tab === x.id ? 'block' : 'none')}}
                     key={x.id+"_editor"}
                     {...x}
+                    trackId={this.props.id}
                     globalActions={this.props.globalActions}
                 />
             );

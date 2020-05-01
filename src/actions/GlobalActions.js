@@ -161,8 +161,13 @@ const GlobalActions = dispatch => {
         trackDeleteStem: (trackId, stemId) => {
             const state = store.getState();
             const stem = state.stems[stemId];
-            const macros = stem.map(x=>x.macros);
-            dispatch(Actions.trackDeleteStem({trackId, stemId, effects:stem.effects, macros}));
+            if (trackId===undefined){
+                trackId = Object.keys(state.tracks.values).find(trackId=>{
+                    return state.tracks.values[trackId].stems.includes(stemId);
+                });
+            }
+
+            dispatch(Actions.trackDeleteStem({trackId, stemId, effects:stem.effects, macros:stem.macros}));
         },
         // TODO: stuff like this would probably be better as sagas
         trackAddStem: (trackId) => {
