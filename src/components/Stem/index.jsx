@@ -11,6 +11,15 @@ export default class Stem extends Component {
         this.touchMoveCount = 0;
     }
 
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(this.props.leftmost && !prevProps.leftmost){
+            this.ref.current.scrollIntoView();
+        }
+        if(this.props.rightmost && !prevProps.right){
+            this.ref.current.scrollIntoView();
+        }
+    }
+
     flash(){
         this.ref.current.classList.add('flash');
         // setTimeout(()=>{this.ref.current.classList},500)

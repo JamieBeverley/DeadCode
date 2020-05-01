@@ -68,7 +68,7 @@ const getOutput = function (res) {
             let deviceNum = parseInt(device);
             output = new easymidi.Output(outputs[deviceNum]);
             // output.send = throttle(output.send,10);
-            spreadSend = spread((...x)=>{output.send(...x)},1);
+            spreadSend = spread((...x)=>{output.send(...x)},0.125);
             typeof res === 'function' && res(output);
         })
 
@@ -161,8 +161,8 @@ function getMidiMap(callback) {
                     columns: midiMap.meta.columns,
                     left: 0,
                     top: 0
-                }
-                console.log('\n\n')
+                };
+                console.log('\n\n');
                 store.dispatch(Actions.midiUpdate(midi));
                 callback();
             })

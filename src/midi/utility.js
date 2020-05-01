@@ -3,7 +3,6 @@ import prompt from 'prompt-promise'
 import fs from 'fs';
 
 var input,output;
-var json = {};
 const getInput = function (res) {
   try {
     const inputs = easymidi.getInputs();
@@ -108,8 +107,7 @@ let toPosMap = {
   faders: {
     '0': faders
   }
-
-}
+};
 
 let midiMap = {toPosMap, posToOutput, meta:{rows:8, columns:8},controls};
 
