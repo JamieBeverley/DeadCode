@@ -4,9 +4,11 @@ import DeadReducer from '../reducers'
 import {createServerMiddleware} from "./middleware/wsServer";
 import {createRenderMiddleware} from "./middleware/render";
 import {TidalRenderer} from "./NativeRenderers/TidalCylces";
+import {setTerminalTitle} from "../util";
 const http = require('http');
 const WebSocket = require('ws');
 
+setTerminalTitle("backend");
 // Boot Tidal
 TidalRenderer.boot();
 

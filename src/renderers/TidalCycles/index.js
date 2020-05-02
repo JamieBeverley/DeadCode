@@ -9,6 +9,7 @@ function getTempoCode(state) {
 export const EffectsToCode = {};
 EffectsToCode[EffectModel.Types.SLIDER] = (x) => {
     const type = x.properties.type===EffectModel.SliderTypes.int?'I':'F';
+    console.log(x.properties.value);
     return `(${x.properties.operator} ${x.properties.code} (c${type} ${x.properties.value} "${x.id}"))`
 };
 

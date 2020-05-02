@@ -9,7 +9,8 @@ import {clamp} from 'lodash'
 import logger from 'redux-logger'
 import {spread} from "../util";
 import midi from "../model/Midi";
-
+import {setTerminalTitle} from "../util";
+setTerminalTitle("MIDI");
 // on stem-related update, output appropriate midi msg.
 const midiMiddleware = store => next => action => {
     next(action);
@@ -225,7 +226,8 @@ function onDeviceCC(msg) {
     }
     let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: roundTo(msg.value * 2 / 127,3)})};
     if (!!effectId) {
-        store.dispatch(Actions.effectUpdate({effectId, value}));
+        // store.dispatch(Actions.effectUpdate({effectId, value}));
+        store.dispatch(Actions.effectUpdateSliderValue(effectId,value));
     } else {
         console.warn('no effect found for track ' + trackId);
     }
