@@ -16,12 +16,12 @@ const getTrackEffectPosition = (tracks, trackId, effectId) => {
     };
 };
 
-const stemIsInside = ({left, top, width, height}, x, y) => {
-    return (x >= left) && (x < (left + width)) && (y >= top) && (y < (top + height))
+const stemIsInside = ({left, top, columns, rows}, x, y) => {
+    return (x >= left) && (x < (left + columns)) && (y >= top) && (y < (top + rows))
 };
 
-const trackEffectIsInside = ({left, width}, trackIndex, effectIndex) => {
-    return trackIndex >= left && trackIndex < (left + width) && effectIndex < 4;
+const trackEffectIsInside = ({left, columns}, trackIndex, effectIndex) => {
+    return trackIndex >= left && trackIndex < (left + columns) && effectIndex < 4;
 };
 
 const getEffectTrack = (tracks, effectId) => {
@@ -38,28 +38,43 @@ const createOscMiddleware = osc => store => next => action => {
         if (stemIsInside(midi, trackIndex, stemIndex)) {
             osc.toggleStem(trackIndex, stemIndex, payload.value.on);
         }
-    } else if (type === ActionTypes.EFFECT_UPDATE) {
+    } else if (type === ActionTypes.EFFECT_UPDATE_SLIDER_VALUE){
         const trackId = getEffectTrack(tracks, payload.effectId);
         if (trackId === -1) return;
 
         const {trackIndex, effectIndex} = getTrackEffectPosition(tracks, trackId, payload.effectId);
         if (!trackEffectIsInside(midi, trackIndex, effectIndex)) return;
 
-        // Value change
-        if (payload.value.properties && payload.value.properties.value) {
+        if (payload.value !==undefined) {
+            console.log('value change');
+            osc.trackUpdateEffectValue(trackIndex, effectIndex, payload.value);
+        }
+
+    }else if (type === ActionTypes.EFFECT_UPDATE) {
+        const trackId = getEffectTrack(tracks, payload.effectId);
+        if (trackId === -1) return;
+
+        const {trackIndex, effectIndex} = getTrackEffectPosition(tracks, trackId, payload.effectId);
+        if (!trackEffectIsInside(midi, trackIndex, effectIndex)) return;
+
+        if (payload.value.properties && payload.value.properties.value!==undefined) {
+            console.log('value change');
             osc.trackUpdateEffectValue(trackIndex, effectIndex, payload.value.properties.value);
-            // Toggle change:
-        } else if (payload.value.on !== undefined) {
+        }
+
+        if (payload.value.on !== undefined) {
             osc.trackUpdateEffectToggle(trackIndex, effectIndex, payload.value.on);
         }
+
     } else if (type === ActionTypes.RECEIVE_STATE || type === ActionTypes.MIDI_UPDATE) {
+        console.log('MIDI_UPDATE');
         setAllStems(osc, midi, tracks, stems);
-        setAllTrackEffects(osc, midi, tracks);
+        setAllTrackEffects(osc, midi, tracks, effects);
     }
 };
 
-const setAllTrackEffects = (osc, {left, top, width, height}, tracks, effects) => {
-    for (let column = left; column < (left + width); column++) {
+const setAllTrackEffects = (osc, {left, top, columns, rows}, tracks, effects) => {
+    for (let column = left; column < (left + columns); column++) {
         for (let row = 0; row < 4; row++) {
             const trackId = tracks.order[column]
             if (trackId) {
@@ -67,8 +82,8 @@ const setAllTrackEffects = (osc, {left, top, width, height}, tracks, effects) =>
                 if (effectId) {
                     const effect = effects[effectId];
                     if (effect.type === EffectModel.Types.SLIDER) {
-                        osc.trackUpateEffectValue(column, row, effect.properties.value);
-                        osc.trackUpateEffectToggle(column, row, effect.on);
+                        osc.trackUpdateEffectValue(column, row, effect.properties.value);
+                        osc.trackUpdateEffectToggle(column, row, effect.on);
                     }
                 }
             }
@@ -76,13 +91,14 @@ const setAllTrackEffects = (osc, {left, top, width, height}, tracks, effects) =>
     }
 };
 
-const setAllStems = (osc, {left, top, width, height}, tracks, stems) => {
-    for (let column = left; column < (left + width); column++) {
-        for (let row = top; row < (top + height); row++) {
+const setAllStems = (osc, {left, top, columns, rows}, tracks, stems) => {
+    for (let column = left; column < (left + columns); column++) {
+        for (let row = top; row < (top + rows); row++) {
             const trackId = tracks.order[column];
             if (trackId) {
                 const stemId = tracks.values[trackId].stems[row];
                 if (stemId) {
+                    console.log("toggled");
                     osc.toggleStem(column, row, stems[stemId].on);
                 }
             }

@@ -1,12 +1,12 @@
 import {Actions} from "../actions";
 
 
-const getTrackEffectId = (tracks, trackIndex, effectIndex) => {
-    return tracks.order[trackIndex] ? tracks.values[tracks.order[trackIndex]].effects[effectIndex] : undefined;
+const getTrackEffectId = ({left}, tracks, trackIndex, effectIndex) => {
+    return tracks.order[left+trackIndex] ? tracks.values[tracks.order[left+trackIndex]].effects[effectIndex] : undefined;
 };
 
-const getStemId = (tracks, trackIndex, stemIndex) => {
-    return tracks.order[trackIndex]?tracks.values[tracks.order[trackIndex]].stems[stemIndex]: undefined;
+const getStemId = ({left,top}, tracks, trackIndex, stemIndex) => {
+    return tracks.order[left+trackIndex]?tracks.values[tracks.order[left+trackIndex]].stems[top+stemIndex]: undefined;
 };
 
 function createActions(store) {
@@ -14,11 +14,10 @@ function createActions(store) {
         // Effects
         //                this.actions.trackUpdateEffectValue(trackIndex, effectIndex, value);
         trackEffectSliderValue: (trackIndex, effectIndex, value) => {
-            const tracks = store.getState().tracks;
-            const effectId = getTrackEffectId(tracks, trackIndex, effectIndex);
+            const {tracks,midi} = store.getState();
+            const effectId = getTrackEffectId(midi, tracks, trackIndex, effectIndex);
             if (effectId !== undefined) {
-                console.log(value,effectId);
-                store.dispatch(Actions.effectUpdateSliderValue({effectId, value: {properties: {value}}}))
+                store.dispatch(Actions.effectUpdateSliderValue({effectId, value}))
             }
         },
         //  this.actions.trackUpdateEffectToggle(trackIndex, effectIndex, on);
@@ -31,8 +30,8 @@ function createActions(store) {
         },
         // Stem
         stemUpdate: (trackIndex, stemIndex, value) => {
-            const tracks = store.getState().tracks;
-            const stemId = getStemId(tracks, trackIndex, stemIndex);
+            const {tracks,midi} = store.getState();
+            const stemId = getStemId(midi, tracks, trackIndex, stemIndex);
             if(stemId!== undefined){
                 store.dispatch(Actions.stemUpdate({stemId, value}));
             }
@@ -46,7 +45,7 @@ function createActions(store) {
         },
         midiUp: () => {
             const {midi} = store.getState();
-            const top = midi.top + 1
+            const top = midi.top + 1;
             store.dispatch(Actions.midiUpdate({top}));
         },
         midiRight: () => {
@@ -59,6 +58,9 @@ function createActions(store) {
             const top = midi.top + 1;
             store.dispatch(Actions.midiUpdate({top}));
         },
+        midiInit: () => {
+            store.dispatch(Actions.midiUpdate({top:0, left:0, rows:8, columns:8}));
+        }
 
     }
 }

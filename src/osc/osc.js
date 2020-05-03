@@ -67,19 +67,22 @@ class OscBridge {
                 baseAddr: "/move",
                 handle: message => {
                     const index = parseMovePosition(message.address);
-                    [
-                        this.actions.midiDown,
-                        this.actions.midiUp,
-                        this.actions.midiRight,
-                        this.actions.midiLeft
-                    ][index]();
+                    const on = message.args[0].value;
+                    if (on){
+                        [
+                            this.actions.midiDown,
+                            this.actions.midiUp,
+                            this.actions.midiRight,
+                            this.actions.midiLeft
+                        ][index]()
+                    }
                 }
             }
         ];
 
         this._mappingFunctions = [
             //gain
-            {toZeroOne: value => value, fromZeroOne: value => value},
+            {toZeroOne: value => value/2, fromZeroOne: value => value*2},
             //lpf
             {toZeroOne: value => Math.pow(value / 22000, 1 / 2), fromZeroOne: value => Math.pow(value, 2) * 22000},
             //hfp
@@ -100,7 +103,9 @@ class OscBridge {
         });
         // Listen for incoming OSC messages.
         this.udpPort.on("message",this.onMessage.bind(this));
-
+        this.udpPort.on("ready", ()=>{
+            this.actions.midiInit();
+        });
         this.udpPort.open();
         console.log(`Listening for OSC from ${remoteAddress} on ${localPort}, sending to ${remotePort}`)
     }
@@ -120,13 +125,19 @@ class OscBridge {
 
     // osc.toggleStem(trackIndex, stemIndex, payload.value.on);
     toggleStem(trackIndex, stemIndex, on) {
-        this.send({address: `/stem/toggle/${trackIndex}/${stemIndex}`, args: {type: 'i', value: on ? 1 : 0}});
+        const payload = {address: `/stem/toggle/${8-(stemIndex)}/${trackIndex+1}`, args: {type: 'f', value: on ? 1 : 0}}
+        console.log(payload)
+        this.send(payload);
     }
 
     // osc.trackUpdateEffectValue(trackIndex, effectIndex, payload.value.properties.value);
     trackUpdateEffectValue(trackIndex, effectIndex, value) {
         value = this._toZeroOne(effectIndex, value);
-        this.send({address: `/track/effect/value/${trackIndex}/${effectIndex}`, args: {type: 'f', value}});
+        const args = {type: 'f', value};
+        this.send({address: `/track/effect/value/${trackIndex}/${effectIndex}`, args});
+        if(effectIndex===0){
+            this.send({address: `/track/gain/${trackIndex+1}`, args});
+        }
     }
 
     // osc.trackUpdateEffectToggle(trackIndex, effectIndex, payload.value.on);

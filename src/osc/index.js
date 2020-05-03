@@ -13,16 +13,16 @@ const remotePort = parseInt(process.argv[3]);
 const remoteAddress = process.argv[4];
 
 
-
-const actions = createActions(store);
-const oscBridge = new OscBridge(localPort, remoteAddress,remotePort, actions);
-const oscMiddleware = createOscMiddleware(oscBridge);
-
-addMiddleware(oscMiddleware);
+function init (){
+    const actions = createActions(store);
+    const oscBridge = new OscBridge(localPort, remoteAddress,remotePort, actions);
+    const oscMiddleware = createOscMiddleware(oscBridge);
+    addMiddleware(oscMiddleware);
+}
 
 function reconnect(){
     prompt('disconnected, hit enter to reconnect').then(x=>{
             Connection.init('127.0.0.1', 8001, ()=>{console.log('connected')}, reconnect, console.log);
     });
 }
-Connection.init('127.0.0.1', 8001, x=>x, reconnect, console.log);
+Connection.init('127.0.0.1', 8001, init, reconnect, console.log);
