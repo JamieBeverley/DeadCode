@@ -122,7 +122,6 @@ class OscBridge {
     // osc.toggleStem(trackIndex, stemIndex, payload.value.on);
     toggleStem(trackIndex, stemIndex, on) {
         const payload = {address: `/stem/toggle/${8-(stemIndex)}/${trackIndex+1}`, args: {type: 'f', value: on ? 1 : 0}};
-        console.log(payload);
         this.send(payload);
     }
 

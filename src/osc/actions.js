@@ -40,22 +40,34 @@ function createActions(store) {
         // MIDI
         midiLeft: () => {
             const {midi} = store.getState();
-            const left = midi.left - 1;
+            const left = Math.max(0,midi.left - 1);
             store.dispatch(Actions.midiUpdate({left}));
         },
         midiUp: () => {
             const {midi} = store.getState();
-            const top = midi.top - 1;
+            const top = Math.max(0,midi.top - 1);
             store.dispatch(Actions.midiUpdate({top}));
         },
         midiRight: () => {
-            const {midi} = store.getState();
-            const left = midi.left + 1;
+            const {midi,tracks} = store.getState();
+            const left = Math.min(midi.left + 1,tracks.order.length-midi.columns);
             store.dispatch(Actions.midiUpdate({left}));
         },
         midiDown: () => {
-            const {midi} = store.getState();
-            const top = midi.top + 1;
+            const {midi,tracks} = store.getState();
+            const {left,columns} = midi;
+            const relevantTracks = tracks.order.filter((x,index)=>{
+                const  val = index>=left && index < left+columns;
+                if(val){
+                    console.log(index)
+                }
+                return val
+            });
+
+            const minTop = Math.min(...relevantTracks.map(x=>{
+                return tracks.values[x].stems.length
+            }));
+            const top = Math.min(minTop-1,midi.top + 1);
             store.dispatch(Actions.midiUpdate({top}));
         },
         midiInit: () => {
