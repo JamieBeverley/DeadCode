@@ -19,6 +19,8 @@ WSClient.broadcast = (msg, exclude = []) => {
     Object.keys(WSClient.clients).filter(x => {
         return !exclude.includes(x)
     }).forEach(x => {
+        console.log(x);
+        console.log(exclude)
         const ws = WSClient.clients[x].ws;
         if (ws.readyState === WebSocket.OPEN) {
             ws.send(JSON.stringify(msg));

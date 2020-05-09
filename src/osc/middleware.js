@@ -6,6 +6,7 @@ const getStemPosition = (tracks, stemId) => {
     const trackId = Object.keys(tracks.values).find(x => tracks.values[x].stems.includes(stemId));
     const trackIndex = tracks.order.findIndex(x => x === trackId);
     const stemIndex = tracks.values[trackId].stems.findIndex(x => x === stemId);
+    console.log('actions', trackIndex, stemIndex)
     return {trackIndex, stemIndex};
 };
 
@@ -36,7 +37,7 @@ const createOscMiddleware = osc => store => next => action => {
     if (type === ActionTypes.STEM_UPDATE && (payload.value.on !== undefined)) {
         const {trackIndex, stemIndex} = getStemPosition(tracks, payload.stemId);
         if (stemIsInside(midi, trackIndex, stemIndex)) {
-            osc.toggleStem(trackIndex, stemIndex, payload.value.on);
+            osc.toggleStem(trackIndex-midi.left, stemIndex-midi.top, payload.value.on);
         }
     } else if (type === ActionTypes.EFFECT_UPDATE_SLIDER_VALUE){
         const trackId = getEffectTrack(tracks, payload.effectId);

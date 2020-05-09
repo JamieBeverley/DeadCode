@@ -45,7 +45,7 @@ function createActions(store) {
         },
         midiUp: () => {
             const {midi} = store.getState();
-            const top = midi.top + 1;
+            const top = midi.top - 1;
             store.dispatch(Actions.midiUpdate({top}));
         },
         midiRight: () => {
