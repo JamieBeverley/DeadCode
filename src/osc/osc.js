@@ -137,7 +137,7 @@ class OscBridge {
 
     // osc.trackUpdateEffectToggle(trackIndex, effectIndex, payload.value.on);
     trackUpdateEffectToggle(trackIndex, effectIndex, on) {
-        this.send({address: `/track/effect/toggle/${trackIndex}/${effectIndex}`, args: {type: 'i', value: on ? 1 : 0}});
+        this.send({address: `/track/effect/toggle/${trackIndex}/${effectIndex}`, args: {type: 'f', value: on ? 1 : 0}});
     }
 
     _toZeroOne(effectIndex, value) {

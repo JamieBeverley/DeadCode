@@ -22,8 +22,8 @@ function createActions(store) {
         },
         //  this.actions.trackUpdateEffectToggle(trackIndex, effectIndex, on);
         trackEffectToggle: (trackIndex, effectIndex, on) => {
-            const tracks = store.getState().tracks;
-            const effectId = getTrackEffectId(tracks, trackIndex, effectIndex);
+            const {tracks, midi} = store.getState();
+            const effectId = getTrackEffectId(midi, tracks, trackIndex, effectIndex);
             if (effectId !== undefined) {
                 store.dispatch(Actions.effectUpdate({effectId, value: {on}}))
             }

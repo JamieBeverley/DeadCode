@@ -15,3 +15,8 @@ export const serverControl = store => next => action => {
     }
     return next(action);
 };
+
+export const minimalLogger = store => next => action => {
+    console.log('\x1b[33m%s\x1b[0m', action.type);  //yello
+    next(action)
+};

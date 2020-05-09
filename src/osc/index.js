@@ -3,6 +3,7 @@ import store from "../store";
 import {addMiddleware} from 'redux-dynamic-middlewares'
 import createActions from './actions'
 import createOscMiddleware from './middleware';
+import {minimalLogger} from '../middleware/index'
 import Connection from "../Connection";
 import prompt from "prompt-promise";
 import {setTerminalTitle} from "../util";
@@ -17,7 +18,7 @@ function init (){
     const actions = createActions(store);
     const oscBridge = new OscBridge(localPort, remoteAddress,remotePort, actions);
     const oscMiddleware = createOscMiddleware(oscBridge);
-    addMiddleware(oscMiddleware);
+    addMiddleware(oscMiddleware, minimalLogger);
 }
 
 function reconnect(){
