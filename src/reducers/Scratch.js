@@ -17,9 +17,7 @@ reducerFns[ActionTypes.SCRATCH_DELETE] = (scratches, payload) => {
 
 reducerFns[ActionTypes.SCRATCH_RENDER] = scratches => scratches;
 
-reducerFns[ActionTypes.SCRATCH_TRANSLATE] = (scratches, payload) => {
-
-};
+reducerFns[ActionTypes.SCRATCH_TRANSLATE] = scratches => scratches;
 
 const ScratchReducer = (scratches, {type, payload}) => reducerFns[type] ? reducerFns[type](scratches, payload) : scratches;
 export default ScratchReducer

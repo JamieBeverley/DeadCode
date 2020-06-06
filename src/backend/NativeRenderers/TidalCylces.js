@@ -40,6 +40,10 @@ function EVAL_EFFECT_UPDATE_SLIDER_VALUE (state, {payload}){
     sendTidalOsc("/ctrl", [effectId, value]);
 }
 
+function EVAL_SCRATCH_RENDER (state){
+    this.evaluate(Renderers.TidalCycles.getScratchCode(state));
+}
+
 // Note: this func is bound to NativeRenderer object.
 function tidalRender(state, action){
     if(!action.meta.render){
@@ -56,6 +60,9 @@ function tidalRender(state, action){
                 return;
             case ActionTypes.EFFECT_UPDATE_SLIDER_VALUE:
                 EVAL_EFFECT_UPDATE_SLIDER_VALUE.call(this, state, action);
+                return;
+            case ActionTypes.SCRATCH_RENDER:
+                EVAL_SCRATCH_RENDER.call(this, state);
                 return;
             default:
                 this.evaluate(Renderers.TidalCycles.getCode(state))

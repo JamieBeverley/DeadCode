@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Model from "../../model";
 import EffectModel from "../../model/EffectModel";
+import Languages from "../../model/LanguageModel";
 
 function getTempoCode(state) {
     return 'setcps ' + state.master.TidalCycles.properties.tempo / 60 / 2;
@@ -97,9 +98,18 @@ function getCode(state) {
     return `d1 $ ${code}`;
 }
 
+function getScratchCode({scratches}){
+    const on = Object.values(scratches).filter(x=>x.on && x.language===Languages.TidalCycles);
+    const trimmed = on.map(x=>{
+        return x.code.split("\n").filter(x=>x!=='' && !x.startsWith('--'));
+    }).flat();
+    return `d2 $ stack[${trimmed.join(", ")}]`;
+}
+
 export const TidalCycles = {
     language: 'TidalCycles',
     getCode,
     trackToCode,
     getTempoCode,
+    getScratchCode
 };
