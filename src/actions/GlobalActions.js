@@ -7,6 +7,7 @@ import StemModel from "../model/StemModel";
 import TrackModel from "../model/TrackModel";
 import {ActionSpec} from "./index";
 import MacroModel from '../model/MacroModel'
+import ScratchModel from "../model/ScratchModel";
 
 function getPosition(state, stemId) {
     let track = state.tracks.order.findIndex(x => {
@@ -268,7 +269,27 @@ const GlobalActions = dispatch => {
         // Update
         macroUpdate: (macroId, value) => {
             dispatch(Actions.macroUpdate({macroId, value}))
-        }
+        },
+
+        /////////////////////////////////////////////////////////////////////
+        // Scratches
+        scratchCreate: (defaults) =>{
+            const scratchId = Id.new();
+            const value = {...ScratchModel.getNew(), ...defaults};
+            dispatch(Actions.scratchCreate({scratchId,value}))
+        },
+        scratchUpdate: (scratchId, value) =>{
+            dispatch(Actions.scratchUpdate({scratchId,value}))
+        },
+        scratchDelete: (scratchId) =>{
+            dispatch(Actions.scratchDelete({scratchId}))
+        },
+        scratchRender: (scratchId) =>{
+            dispatch(Actions.scratchRender({scratchId}))
+        },
+        scratchTranslate: (scratchId) =>{
+            dispatch(Actions.scratchTranslate({scratchId}))
+        },
     }
 };
 

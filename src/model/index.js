@@ -19,6 +19,7 @@ const tracks = {
 const stems = {};
 const effects = {};
 const macros = {};
+const scratches = {};
 
 const TidalCycles = MasterModel.getNew(languages.TidalCycles,{tempo:120});
 for(let i in EffectModel.util.defaultEffects[languages.TidalCycles]()){
@@ -75,7 +76,8 @@ Model.defaultState = {
     midi,
     settings,
     stems,
-    tracks
+    tracks,
+    scratches
 };
 
 export default Model

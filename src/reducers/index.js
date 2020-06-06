@@ -8,6 +8,7 @@ import {ActionSpec} from "../actions";
 import MidiReducer from "./MIDI";
 import SettingsReducer from "./Settings";
 import MacroReducer from "./Macros";
+import ScratchReducer from "./Scratch";
 
 const CopyReducer = (copy, action)=>{
     if (action.type==='STEM_COPY'){
@@ -30,6 +31,7 @@ export default (state = Model.defaultState, action) =>{
         macros: MacroReducer(state.macros, action),
         master:MasterReducer(state.master, action),
         midi: MidiReducer(state.midi, action),
+        scratches: ScratchReducer(state.scratches, action),
         settings: SettingsReducer(state.settings, action),
         stems: StemReducer(state.stems, action),
         tracks: TrackReducer(state.tracks, action)
