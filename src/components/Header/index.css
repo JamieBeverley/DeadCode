@@ -12,3 +12,12 @@
     width:auto;
     margin-left:24px;
 }
+
+.Header > svg:hover{
+    opacity: 0.7;
+    transition: all 0.125s ease;
+}
+
+.Header .active {
+    color: var(--stem-on);
+}

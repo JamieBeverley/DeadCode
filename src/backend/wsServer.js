@@ -2,11 +2,14 @@ import {applyMiddleware, createStore} from "redux";
 import WSClient from "./WSClient";
 import DeadReducer from '../reducers'
 import {createServerMiddleware} from "./middleware/wsServer";
-import {createRenderMiddleware} from "./middleware/render";
+import {createRenderMiddleware,minimalLogger} from "./middleware/render";
 import {TidalRenderer} from "./NativeRenderers/TidalCylces";
 import {setTerminalTitle} from "../util";
 const http = require('http');
 const WebSocket = require('ws');
+
+
+
 
 setTerminalTitle("backend");
 // Boot Tidal
@@ -46,4 +49,4 @@ console.log('listening...\n');
 const serverMiddleware = createServerMiddleware(wss);
 const renderMiddleware = createRenderMiddleware([TidalRenderer]);
 // const store = createStore(DeadReducer, applyMiddleware(serverMiddleware, renderMiddleware, logger));
-const store = createStore(DeadReducer, applyMiddleware(serverMiddleware, renderMiddleware));
+const store = createStore(DeadReducer, applyMiddleware(serverMiddleware, renderMiddleware, minimalLogger));

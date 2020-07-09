@@ -224,10 +224,12 @@ function onDeviceCC(msg) {
     if (effectId === undefined) {
         return
     }
-    let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: roundTo(msg.value * 2 / 127,3)})};
+    // let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: roundTo(msg.value * 2 / 127,3)})};
+    let value = roundTo(msg.value * 2 / 127,3);
     if (!!effectId) {
         // store.dispatch(Actions.effectUpdate({effectId, value}));
-        store.dispatch(Actions.effectUpdateSliderValue(effectId,value));
+        console.warn("@@@@@@@@@@@@@@@@dispatching update", effectId,value)
+        store.dispatch(Actions.effectUpdateSliderValue({effectId,value}));
     } else {
         console.warn('no effect found for track ' + trackId);
     }

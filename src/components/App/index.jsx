@@ -5,58 +5,53 @@ import SplitterLayout from 'react-splitter-layout';
 import './index.css';
 import Header from '../../containers/Header'
 import 'react-splitter-layout/lib/index.css'
+import {ContentModes} from '../util/constants'
+import Scratches from "../../containers/Scratches";
 
 
 export default class App extends Component {
 
     constructor(props) {
         super(props);
-        this.appRef = React.createRef()
+        this.state = {
+            mode: ContentModes.LaunchSpace
+        }
     }
 
     componentDidMount() {
         this.props.globalActions.connect(window.location.hostname, this.props.connection.port);
     }
 
+    onModeChange = (mode) => {
+        this.setState({mode});
+    };
+
+    getContent(mode) {
+        if (mode === ContentModes.LaunchSpace) {
+            return (
+                <SplitterLayout>
+                    <LaunchSpace/>
+                    <Flyout/>
+                </SplitterLayout>
+            )
+        } else if (mode === ContentModes.Scratches) {
+            return (
+                <Scratches/>
+            )
+        }
+        throw Error("Unrecognized mode");
+    }
+
     render() {
+        const content = this.getContent(this.state.mode);
+
         return (
             <div
-                ref={this.appRef} className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
-                <Header/>
+                className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
+                <Header mode={this.state.mode} onModeChange={this.onModeChange.bind(this)}/>
                 <div id={'contentContainer'}>
-                    <SplitterLayout>
-                        <LaunchSpace/>
-                        <div style={{height: '100%'}}>
-                            <Flyout/>
-                            {/*<div className={'renderView'}>*/}
-                            {/*    <div></div>*/}
-                            {/*    <iframe style={{*/}
-                            {/*        height: "100%",*/}
-                            {/*        width: "100%",*/}
-                            {/*        border: 'none'*/}
-                            {/*    }} src={"/render"}/>*/}
-                            {/*</div>*/}
-                        </div>
-                        {/*<SplitterLayout vertical={false}>*/}
-                        {/*    <Flyout/>*/}
-                        {/*    <div className={'renderView'}>*/}
-                        {/*        <div></div>*/}
-                        {/*<iframe style={{*/}
-                        {/*    height: "100%",*/}
-                        {/*    width:"100%",*/}
-                        {/*    border:'none'*/}
-                        {/*}} src={"/render"}/>*/}
-                        {/*</div>*/}
-                        {/*</SplitterLayout>*/}
-                    </SplitterLayout>
+                    {content}
                 </div>
-                {/*<div style={{height:'100%'}}>*/}
-                {/*    <LaunchSpace style={{width: this.state.divider + "%"}}/>*/}
-                {/*    <div id={"rightPanel"} style={{width: 100 - this.state.divider + "%"}}>*/}
-                {/*        <Flyout style={{height: this.state.horizontalDivider + "%"}}/>*/}
-                {/*        <iframe style={{height:(100-this.state.horizontalDivider) + "%",border:'1pt solid var(--stem-on)',borderBottom:'none',borderRight:'none'}} src={"/render"}/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
             </div>
         )
     }

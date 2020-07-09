@@ -7,6 +7,7 @@ import StemModel from "../model/StemModel";
 import TrackModel from "../model/TrackModel";
 import {ActionSpec} from "./index";
 import MacroModel from '../model/MacroModel'
+import ScratchModel from "../model/ScratchModel";
 
 function getPosition(state, stemId) {
     let track = state.tracks.order.findIndex(x => {
@@ -169,13 +170,13 @@ const GlobalActions = dispatch => {
 
             dispatch(Actions.trackDeleteStem({trackId, stemId, effects:stem.effects, macros:stem.macros}));
         },
-        // TODO: stuff like this would probably be better as sagas
-        trackAddStem: (trackId) => {
+        // TODO: this is ugly
+        trackAddStem: (trackId, stemValue) => {
             const state = store.getState();
-            let language = state.tracks.values[trackId].language;
+            const language = state.tracks.values[trackId].language;
             // create stem and assign to track
-            let stemId = Id.new();
-            let stem = StemModel.getNew(language);
+            const stemId = Id.new();
+            const stem = {...StemModel.getNew(language), ...stemValue};
             dispatch(Actions.trackAddStem({trackId, stemId, value: stem}));
             // create default effects for the new stem
             EffectModel.util.defaultEffects[language]().forEach(effect => {
@@ -268,7 +269,49 @@ const GlobalActions = dispatch => {
         // Update
         macroUpdate: (macroId, value) => {
             dispatch(Actions.macroUpdate({macroId, value}))
-        }
+        },
+
+        /////////////////////////////////////////////////////////////////////
+        // Scratches
+        scratchCreate: (defaults) =>{
+            const scratchId = Id.new();
+            const value = {...ScratchModel.getNew(), ...defaults};
+            dispatch(Actions.scratchCreate({scratchId,value}))
+        },
+        scratchUpdate: (scratchId, value) =>{
+            dispatch(Actions.scratchUpdate({scratchId,value}))
+        },
+        scratchDelete: (scratchId) =>{
+            dispatch(Actions.scratchDelete({scratchId}))
+        },
+        scratchRender: () =>{
+            dispatch(Actions.scratchRender())
+        },
+        scratchTranslate: (scratchId) =>{
+            const {scratches} = store.getState();
+            const scratch = scratches[scratchId];
+            const language = scratch.language;
+            const globalActions = GlobalActions(dispatch);
+
+            // Create new Track
+            const value = {...TrackModel.getNew(language), name: scratch.name};
+            const trackId = Id.new();
+            dispatch(Actions.trackAdd({trackId, value}));
+            EffectModel.util.defaultEffects[language]().forEach(x=>{
+                globalActions.trackAddEffect(trackId, x.type, language, x.on, x.properties)
+            });
+
+            // Parcel scratch lines into code for stems
+            const lines = scratch.code.split("\n").filter(x=>x!=='');
+
+            // Create stems, assign to Track
+            lines.forEach(code=>{
+                globalActions.trackAddStem(trackId,{code})
+            });
+
+            // Dispatch translate event to mark complete
+            dispatch(Actions.scratchTranslate({scratchId}))
+        },
     }
 };
 

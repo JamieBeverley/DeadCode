@@ -33,7 +33,14 @@ export const ActionSpec = {
     'TRACK_DELETE_MACRO': {name: "TRACK_DELETE_MACRO", propagateToServer: true, render: true},
     'MASTER_DELETE_MACRO': {name: "MASTER_DELETE_MACRO", propagateToServer: true, render: true},
     'STEM_DELETE_MACRO': {name: "STEM_DELETE_MACRO", propagateToServer: true, render: true},
-    'MACRO_UPDATE': {name: "MACRO_UPDATE", propagateToServer: true, render: true}
+    'MACRO_UPDATE': {name: "MACRO_UPDATE", propagateToServer: true, render: true},
+
+    // Scratch Actions
+    'SCRATCH_CREATE':{name:'SCRATCH_CREATE', propagateToServer:true, render:false},
+    'SCRATCH_UPDATE':{name:'SCRATCH_UPDATE', propagateToServer:true, render:false},
+    'SCRATCH_DELETE':{name:'SCRATCH_DELETE', propagateToServer:true, render:false},
+    'SCRATCH_RENDER':{name:'SCRATCH_RENDER', propagateToServer:true, render:true},
+    'SCRATCH_TRANSLATE':{name:'SCRATCH_TRANSLATE', propagateToServer:true, render:true}
 };
 
 function camel(capitalSnake) {

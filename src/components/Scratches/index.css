@@ -1,0 +1,58 @@
+.Scratches {
+    width:100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-flow: column;
+}
+
+.Scratches .nav {
+    width: 100%;
+    height: 25px;
+    /*border: 1pt solid blue;*/
+    overflow-x: scroll;
+}
+
+.Scratches .nav div {
+    background-color: var(--stem-off);
+    padding-left: 15px;
+    padding-right: 15px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.Scratches .nav div > svg {
+    box-sizing: border-box;
+    height: 20px;
+    top:50%;
+    position: relative;
+    transform: translateY(-50%);
+}
+
+.Scratches .nav button {
+    display: inline-block;
+    max-width: 200px;
+    width: auto;
+    background-color: var(--stem-on);
+    min-width: 60px;
+    border: none;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.Scratches .nav > * {
+    display: inline-block;
+    box-sizing: border-box;
+    margin-left: 10px;
+    margin-right: 10px;
+    vertical-align: middle;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.Scratches .nav .selected {
+    background-color: var(--stem-on);
+    border:none;
+}
