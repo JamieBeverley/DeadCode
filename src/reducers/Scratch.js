@@ -12,7 +12,9 @@ reducerFns[ActionTypes.SCRATCH_UPDATE] = (scratches, payload) => {
 };
 
 reducerFns[ActionTypes.SCRATCH_DELETE] = (scratches, payload) => {
-    return {...scratches, [payload.scratchId]: undefined}
+    const newScratches = {...scratches};
+    delete newScratches[payload.scratchId];
+    return newScratches
 };
 
 reducerFns[ActionTypes.SCRATCH_RENDER] = scratches => scratches;

@@ -30,7 +30,6 @@ class ScratchEditor extends Component {
     };
 
     onKeyPress = e => {
-        console.log(e.key, e.keyCode);
         if (e.ctrlKey) {
             if (e.keyCode === 187) {
                 e.preventDefault();
@@ -44,7 +43,6 @@ class ScratchEditor extends Component {
             e.preventDefault();
             this.props.globalActions.scratchRender();
         }
-
     };
 
     render() {
@@ -65,6 +63,5 @@ class ScratchEditor extends Component {
         );
     }
 }
-
 
 export default ScratchEditor;
