@@ -1,4 +1,3 @@
-import React, {Component} from "react";
 import Model from "../../model";
 import EffectModel from "../../model/EffectModel";
 import Languages from "../../model/LanguageModel";

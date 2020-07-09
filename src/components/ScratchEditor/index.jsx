@@ -34,7 +34,7 @@ class ScratchEditor extends Component {
             if (e.keyCode === 187) {
                 e.preventDefault();
                 this.setState({fontSize: this.state.fontSize + 1});
-            } else if (e.keyCode == 189) {
+            } else if (e.keyCode === 189) {
                 e.preventDefault();
                 this.setState({fontSize: this.state.fontSize - 1});
             }

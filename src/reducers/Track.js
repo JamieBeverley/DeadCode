@@ -1,5 +1,4 @@
 import {ActionTypes} from "../actions";
-import {red} from "@material-ui/core/colors";
 
 const valueReducerFns = {};
 

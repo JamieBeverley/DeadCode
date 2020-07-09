@@ -1,12 +1,9 @@
-import React from "react";
-// import "./index.css";
 import EffectModel from "../../model/EffectModel";
 import Model from "../../model";
 export const Index = {
     language:'Index',
     getCode,
     getMacros
-    // getAudienceDom,
 };
 
 

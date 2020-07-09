@@ -19,7 +19,7 @@ const modalContent = {
     'settings': <Settings/>,
     'connections': (<ConnectionSettings/>),
     'help': (
-        <a href="https://github.com/JamieBeverley/DeadCode/blob/master/README.md" target="_blank">See docs here</a>)
+        <a href="https://github.com/JamieBeverley/DeadCode/blob/master/README.md" target="_blank" rel="noopener noreferrer">See docs here</a>)
 };
 
 

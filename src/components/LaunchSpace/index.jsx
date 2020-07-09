@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import './index.css';
-import PlusButton from "../util/PlusButton/PlusButton";
 import languages from '../../model/LanguageModel';
 import Modal from "../Modal";
 import TrackEditor from "../../containers/TrackEditor";

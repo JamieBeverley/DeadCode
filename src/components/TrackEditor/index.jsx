@@ -1,9 +1,5 @@
 import React, {Component} from 'react';
 import './index.css';
-import Effect from "../../containers/Effect";
-import Macro from '../../containers/Macro';
-import PlusButton from "../util/PlusButton/PlusButton";
-import EffectCreator from "../Effect/EffectCreator";
 import EffectContainer from "../EffectContainer";
 import MacroContainer from "../MacroContainer";
 
