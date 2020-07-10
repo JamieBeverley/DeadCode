@@ -41,7 +41,9 @@ function EVAL_EFFECT_UPDATE_SLIDER_VALUE (state, {payload}){
 }
 
 function EVAL_SCRATCH_RENDER (state){
-    this.evaluate(Renderers.TidalCycles.getScratchCode(state));
+    const code = Renderers.TidalCycles.getScratchCode(state)
+    console.log(code);
+    this.evaluate(code);
 }
 
 // Note: this func is bound to NativeRenderer object.

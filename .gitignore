@@ -27,3 +27,5 @@ yarn-error.log*
 Dead.iml
 
 .pre-commit-config.yaml
+
+src/backend/BootTidal.hs

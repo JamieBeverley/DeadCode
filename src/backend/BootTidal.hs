@@ -1,6 +1,7 @@
 :set -XOverloadedStrings
 :set prompt ""
 :set prompt-cont ""
+:set -XScopedTypeVariables
 
 import Sound.Tidal.Context
 
@@ -63,5 +64,14 @@ let setI = streamSetI tidal
     setR = streamSetI tidal
     setB = streamSetB tidal
 :}
+
+:{
+let trem rate depth = (# tremolorate rate) . (# tremolodepth depth)
+    mute = const silence
+    nudgeWith amt f = (# nudge amt) . f
+    quantize (amt::Double) (num::Double) = (fromIntegral (round(num/amt)) * amt)::Double
+:}
+
+
 
 :set prompt "tidal> "

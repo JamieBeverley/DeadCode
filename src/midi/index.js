@@ -6,28 +6,61 @@ import {addMiddleware} from 'redux-dynamic-middlewares'
 import {ActionSpec, Actions} from "../actions";
 import fs from 'fs';
 import {clamp} from 'lodash'
-import logger from 'redux-logger'
 import {spread} from "../util";
-import midi from "../model/Midi";
 import {setTerminalTitle} from "../util";
+
 setTerminalTitle("MIDI");
+
+const PauseStates = {
+    Active: "Active",
+    Sleep: "Sleep",
+};
+
+let pauseState = PauseStates.Active;
+const timeoutDuration = 30 * (60 * 1000); // 30 minutes
+const sleep = ()=>{
+    clearButtonGrid();
+    pauseState = PauseStates.Sleep;
+};
+
+let timeoutTimeout = setTimeout(sleep, timeoutDuration);
+
+const resetTimeout = () => {
+    pauseState = PauseStates.Active;
+    clearInterval(timeoutTimeout);
+    timeoutTimeout = setTimeout(sleep, timeoutDuration);
+};
+
+const resetButtons = state => {
+    clearButtonGrid(()=>{
+        setButtonLights(state);
+    });
+};
+
 // on stem-related update, output appropriate midi msg.
 const midiMiddleware = store => next => action => {
     next(action);
+    console.log(pauseState);
     if (action.type === ActionSpec.STEM_UPDATE.name && (action.payload.value.on !== undefined || action.payload.value.code !== undefined)) {
         onStemChange(action.payload.stemId);
-    } else if (action.type === ActionSpec.RECEIVE_STATE.name || action.type === ActionSpec.MIDI_UPDATE.name) {
-        clearButtonGrid();
-
-        let state = store.getState();
-        let timeout = (state.midi.rows+state.midi.columns)*2;
-        // TODO not totally sure why this timeout is necessary, something to do w/ io and event loop?...
-        setTimeout(()=>{
-            Object.keys(store.getState().stems).forEach(onStemChange)
-        },timeout);
+    } else if ((action.type === ActionSpec.RECEIVE_STATE.name || action.type === ActionSpec.MIDI_UPDATE.name) || pauseState === PauseStates.Sleep) {
+        resetButtons(store.getState());
     }
-}
 
+    if (pauseState === PauseStates.Sleep) {
+        resetButtons(store.getState());
+    }
+
+    resetTimeout();
+};
+
+
+const setButtonLights = (state) => {
+    // let timeout = (state.midi.rows + state.midi.columns);
+    setTimeout(() => {
+        Object.keys(store.getState().stems).forEach(onStemChange)
+    }, 0);
+};
 
 addMiddleware(midiMiddleware);
 // addMiddleware(logger);
@@ -69,7 +102,9 @@ const getOutput = function (res) {
             let deviceNum = parseInt(device);
             output = new easymidi.Output(outputs[deviceNum]);
             // output.send = throttle(output.send,10);
-            spreadSend = spread((...x)=>{output.send(...x)},0.125);
+            spreadSend = spread((...x) => {
+                output.send(...x)
+            }, 0.125);
             typeof res === 'function' && res(output);
         })
 
@@ -89,10 +124,12 @@ function init() {
     })
 }
 
-function reconnect(){
-    prompt('disconnected, hit enter to reconnect').then(x=>{
-        if(midiMap && input && output){
-            Connection.init('127.0.0.1', 8001, ()=>{console.log('connected')}, reconnect, console.log);
+function reconnect() {
+    prompt('disconnected, hit enter to reconnect').then(x => {
+        if (midiMap && input && output) {
+            Connection.init('127.0.0.1', 8001, () => {
+                console.log('connected')
+            }, reconnect, console.log);
         } else {
             Connection.init('127.0.0.1', 8001, init, reconnect, console.log);
 
@@ -101,8 +138,6 @@ function reconnect(){
 }
 
 Connection.init('127.0.0.1', 8001, init, reconnect, console.log);
-
-
 
 
 // notes[chan][note] = [0,0];
@@ -139,11 +174,10 @@ on server toggle (stemId provided):
 */
 
 
-
 function getMidiMap(callback) {
     fs.readdir('src/midi/midi-maps', (err, files) => {
         if (err) {
-            console.log(err)
+            console.log(err);
             return;
         }
         for (let i = 0; i < files.length; i++) {
@@ -177,14 +211,14 @@ function onDeviceNoteOff(msg) {
     if (midiMap.controls[msg.channel] && midiMap.controls[msg.channel][msg.note]) {
         const op = midiMap.controls[msg.channel][msg.note];
         const payload = {};
-        const topLim = state.tracks.values[state.tracks.order[state.midi.left]].stems.length-1;
-        const leftLim = state.tracks.order.length-1;
+        const topLim = state.tracks.values[state.tracks.order[state.midi.left]].stems.length - 1;
+        const leftLim = state.tracks.order.length - 1;
         switch (op) {
             case 'up':
-                payload['top'] = clamp(midi.top - 1,0, topLim);
+                payload['top'] = clamp(midi.top - 1, 0, topLim);
                 break;
             case 'down':
-                payload['top'] = clamp(midi.top + 1,0, topLim);
+                payload['top'] = clamp(midi.top + 1, 0, topLim);
                 break;
             case 'left':
                 payload['left'] = clamp(midi.left - 1, 0, leftLim);
@@ -225,19 +259,19 @@ function onDeviceCC(msg) {
         return
     }
     // let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: roundTo(msg.value * 2 / 127,3)})};
-    let value = roundTo(msg.value * 2 / 127,3);
+    let value = roundTo(msg.value * 2 / 127, 3);
     if (!!effectId) {
         // store.dispatch(Actions.effectUpdate({effectId, value}));
-        console.warn("@@@@@@@@@@@@@@@@dispatching update", effectId,value)
-        store.dispatch(Actions.effectUpdateSliderValue({effectId,value}));
+        console.warn("@@@@@@@@@@@@@@@@dispatching update", effectId, value)
+        store.dispatch(Actions.effectUpdateSliderValue({effectId, value}));
     } else {
         console.warn('no effect found for track ' + trackId);
     }
 }
 
-function roundTo(num, decimals){
+function roundTo(num, decimals) {
     const ten = Math.pow(10, decimals);
-    return Math.round(num*ten)/ten
+    return Math.round(num * ten) / ten
 }
 
 function onStemChange(stemId) {
@@ -247,38 +281,42 @@ function onStemChange(stemId) {
         return state.tracks.values[x].stems.includes(stemId)
     });
     const trackId = trackIds[trackIndex];
-    const stemIndex = state.tracks.values[trackId].stems.findIndex(x=>{return x === stemId});
+    const stemIndex = state.tracks.values[trackId].stems.findIndex(x => {
+        return x === stemId
+    });
 
 
     const row = stemIndex - state.midi.top;
     const col = trackIndex - state.midi.left;
-    if(row<0 || row > state.midi.rows || col < 0 || col > state.midi.columns){
+    if (row < 0 || row > state.midi.rows || col < 0 || col > state.midi.columns) {
         return;
     }
     const stem = state.stems[stemId];
     const buttonState = stem.on ? 'on' : (stem.code === '' ? 'off' : 'loaded');
-    if(midiMap.posToOutput[row]===undefined || midiMap.posToOutput[row][col] === undefined){
+    if (midiMap.posToOutput[row] === undefined || midiMap.posToOutput[row][col] === undefined) {
         return
     }
     const outputMsg = midiMap.posToOutput[row][col][buttonState];
-    if(output){
+    if (output) {
         // output.send('noteon', outputMsg);
         spreadSend('noteon', outputMsg);
     }
 }
 
 
-function clearButtonGrid() {
-    if(!output){
-        return
+function clearButtonGrid(callback) {
+    if (!output) {
+        return;
     }
-    let i = 0;
-    midiMap.posToOutput.forEach(row=>{
-        row.forEach(cell=>{
-            setTimeout(()=>{
-                output.send('noteon',cell.off)
-            },i);
-            i++;
+    const max = midiMap.posToOutput.length - 1;
+    midiMap.posToOutput.forEach((row, index) => {
+        row.forEach(cell => {
+            setTimeout(() => {
+                output.send('noteon', cell.off);
+                if (index === max && typeof(callback)==='function') {
+                    callback();
+                }
+            }, index);
         })
     })
 }
