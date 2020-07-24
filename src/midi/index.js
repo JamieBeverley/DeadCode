@@ -32,9 +32,8 @@ const resetTimeout = () => {
 };
 
 const resetButtons = state => {
-    clearButtonGrid(()=>{
-        setButtonLights(state);
-    });
+    clearButtonGrid();
+    setButtonLights(state);
 };
 
 // on stem-related update, output appropriate midi msg.
@@ -56,14 +55,10 @@ const midiMiddleware = store => next => action => {
 
 
 const setButtonLights = (state) => {
-    // let timeout = (state.midi.rows + state.midi.columns);
-    setTimeout(() => {
-        Object.keys(store.getState().stems).forEach(onStemChange)
-    }, 0);
+    Object.keys(state.stems).forEach(x=> onStemChange(x,state))
 };
 
 addMiddleware(midiMiddleware);
-// addMiddleware(logger);
 
 var input, output, midiMap, spreadSend;
 
@@ -274,8 +269,8 @@ function roundTo(num, decimals) {
     return Math.round(num * ten) / ten
 }
 
-function onStemChange(stemId) {
-    const state = store.getState();
+function onStemChange(stemId, state) {
+    state = state || store.getState();
     const trackIds = state.tracks.order;
     const trackIndex = trackIds.findIndex(x => {
         return state.tracks.values[x].stems.includes(stemId)
@@ -311,12 +306,8 @@ function clearButtonGrid(callback) {
     const max = midiMap.posToOutput.length - 1;
     midiMap.posToOutput.forEach((row, index) => {
         row.forEach(cell => {
-            setTimeout(() => {
-                output.send('noteon', cell.off);
-                if (index === max && typeof(callback)==='function') {
-                    callback();
-                }
-            }, index);
+            output.send('noteon', cell.off);
         })
-    })
+    });
+    typeof(callback) === "function" && callback();
 }
