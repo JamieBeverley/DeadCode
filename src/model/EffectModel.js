@@ -75,7 +75,7 @@ defaultEffects[Languages.TidalCycles] = () => {
                 value: 1,
                 operator: "|*",
                 min: 0,
-                max: 2,
+                max: 1.5,
                 step: 0.01,
                 scale: SliderScales.linear,
                 type: SliderTypes.float

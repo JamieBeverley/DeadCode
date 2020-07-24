@@ -5,7 +5,7 @@ const readlineSync = require('readline-sync');
 const fs = require('fs');
 const nopt = require('nopt');
 const path = require('path');
-const knownOpts = {'inputFile':path, outputFile:path};
+const knownOpts = {inputFile:path, outputFile:path};
 const parsed = nopt(knownOpts, {},process.argv);
 const file = fs.readFileSync(parsed.inputFile);
 const state = JSON.parse(file);
@@ -25,10 +25,10 @@ function addTrackLanguages(state){
     return state;
 }
 
-const stateComponents = Object.keys(Model.defaultState).reduce((acc,x)=>{acc[x]=x; return acc}, {});
+const StateComponents = Object.keys(Model.defaultState).reduce((acc,x)=>{acc[x]=x; return acc}, {});
 
 function _applyTo(state, stateComponent, fn){
-    if(!Object.values(stateComponents).includes(stateComponent)){
+    if(!Object.values(StateComponents).includes(stateComponent)){
         throw Error(`Invalid state component ${stateComponent}`)
     }
     state[stateComponent] = Object.keys(state[stateComponent]).reduce((acc,v)=>{
@@ -40,9 +40,9 @@ function _applyTo(state, stateComponent, fn){
 
 function addEmptyMacros(state){
     const addMacros = x => Object.assign(x,{macros:[]});
-    state = _applyTo(state, stateComponents.stems, addMacros);
-    state = _applyTo(state, stateComponents.master, addMacros);
-    state = _applyTo(state, stateComponents.tracks, addMacros);
+    state = _applyTo(state, StateComponents.stems, addMacros);
+    state = _applyTo(state, StateComponents.master, addMacros);
+    state = _applyTo(state, StateComponents.tracks, addMacros);
     state.macros = {};
     return state
 }
@@ -76,7 +76,7 @@ function assignSliderTypes(state){
         }
         return effect
     }
-    return _applyTo(state, stateComponents.effects, applyType);
+    return _applyTo(state, StateComponents.effects, applyType);
 }
 
 function addTrackOrders(state){
@@ -85,6 +85,18 @@ function addTrackOrders(state){
         order: Object.keys(state.tracks)
     };
     return state
+}
+
+function reduceGainRange(state){
+    const changeGain = (effect) => {
+        if(effect.properties.code === 'gain'){
+            console.log('changing');
+            effect.value = Math.min(effect.value, 1.5);
+            effect.properties.max = 1.5;
+        };
+        return effect;
+    };
+    return _applyTo(state, StateComponents.effects, changeGain)
 }
 
 
@@ -107,7 +119,9 @@ commit 62d7609f6731abba3c4671a52030dd1e3dc15356 (HEAD -> orders)
 Author: JamieBeverley <jamie_beverley@hotmail.com>
 Date:   Sat Apr 18 19:12:26 2020 -0400
  */
-const newState = addTrackOrders(state);
+// const newState = addTrackOrders(state);
+
+const newState = reduceGainRange(state);
 
 writeNewState(newState, parsed.outputFile);
 console.log('done');

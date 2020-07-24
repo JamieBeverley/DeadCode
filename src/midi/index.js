@@ -254,7 +254,7 @@ function onDeviceCC(msg) {
         return
     }
     // let value = {properties: Object.assign({}, state.effects[effectId].properties, {value: roundTo(msg.value * 2 / 127,3)})};
-    let value = roundTo(msg.value * 2 / 127, 3);
+    let value = roundTo(msg.value * 1.5 / 127, 3);
     if (!!effectId) {
         // store.dispatch(Actions.effectUpdate({effectId, value}));
         console.warn("@@@@@@@@@@@@@@@@dispatching update", effectId, value)
