@@ -16,7 +16,7 @@ export const createServerMiddleware = wsServer => store => next => action => {
         effectThrottles[action.payload.effectId](msg,[action.meta.sender]);
     } else {
         msg = {type: 'action', action:action};
-        console.log("semder:", action.meta.sender);
+        console.log("sender:", action.meta.sender);
         wsServer.broadcast(msg, [action.meta.sender]);
     }
     next(action)

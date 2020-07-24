@@ -37,7 +37,7 @@ export const ActionSpec = {
 
     // Scratch Actions
     'SCRATCH_CREATE':{name:'SCRATCH_CREATE', propagateToServer:true, render:false},
-    'SCRATCH_UPDATE':{name:'SCRATCH_UPDATE', propagateToServer:true, render:false},
+    'SCRATCH_UPDATE':{name:'SCRATCH_UPDATE', propagateToServer:true, render:true},
     'SCRATCH_DELETE':{name:'SCRATCH_DELETE', propagateToServer:true, render:false},
     'SCRATCH_RENDER':{name:'SCRATCH_RENDER', propagateToServer:true, render:true},
     'SCRATCH_TRANSLATE':{name:'SCRATCH_TRANSLATE', propagateToServer:true, render:true}

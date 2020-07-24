@@ -46,8 +46,22 @@ function EVAL_SCRATCH_RENDER (state){
     this.evaluate(code);
 }
 
+
+function EVAL_SCRATCH_UPDATE (state, {payload}){
+    console.log(payload);
+    if(payload.value === undefined || payload.value.on === undefined){
+        return;
+    }
+    const code = Renderers.TidalCycles.getScratchCode(state);
+    console.log(code);
+    this.evaluate(code);
+}
+
+
 // Note: this func is bound to NativeRenderer object.
 function tidalRender(state, action){
+    console.log("hmm");
+    console.log(action);
     if(!action.meta.render){
         return
     }
@@ -65,6 +79,9 @@ function tidalRender(state, action){
                 return;
             case ActionTypes.SCRATCH_RENDER:
                 EVAL_SCRATCH_RENDER.call(this, state);
+                return;
+            case ActionTypes.SCRATCH_UPDATE:
+                EVAL_SCRATCH_UPDATE.call(this, state, action);
                 return;
             default:
                 this.evaluate(Renderers.TidalCycles.getCode(state))

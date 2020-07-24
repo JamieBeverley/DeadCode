@@ -10,10 +10,14 @@ class ScratchEditor extends Component {
         this.state = {
             fontSize: 36
         };
-        this.onNameChange = debounce(this._onNameChange.bind(this), 250);
+        this.ref = React.createRef();
     }
 
-    _onNameChange = (e) => {
+    componentDidMount() {
+        this.ref.current.focus();
+    }
+
+    onNameChange = (e) => {
         this.props.globalActions.scratchUpdate(this.props.id, {name: e.target.value});
     };
 
@@ -47,18 +51,17 @@ class ScratchEditor extends Component {
 
     render() {
         return (
-            <div className={'ScratchEditor'}>
-                <div className={'header'}>
-                    <input defaultValue={this.props.name} onChange={e => {
-                        e.persist();
-                        this.onNameChange(e);
-                    }}/>
+            <div className="ScratchEditor">
+                <div className="header">
+                    <input value={this.props.name} onChange={this.onNameChange.bind(this)}/>
                     <Toggle on={this.props.on} onChange={this.onOnChange.bind(this)}/>
                     <button onClick={this.exportToTrack.bind(this)}>export to track</button>
                 </div>
                 <textarea style={{fontSize: this.state.fontSize}} onKeyDown={this.onKeyPress.bind(this)}
                           value={this.props.code}
-                          onChange={this.onCodeChange.bind(this)}/>
+                          onChange={this.onCodeChange.bind(this)}
+                          ref={this.ref}
+                />
             </div>
         );
     }

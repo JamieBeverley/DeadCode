@@ -1,6 +1,7 @@
 export const createRenderMiddleware = renderers => store => next => action => {
     next(action);
-    renderers.forEach(x=>x.render(store.getState(),action));
+    const state = store.getState();
+    renderers.forEach(x=>x.render(state, action));
 };
 
 export const minimalLogger = store => next => action => {

@@ -4,6 +4,7 @@ import GlobalActions from "../actions/GlobalActions";
 
 const mapStateToProps = (state, ownProps) => {
     const scratch = state.scratches[ownProps.id];
+    debugger
     return {...scratch, ...ownProps}
 };
 

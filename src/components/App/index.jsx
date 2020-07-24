@@ -20,6 +20,13 @@ export default class App extends Component {
 
     componentDidMount() {
         this.props.globalActions.connect(window.location.hostname, this.props.connection.port);
+        document.addEventListener('keydown', this.macros.bind(this));
+        window.addEventListener('beforeunload', (event) => {
+            // Cancel the event as stated by the standard.
+            event.preventDefault();
+            // Chrome requires returnValue to be set.
+            event.returnValue = 'Are you sure?';
+        });
     }
 
     onModeChange = (mode) => {
@@ -47,7 +54,8 @@ export default class App extends Component {
 
         return (
             <div
-                className='App' tabIndex="0" onKeyDown={this.macros.bind(this)}>
+                className='App' tabIndex="0"
+            >
                 <Header mode={this.state.mode} onModeChange={this.onModeChange.bind(this)}/>
                 <div id={'contentContainer'}>
                     {content}
@@ -77,6 +85,12 @@ export default class App extends Component {
             } else if (e.key === 'p') {
                 e.preventDefault();
                 this.props.globalActions.pushState();
+            } else if (e.keyCode === 49){
+                e.preventDefault();
+                this.setState({mode:ContentModes.LaunchSpace});
+            } else if (e.keyCode === 50){
+                e.preventDefault();
+                this.setState({mode:ContentModes.Scratches});
             }
         }
     }

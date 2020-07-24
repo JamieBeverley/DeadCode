@@ -29,15 +29,14 @@ const GlobalActions = dispatch => {
             dispatch(Actions.receiveState(state));
         },
         connect: (url, port) => {
-            let actions = Actions
-            let onOpen = () => {
+            const actions = Actions;
+            const onOpen = () => {
                 dispatch(Actions.connect({url, port, isConnected: true}))
             };
-            let onClose = () => {
+            const onClose = () => {
                 dispatch(actions.connect({url: url, port: port, isConnected: false}))
             };
-            let onError = onClose;
-            Connection.init(url, port, onOpen, onClose, onError);
+            Connection.init(url, port, onOpen, onClose, onClose);
         },
         stemCopy: () => {
             let state = store.getState();
