@@ -211,6 +211,11 @@ const GlobalActions = dispatch => {
             const macros = track.macros.concat(stems.map(x=>x.macros).flat());
             dispatch(Actions.trackDelete({trackId, stems:track.stems, effects: trackEffects.concat(stemEffects), macros}));
         },
+        trackToggleAll: (trackId, on=true) =>{
+            const state = store.getState();
+            const track = state.tracks.values[trackId];
+            dispatch(Actions.trackToggleAll({trackId, stems:track.stems, on}))
+        },
         trackReorder: (trackId, position) => {
             dispatch(Actions.trackReorder({trackId, position}))
         },

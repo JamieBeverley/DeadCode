@@ -54,5 +54,13 @@ reducerFns[ActionTypes.STEM_ADD_MACRO] = (stems, payload) => {
     return {...stems}
 };
 
+reducerFns[ActionTypes.TRACK_TOGGLE_ALL] = (stems, payload) =>{
+    const newStems = payload.stems.reduce((acc,id)=>{
+        acc[id].on = payload.on
+        return acc;
+    },stems)
+    return {...newStems}
+}
+
 const StemReducer = (stems, {type, payload}) => reducerFns[type]?reducerFns[type](stems, payload):stems;
 export default StemReducer

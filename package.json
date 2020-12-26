@@ -41,6 +41,7 @@
     "state-utils": "npx babel-node src/model/state_utils/index.js",
     "backend": "nodemon --inspect --exec babel-node src/backend/wsServer.js",
     "midi": "nodemon --exec babel-node src/midi/index.js localhost 8080",
+    "launchxl": "nodemon --exec babel-node src/midi/launch_control_xl.js localhost 8080",
     "osc": "nodemon  --exec babel-node src/osc/index.js 9000 9001",
     "midi-util": "nodemon --exec babel-node src/midi/utility.js localhost 8081",
     "build": "react-scripts build",
