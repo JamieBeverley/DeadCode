@@ -119,6 +119,7 @@ Connection.init('127.0.0.1', 8001, init, reconnect, console.log);
 
 function toggleTrack(midi, state, trackId, on) {
     const track = state.tracks.values[trackId];
+    console.log("Track", track.name, on)
     store.dispatch(Actions.trackToggleAll({trackId, stems: track.stems, on}))
 }
 
@@ -132,7 +133,7 @@ function toggleTrackEffect(midi, state, trackId, on) {
     });
     const effect = effects.filter(x => x.type === EffectModel.Types.CODE_TOGGLE)[0];
     if (effect) {
-        console.log("Toggle Effect", effect.id, on)
+        console.log("Toggle Effect", effect.properties.code, on)
         store.dispatch(Actions.effectUpdate({effectId: effect.id, value: {on}}))
     } else {
         console.warn("NO EFFECT FOUND")
@@ -150,7 +151,6 @@ function lightButton(output, note, on){
 const onDeviceNote = (output, on) => msg => {
     const state = store.getState();
     const midi = state.midi;
-    console.log(msg)
     // Row of buttons
     if (msg.note < 16) {
         lightButton(output, msg.note, on)
@@ -186,26 +186,54 @@ const onDeviceNote = (output, on) => msg => {
     }
 }
 
-const effectMap = {
-    0: {index: 0, mapping: x => x * 1.5 / 127},
-    1: {index: 3, mapping: x => Math.round(x * 24 / 127)},
-    // TODO figure out why filters invert after around here...
-    2: {index: 1, mapping: x => Math.pow(x / 127, 3) * 17500},
-    3: {index: 2, mapping: x => Math.pow(x / 127, 3) * 17500},
-}
-
-
+const gainIndex = 0;
+const hpfIndex = 2;
+const lpfIndex = 1;
+const roomIndex = 4;
+const coarseIndex = 3;
+const tolerance = 0.005
 function onDeviceCC(msg) {
     const state = store.getState();
     const midi = state.midi;
     const trackIndex = Math.floor(msg.controller / 4);
     const trackId = state.tracks.order[trackIndex + midi.left];
-    console.log(Object.values(msg))
-    console.log(trackIndex)
-    const effectMapping = effectMap[msg.controller % 4];
-    const effectId = state.tracks.values[trackId].effects[effectMapping.index];
-    if (!effectId) return;
-    const value = effectMapping.mapping(msg.value);
-    console.log(value)
-    store.dispatch(Actions.effectUpdateSliderValue({effectId, value}));
+    const track = state.tracks.values[trackId];
+
+    const effectIndex = msg.controller%4;
+    // HPF/LPF
+    if (effectIndex === 3){
+        let value = msg.value/127;
+        const lpfId = track.effects[lpfIndex];
+        const hpfId = track.effects[hpfIndex];
+        if(Math.abs(value-0.5) < tolerance){
+            // Turn off hpf and lpf
+            store.dispatch(Actions.effectUpdate({effectId: lpfId, on:false}));
+            store.dispatch(Actions.effectUpdate({effectId: hpfId, on:false}));
+            console.log("Filter Off")
+        } else if(value < 0.5){
+            // lpf
+            value = Math.pow(2*value, 4)*17500;
+            store.dispatch(Actions.effectUpdateSliderValue({effectId: lpfId, value}));
+            console.log("LPF", value)
+        } else if (value > 0.5){
+            value = Math.pow((value-0.5)*2,4)*17500;
+            store.dispatch(Actions.effectUpdateSliderValue({effectId: hpfId, value}));
+            console.log("HPF", value)
+        }
+    } else if (effectIndex === 2){ // Room/Reverb
+        const roomId = track.effects[roomIndex];
+        const value = msg.value/127;
+        store.dispatch(Actions.effectUpdateSliderValue({effectId: roomId, value}));
+        console.log("Room", value)
+    } else if( effectIndex === 1){
+        const coarseId = track.effects[coarseIndex];
+        const value = Math.round(msg.value*24/127);
+        store.dispatch(Actions.effectUpdateSliderValue({effectId: coarseId, value}));
+        console.log("Coarse", value);
+    } else if (effectIndex === 0) {
+        const gainId = track.effects[gainIndex];
+        const value = msg.value*1.5/127;
+        store.dispatch(Actions.effectUpdateSliderValue({effectId: gainId, value}));
+        console.log("Gain", value)
+    }
 }
