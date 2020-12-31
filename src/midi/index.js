@@ -42,7 +42,9 @@ const midiMiddleware = store => next => action => {
     console.log(pauseState);
     if (action.type === ActionSpec.STEM_UPDATE.name && (action.payload.value.on !== undefined || action.payload.value.code !== undefined)) {
         onStemChange(action.payload.stemId);
-    } else if ((action.type === ActionSpec.RECEIVE_STATE.name || action.type === ActionSpec.MIDI_UPDATE.name) || pauseState === PauseStates.Sleep) {
+    } else if(action.type === ActionSpec.TRACK_TOGGLE_ALL.name){
+        store.getState().tracks.values[action.payload.trackId].stems.forEach(x => onStemChange(x));
+    }else if ((action.type === ActionSpec.RECEIVE_STATE.name || action.type === ActionSpec.MIDI_UPDATE.name) || pauseState === PauseStates.Sleep) {
         resetButtons(store.getState());
     }
 

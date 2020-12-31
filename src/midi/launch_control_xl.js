@@ -58,7 +58,7 @@ const getMidiDevice = function (res) {
         if (lc) {
             input = new easymidi.Input(lc);
             output = new easymidi.Output(lc);
-            attachInputNoteOns(input,output);
+            attachInputNoteOns(input, output);
             res && res(input, output);
             return {input, output};
         }
@@ -74,8 +74,8 @@ const getMidiDevice = function (res) {
             output = new easymidi.Ouput(inputs[deviceNum]);
             attachInputNoteOns(input, output)
             console.log('\n\n');
-            res && res(input,output);
-            return {input,output};
+            res && res(input, output);
+            return {input, output};
         })
     } catch (e) {
         console.log(e)
@@ -140,11 +140,11 @@ function toggleTrackEffect(midi, state, trackId, on) {
     }
 }
 
-function lightButton(output, note, on){
-    if(on){
-        output.send('noteon', {note, channel:15, velocity:1});
+function lightButton(output, note, on) {
+    if (on) {
+        output.send('noteon', {note, channel: 15, velocity: 1});
     } else {
-        output.send('noteoff', {note, channel:15, velocity:0})
+        output.send('noteoff', {note, channel: 15, velocity: 0})
     }
 }
 
@@ -192,6 +192,7 @@ const lpfIndex = 1;
 const roomIndex = 4;
 const coarseIndex = 3;
 const tolerance = 0.005
+
 function onDeviceCC(msg) {
     const state = store.getState();
     const midi = state.midi;
@@ -199,40 +200,49 @@ function onDeviceCC(msg) {
     const trackId = state.tracks.order[trackIndex + midi.left];
     const track = state.tracks.values[trackId];
 
-    const effectIndex = msg.controller%4;
+    const effectIndex = msg.controller % 4;
     // HPF/LPF
-    if (effectIndex === 3){
-        let value = msg.value/127;
+    if (effectIndex === 3) {
+        let value = msg.value / 127;
         const lpfId = track.effects[lpfIndex];
         const hpfId = track.effects[hpfIndex];
-        if(Math.abs(value-0.5) < tolerance){
+        if (Math.abs(value - 0.5) < tolerance) {
             // Turn off hpf and lpf
-            store.dispatch(Actions.effectUpdate({effectId: lpfId, on:false}));
-            store.dispatch(Actions.effectUpdate({effectId: hpfId, on:false}));
+            store.dispatch(Actions.effectUpdate({effectId: lpfId, value: {on: false}}));
+            store.dispatch(Actions.effectUpdate({effectId: hpfId, value: {on: false}}));
             console.log("Filter Off")
-        } else if(value < 0.5){
-            // lpf
-            value = Math.pow(2*value, 4)*17500;
-            store.dispatch(Actions.effectUpdateSliderValue({effectId: lpfId, value}));
-            console.log("LPF", value)
-        } else if (value > 0.5){
-            value = Math.pow((value-0.5)*2,4)*17500;
-            store.dispatch(Actions.effectUpdateSliderValue({effectId: hpfId, value}));
-            console.log("HPF", value)
+        } else {
+            let effectId;
+            if (value < 0.5) {
+                // lpf
+                effectId = lpfId;
+                value = Math.pow(2 * value, 4) * 17500;
+                store.dispatch(Actions.effectUpdateSliderValue({effectId: lpfId, value}));
+                console.log("LPF", value)
+            } else if (value > 0.5) {
+                effectId = hpfId;
+                value = Math.pow((value - 0.5) * 2, 4) * 17500;
+                store.dispatch(Actions.effectUpdateSliderValue({effectId: hpfId, value}));
+                console.log("HPF", value)
+            }
+            const effect = state.effects[effectId];
+            if(!effect.on){
+                store.dispatch(Actions.effectUpdate({effectId, value: {on: true}}))
+            }
         }
-    } else if (effectIndex === 2){ // Room/Reverb
+    } else if (effectIndex === 2) { // Room/Reverb
         const roomId = track.effects[roomIndex];
-        const value = msg.value/127;
+        const value = msg.value / 127;
         store.dispatch(Actions.effectUpdateSliderValue({effectId: roomId, value}));
         console.log("Room", value)
-    } else if( effectIndex === 1){
+    } else if (effectIndex === 1) {
         const coarseId = track.effects[coarseIndex];
-        const value = Math.round(msg.value*24/127);
+        const value = Math.round(msg.value * 24 / 127);
         store.dispatch(Actions.effectUpdateSliderValue({effectId: coarseId, value}));
         console.log("Coarse", value);
     } else if (effectIndex === 0) {
         const gainId = track.effects[gainIndex];
-        const value = msg.value*1.5/127;
+        const value = msg.value * 1.5 / 127;
         store.dispatch(Actions.effectUpdateSliderValue({effectId: gainId, value}));
         console.log("Gain", value)
     }
